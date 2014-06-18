@@ -604,6 +604,7 @@ std::string AttrEffect::oneline_str_FIXED()
     ss << buffer_color("%c%c%c%cFIR: %i%c ", (int)this->damage->fire, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
     ss << buffer_color("%c%c%c%cWTR: %i%c ", (int)this->damage->water, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
     ss << buffer_color("%c%c%c%cLIF: %i%c ", (int)this->damage->life, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
+    ss << buffer_color("%c%c%c%cDTH: %i%c ", (int)this->damage->death, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
     ss << buffer_color("%c%c%c%cCTL: %i%c ", (int)this->damage->crystal, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
     ss << buffer_color("%c%c%c%cSPR: %i%c ", (int)this->damage->spectre, TCOD_COLCTRL_FORE_RGB, 255, 50, 50);
 
