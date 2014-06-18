@@ -32,18 +32,20 @@
 #include <SDL_mixer.h>
 
 //build key mappings. Took DRY out behind the shed.
-std::map<int, directions_t> Input::spec_movemap = Input::build_spec_movemap();  //Keypad, punctuation
-std::map<char, directions_t>Input::char_movemap  = Input::build_char_movemap();  //Keypad, punctuation//regular letters
-std::map<int, inventory_items_active_t> Input::spec_invitemactivemap = Input::build_spec_invitemactivemap(); //Keypad, punctuation
-std::map<char, inventory_items_active_t>Input::char_invitemactivemap = Input::build_char_invitemactivemap(); //regular letters
-std::map<int, generic_menu_active_t> Input::spec_genmenactivemap = Input::build_spec_genmenactivemap(); //Keypad, punctuation
-std::map<char, generic_menu_active_t>Input::char_genmenactivemap = Input::build_char_genmenactivemap(); //regular letters
-std::map<int, basic_cmds_t> Input::spec_active_map = Input::build_spec_active_map(); //Keypad, punctuation
-std::map<char, basic_cmds_t>Input::char_active_map = Input::build_char_active_map(); //regular letters
-std::map<int, spells_active_t> Input::spec_spellactivemap = Input::build_spec_spellactivemap(); //Keypad, punctuation
-std::map<char, spells_active_t>Input::char_spellactivemap = Input::build_char_spellactivemap(); //regular letters
-std::map<int, classes_active_t> Input::spec_classactivemap = Input::build_spec_classactivemap(); //Keypad, punctuation
-std::map<char, classes_active_t> Input::char_classactivemap = Input::build_char_classactivemap(); //regular letters
+std::map<char, basic_cmds_t> Input::char_active_map                   = Input::build_char_active_map(); 
+std::map<char, classes_active_t> Input::char_classactivemap           = Input::build_char_classactivemap(); 
+std::map<char, directions_t> Input::char_movemap                      = Input::build_char_movemap();  
+std::map<char, generic_menu_active_t> Input::char_genmenactivemap     = Input::build_char_genmenactivemap(); 
+std::map<char, inventory_items_active_t> Input::char_invitemactivemap = Input::build_char_invitemactivemap(); 
+std::map<char, spells_active_t> Input::char_spellactivemap            = Input::build_char_spellactivemap(); 
+
+std::map<int, basic_cmds_t> Input::spec_active_map                    = Input::build_spec_active_map(); 
+std::map<int, classes_active_t> Input::spec_classactivemap            = Input::build_spec_classactivemap(); 
+std::map<int, directions_t> Input::spec_movemap                       = Input::build_spec_movemap();  
+std::map<int, generic_menu_active_t> Input::spec_genmenactivemap      = Input::build_spec_genmenactivemap(); 
+std::map<int, inventory_items_active_t> Input::spec_invitemactivemap  = Input::build_spec_invitemactivemap(); 
+std::map<int, spells_active_t> Input::spec_spellactivemap             = Input::build_spec_spellactivemap(); 
+
 char Input::generic_index = 'a';
 
 std::vector<std::string> make_basic_cmds_char()
