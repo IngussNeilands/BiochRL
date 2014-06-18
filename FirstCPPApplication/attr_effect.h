@@ -55,6 +55,8 @@ class TimedEffect
         bool is_expired(long double turn_count);
 };
 
+std::string buffer_color(std::string input, int val, int fore_or_back, TCODColor color);
+
 class AttrEffect
 {
     public:
