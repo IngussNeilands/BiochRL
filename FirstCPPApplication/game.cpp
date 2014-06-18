@@ -651,6 +651,7 @@ void Game::draw_ui()
                 assert(false && "Unknown Screens");
                 break;
         };
+        TCODConsole::root->setDirty(0, 0, 1000, 1000);
     };
 };
 
@@ -779,8 +780,8 @@ void play_music()
         exit(1);
     }
 
-    if(Mix_Init(MIX_INIT_MOD) != MIX_INIT_MOD)
-        std::cout << "MIX_INIT_MOD isn't the same";
+    // if(Mix_Init(MIX_INIT_MOD) != MIX_INIT_MOD)
+    //     std::cout << "MIX_INIT_MOD isn't the same";
 
     Mix_Volume(-1, MIX_MAX_VOLUME);
 
@@ -795,10 +796,24 @@ void play_music()
     Mix_VolumeMusic(MIX_MAX_VOLUME);
 
     Mix_PlayMusic(music, -1);
+    Mix_PauseMusic();
     std::cout << Mix_GetError();
     Mix_FadeInChannelTimed(-1, wave, 0, 100, 1);
     std::cout << Mix_GetError();
 
+    //parser to read file settings. currently only music
+    TCODParser parser = TCODParser::TCODParser();
+    TCODParserStruct* generalSettingsStruct = parser.newStructure("general");
+    generalSettingsStruct->addProperty("enable_music", TCOD_TYPE_BOOL, false);
+
+    std::string path = std::string(get_data_path()+"config.txt");
+    parser.run(path.c_str(), NULL);
+
+    bool should_enable = parser.getBoolProperty("general.enable_music");
+    if (should_enable)
+    {
+        Mix_ResumeMusic();
+    }
 };
 
 void Game::mainloop()
