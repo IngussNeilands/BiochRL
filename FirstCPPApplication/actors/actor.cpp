@@ -360,7 +360,7 @@ Item* spawnArmor()
         dropped_item = spawnEquippable("Chainmail", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         // dropped_item->attr_effect->set_rng_armor(rng, 3, 8, 3);
-        dropped_item->set_and_name_for_arm("", "Chainmail", rng, 3, 8, 3);
+        dropped_item->set_and_name_for_arm("Some", "Chainmail", rng, 3, 8, 3);
     }
     else if (result == LeatherChestSpawn)
     {
@@ -368,7 +368,7 @@ Item* spawnArmor()
         dropped_item = spawnEquippable("Leather Chestpiece", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
         // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 2);
-        dropped_item->set_and_name_for_arm("", "Leather Chestpiece", rng, 2, 6, 2);
+        dropped_item->set_and_name_for_arm("Some", "Leather Chestpiece", rng, 2, 6, 2);
     }
     else if (result == ShieldSpawn)
     {
@@ -844,7 +844,7 @@ void Actor::Die()
     new_repr->setFGColor((*repr->fg_color)+(TCODColor::darkerRed*0.3), true, true, true);
     this->my_tile->set_representation(new_repr);
 
-    this->my_tile->set_description("There is some blood on the ground");
+    this->my_tile->set_description("There is some blood on the ground.");
 
     //remove master from ai update list
     this->is_active = false;

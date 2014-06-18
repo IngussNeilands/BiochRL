@@ -55,7 +55,7 @@ enum spells_active_t {
 
 enum classes_active_t {
     ExamineClass,
-    EquipClass, UnequipClass,
+    ChangeToClass, UnequipClass,
     DropClass, EscapeMenuClass,
     CastClass,
     NO_MATCHING_CLASSES_ACTIVE

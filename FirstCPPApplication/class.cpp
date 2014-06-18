@@ -36,6 +36,7 @@ FighterClass::FighterClass()
     this->type = 1;
     this->name = "Fighter";
     this->description = "Basic Class, all around decent guy.";
+    this->fg_color = TCODColor::celadon;
 };
 
 void FighterClass::LevelUpStats(int levels)
@@ -97,6 +98,7 @@ MageClass::MageClass()
     this->type = 2;
     this->name = "Mage";
     this->description = "Magic Class, feels more spiritual.";
+    this->fg_color = TCODColor::desaturatedBlue;
 };
 
 void MageClass::LevelUpStats(int levels)
@@ -153,6 +155,8 @@ NecromancerClass::NecromancerClass()
     this->type = 4;
     this->name = "Necromancer";
     this->description = "Undead Class, has a thing for the dead and buried.";
+    this->fg_color = TCODColor::darkGrey;
+
 };
 
 void NecromancerClass::LevelUpStats(int levels)
@@ -209,6 +213,7 @@ BrawlerClass::BrawlerClass()
     this->type = 3;
     this->name = "Brawler";
     this->description = "Beefy Class, a bit of a meathead.";
+    this->fg_color = TCODColor::lightChartreuse;
 };
 
 void BrawlerClass::LevelUpStats(int levels)

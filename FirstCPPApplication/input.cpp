@@ -206,7 +206,7 @@ std::map<char, classes_active_t>  Input::build_char_classactivemap()
     char_classactivemap['x'] = classes_active_t::ExamineClass;
     // char_classactivemap['d'] = classes_active_t::Dropclass;
     char_classactivemap['c'] = classes_active_t::CastClass;
-    char_classactivemap['e'] = classes_active_t::EquipClass;
+    char_classactivemap['e'] = classes_active_t::ChangeToClass;
     // char_classactivemap['y'] = classes_active_t::Unequipclass;
     char_classactivemap['q'] = classes_active_t::EscapeMenuClass;
 
@@ -829,11 +829,12 @@ bool Input::process_classes_keys(TCOD_key_t request)
         //return true;
     }
 
-    else if( action == classes_active_t::EquipClass )
+    else if( action == classes_active_t::ChangeToClass )
     {
         Game::player->actor_class = NULL;
         Game::player->actor_class = (IClass*)Ui::chosen_generic;
         Game::player->actor_class->master = Game::player;
+        Game::player->representation->setFGColor(Game::player->actor_class->fg_color, true, false, true);
         std::cout << "Class changed to " << ((IClass*)Ui::chosen_generic)->name << std::endl;
         // Ui::chosen_spell->equip(Game::player);
         // Game::player->equipment->equip_spell(Ui::chosen_item);

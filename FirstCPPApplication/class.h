@@ -12,6 +12,8 @@ class IClass
         std::string name;
         std::string description;
 
+        TCODColor fg_color;
+
         IClass() { this->type = -1;};
         virtual ~IClass() {};
 
