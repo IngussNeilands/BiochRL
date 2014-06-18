@@ -780,7 +780,7 @@ void play_music()
     }
 
     if(Mix_Init(MIX_INIT_MOD) != MIX_INIT_MOD)
-        std::cout << "errer";
+        std::cout << "MIX_INIT_MOD isn't the same";
 
     Mix_Volume(-1, MIX_MAX_VOLUME);
 
