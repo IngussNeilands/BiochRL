@@ -770,7 +770,7 @@ void play_music()
     SDL_Init(SDL_INIT_AUDIO);
 
     int audio_rate = 44100;
-    Uint16 audio_format = AUDIO_S16; /* 16-bit stereo */
+    Uint16 audio_format = AUDIO_S16SYS; /* 16-bit stereo */
     int audio_channels = 1;
     int audio_buffers = 4096;
 
