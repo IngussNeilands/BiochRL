@@ -25,6 +25,7 @@
 #include "combat.h"
 #include "attribute.h"
 #include "attribute_container.h"
+#include <color_utils.h>
 
 Map::Map()
 {
@@ -938,7 +939,7 @@ void Map::update()
     if (this->has_hero_spawned == false && result == SpecialHeroSpawn)
     {
         this->has_hero_spawned = true;
-        
+
         if (this->depth == 1)
         {
             //I should eventually move these definitions to serialized files
@@ -957,7 +958,7 @@ void Map::update()
             pers->is_hero = true;
             pers->img_path = get_data_path()+"img/hero8x8.png";
             Game::current_map->enemies.push_back(pers);
-            new Message(Ui::msg_handler_main, HELP_MSG, "ELRIC APPROACHES");
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ELRIC APPROACHES"));
         }
         else if (this->depth == 2)
         {
@@ -973,7 +974,7 @@ void Map::update()
             pers->img_path = get_data_path()+"img/thief8x8.png";
             pers->is_hero = true;
             Game::current_map->enemies.push_back(pers);
-            new Message(Ui::msg_handler_main, HELP_MSG, "JACKSON ARRIVES");
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "JACKSON ARRIVES"));
         }
         else if (this->depth == 3)
         {
@@ -989,7 +990,8 @@ void Map::update()
             pers->img_path = get_data_path()+"img/hero8x8.png";
             pers->is_hero = true;
             pers->xp_value = 800;
-            new Message(Ui::msg_handler_main, HELP_MSG, "JOHN APPEARS");
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "JOHN APPEARS"));
+
         }
         else if (this->depth == 4)
         {
@@ -1005,7 +1007,8 @@ void Map::update()
             pers->img_path = get_data_path()+"img/thief8x8.png";
             pers->is_hero = true;
             pers->xp_value = 1000;
-            new Message(Ui::msg_handler_main, HELP_MSG, "SAMUEL APPROACHES");
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "SAMUEL APPROACHES"));
+
         }
         else if (this->depth >= 5)
         {
@@ -1021,7 +1024,7 @@ void Map::update()
             Game::current_map->enemies.push_back(pers);
             pers->img_path = get_data_path()+"img/hero8x8.png";
             pers->is_hero = true;
-            new Message(Ui::msg_handler_main, HELP_MSG, "ROSSIGNOL THUNDERS IN");
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ROSSIGNOL ADVANCES"));
         }
     };
 };
