@@ -5,6 +5,9 @@
 #include <assert.h>
 #include <algorithm>
 
+#include <SDL.h>
+#include <SDL_mixer.h>
+
 #include "libtcod.hpp"
 
 #include "enums\spawntypes_t.h"
@@ -755,6 +758,54 @@ void Game::init_engine()
     TCODConsole::setKeyboardRepeat(1000, 1);
 };
 
+void play_music()
+{
+    /* straight copied from
+     * http://stackoverflow.com/questions/17472514/no-sound-with-sdl-mixer
+     */
+
+    Mix_Music *music = NULL;
+    Mix_Chunk *wave = NULL;
+
+    SDL_Init(SDL_INIT_AUDIO);
+
+    int audio_rate = 44100;
+    Uint16 audio_format = AUDIO_S16; /* 16-bit stereo */
+    int audio_channels = 1;
+    int audio_buffers = 4096;
+
+    if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) < 0) {
+        printf("Unable to open audio!\n");
+        exit(1);
+    }
+
+    if(Mix_Init(MIX_INIT_MOD) != MIX_INIT_MOD)
+        std::cout << "errer";
+
+    Mix_Volume(-1, MIX_MAX_VOLUME);
+
+    music = Mix_LoadMUS(std::string(get_data_path()+"lvl1.wav").c_str());
+    wave = Mix_LoadWAV(std::string(get_data_path()+"lvl1.wav").c_str());
+
+    if (music == NULL) {
+        std::cout << "Could not load 1.wav\n";
+        std::cout << Mix_GetError();
+    }
+
+    if (wave == NULL) {
+        std::cout << "Could not load 1.wav\n";
+        std::cout << Mix_GetError();
+    }
+
+    Mix_VolumeChunk(wave, MIX_MAX_VOLUME);
+    Mix_VolumeMusic(MIX_MAX_VOLUME);
+
+    Mix_PlayMusic(music, -1);
+    std::cout << Mix_GetError();
+    Mix_FadeInChannelTimed(-1, wave, 0, 100, 1);
+    std::cout << Mix_GetError();
+};
+
 void Game::mainloop()
 {
 
@@ -787,6 +838,9 @@ void Game::mainloop()
 
     //draw libtcon to screen
     TCODConsole::flush();
+
+    //music
+    play_music();
 
     assert(Game::world != NULL);
     while ( !TCODConsole::isWindowClosed() ) 

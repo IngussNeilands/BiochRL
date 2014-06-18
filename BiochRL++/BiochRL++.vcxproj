@@ -62,7 +62,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\Debug\FirstCPPApplication.lib;..\FirstCPPApplication\libtcod-VS.lib;..\Debug\jansson.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Debug\FirstCPPApplication.lib;..\FirstCPPApplication\libtcod-VS.lib;..\Debug\jansson.lib;..\Debug\SDL2_mixer.lib;..\Debug\SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkStatus>
       </LinkStatus>
       <ShowProgress>
