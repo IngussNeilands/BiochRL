@@ -8,6 +8,7 @@
 #include "spells.h"
 #include "attr_effect.h"
 #include "item.h"
+#include <color_utils.h>
 
 void IClass::LevelUpHealth(double change)
 {
@@ -53,32 +54,35 @@ void FighterClass::LevelUpStats(int levels)
 void FighterClass::LevelUpSkills(int levels)
 {
     Spell* new_spell;
+    std::stringstream ss;
+    ss << colfg(TCODColor::lighterAzure, "You've learned a new technique!");
+    std::string msg = ss.str();
     switch (this->master->level)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new WaterBombSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new AutoChemHPSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new PoisonCoughSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new technique!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new InnerSanctuarySpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
@@ -106,32 +110,35 @@ void MageClass::LevelUpStats(int levels)
 void MageClass::LevelUpSkills(int levels)
 {
     Spell* new_spell;
+    std::stringstream ss;
+    ss << colfg(TCODColor::lighterAzure, "You've learned a new spell!");
+    std::string msg = ss.str();
     switch (this->master->level)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
             new_spell = new IceBoltSpell();
             new_spell->master = this->master;
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             this->master->spells->push_back(new_spell);
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new InnerHealingSpiritSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new DeathsTouchSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new FireBallSpell;
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
@@ -159,32 +166,35 @@ void NecromancerClass::LevelUpStats(int levels)
 void NecromancerClass::LevelUpSkills(int levels)
 {
     Spell* new_spell;
+    std::stringstream ss;
+    ss << colfg(TCODColor::lighterAzure, "You've learned a new sorcery!");
+    std::string msg = ss.str();
     switch (this->master->level)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
             new_spell = new CorpseBlastSpell();
             new_spell->master = this->master;
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             this->master->spells->push_back(new_spell);
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new SiphonSpiritSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new RaiseDeadSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new InnerFireSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
@@ -212,32 +222,35 @@ void BrawlerClass::LevelUpStats(int levels)
 void BrawlerClass::LevelUpSkills(int levels)
 {
     Spell* new_spell;
+    std::stringstream ss;
+    ss << colfg(TCODColor::lighterAzure, "You've learned a new prayer!");
+    std::string msg = ss.str();
     switch (this->master->level)
     {
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
             new_spell = new IceFistSpell();
             new_spell->master = this->master;
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             this->master->spells->push_back(new_spell);
             break;
 
         case 4:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new SacredKickSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 6:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new DeathsHandSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
 
         case 8:
-            new Message(Ui::msg_handler_main, MOOD_MSG, "You've learned a new spell!");
+            new Message(Ui::msg_handler_main, MOOD_MSG, msg);
             new_spell = new InnerStrengthSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
