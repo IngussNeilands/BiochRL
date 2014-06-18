@@ -41,20 +41,14 @@ void MessageHandler::new_msg(Message* message)
     {
         std::stringstream ss;
         //ss <<  "T"<< (int)message->type;
-        ss <<  "I"<< Message::getIndex(message->type);
+        ss <<  "I"<< message->type_index;
         message->content.append(ss.str());
     };
 
     Message* last_msg = this->msg_list.back();
     //compare messages to see if the count should increment
-    bool same_msg = false;
-    if (message->content == last_msg->content)
-    {
-        same_msg = true;
-    }
-
+    bool same_msg = message->content == last_msg->content;
     if (same_msg && this->msg_list.size() != 0)
-        //if (last_msg->content.c_str() == message->content.c_str() && last_msg->vlist == message->vlist && this->msg_list.size() != 0)
     {
         last_msg->count += 1;
         //std::cout << "msg already existed, incrementing count" << std::endl;
@@ -65,32 +59,6 @@ void MessageHandler::new_msg(Message* message)
     }
 }
 
-void MessageHandler::draw_raw(TCODConsole* console)
-{
-    //go through the latest messages and draw them until there's no more room
-    std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin();
-    int x = 0;
-    int y = 0;
-    TCODColor default_color = console->getDefaultForeground();
-    for (it; it != this->msg_list.rend(); ++it)
-    {
-        float coef = ((float)y)/10.0f;
-        TCODColor new_color = TCODColor::lerp(default_color, TCODColor::darkGrey, coef);
-        console->setDefaultForeground(new_color);
-        if ((*it)->count > 0)
-        {
-            console->print(x, y, ((*it)->content+" (x%d)").c_str(), (*it)->count);
-        }
-        else 
-        {
-            console->print(x, y, (*it)->content.c_str());
-        };
-        y++;
-
-        if (y > 10) break; //don't need to loop over all messages
-    };
-
-};
 
 void MessageHandler::draw(TCODConsole* console)
 {
@@ -206,7 +174,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         {
             ss << " (x" << msg->count+1 << ")";
             cur_msg.append(ss.str());
-            ss.clear();
+            ss.str("");
         }
 
         if (turn_msgs.find(msg->turn) != turn_msgs.end())
@@ -221,6 +189,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
             std::pair<double, std::vector<std::string>> msg_pair(msg->turn, vec);
             turn_msgs.insert(msg_pair);
         };
+        cur_msg.clear();
 
 
 

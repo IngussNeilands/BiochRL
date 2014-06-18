@@ -28,7 +28,6 @@ class MessageHandler
         Game* game;
         std::vector<Message*> msg_list;
         void draw(TCODConsole* console);
-        void draw_raw(TCODConsole* console);
         void new_msg(Message* message);
         MessageHandler();
         std::vector<std::string> PrerenderMessages(int turn_limit);
