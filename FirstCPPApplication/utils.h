@@ -48,6 +48,7 @@ inline const char * const BoolToString(bool b, bool verbose=true)
     return b ? "T" : "F";
 }
 
+
 int get_euclidean_distance(int x1, int y1, int x2, int y2);
 const char kPathSeparator =
 #ifdef _WIN32

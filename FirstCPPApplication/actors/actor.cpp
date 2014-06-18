@@ -27,6 +27,7 @@
 #include <spells.h>
 #include "map.h"
 #include "combat.h"
+#include <color_utils.h>
 
 
 int Actor::pack_size = 10;
@@ -212,7 +213,12 @@ Item* Actor::CreateCorpse()
     corpse->repr->repr = '%';
     corpse->repr->setFGColor(*this->representation->fg_color, true, false, true);
 
-    corpse->name =  this->cls_name + " corpse";
+    char buffer[900];
+    sprintf(buffer, " %c%c%c%ccorpse%c", TCOD_COLCTRL_FORE_RGB, 240, 1, 1, TCOD_COLCTRL_STOP);
+    std::string colored_corpse = colutl::fg(TCODColor::red, " corpse");
+    corpse->name =  this->cls_name + colored_corpse;
+    // corpse->name =  this->cls_name + std::string(buffer);
+    std::string bufstr =  std::string(buffer);
     corpse->slot_type = slots_t::NoSlot;
     corpse->attr_effect->set_all_vals_to(0);
     corpse->attr_effect->health_regen_interval=1.25;
