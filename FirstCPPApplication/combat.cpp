@@ -148,7 +148,7 @@ void Combat::Attack(Combat* combat_target, Damage* dmg){
         printf("target had no combat\n");
         return;
     }
-    new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "About to attack %s for %d damage.", combat_target->master->name.c_str(), dmg->normal);
+    new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "%s attacks %s for %d damage.", this->master->name.c_str(), combat_target->master->name.c_str(), dmg->get_raw_total());
     combat_target->TakeDamage(this, dmg);
     this->last_victim = combat_target->master;
 
@@ -286,6 +286,18 @@ Damage::Damage()
     this->spectre = 0;
 };
 
+int Damage::get_raw_total()
+{
+    return this->normal +
+    this->fire +
+    this->water +
+    this->death +
+    this->life +
+    this->crystal +
+    this->spectre;
+};
+
+
 Armor::Armor()
 {
     this->normal = 0;
@@ -296,3 +308,15 @@ Armor::Armor()
     this->crystal = 0;
     this->spectre = 0;
 };
+
+int Armor::get_raw_total()
+{
+    return this->normal +
+    this->fire +
+    this->water +
+    this->death +
+    this->life +
+    this->crystal +
+    this->spectre;
+};
+

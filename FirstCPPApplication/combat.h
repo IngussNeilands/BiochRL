@@ -61,6 +61,8 @@ class Damage
 
         Damage();
 
+        int get_raw_total();
+
 };
 
 class Armor
@@ -75,6 +77,7 @@ class Armor
         int spectre;
 
         Armor();
+        int get_raw_total();
 
 };
 #endif
