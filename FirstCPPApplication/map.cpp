@@ -60,8 +60,8 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
 
     if (!is_original_pos && (x < 0 || y < 0 ) ) // this shouldnt ever happen now
     { 
-        std::cout << "can't find a tile here.";
-        std::cout << "I'd throw and error but I don't know how yet" <<std::endl;
+        std::cout << "Can't find a tile here.";
+        std::cout << "I'm printing to stdout instead of throwing an error." <<std::endl;
     }
 
     // these two ifs cut way the hell down on recursion by eliminating the
@@ -82,7 +82,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     catch ( std::out_of_range& ex )
     {
         ex;
-        std::cout << "getTileAt recursed on y" << std::endl;
+        std::cout << "Method getTileAt() recursed on y." << std::endl;
         return getTileAt(x, y-1, false, x, y);
     };
 
@@ -97,7 +97,7 @@ Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
     catch ( std::out_of_range& ex )
     {
         ex;
-        std::cout << "getTileAt recursed on x" << std::endl;
+        std::cout << "Method getTileAt() recursed on x." << std::endl;
         return getTileAt(x-1, y, false, x, y);
     };
 };
@@ -260,7 +260,7 @@ class TownListener : public ITCODBspCallback
                     {
                         tile->get_representation()->repr = ',';
                         tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
-                        tile->get_description() = "A small stone lays here.";
+                        tile->get_description() = "A small stone presides here.";
                     }
                 }
             }
@@ -276,7 +276,7 @@ int Map::build_town_from_random(int seed)
     this->height = Game::town_height;
     this->l_map = new TCODMap(this->width, this->height);
     //the default tile description
-    this->description = "This is the town, don't hurt anyone.";
+    this->description = "This is a town of nice people, please refrain from hurting anyone.";
 
     this->tileVector = new std::vector<std::vector<Tile>>;
     this->tileVector->resize(this->height);
@@ -520,7 +520,7 @@ Room* Map::build_circle_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
-                tile->get_description() = "Crumbling bricks scattered here.";
+                tile->get_description() = "Crumbling bricks are scattered here.";
             }
 
         }
@@ -857,7 +857,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     // if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     if (!this->pos_in_map(new_x, new_y))
     {
-        std::cout << "invalid move fool" << std::endl;
+        std::cout << "This was an invalid move kind stranger." << std::endl;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Leave the outer limits alone");
         return false;
     }
@@ -941,6 +941,10 @@ void Map::update()
         
         if (this->depth == 1)
         {
+            //I should eventually move these definitions to serialized files
+            //And perhaps use googles newly opensourced super memory efficient
+            //Library for reading straight from serialized files with minimal
+            //Memory footprint
             Room* room = Game::current_map->roomVector->back();
             Person* pers = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
             pers->attrs->health->current_val = 200;
