@@ -44,6 +44,7 @@ class Message
         double long turn;
 
         message_types_t type;
+        int type_index;
 
         Message();
         Message(MessageHandler* handler, message_types_t type, std::string content, ...);

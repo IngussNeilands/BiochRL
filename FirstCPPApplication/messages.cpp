@@ -3,6 +3,7 @@
 #include "messages.h"
 #include <stdarg.h>
 #include <assert.h>
+#include <map>
 
 #include <libtcod.hpp>
 #include "game.h"
@@ -38,10 +39,10 @@ void MessageHandler::new_msg(Message* message)
     //debugging order
     if (Game::debug_opts->show_msg_debug)
     {
-    std::stringstream ss;
-    //ss <<  "T"<< (int)message->type;
-    ss <<  "I"<< Message::getIndex(message->type);
-    message->content.append(ss.str());
+        std::stringstream ss;
+        //ss <<  "T"<< (int)message->type;
+        ss <<  "I"<< Message::getIndex(message->type);
+        message->content.append(ss.str());
     };
 
     Message* last_msg = this->msg_list.back();
@@ -150,7 +151,8 @@ bool sorting_by_type(Message* a, Message* b)
     }
     else if (a->turn == b->turn)
     {
-        return Message::getIndex(a->type) < Message::getIndex(b->type);
+        return a->type_index < b->type_index;
+        // return Message::getIndex(a->type) < Message::getIndex(b->type);
     }
     else if (a->turn < b->turn)
     {
@@ -185,50 +187,67 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         if (++i>message_limit) break;
     }
 
-    std::stable_sort(limited_messages.begin(), limited_messages.end(),
+    std::stable_sort(limited_messages.begin(),
+            limited_messages.end(),
             sorting_by_type);
 
+    std::map<double, std::vector<std::string>> turn_msgs;
+
+
     // for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
-    for (std::vector<Message*>::iterator it = limited_messages.begin(); it != limited_messages.end(); ++it) {
-        if (prerendered_msgs.size() >= turn_limit+1) break;
-
-        if (last_turn != (*it)->turn) 
+    last_turn = limited_messages.front()->turn;
+    std::string cur_msg;
+    std::stringstream ss;
+    for (std::vector<Message*>::iterator it = limited_messages.begin(); it != limited_messages.end(); ++it) 
+    {
+        Message* msg = (*it);
+        cur_msg = msg->content;
+        if (msg->count > 0) 
         {
-            turn_count++;
-            // if its a new message, add it,
-            if (last_msg != prerendered_single)
-            {
-                prerendered_msgs.push_back(prerendered_single);
-                last_msg = prerendered_single;
-                copy_count = 2; //reset
-            }
-            // if its a copy store the original and add in the modded one
-            else
-            {
-                last_msg = prerendered_single;
-                //convert turn number to string and append it
-                // std::stringstream ss;
-                // ss << copy_count;
-                // std::string copy_str = ss.str();
-                std::string copy_str = std::to_string((long double)copy_count);
-                copy_count++;
+            ss << " (x" << msg->count+1 << ")";
+            cur_msg.append(ss.str());
+            ss.clear();
+        }
 
-                prerendered_single.append("(x"+copy_str+")");
-
-                if (!prerendered_msgs.empty()) { prerendered_msgs.pop_back(); };
-
-                prerendered_msgs.push_back(prerendered_single);
-            }
-            prerendered_single.clear();
-            last_turn = (*it)->turn;
+        if (turn_msgs.find(msg->turn) != turn_msgs.end())
+        {
+            turn_msgs[msg->turn].push_back(" "+cur_msg);
+        }
+        else
+        {
+            //printf("existing\n");
+            std::vector<std::string> vec;
+            vec.push_back(cur_msg);
+            std::pair<double, std::vector<std::string>> msg_pair(msg->turn, vec);
+            turn_msgs.insert(msg_pair);
         };
 
-        prerendered_single.append(((*it)->content+" "));
+
+
+
+        // if (prerendered_msgs.size() >= turn_limit+1) break;
     }
 
-    if (prerendered_single.size() > 0) {
+    typedef std::map<double, std::vector<std::string>>::reverse_iterator it_type;
+    for(it_type iterator = turn_msgs.rbegin(); iterator != turn_msgs.rend(); iterator++) 
+    {
+        for (std::vector<std::string>::iterator it = iterator->second.begin(); it != iterator->second.end(); it++)
+        {
+            prerendered_single.append(*it);
+        }
+        //char buffer[1024];
+        //std::size_t len = prerendered_single.copy(buffer, prerendered_single.size(), 0);
+        //buffer[len] = '\0';
+        //prerendered_msgs.push_back(std::string(buffer));
         prerendered_msgs.push_back(prerendered_single);
+        prerendered_single.clear();
+        // iterator->first = key
+        // iterator->second = value
+        // Repeat if you also want to iterate through the second map.
     }
+    // if (prerendered_single.size() > 0) {
+    //     prerendered_msgs.push_back(prerendered_single);
+    // }
 
     return prerendered_msgs;
 }
@@ -236,6 +255,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 void Message::Init()
 {
     this->type = message_types_t::NOTYPE_MSG;
+    this->type_index = 0;
     this->content = "Unspecified %s";
     this->count = 0;
     this->turn = Game::turn_count;
@@ -252,6 +272,7 @@ Message::Message(MessageHandler* handler, message_types_t type, std::string cont
 
     this->Init();
     this->type = type;
+    this->type_index = Message::getIndex(type);
 
     va_list ap;
     va_start(ap, content);
