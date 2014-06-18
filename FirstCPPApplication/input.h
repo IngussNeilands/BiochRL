@@ -43,50 +43,50 @@ class Input
         static bool move_player_or_target(int x, int y);
         static bool move_target(int x, int y);
 
-        static std::map<int, directions_t> spec_movemap; //Keypad, punctuation
-        static std::map<char, directions_t> char_movemap; //regular letters
-        static std::map<int, directions_t> build_spec_movemap(); //Keypad, punctuation
-        static std::map<char, directions_t> build_char_movemap(); //regular letters
+        static std::map<int, directions_t> spec_movement_keymap; //Keypad, punctuation
+        static std::map<char, directions_t> char_movement_keymap; //regular letters
+        static std::map<int, directions_t> build_spec_movement_keymap(); //Keypad, punctuation
+        static std::map<char, directions_t> build_char_movement_keymap(); //regular letters
 
         static inventory_items_active_t inventory_items_active_pressed(TCOD_key_t key);
         static bool is_key_inventory_command(TCOD_key_t request);
         static bool process_inventory_keys(TCOD_key_t request);
-        static std::map<int, inventory_items_active_t> spec_invitemactivemap; //Keypad, punctuation
-        static std::map<char, inventory_items_active_t> char_invitemactivemap; //regular letters
-        static std::map<int, inventory_items_active_t> build_spec_invitemactivemap(); //Keypad, punctuation
-        static std::map<char, inventory_items_active_t> build_char_invitemactivemap(); //regular letters
+        static std::map<int, inventory_items_active_t> spec_inventory_keymap; //Keypad, punctuation
+        static std::map<char, inventory_items_active_t> char_inventory_keymap; //regular letters
+        static std::map<int, inventory_items_active_t> build_spec_inventory_keymap(); //Keypad, punctuation
+        static std::map<char, inventory_items_active_t> build_char_inventory_keymap(); //regular letters
 
         static generic_menu_active_t generic_menu_active_pressed(TCOD_key_t key);
         static bool process_generic_menu_keys(TCOD_key_t request);
         static bool is_key_generic_menu_command(TCOD_key_t request);
-        static std::map<int, generic_menu_active_t> spec_genmenactivemap; //Keypad, punctuation
-        static std::map<char, generic_menu_active_t> char_genmenactivemap; //regular letters
-        static std::map<int, generic_menu_active_t> build_spec_genmenactivemap(); //Keypad, punctuation
-        static std::map<char, generic_menu_active_t> build_char_genmenactivemap(); //regular letters
+        static std::map<int, generic_menu_active_t> spec_generic_menu_keymap; //Keypad, punctuation
+        static std::map<char, generic_menu_active_t> char_generic_menu_keymap; //regular letters
+        static std::map<int, generic_menu_active_t> build_spec_generic_menu_keymap(); //Keypad, punctuation
+        static std::map<char, generic_menu_active_t> build_char_generic_menu_keymap(); //regular letters
 
         static basic_cmds_t  basic_cmd_pressed(TCOD_key_t key);
         static bool is_key_basic_command(TCOD_key_t request);
         static bool process_basic_keys(TCOD_key_t request);
-        static std::map<int, basic_cmds_t> spec_active_map; //Keypad, punctuation
-        static std::map<char, basic_cmds_t> char_active_map; //regular letters
-        static std::map<int, basic_cmds_t> build_spec_active_map(); //Keypad, punctuation
-        static std::map<char, basic_cmds_t> build_char_active_map(); //regular letters
+        static std::map<int, basic_cmds_t> spec_main_keymap; //Keypad, punctuation
+        static std::map<char, basic_cmds_t> char_main_keymap; //regular letters
+        static std::map<int, basic_cmds_t> build_spec_main_keymap(); //Keypad, punctuation
+        static std::map<char, basic_cmds_t> build_char_main_keymap(); //regular letters
 
         static spells_active_t  spells_active_pressed(TCOD_key_t key);
         static bool is_key_spell_command(TCOD_key_t request);
         static bool process_spells_keys(TCOD_key_t request);
-        static std::map<int, spells_active_t> spec_spellactivemap; //Keypad, punctuation
-        static std::map<char, spells_active_t> char_spellactivemap; //regular letters
-        static std::map<int, spells_active_t> build_spec_spellactivemap(); //Keypad, punctuation
-        static std::map<char, spells_active_t> build_char_spellactivemap(); //regular letters
+        static std::map<int, spells_active_t> spec_spell_select_keymap; //Keypad, punctuation
+        static std::map<char, spells_active_t> char_spell_select_keymap; //regular letters
+        static std::map<int, spells_active_t> build_spec_spell_select_keymap(); //Keypad, punctuation
+        static std::map<char, spells_active_t> build_char_spell_select_keymap(); //regular letters
 
         static classes_active_t  classes_active_pressed(TCOD_key_t key);
         static bool is_key_class_command(TCOD_key_t request);
         static bool process_classes_keys(TCOD_key_t request);
-        static std::map<int, classes_active_t> spec_classactivemap; //Keypad, punctuation
-        static std::map<char, classes_active_t> char_classactivemap; //regular letters
-        static std::map<int, classes_active_t> build_spec_classactivemap(); //Keypad, punctuation
-        static std::map<char, classes_active_t> build_char_classactivemap(); //regular letters
+        static std::map<int, classes_active_t> spec_class_select_keymap; //Keypad, punctuation
+        static std::map<char, classes_active_t> char_class_select_keymap; //regular letters
+        static std::map<int, classes_active_t> build_spec_class_select_keymap(); //Keypad, punctuation
+        static std::map<char, classes_active_t> build_char_class_select_keymap(); //regular letters
 
         static generic_keypair_t build_keypairs(int limit, int offset);
         static char generic_index;

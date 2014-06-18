@@ -32,19 +32,19 @@
 #include <SDL_mixer.h>
 
 //build key mappings. Took DRY out behind the shed.
-std::map<char, basic_cmds_t> Input::char_active_map                   = Input::build_char_active_map(); 
-std::map<char, classes_active_t> Input::char_classactivemap           = Input::build_char_classactivemap(); 
-std::map<char, directions_t> Input::char_movemap                      = Input::build_char_movemap();  
-std::map<char, generic_menu_active_t> Input::char_genmenactivemap     = Input::build_char_genmenactivemap(); 
-std::map<char, inventory_items_active_t> Input::char_invitemactivemap = Input::build_char_invitemactivemap(); 
-std::map<char, spells_active_t> Input::char_spellactivemap            = Input::build_char_spellactivemap(); 
+std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
+std::map<char, classes_active_t> Input::char_class_select_keymap      = Input::build_char_class_select_keymap(); 
+std::map<char, directions_t> Input::char_movement_keymap              = Input::build_char_movement_keymap();  
+std::map<char, generic_menu_active_t> Input::char_generic_menu_keymap = Input::build_char_generic_menu_keymap(); 
+std::map<char, inventory_items_active_t> Input::char_inventory_keymap = Input::build_char_inventory_keymap(); 
+std::map<char, spells_active_t> Input::char_spell_select_keymap       = Input::build_char_spell_select_keymap(); 
 
-std::map<int, basic_cmds_t> Input::spec_active_map                    = Input::build_spec_active_map(); 
-std::map<int, classes_active_t> Input::spec_classactivemap            = Input::build_spec_classactivemap(); 
-std::map<int, directions_t> Input::spec_movemap                       = Input::build_spec_movemap();  
-std::map<int, generic_menu_active_t> Input::spec_genmenactivemap      = Input::build_spec_genmenactivemap(); 
-std::map<int, inventory_items_active_t> Input::spec_invitemactivemap  = Input::build_spec_invitemactivemap(); 
-std::map<int, spells_active_t> Input::spec_spellactivemap             = Input::build_spec_spellactivemap(); 
+std::map<int, basic_cmds_t> Input::spec_main_keymap                   = Input::build_spec_main_keymap(); 
+std::map<int, classes_active_t> Input::spec_class_select_keymap       = Input::build_spec_class_select_keymap(); 
+std::map<int, directions_t> Input::spec_movement_keymap               = Input::build_spec_movement_keymap();  
+std::map<int, generic_menu_active_t> Input::spec_generic_menu_keymap  = Input::build_spec_generic_menu_keymap(); 
+std::map<int, inventory_items_active_t> Input::spec_inventory_keymap  = Input::build_spec_inventory_keymap(); 
+std::map<int, spells_active_t> Input::spec_spell_select_keymap        = Input::build_spec_spell_select_keymap(); 
 
 char Input::generic_index = 'a';
 
@@ -126,7 +126,7 @@ std::vector<std::string> make_classes_active_char()
 };
 std::vector<std::string> Input::classes_active_char = make_classes_active_char();
 
-std::map<int, basic_cmds_t> Input::build_spec_active_map()
+std::map<int, basic_cmds_t> Input::build_spec_main_keymap()
 {
     std::map<int, basic_cmds_t> spec_movemap; //Keypad, punctuation
     spec_movemap[TCODK_SPACE] = basic_cmds_t::CenterScreenToMouse;
@@ -136,7 +136,7 @@ std::map<int, basic_cmds_t> Input::build_spec_active_map()
     return spec_movemap;
 };//Keypad, punctuation
 
-std::map<char, basic_cmds_t> Input::build_char_active_map()
+std::map<char, basic_cmds_t> Input::build_char_main_keymap()
 {
     std::map<char, basic_cmds_t> char_movemap; //regular letters
 
@@ -158,10 +158,10 @@ std::map<char, basic_cmds_t> Input::build_char_active_map()
 
 basic_cmds_t  Input::basic_cmd_pressed(TCOD_key_t key)
 {
-    return Input::find_key(key, Input::char_active_map, Input::spec_active_map, basic_cmds_t::NO_MATCHING_BASIC_CMD);
+    return Input::find_key(key, Input::char_main_keymap, Input::spec_main_keymap, basic_cmds_t::NO_MATCHING_BASIC_CMD);
 };
 
-std::map<int, spells_active_t>  Input::build_spec_spellactivemap()
+std::map<int, spells_active_t>  Input::build_spec_spell_select_keymap()
 {
     std::map<int, spells_active_t> spec_spellactivemap; //Keypad, punctuation
     // 
@@ -169,7 +169,7 @@ std::map<int, spells_active_t>  Input::build_spec_spellactivemap()
     return spec_spellactivemap;
 }; //Keypad, punctuation
 
-std::map<char, spells_active_t> Input::build_char_spellactivemap()
+std::map<char, spells_active_t> Input::build_char_spell_select_keymap()
 {
     std::map<char, spells_active_t> char_spellactivemap; //regular letters
     // 
@@ -187,10 +187,10 @@ std::map<char, spells_active_t> Input::build_char_spellactivemap()
 spells_active_t Input::spells_active_pressed(TCOD_key_t key)
 {
 
-    return Input::find_key(key, Input::char_spellactivemap,
-            Input::spec_spellactivemap, spells_active_t::NO_MATCHING_SPELLS_ACTIVE);
+    return Input::find_key(key, Input::char_spell_select_keymap,
+            Input::spec_spell_select_keymap, spells_active_t::NO_MATCHING_SPELLS_ACTIVE);
 };
-std::map<int, classes_active_t>  Input::build_spec_classactivemap()
+std::map<int, classes_active_t>  Input::build_spec_class_select_keymap()
 {
     std::map<int, classes_active_t> spec_classactivemap; //Keypad, punctuation
     // 
@@ -199,7 +199,7 @@ std::map<int, classes_active_t>  Input::build_spec_classactivemap()
     return spec_classactivemap;
 
 }; //Keypad, punctuation
-std::map<char, classes_active_t>  Input::build_char_classactivemap()
+std::map<char, classes_active_t>  Input::build_char_class_select_keymap()
 {
     std::map<char, classes_active_t> char_classactivemap; //regular letters
     // 
@@ -217,8 +217,8 @@ std::map<char, classes_active_t>  Input::build_char_classactivemap()
 
 classes_active_t Input::classes_active_pressed(TCOD_key_t key)
 {
-    return Input::find_key(key, Input::char_classactivemap,
-            Input::spec_classactivemap, classes_active_t::NO_MATCHING_CLASSES_ACTIVE);
+    return Input::find_key(key, Input::char_class_select_keymap,
+            Input::spec_class_select_keymap, classes_active_t::NO_MATCHING_CLASSES_ACTIVE);
 };
 
     template<typename T1, typename T2, typename T3>
@@ -245,7 +245,7 @@ T1 Input::find_key(TCOD_key_t key, T2 char_active_map, T3 spec_active_map, T1 er
 
 };
 
-std::map<int, inventory_items_active_t>  Input::build_spec_invitemactivemap()
+std::map<int, inventory_items_active_t>  Input::build_spec_inventory_keymap()
 {
 
     std::map<int, inventory_items_active_t> spec_invitemactivemap; 
@@ -253,7 +253,7 @@ std::map<int, inventory_items_active_t>  Input::build_spec_invitemactivemap()
     return spec_invitemactivemap;
 }; 
 
-std::map<char, inventory_items_active_t> Input::build_char_invitemactivemap()
+std::map<char, inventory_items_active_t> Input::build_char_inventory_keymap()
 {
 
     std::map<char, inventory_items_active_t> char_invitemactivemap; 
@@ -275,13 +275,13 @@ std::map<char, inventory_items_active_t> Input::build_char_invitemactivemap()
 inventory_items_active_t Input::inventory_items_active_pressed(TCOD_key_t key)
 {
 
-    return find_key(key, Input::char_invitemactivemap,
-            Input::spec_invitemactivemap, inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE);
+    return find_key(key, Input::char_inventory_keymap,
+            Input::spec_inventory_keymap, inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE);
 };
 
 
 
-std::map<int, directions_t>  Input::build_spec_movemap()
+std::map<int, directions_t>  Input::build_spec_movement_keymap()
 {
 
     std::map<int, directions_t> spec_movemap; //Keypad, punctuation
@@ -304,7 +304,7 @@ std::map<int, directions_t>  Input::build_spec_movemap()
     return spec_movemap;
 };  //Keypad, punctuation
 
-std::map<char, directions_t> Input::build_char_movemap()
+std::map<char, directions_t> Input::build_char_movement_keymap()
 {
 
     std::map<char, directions_t> char_movemap; //regular letters
@@ -320,7 +320,7 @@ std::map<char, directions_t> Input::build_char_movemap()
 directions_t Input::direction_pressed(TCOD_key_t key)
 {
 
-    return find_key(key, Input::char_movemap, Input::spec_movemap,
+    return find_key(key, Input::char_movement_keymap, Input::spec_movement_keymap,
             directions_t::NO_MATCHING_DIRECTION);
 };
 
@@ -609,7 +609,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
 };
 
 
-std::map<int, generic_menu_active_t>  Input::build_spec_genmenactivemap()
+std::map<int, generic_menu_active_t>  Input::build_spec_generic_menu_keymap()
 {
 
     std::map<int, generic_menu_active_t> spec_genmenactivemap; //Keypad, punctuation
@@ -618,7 +618,7 @@ std::map<int, generic_menu_active_t>  Input::build_spec_genmenactivemap()
     return spec_genmenactivemap;
 }; //Keypad, punctuation
 
-std::map<char, generic_menu_active_t> Input::build_char_genmenactivemap()
+std::map<char, generic_menu_active_t> Input::build_char_generic_menu_keymap()
 {
 
     std::map<char, generic_menu_active_t> char_genmenactivemap; //regular letters
@@ -628,8 +628,8 @@ std::map<char, generic_menu_active_t> Input::build_char_genmenactivemap()
 generic_menu_active_t Input::generic_menu_active_pressed(TCOD_key_t key)
 {
 
-    return Input::find_key(key, Input::char_genmenactivemap,
-            Input::spec_genmenactivemap, generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE);
+    return Input::find_key(key, Input::char_generic_menu_keymap,
+            Input::spec_generic_menu_keymap, generic_menu_active_t::NO_MATCHING_GENERIC_MENU_ACTIVE);
 };
 
 bool Input::process_generic_menu_keys(TCOD_key_t request)

@@ -623,11 +623,11 @@ void Ui::main_menu_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
 
 void Ui::help_screen_ui_loop(TCODConsole* con, int offset, int i, char key)
 {
-    print_keys_for(con, offset, i, Input::char_active_map, Input::spec_active_map, Input::basic_cmds_char, "Gameplay Keys");
+    print_keys_for(con, offset, i, Input::char_main_keymap, Input::spec_main_keymap, Input::basic_cmds_char, "Gameplay Keys");
     i++;
-    print_keys_for(con, offset, i, Input::char_invitemactivemap, Input::spec_invitemactivemap, Input::inventory_items_active_char, "Inventory Keys");
+    print_keys_for(con, offset, i, Input::char_inventory_keymap, Input::spec_inventory_keymap, Input::inventory_items_active_char, "Inventory Keys");
     i++;
-    print_keys_for(con, offset, i, Input::char_spellactivemap, Input::spec_spellactivemap, Input::spells_active_char, "Spell Selection Keys");
+    print_keys_for(con, offset, i, Input::char_spell_select_keymap, Input::spec_spell_select_keymap, Input::spells_active_char, "Spell Selection Keys");
 };
 
 void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
