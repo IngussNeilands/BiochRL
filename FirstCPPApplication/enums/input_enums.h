@@ -21,6 +21,7 @@ enum basic_cmds_t {
     OpenHelp, OpenClassSelect,
     CenterScreenToMouse,
     NextTarget, PrevTarget,
+    ToggleMusic,
     NO_MATCHING_BASIC_CMD
 };
 

@@ -106,7 +106,7 @@ void MessageHandler::draw(TCODConsole* console)
         float coef = ((float)y)/10.0f;
         if (y == 0)
         {
-            new_color = TCODColor::lightestRed;
+            new_color = TCODColor::lighterRed;
         }
         else 
         {

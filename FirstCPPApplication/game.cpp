@@ -769,8 +769,8 @@ void play_music()
 
     SDL_Init(SDL_INIT_AUDIO);
 
-    int audio_rate = 44100;
-    Uint16 audio_format = AUDIO_S16SYS; /* 16-bit stereo */
+    int audio_rate = 48000;
+    Uint16 audio_format = AUDIO_S32SYS; /* 16-bit stereo */
     int audio_channels = 1;
     int audio_buffers = 4096;
 
@@ -785,25 +785,20 @@ void play_music()
     Mix_Volume(-1, MIX_MAX_VOLUME);
 
     music = Mix_LoadMUS(std::string(get_data_path()+"lvl1.wav").c_str());
-    wave = Mix_LoadWAV(std::string(get_data_path()+"lvl1.wav").c_str());
 
     if (music == NULL) {
         std::cout << "Could not load 1.wav\n";
         std::cout << Mix_GetError();
     }
 
-    if (wave == NULL) {
-        std::cout << "Could not load 1.wav\n";
-        std::cout << Mix_GetError();
-    }
 
-    Mix_VolumeChunk(wave, MIX_MAX_VOLUME);
     Mix_VolumeMusic(MIX_MAX_VOLUME);
 
     Mix_PlayMusic(music, -1);
     std::cout << Mix_GetError();
     Mix_FadeInChannelTimed(-1, wave, 0, 100, 1);
     std::cout << Mix_GetError();
+
 };
 
 void Game::mainloop()

@@ -29,6 +29,7 @@
 #include "attr_effect.h"
 #include "class.h"
 #include <messages.h>
+#include <SDL_mixer.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<int, directions_t> Input::spec_movemap = Input::build_spec_movemap();  //Keypad, punctuation
@@ -59,6 +60,7 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Open this help screen"); vec.push_back("Select your class");
     vec.push_back("Center the screen on the mouse");
     vec.push_back("Target Mode: Cycle forwards through the targets"); vec.push_back("Target Mode: Cycle backwards through the targets");
+    vec.push_back("Toggle Music");
     vec.push_back("NO_MATCHING_BASIC_CMD");
 
     assert(vec.size() == basic_cmds_t::NO_MATCHING_BASIC_CMD+1 && "Missing a help command for basic chars");
@@ -128,6 +130,7 @@ std::map<int, basic_cmds_t> Input::build_spec_active_map()
     spec_movemap[TCODK_SPACE] = basic_cmds_t::CenterScreenToMouse;
     spec_movemap[TCODK_PAGEUP] = basic_cmds_t::NextTarget;
     spec_movemap[TCODK_PAGEDOWN] = basic_cmds_t::PrevTarget;
+    spec_movemap[TCODK_DELETE] = basic_cmds_t::ToggleMusic;
     return spec_movemap;
 };//Keypad, punctuation
 
@@ -555,6 +558,17 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
             }
         }
+    }
+    else if ( basic_cmd == basic_cmds_t::ToggleMusic)
+    {
+        if (Mix_PausedMusic())
+        {
+            Mix_ResumeMusic();
+        }
+        else
+        {
+            Mix_PauseMusic();
+        };
     }
     else if ( basic_cmd == basic_cmds_t::ConfirmCast )
     {

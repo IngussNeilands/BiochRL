@@ -248,7 +248,7 @@ Item* spawnItemBase(std::string name, std::string description, char repr, slots_
 {
         Item* dropped_item = new Item;
         dropped_item->repr->repr = repr;
-        dropped_item->name = name;
+        dropped_item->name = colfg(TCODColor::lightestGreen, name);
         dropped_item->description = description;
         dropped_item->slot_type = slot;
         dropped_item->weight = weight;

@@ -7,6 +7,7 @@
 #include "actors/actor.h"
 #include "tile.h"
 #include "inventory.h"
+#include <color_utils.h>
 
 Item::Item()
 {
@@ -78,7 +79,7 @@ void Item::set_and_name_for_dmg(std::string pre_name, std::string post_name, TCO
     else  { mid_name = "adorned";};
     std::stringstream name;
     name << pre_name << " " << mid_name << " " << post_name;
-    this->name = name.str();
+    this->name = colfg(TCODColor::lightestRed, name.str());
 };
 
 void Item::set_and_name_for_arm(std::string pre_name, std::string post_name, TCODRandom* rng, int min, int max, int med)
@@ -107,7 +108,7 @@ void Item::set_and_name_for_arm(std::string pre_name, std::string post_name, TCO
     else  { mid_name = "adorned";};
     std::stringstream name;
     name << pre_name << " " << mid_name << " " << post_name;
-    this->name = name.str();
+    this->name = colfg(TCODColor::lightestBlue, name.str());
 };
 
 void Item::unequip(Actor* target)
