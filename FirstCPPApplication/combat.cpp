@@ -18,6 +18,7 @@
 #include "attr_effect.h"
 #include "class.h"
 #include "thinker.h"
+#include <color_utils.h>
 
 
 void Combat::printout(){
@@ -93,6 +94,12 @@ void Combat::LevelUp(int levels)
 
         this->master->level+=1;
         std::cout << "NEW LEVEL IS: " << this->master->level << std::endl;
+        if (this->master == Game::player)
+        {
+            std::stringstream msg;
+            msg <<  "You are now level " << this->master->level << ".";
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lightBlue, msg.str()));
+        };
         //log(lvl * 10) * 100
         this->master->xp_required = std::floor(std::log(this->master->level *10.0f) * 100.0f);
         this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
