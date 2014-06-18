@@ -860,7 +860,7 @@ void Actor::Die()
         delete this->thinker;
     };
 
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s died!", this->name.c_str());
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::darkerRed, "%s died!"), this->name.c_str());
 
     int multiplier = 1;
     if (this == (Actor*)Game::player)

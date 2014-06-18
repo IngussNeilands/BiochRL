@@ -183,7 +183,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         }
         else
         {
-            //printf("existing\n");
+            //turn to string vector pair
             std::vector<std::string> vec;
             vec.push_back(cur_msg);
             std::pair<double, std::vector<std::string>> msg_pair(msg->turn, vec);
