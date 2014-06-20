@@ -1427,7 +1427,8 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                 {
                     Ui::page_num--;
                     Ui::offset = Ui::per_page*Ui::page_num;
-                    Input::generic_index = 'a' + Ui::per_page;
+                    Input::generic_index = 'a' + Ui::per_page-1;
+                    generic_map = Input::build_keypairs(size, Ui::offset);
                 };
                 //  set g_i to last character on page
             }
@@ -1448,9 +1449,10 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                     Ui::page_num++;
                     Ui::offset = Ui::per_page*Ui::page_num;
                     Input::generic_index = 'a';
+                    generic_map = Input::build_keypairs(size, Ui::offset);
                 };
             }
-            
+
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
 
