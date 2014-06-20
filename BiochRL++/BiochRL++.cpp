@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "game.h"
+#include "..\FirstCPPApplication\game.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
