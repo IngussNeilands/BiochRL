@@ -1417,17 +1417,40 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             Input::generic_index--;
             if (Input::generic_index < 'a' ) 
             {
-                Input::generic_index = 'a';
+
+                //go to prev page unless its the first page
+                if (Ui::offset == 0)
+                {
+                    Input::generic_index = 'a';
+                }
+                else
+                {
+                    Ui::page_num--;
+                    Ui::offset = Ui::per_page*Ui::page_num;
+                    Input::generic_index = 'a' + Ui::per_page;
+                };
+                //  set g_i to last character on page
             }
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
         else if (request.vk == TCODK_DOWN && request.pressed == 1)
         {
             Input::generic_index++;
-            if (Input::generic_index > 'z' ) 
+            if (Input::generic_index >= 'a' + Ui::per_page)
             {
-                Input::generic_index = 'z';
+                //go to next page unless its the last page
+                if (Ui::offset+Ui::per_page > generic_vector->size())
+                {
+                    Input::generic_index--;
+                }
+                else
+                {
+                    Ui::page_num++;
+                    Ui::offset = Ui::per_page*Ui::page_num;
+                    Input::generic_index = 'a';
+                };
             }
+            
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
 
