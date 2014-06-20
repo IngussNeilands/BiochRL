@@ -381,7 +381,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int 
     line_color = TCODColor::grey;
     if (target_tile->is_occupied() && target_tile->is_known())
     {
-        Game::game_console->setChar(lx, ly, 'X');
+        Game::game_console->setChar(lx, ly, 'x');
         // TCODConsole::root->setChar(lx, ly, '&');
         // Game::game_console->setChar(target_tile->tile_x+Game::camera_x, target_tile->tile_y+Game::camera_y, 'X');
         line_color = TCODColor::darkGreen;
@@ -395,7 +395,8 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int 
     std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
     for (std::vector<Actor*>::iterator it = targets.begin(); it != targets.end(); it++)
     {
-        Game::game_console->setChar('X', (*it)->x+Game::camera_x, (*it)->y+Game::camera_y);
+		Actor* actor = *it;
+        Game::game_console->setChar(actor->x, actor->y, 'X');
     };
 
     // draw line from player to mouse

@@ -151,6 +151,7 @@ std::vector<Actor*> Spell::targets_around_tile(Tile* target_tile)
         std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(1);
         for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
         {
+			Tile* tile = *it;
             if ((*it)->is_occupied())
             {
                 targets.push_back((*it)->occupant);

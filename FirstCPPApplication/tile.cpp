@@ -349,6 +349,7 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
 
 bool Tile::is_occupied() 
 {
+	return this->occupant != NULL;
     return this->_is_occupied; 
 };
 
