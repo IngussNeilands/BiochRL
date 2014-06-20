@@ -804,7 +804,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
 
     if( action == classes_active_t::ExamineClass )
     {
-	IClass* iclass = (IClass*)Ui::chosen_generic;
+        IClass* iclass = (IClass*)Ui::chosen_generic;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE CLASS.");
         std::cout << iclass->name << " : " << iclass->description << std::endl;
         return true;
@@ -1412,16 +1412,6 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             Input::generic_index = 'a';
             Game::current_state = GameStates::GameplayState;
         }
-        else if ( (request.vk == TCODK_PAGEDOWN || request.c == '+') && request.pressed == 1) 
-        {
-            Ui::page_num++;
-            Ui::offset = Ui::per_page*Ui::page_num;
-        }
-        else if ( (request.vk == TCODK_HOME) && request.pressed == 1) 
-        {
-            Ui::page_num = 0;
-            Ui::offset = Ui::per_page*Ui::page_num;
-        }
         else if (request.vk == TCODK_UP && request.pressed == 1)
         {
             Input::generic_index--;
@@ -1431,10 +1421,6 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             }
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
         }
-        else if (request.vk == TCODK_ENTER && request.pressed == 1)
-        {
-            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, true);
-        }
         else if (request.vk == TCODK_DOWN && request.pressed == 1)
         {
             Input::generic_index++;
@@ -1443,6 +1429,21 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                 Input::generic_index = 'z';
             }
             Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
+        }
+
+        else if (request.vk == TCODK_ENTER && request.pressed == 1)
+        {
+            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, true);
+        }
+        else if ( (request.vk == TCODK_PAGEDOWN || request.c == '+') && request.pressed == 1) 
+        {
+            Ui::page_num++;
+            Ui::offset = Ui::per_page*Ui::page_num;
+        }
+        else if ( (request.vk == TCODK_HOME) && request.pressed == 1) 
+        {
+            Ui::page_num = 0;
+            Ui::offset = Ui::per_page*Ui::page_num;
         }
         else if ( (request.vk == TCODK_PAGEUP || request.c == '-' )&& request.pressed == 1) 
         {
