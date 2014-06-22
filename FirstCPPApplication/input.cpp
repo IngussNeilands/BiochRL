@@ -63,6 +63,11 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Center the screen on the mouse");
     vec.push_back("Target Mode: Cycle forwards through the targets"); vec.push_back("Target Mode: Cycle backwards through the targets");
     vec.push_back("Toggle Music");
+    vec.push_back("Use spell or ability in slot 1");
+    vec.push_back("Use spell or ability in slot 2");
+    vec.push_back("Use spell or ability in slot 3");
+    vec.push_back("Use spell or ability in slot 4");
+    vec.push_back("Use spell or ability in slot 5");
     vec.push_back("NO_MATCHING_BASIC_CMD");
 
     assert(vec.size() == basic_cmds_t::NO_MATCHING_BASIC_CMD+1 && "Missing a help command for basic chars");

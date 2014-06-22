@@ -22,6 +22,11 @@ enum basic_cmds_t {
     CenterScreenToMouse,
     NextTarget, PrevTarget,
     ToggleMusic,
+    CustomKey1,
+    CustomKey2,
+    CustomKey3,
+    CustomKey4,
+    CustomKey5,
     NO_MATCHING_BASIC_CMD
 };
 

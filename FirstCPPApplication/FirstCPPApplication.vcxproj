@@ -157,6 +157,7 @@
     <ClInclude Include="class.h" />
     <ClInclude Include="color_utils.h" />
     <ClInclude Include="combat.h" />
+    <ClInclude Include="custom_key.h" />
     <ClInclude Include="debug_options.h" />
     <ClInclude Include="draw_utils.h" />
     <ClInclude Include="enemies\bad_mother.h" />
@@ -267,6 +268,7 @@
     <ClCompile Include="class.cpp" />
     <ClCompile Include="color_utils.cpp" />
     <ClCompile Include="combat.cpp" />
+    <ClCompile Include="custom_key.cpp" />
     <ClCompile Include="draw_utils.cpp" />
     <ClCompile Include="enemies\bad_mother.cpp" />
     <ClCompile Include="enemies\crazedcook.cpp" />
