@@ -31,7 +31,6 @@ This is a Roguelike made with Libtcod.
 * Selling inventory.
 * Going back up floors.
 * Some sort of over the top stat tracking.
-
 * Throwing items.
 * Enemies who can throw/cast.
 
