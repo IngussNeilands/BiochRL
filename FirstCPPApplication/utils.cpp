@@ -194,6 +194,18 @@ void move_window(int x, int y)
     MoveWindow(hwnd, x, y, rcWind.right - rcWind.left, rcWind.bottom - rcWind.top, true);
 };
 
+void minimize_game()
+{
+    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
+	ShowWindow(hwnd, SW_MINIMIZE);
+};
+
+void maximize_game()
+{
+    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
+	ShowWindow(hwnd, SW_RESTORE);
+};
+
 std::string char_to_str(char chr)
 {
     std::stringstream ss;

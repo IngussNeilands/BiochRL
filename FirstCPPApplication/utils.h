@@ -39,6 +39,8 @@ std::vector<std::array<int, 2>> points_around_circle(double radius,
 std::string char_to_str(char chr);
 
 void move_window(int x, int y);
+void minimize_game();
+void maximize_game();
 
 inline const char * const BoolToString(bool b, bool verbose=true)
 {

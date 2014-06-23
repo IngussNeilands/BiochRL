@@ -831,8 +831,10 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     {
         //take int input
 		std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
+        minimize_game();
         int input;
         std::cin >> input;
+        maximize_game();
         //convert to ints
 		if (input > 5) { input = 5;}
 		else if (input < 0 ) { input = 0; };
@@ -1386,8 +1388,10 @@ bool Input::process_key_event(TCOD_key_t request)
             {
 
                 std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
+				minimize_game();
                 std::string resp;
                 std::cin >> resp;
+				maximize_game();
                 if (resp.at(0) == 'y')
                 {
                     std::cout << "Goodbye now" << std::endl;
