@@ -56,6 +56,7 @@ enum spells_active_t {
     EquipSpell, UnequipSpell,
     DropSpell, EscapeMenuSpell,
     CastSpell,
+    MarkSpell,
     NO_MATCHING_SPELLS_ACTIVE
 };
 

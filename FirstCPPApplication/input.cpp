@@ -114,6 +114,7 @@ std::vector<std::string> make_spells_active_char()
     vec.push_back("Equip the spell"); vec.push_back("Unequip the spell");
     vec.push_back("Drop the spell"); vec.push_back("Exit the menu");
     vec.push_back("Cast the spell");
+    vec.push_back("Mark this spell as one of your quick keys");
     vec.push_back("NO_MATCHING_SPELLS_ACTIVE");
     assert(vec.size() == NO_MATCHING_SPELLS_ACTIVE+1 && "Missing a help command for spell chars");
     return vec;
@@ -194,6 +195,7 @@ std::map<char, spells_active_t> Input::build_char_spell_select_keymap()
     // char_spellactivemap['e'] = spells_active_t::EquipSpell;
     // char_spellactivemap['y'] = spells_active_t::UnequipSpell;
     char_spellactivemap['q'] = spells_active_t::EscapeMenuSpell;
+    char_spellactivemap['m'] = spells_active_t::MarkSpell;
     return char_spellactivemap;
 }; //regular letters
 
@@ -989,6 +991,44 @@ bool Input::process_spells_keys(TCOD_key_t request)
 
     else if( action == spells_active_t::UnequipSpell )
     {
+    }
+    else if( action == spells_active_t::MarkSpell )
+    {
+    {
+        //take int input
+		std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
+        minimize_game();
+        int input;
+        std::cin >> input;
+        maximize_game();
+        //convert to ints
+		if (input > 5) { input = 5;}
+		else if (input < 0 ) { input = 0; };
+
+        if (input == 1) 
+        {
+            Game::custom_key1->assign_spell((Spell*)Ui::chosen_generic);
+        }
+        else if (input == 2) 
+        {
+            Game::custom_key2->assign_spell((Spell*)Ui::chosen_generic);
+        }
+        else if (input == 3) 
+        {
+            Game::custom_key3->assign_spell((Spell*)Ui::chosen_generic);
+        }
+        else if (input == 4) 
+        {
+            Game::custom_key4->assign_spell((Spell*)Ui::chosen_generic);
+        }
+        else if (input == 5) 
+        {
+            Game::custom_key5->assign_spell((Spell*)Ui::chosen_generic);
+        }
+
+        //assign item to proper custom_key
+        return true;
+    }
     }
 
     else if( action == spells_active_t::EscapeMenuSpell )
