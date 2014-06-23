@@ -55,6 +55,7 @@
 #include "utils.h"
 #include <equipment.h>
 #include <enums\slots_t.h>
+#include "custom_key.h"
 
 
 int Game::__version_major = 0;
@@ -69,6 +70,12 @@ int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
 int Game::targetting_index = 1;
+
+CustomKey* Game::custom_key1 = new CustomKey;
+CustomKey* Game::custom_key2 = new CustomKey;
+CustomKey* Game::custom_key3 = new CustomKey;
+CustomKey* Game::custom_key4 = new CustomKey;
+CustomKey* Game::custom_key5 = new CustomKey;
 
 int Game::map_width = 60;
 int Game::map_height = 40;
@@ -465,6 +472,7 @@ void  Game::initialize_items()
     // amulet->spell_effect = new TeleportSelfSpell;
     // amulet->spell_effect = new LaunchOtherSpell;
     // amulet->spell_effect->master = player;
+    Game::custom_key1->assign_item(amulet);
 
     player->inventory->add_item(amulet);
     player->equipment->equip_item(amulet);

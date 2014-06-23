@@ -35,6 +35,7 @@ class Ui;
 
 class TCODConsole;
 class TCODRandom;
+class CustomKey;
 
 class Game
 {
@@ -47,6 +48,12 @@ class Game
 
         static TCOD_key_t key_evt;
         static TCOD_mouse_t mouse_evt;
+
+        static CustomKey* custom_key1;
+        static CustomKey* custom_key2;
+        static CustomKey* custom_key3;
+        static CustomKey* custom_key4;
+        static CustomKey* custom_key5;
 
         static int fov_radius;
         static std::vector<Actor*> enemies;  

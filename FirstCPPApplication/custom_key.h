@@ -8,21 +8,21 @@ class Item;
 
 class CustomKey 
 {
-    bool is_spell;
-    bool is_item;
+    public:
+        bool is_spell;
+        bool is_item;
 
-    void* element;
+        void* element;
 
-    int index;
 
-    CustomKey();
+        CustomKey();
 
-    void activate();
+        void activate();
 
-    void reset_state();
+        void reset_state();
 
-    void assign_spell(Spell* spell);
-    void assign_item(Item* item);
+        void assign_spell(Spell* spell);
+        void assign_item(Item* item);
 };
 
 #endif

@@ -1,23 +1,21 @@
 #include "stdafx.h"
 #include "custom_key.h"
+
 #include <item.h>
 #include <ui.h>
 #include <actors\actor.h>
 #include <game.h>
+#include "tile.h"
+#include "actors\Person.h"
 
 CustomKey::CustomKey()
 {
-    this->is_spell = false;
-    this->is_item = false;
-
-    this->index = 999;
-
-    this->element = NULL;
-
+    this->reset_state();
 };
 
 void CustomKey::reset_state()
 {
+    this->element = NULL;
     this->is_spell = false;
     this->is_item = false;
 };
@@ -43,6 +41,7 @@ void CustomKey::activate()
         Ui::generic_active = true;
         Ui::chosen_generic = this->element;
         Ui::is_targetting = true;
+        Ui::targetted_tile = Game::player->my_tile;
     }
     else if (this->is_item)
     {
@@ -56,6 +55,7 @@ void CustomKey::activate()
             Ui::generic_active = true;
             Ui::chosen_generic = item->spell_effect;
             Ui::is_targetting = true;
+            Ui::targetted_tile = Game::player->my_tile;
         };
     };
 };

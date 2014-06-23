@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <assert.h>
 
+#include <SDL_mixer.h>
 #include <windows.h>
 
 #include "input.h"
@@ -29,7 +30,7 @@
 #include "attr_effect.h"
 #include "class.h"
 #include <messages.h>
-#include <SDL_mixer.h>
+#include "custom_key.h"
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -138,6 +139,12 @@ std::map<int, basic_cmds_t> Input::build_spec_main_keymap()
     spec_movemap[TCODK_PAGEUP] = basic_cmds_t::NextTarget;
     spec_movemap[TCODK_PAGEDOWN] = basic_cmds_t::PrevTarget;
     spec_movemap[TCODK_DELETE] = basic_cmds_t::ToggleMusic;
+
+    spec_movemap[TCODK_1] = basic_cmds_t::CustomKey1;
+    spec_movemap[TCODK_2] = basic_cmds_t::CustomKey2;
+    spec_movemap[TCODK_3] = basic_cmds_t::CustomKey3;
+    spec_movemap[TCODK_4] = basic_cmds_t::CustomKey4;
+    spec_movemap[TCODK_5] = basic_cmds_t::CustomKey5;
     return spec_movemap;
 };//Keypad, punctuation
 
@@ -461,6 +468,41 @@ bool Input::process_basic_keys(TCOD_key_t request)
             std::cout << "there's NO DAMN door here" << std::endl;
         };
         //open the door
+    }
+    else if ( basic_cmd == basic_cmds_t::CustomKey1 )
+    {
+        if (Game::custom_key1->element != NULL)
+        {
+            Game::custom_key1->activate();
+        };
+    }
+    else if ( basic_cmd == basic_cmds_t::CustomKey2 )
+    {
+        if (Game::custom_key2->element != NULL)
+        {
+            Game::custom_key2->activate();
+        };
+    }
+    else if ( basic_cmd == basic_cmds_t::CustomKey3 )
+    {
+        if (Game::custom_key3->element != NULL)
+        {
+            Game::custom_key3->activate();
+        };
+    }
+    else if ( basic_cmd == basic_cmds_t::CustomKey4 )
+    {
+        if (Game::custom_key4->element != NULL)
+        {
+            Game::custom_key4->activate();
+        };
+    }
+    else if ( basic_cmd == basic_cmds_t::CustomKey5 )
+    {
+        if (Game::custom_key5->element != NULL)
+        {
+            Game::custom_key5->activate();
+        };
     }
 
     else if ( basic_cmd == basic_cmds_t::DownStairs )
