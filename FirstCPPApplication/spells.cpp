@@ -44,6 +44,8 @@ Spell::Spell()
     this->aoe = 0;
     this->target_type = TargetTypes::TargettedTargetType;
 
+    this->custom_key = NULL;
+
     this->master = NULL;
 
 };

@@ -20,6 +20,7 @@ Item::Item()
     this->description = "A Descriptionless Item.";
 
     this->spell_effect = NULL;
+    this->custom_key = NULL;
 
     this->usable = false;
     this->uses = 1;

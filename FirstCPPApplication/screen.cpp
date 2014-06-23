@@ -21,6 +21,7 @@
 #include "class.h"
 #include "enums\hunger_threshold.h"
 #include "screenitem.h"
+#include "color_utils.h"
 
 
     template<typename T>
@@ -34,6 +35,20 @@ Screen<T>::Screen()
 
     this->elements = new std::vector<T*>;
     this->screen_items = new std::vector<ScreenItem*>;
+};
+
+    template<typename T>
+int Screen<T>::get_custom_key_index(T* element) 
+{
+    if (element->custom_key != NULL)
+    {
+        CustomKey* ck = element->custom_key;
+        if (ck == Game::custom_key1) { return 1; }
+        else if (ck == Game::custom_key2) { return 2; }
+        else if (ck == Game::custom_key3) { return 3; }
+        else if (ck == Game::custom_key4) { return 4; }
+        else if (ck == Game::custom_key5) { return 5; };
+    };
 };
 
     template<typename T>
@@ -213,6 +228,11 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     {
         msg_str.append(" <-");
     }
+    if (element->custom_key != NULL)
+    {
+        std::string index = std::to_string((long double)this->get_custom_key_index(element));
+        msg_str.append(colfg(TCODColor::green, " "+index));
+    };
 
     std::vector<TCODColor> colors = this->get_enabled_colors(con,  element);
     foreground = colors.at(0);
@@ -368,6 +388,11 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     {
         msg_str.append(" <-");
     }
+
+    if (element->custom_key != NULL)
+    {
+        msg_str.append(" CHOSEN");
+    };
 
     result.foreground = foreground;
     result.background = background;

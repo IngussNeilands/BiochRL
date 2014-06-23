@@ -11,6 +11,7 @@ class Slot;
 class AttrEffect;
 class Actor;
 class Spell;
+class CustomKey;
 
 // enum slots_t : unsigned int;
 
@@ -30,6 +31,8 @@ class Item
 
         AttrEffect* attr_effect;
         Representation* repr;
+
+        CustomKey* custom_key;
 
         Item();
         void use(Actor* target);

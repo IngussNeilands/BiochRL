@@ -14,6 +14,7 @@ class AttrEffect;
 class Actor;
 class Damage;
 class Armor;
+class CustomKey;
 
 enum TargetTypes {
     TargettedTargetType = 0,
@@ -38,6 +39,8 @@ class Spell
         int min_range;
         int min_char_level;
         int cast_count;
+
+        CustomKey* custom_key;
 
         Actor* master;
 

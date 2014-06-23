@@ -25,6 +25,8 @@ class Screen
         virtual bool is_active(T* element);
         virtual bool is_enabled(T* element) { return false; };
 
+        int get_custom_key_index(T* element);
+
         Screen();
 
         TCODConsole* create_screen();
