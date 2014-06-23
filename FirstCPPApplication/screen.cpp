@@ -391,7 +391,8 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 
     if (element->custom_key != NULL)
     {
-        msg_str.append(" CHOSEN");
+        std::string index = std::to_string((long double)this->get_custom_key_index(element));
+        msg_str.append(colfg(TCODColor::green, " "+index));
     };
 
     result.foreground = foreground;

@@ -89,6 +89,7 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Sort inventory by usable");
     vec.push_back("Sort inventory by equipped");
     vec.push_back("Zap the wand, casting its spell");
+    vec.push_back("Mark this item as one of your quick keys");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
 
     assert(vec.size() == NO_MATCHING_ITEMS_ACTIVE+1 && "Missing a help command for inventory chars");
@@ -280,6 +281,7 @@ std::map<char, inventory_items_active_t> Input::build_char_inventory_keymap()
     char_invitemactivemap['U'] = inventory_items_active_t::SortByUsableItem;
     char_invitemactivemap['z'] = inventory_items_active_t::ZapItem;
     char_invitemactivemap['q'] = inventory_items_active_t::EscapeMenuItem;
+    char_invitemactivemap['m'] = inventory_items_active_t::MarkItem;
 
     return char_invitemactivemap;
 }; 
@@ -817,13 +819,47 @@ bool Input::process_inventory_keys(TCOD_key_t request)
         return false;
     }
 
-    else if( action == inventory_items_active_t::EquipItem )
+    else if ( action == inventory_items_active_t::EquipItem )
     {
         ((Item*)Ui::chosen_generic)->equip(Game::player);
         Game::player->equipment->equip_item(((Item*)Ui::chosen_generic));
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping item.");
         return true;
-        return false;
+    }
+
+    else if ( action == inventory_items_active_t::MarkItem )
+    {
+        //take int input
+		std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
+        int input;
+        std::cin >> input;
+        //convert to ints
+		if (input > 5) { input = 5;}
+		else if (input < 0 ) { input = 0; };
+
+        if (input == 1) 
+        {
+            Game::custom_key1->assign_item((Item*)Ui::chosen_generic);
+        }
+        else if (input == 2) 
+        {
+            Game::custom_key2->assign_item((Item*)Ui::chosen_generic);
+        }
+        else if (input == 3) 
+        {
+            Game::custom_key3->assign_item((Item*)Ui::chosen_generic);
+        }
+        else if (input == 4) 
+        {
+            Game::custom_key4->assign_item((Item*)Ui::chosen_generic);
+        }
+        else if (input == 5) 
+        {
+            Game::custom_key5->assign_item((Item*)Ui::chosen_generic);
+        }
+
+        //assign item to proper custom_key
+        return true;
     }
 
     else if( action == inventory_items_active_t::UnequipItem )

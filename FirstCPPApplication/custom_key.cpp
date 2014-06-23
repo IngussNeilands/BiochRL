@@ -46,6 +46,7 @@ void CustomKey::assign_spell(Spell* spell)
     
 void CustomKey::assign_item(Item* item)
 {
+	if (item->spell_effect == NULL) { return; };
     this->reset_state();
     this->is_item = true;
     this->element = item;
