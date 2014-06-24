@@ -79,6 +79,7 @@ class StairsDownTileType : public BaseTileType
     public: 
         StairsDownTileType();
         void GoDown();
+        void GoUp();
 };
 
 class FloorTileType : public BaseTileType

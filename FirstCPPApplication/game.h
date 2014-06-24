@@ -91,8 +91,7 @@ class Game
         static int fps_limit; //how many frames do you want to refresh at a second
 
         static TCODConsole* game_console;
-        static Map *world;
-        static Map *current_map;
+        static Map* current_map;
         static int current_map_index;
 
         static bool buildmode;
@@ -126,16 +125,16 @@ class Game
         static Person * create_person(std::string name, int age, int x, int y, char repr, Map* map);
         static Person * create_townsmen(std::string name, int age, int x, int y, char repr, Map* map);
         template<class T>
-            static T* create_creature(std::string name, int age, int x, int y, char repr);
+            static T* create_creature(std::string name, int age, int x, int y, char repr, Map* world);
 
         static Tile* get_mouse_tile();
         static Tile* get_player_tile();
 
         static MonsterSpawnTypes get_spawn_type(int floor);
         template<class T>
-            static T* spawn_creature(Room* room, std::string name, int age, char repr);
+            static T* spawn_creature(Room* room, std::string name, int age, char repr, Map* world);
         template<class T>
-            static T* spawn_creature_ally(Tile* tile, std::string name, int age, char repr);
+            static T* spawn_creature_ally(Tile* tile, std::string name, int age, char repr, Map* world);
 
         static void start_game();
         static void mainloop();

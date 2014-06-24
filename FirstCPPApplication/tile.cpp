@@ -427,6 +427,18 @@ StairsDownTileType::StairsDownTileType() : BaseTileType()
     representation = new StairsDownRepresentation; 
 };
 
+void StairsDownTileType::GoUp()
+{
+    auto map = Game::build_world(Game::current_map->depth+1);
+    Game::current_map = map;
+
+    Room* room = Game::current_map->roomVector->front();
+    int x = room->center_x;
+    int y = room->center_y;
+    Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
+
+};
+
 void StairsDownTileType::GoDown()
 {
     auto map = Game::build_world(Game::current_map->depth+1);

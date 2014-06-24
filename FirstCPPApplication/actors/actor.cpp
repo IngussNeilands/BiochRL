@@ -602,7 +602,7 @@ Item* spawnSpecial()
     {
 
         std::string description = "Auburn Fireflies in a bottle";
-        dropped_item = spawnEquippable("A bottle of red fireflies", description, '0', slots_t::Fingers, 1);
+        dropped_item = spawnEquippable("A bottle of auburn fireflies", description, '0', slots_t::Fingers, 1);
         dropped_item->repr->setFGColor(TCODColor::fuchsia, true, false, true);
         dropped_item->usable = true;
         dropped_item->equippable = false;

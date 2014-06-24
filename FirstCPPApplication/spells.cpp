@@ -334,7 +334,7 @@ RaiseDeadSpell::RaiseDeadSpell() : Spell()
 
 void RaiseDeadSpell::raise_dead(Tile* targetted_tile)
 {
-    Game::spawn_creature_ally<Skeleton>(targetted_tile, "Skellie", 1000, 'S');
+    Game::spawn_creature_ally<Skeleton>(targetted_tile, "Skellie", 1000, 'S', Game::current_map);
 };
 
 void RaiseDeadSpell::cast(Tile* targetted_tile)

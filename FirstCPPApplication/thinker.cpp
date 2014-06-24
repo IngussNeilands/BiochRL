@@ -78,7 +78,7 @@ void Thinker::smart_update()
 
             //if the target tile is adjacent to the player keep moving towards
             //it, otherwise change spots
-            std::vector<Tile*>* adj_tiles = Game::world->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
+            std::vector<Tile*>* adj_tiles = Game::current_map->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
             std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), target_tile);
             //if the path destination isn't adj to the player make a new path 
             if (adjItr == adj_tiles->end())

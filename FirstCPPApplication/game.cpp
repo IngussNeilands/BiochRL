@@ -114,7 +114,7 @@ std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an
 unsigned long int Game::turn_count = 1;
 unsigned long long int Game::tick_count = NULL;
 
-Map* Game::world = NULL;
+//Map* Game::world = NULL;
 Map* Game::current_map = NULL;
 int Game::current_map_index = NULL;
 Tile* Game::clipboard = NULL;
@@ -209,59 +209,59 @@ void Game::fill_generic_room(Room* room, Map* world)
     MonsterSpawnTypes spawn_type = get_spawn_type(floor);
     if (spawn_type == MonsterSpawnTypes::TrollSpawn)
     {
-        spawn_creature<Troll>(room, "Troll", 34, 'T');
+        spawn_creature<Troll>(room, "Troll", 34, 'T', world);
     }
     else if (spawn_type == MonsterSpawnTypes::JackalSpawn)
     {
-        spawn_creature<Jackal>(room, "Jackal", 31, 'j');
+        spawn_creature<Jackal>(room, "Jackal", 31, 'j', world);
     }
     else if (spawn_type == MonsterSpawnTypes::HulkingMantisSpawn)
     {
-        spawn_creature<HulkingMantis>(room, "HulkingMantis", 31, 'm');
+        spawn_creature<HulkingMantis>(room, "HulkingMantis", 31, 'm', world);
     }
     else if (spawn_type == MonsterSpawnTypes::IdolSpawn)
     {
-        spawn_creature<Idol>(room, "Idol", 31, 'i');
+        spawn_creature<Idol>(room, "Idol", 31, 'i', world);
     }
     else if (spawn_type == MonsterSpawnTypes::ImpSpawn)
     {
-        spawn_creature<Imp>(room, "Imp", 31, 'i');
+        spawn_creature<Imp>(room, "Imp", 31, 'i', world);
     }
     else if (spawn_type == MonsterSpawnTypes::MutantFishSpawn)
     {
-        spawn_creature<MutantFish>(room, "MutantFish", 31, 'f');
+        spawn_creature<MutantFish>(room, "MutantFish", 31, 'f', world);
     }
     else if (spawn_type == MonsterSpawnTypes::SpinyLizardSpawn)
     {
-        spawn_creature<SpinyLizard>(room, "SpinyLizard", 31, 'l');
+        spawn_creature<SpinyLizard>(room, "SpinyLizard", 31, 'l', world);
     }
     else if (spawn_type == MonsterSpawnTypes::CrazedCookSpawn)
     {
-        spawn_creature<CrazedCook>(room, "CrazedCook", 31, 'c');
+        spawn_creature<CrazedCook>(room, "CrazedCook", 31, 'c', world);
     }
     else if (spawn_type == MonsterSpawnTypes::WildlingSpawn)
     {
-        spawn_creature<Wildling>(room, "Wildling", 31, 'w');
+        spawn_creature<Wildling>(room, "Wildling", 31, 'w', world);
     }
     else if (spawn_type == MonsterSpawnTypes::SludgeSpawn)
     {
-        spawn_creature<Sludge>(room, "Sludge", 31, 's');
+        spawn_creature<Sludge>(room, "Sludge", 31, 's', world);
     }
     else if (spawn_type == MonsterSpawnTypes::JumperSpawn)
     {
-        spawn_creature<Jumper>(room, "Jumper", 31, 'j');
+        spawn_creature<Jumper>(room, "Jumper", 31, 'j', world);
     }
     else if (spawn_type == MonsterSpawnTypes::OgreSpawn)
     {
-        spawn_creature<Ogre>(room, "Ogre", 103, 'O');
+        spawn_creature<Ogre>(room, "Ogre", 103, 'O', world);
     }
     else if (spawn_type == MonsterSpawnTypes::SkeletonSpawn)
     {
-        spawn_creature<Skeleton>(room, "Skeleton", 92, 's');
+        spawn_creature<Skeleton>(room, "Skeleton", 92, 's', world);
     }
     else if (spawn_type == MonsterSpawnTypes::BadMotherSpawn)
     {
-        spawn_creature<BadMother>(room, "BadMother", 92, 'B');
+        spawn_creature<BadMother>(room, "BadMother", 92, 'B', world);
     }
 };
 
@@ -285,7 +285,7 @@ void Game::fill_dungeon(Map* world)
 };
 
     template<class T>
-T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
+T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* world)
 {
     int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
     enemy_count = min((int)T::pack_size, (int)enemy_count);
@@ -297,7 +297,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
 
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {continue;};
 
-        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr);
+        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, world);
         if (linear_rng->getInt(1, 100) < 10) 
         {
             the_creature->championize();
@@ -309,7 +309,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr)
 };
 
     template<class T>
-T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr)
+T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, Map* world)
 {
     // int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
     // for (int i = 0; i <= enemy_count; i++)
@@ -320,7 +320,7 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr)
 
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {return NULL;};
 
-        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr);
+        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, world);
         if (linear_rng->getInt(1, 100) < 10) 
         {
             the_creature->championize();
@@ -331,11 +331,11 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr)
     // }
     return NULL;
 };
-template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr);
+template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr, Map* world);
 
 Map* Game:: build_town()
 {
-    world = new Map;
+    Map* world = new Map;
     //world->the_game = this;
     world->build_town_from_random(0);
     Game::fill_town(world);
@@ -345,7 +345,7 @@ Map* Game:: build_town()
 Map* Game::build_world(int floor)
 {
 
-    world = new Map;
+    Map* world = new Map;
     //world->the_game = this;
     world->build_dungeon_from_random(0, floor);
 
@@ -422,14 +422,14 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 };
 
     template<class T>
-T* Game::create_creature(std::string name, int age, int x, int y, char repr)
+T* Game::create_creature(std::string name, int age, int x, int y, char repr, Map* world)
 {
     //build the Person
     T * creature = new T(name, age, x, y, repr);
     //creature->attrs->hunger->max_val = 9999999;
 
     //put it on the map somewhere
-    Tile * next_tile = Game::world->getTileAt(x,y);
+    Tile * next_tile = world->getTileAt(x,y);
     creature->putPerson(next_tile, x, y);
 
     return creature;
@@ -555,7 +555,7 @@ Person*  Game::initialize_player()
     Room* room = Game::current_map->roomVector->front();
     int x = room->center_x;
     int y = room->center_y;
-    Game::player->putPerson(world->getTileAt(x, y), x, y);
+    Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
     //player->putPerson(next_tile, player->x, player->y);
     Game::initialize_items();
 
@@ -895,7 +895,7 @@ void Game::mainloop()
     //music
     play_music();
 
-    assert(Game::world != NULL);
+    assert(Game::current_map != NULL);
     while ( !TCODConsole::isWindowClosed() ) 
     {
 

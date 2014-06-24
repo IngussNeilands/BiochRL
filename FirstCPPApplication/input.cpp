@@ -458,7 +458,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         x = Game::player->x+direction[0];
         y = Game::player->y+direction[1];
 
-        door_tile = Game::world->getTileAt(x, y);
+        door_tile = Game::current_map->getTileAt(x, y);
 
         //get the door that's on it
         if (door_tile->type_id == TileTypes::DoorTileTypeType) 
@@ -1167,7 +1167,7 @@ bool Input::move_player_or_target(int x, int y)
 //returns whether or not the player has moved and should increment the turn
 bool Input::process_movement_keys(TCOD_key_t request)
 {
-    Map *world = Game::world;
+    Map *world = Game::current_map;
     bool has_moved = false;
 
     int orig_plr_pos_x, orig_plr_pos_y;
