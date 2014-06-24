@@ -55,6 +55,7 @@ void CustomKey::assign_item(Item* item)
     
 void CustomKey::activate()
 {
+
     if (this->is_spell)
     {
         Ui::generic_active = true;

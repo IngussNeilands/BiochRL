@@ -831,6 +831,7 @@ bool Input::process_inventory_keys(TCOD_key_t request)
 
     else if ( action == inventory_items_active_t::MarkItem )
     {
+        if (((Item*)Ui::chosen_generic)->spell_effect == NULL) { printf("no spell attached\n"); return false; };
         //take int input
 		std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
         minimize_game();

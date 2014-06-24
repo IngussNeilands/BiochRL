@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="favicon.ico" />
     <None Include="libtcod_cpp_hpp\libtcod-VS.dll" />
     <None Include="libtcod_cpp_hpp\terminal.png" />
     <None Include="office.txt" />
@@ -242,6 +243,7 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="randsys.h" />
     <ClInclude Include="Representation.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="screen.h" />
     <ClInclude Include="screenitem.h" />
@@ -314,6 +316,9 @@
     <ClCompile Include="ui.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="map.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FirstCPPApplication.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

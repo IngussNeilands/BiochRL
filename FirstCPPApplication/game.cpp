@@ -489,21 +489,21 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    for (int i = 0; i < 52; i++)
-    {
-        Item* item2 = new Item();
-        item2->name = "Item of Holding";
-        item2->name.append(std::to_string((long double)i+1));
-        item2->attr_effect->health_current_val = 1;
-        item2->attr_effect->mana_current_val = 1;
-        item2->attr_effect->armor_current_val = 1;
-        item2->attr_effect->damage_current_val = 900;
-        item2->attr_effect->damage_max_val = 900;
-        item2->attr_effect->duration= 4;
-        item2->usable = true;
-        item2->description = "You can hold this item";
-        player->inventory->add_item(item2);
-    };
+    // for (int i = 0; i < 52; i++)
+    // {
+    //     Item* item2 = new Item();
+    //     item2->name = "Item of Holding";
+    //     item2->name.append(std::to_string((long double)i+1));
+    //     item2->attr_effect->health_current_val = 1;
+    //     item2->attr_effect->mana_current_val = 1;
+    //     item2->attr_effect->armor_current_val = 1;
+    //     item2->attr_effect->damage_current_val = 900;
+    //     item2->attr_effect->damage_max_val = 900;
+    //     item2->attr_effect->duration= 4;
+    //     item2->usable = true;
+    //     item2->description = "You can hold this item";
+    //     player->inventory->add_item(item2);
+    // };
 
 };
 
@@ -729,13 +729,24 @@ bool gameplay_loop(bool incr_turn)
     return incr_turn;
 };
 
+void set_icon()
+{
+	
+    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
+	std::string s = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
+std::wstring stemp = std::wstring(s.begin(), s.end());
+LPCWSTR sw = stemp.c_str();
+	HANDLE icon = LoadImage(NULL, sw, IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
+
+}
 
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
-    Game::init_engine();
-
+	Game::init_engine();
+	
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
@@ -765,6 +776,8 @@ void Game::init_engine()
     Game::fps_limit = 60;
     TCODSystem::setFps(fps_limit);
     TCODConsole::setKeyboardRepeat(1000, 1);
+
+	set_icon();
 };
 
 void play_music()
