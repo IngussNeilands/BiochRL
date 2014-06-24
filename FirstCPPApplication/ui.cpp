@@ -419,12 +419,14 @@ void Ui::draw_misc()
     //spell casting
     if (Ui::is_targetting)
     {
-        bool use_mouse = false;//mouse support broken
+        //bool use_mouse = true;
+        bool use_mouse = Ui::should_draw_mouse_helpbox();
         if (use_mouse)
         {
             Tile* mouse_tile = Game::get_mouse_tile();
-            int x = Game::player->x - Game::camera_x;
-            int y = Game::player->y - Game::camera_y;
+            Ui::targetted_tile = mouse_tile;
+            int x = Game::player->x;
+            int y = Game::player->y;
             Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
         }
         else if (!use_mouse)
