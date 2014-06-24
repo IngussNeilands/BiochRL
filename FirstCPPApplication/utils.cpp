@@ -8,6 +8,7 @@
 #include <algorithm>
 
 #include "utils.h"
+#include <game.h>
 
 std::string ToLower(std::string data){
     std::transform(data.begin(), data.end(), data.begin(), ::tolower);
@@ -189,20 +190,20 @@ std::string get_exe_path()
 void move_window(int x, int y)
 {
     RECT rcWind;
-    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
+    HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
     GetWindowRect(hwnd, &rcWind);
     MoveWindow(hwnd, x, y, rcWind.right - rcWind.left, rcWind.bottom - rcWind.top, true);
 };
 
 void minimize_game()
 {
-    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
+    HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
 	ShowWindow(hwnd, SW_MINIMIZE);
 };
 
 void maximize_game()
 {
-    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
+    HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
 	ShowWindow(hwnd, SW_RESTORE);
 };
 

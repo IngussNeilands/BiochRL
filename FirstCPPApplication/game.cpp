@@ -66,6 +66,9 @@ int Game::__version_mini = 3;
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
 
+std::wstring Game::main_name = L"BiochRL++";
+std::wstring Game::term_name = L"Game Terminal";
+
 int Game::screen_w = 80; //the average RL resolution
 int Game::screen_h = 50;
 
@@ -734,13 +737,21 @@ bool gameplay_loop(bool incr_turn)
 
 void set_icon()
 {
-	
-    HWND hwnd = FindWindow(NULL, _T("BiochRL"));
-	std::string s = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
-std::wstring stemp = std::wstring(s.begin(), s.end());
-LPCWSTR sw = stemp.c_str();
-	HANDLE icon = LoadImage(NULL, sw, IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
-	SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
+
+	SetConsoleTitle(Game::term_name.c_str());
+    HWND hwnd2 = FindWindow(NULL, Game::term_name.c_str());
+    std::string s2 = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
+    std::wstring stemp2 = std::wstring(s2.begin(), s2.end());
+    LPCWSTR sw2 = stemp2.c_str();
+    HANDLE icon2 = LoadImage(NULL, sw2, IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+    SendMessage(hwnd2, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon2);
+
+    HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
+    std::string s = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
+    std::wstring stemp = std::wstring(s.begin(), s.end());
+    LPCWSTR sw = stemp.c_str();
+    HANDLE icon = LoadImage(NULL, sw, IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+    SendMessage(hwnd, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon);
 
 }
 
@@ -774,7 +785,7 @@ void Game::start_game()
 void Game::init_engine()
 {
     TCODConsole::setCustomFont("data/terminal.png");
-    TCODConsole::initRoot(screen_w, screen_h, "BiochRL", false);
+    TCODConsole::initRoot(screen_w, screen_h, std::string(Game::main_name.begin(), Game::main_name.end()).c_str(), false);
 
     Game::fps_limit = 60;
     TCODSystem::setFps(fps_limit);

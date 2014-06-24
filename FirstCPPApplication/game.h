@@ -40,6 +40,9 @@ class CustomKey;
 class Game
 {
     public:
+        static std::wstring main_name;
+        static std::wstring term_name;
+
         static Person* player;     //the PC
         //static Ui* ui;
         static GameStates current_state;
