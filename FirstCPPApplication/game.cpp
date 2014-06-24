@@ -559,6 +559,13 @@ Person*  Game::initialize_player()
     //player->putPerson(next_tile, player->x, player->y);
     Game::initialize_items();
 
+    TeleportSelfSpell* teleport = new TeleportSelfSpell();
+    teleport->master = player;
+	teleport->max_range = 999;
+	teleport->min_range = 999;
+    player->spells->push_back(teleport);
+    Game::custom_key2->assign_spell(teleport);
+
     Game::center_camera_on_player();
 
     return player;
