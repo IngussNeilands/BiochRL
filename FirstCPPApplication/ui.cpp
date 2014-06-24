@@ -375,14 +375,14 @@ bool Ui::toggle_targetting()
     return Ui::is_targetting;
 };
 
-void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int lx, int ly)
+void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
 { 
     TCODColor line_color;
     line_color = TCODColor::grey;
     if (target_tile->is_occupied() && target_tile->is_known())
     {
-        Game::game_console->setChar(lx, ly, 'x');
-        // TCODConsole::root->setChar(lx, ly, '&');
+        Game::game_console->setChar(dx, dy, 'x');
+        // TCODConsole::root->setChar(dx, dy, '&');
         // Game::game_console->setChar(target_tile->tile_x+Game::camera_x, target_tile->tile_y+Game::camera_y, 'X');
         line_color = TCODColor::darkGreen;
     }
@@ -401,7 +401,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int 
 
     // draw line from player to mouse
     int count = 0;
-    TCODLine::init(sx, sy, lx, ly);
+    TCODLine::init(sx, sy, dx, dy);
     do {
         count++;
         if (count > ((Spell*)Ui::chosen_generic)->max_range)
@@ -425,13 +425,13 @@ void Ui::draw_misc()
             Tile* mouse_tile = Game::get_mouse_tile();
             int x = Game::player->x - Game::camera_x;
             int y = Game::player->y - Game::camera_y;
-            Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x-Game::camera_x, mouse_tile->tile_y-Game::camera_y, Game::mouse_evt.cx, Game::mouse_evt.cy);
+            Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
         }
         else if (!use_mouse)
         {
             Tile* mouse_tile = Ui::targetted_tile;
             int x = Game::player->x, y = Game::player->y;
-            Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y, mouse_tile->tile_x, mouse_tile->tile_y);
+            Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
         }
 
 

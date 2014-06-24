@@ -413,7 +413,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         Ui::reset_generic();
     }
 
-    else if ( basic_cmd == basic_cmds_t::CancelCast )
+    else if ( basic_cmd == basic_cmds_t::CancelCast && Ui::is_targetting)
     {
         Ui::is_targetting = false;
     }
@@ -654,7 +654,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     }
     else 
     {
-        printf("nothing\n");
+        printf("no matching key right now\n");
     };
     return false;
 };
@@ -1432,12 +1432,12 @@ bool Input::process_key_event(TCOD_key_t request)
 				minimize_game();
                 std::string resp;
                 std::cin >> resp;
-				maximize_game();
                 if (resp.at(0) == 'y')
                 {
                     std::cout << "Goodbye now" << std::endl;
                     exit(1);
                 };
+				maximize_game();
             }
             else
             {

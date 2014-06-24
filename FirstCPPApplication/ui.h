@@ -36,7 +36,7 @@ class Ui
 
         static bool is_targetting;
         static Tile* targetted_tile;
-        static void draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy, int lx, int ly);
+        static void draw_targetting(Tile* target_tile, int sx, int sy, int lx, int ly);
 
         static int per_page;
         static int page_num;
