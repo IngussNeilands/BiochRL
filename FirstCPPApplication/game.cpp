@@ -700,7 +700,10 @@ bool gameplay_loop(bool incr_turn)
         Input::process_debug_event(Game::key_evt);
     }
 
-    Input::process_mouse_event(Game::mouse_evt);
+    if (Input::process_mouse_event(Game::mouse_evt))
+    {
+        incr_turn = true;
+    };
 
     //AIs update
     if (incr_turn == true)

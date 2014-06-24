@@ -1339,7 +1339,7 @@ bool Input::process_mouse_event(TCOD_mouse_t request)
         }
     }
 
-    return 0;
+    return false;
 };
 
 bool Input::process_debug_event(TCOD_key_t request)
