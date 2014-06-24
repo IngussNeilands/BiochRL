@@ -527,10 +527,18 @@ Person*  Game::initialize_player()
     // player->attrs->health->max_val=200;
     player->attrs->health->current_val=30;
     player->attrs->health->max_val=30;
+
+    player->attrs->mana->current_val=30;
+    player->attrs->mana->max_val=30;
+    player->attrs->mana->regen_rate=1;
+    player->attrs->mana->regen_interval=5;
+
     player->attrs->damage->current_val=5;
     player->attrs->damage->max_val=5;
+
     player->attrs->armor->current_val=0;
     player->attrs->armor->max_val=0;
+
     player->attrs->hunger->max_val=1000;
     player->attrs->hunger->current_val=210;
     player->attrs->hunger->regen_interval=5;
