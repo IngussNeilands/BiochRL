@@ -565,6 +565,7 @@ Person*  Game::initialize_player()
     teleport->master = player;
 	teleport->max_range = 999;
 	teleport->min_range = 999;
+	teleport->mana_cost = 0;
     player->spells->push_back(teleport);
     Game::custom_key2->assign_spell(teleport);
 

@@ -432,6 +432,11 @@ bool one_floor_up(Map* world)
     return world->depth == Game::current_map->depth-1;
 };
 
+bool one_floor_down(Map* world)
+{
+    return world->depth == Game::current_map->depth+1;
+};
+
 void StairsUpTileType::GoUp()
 {
     // auto map = Game::build_world(Game::current_map->depth+1);
@@ -453,7 +458,16 @@ void StairsUpTileType::GoUp()
 
 void StairsDownTileType::GoDown()
 {
-    auto map = Game::build_world(Game::current_map->depth+1);
+    auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_down);
+	Map* map;
+    if (it == Game::atlas->end())
+    {
+        map = Game::build_world(Game::current_map->depth+1);
+    }
+    else
+    {
+        map = *it;
+    };
     Game::current_map = map;
 
     Room* room = Game::current_map->roomVector->front();
