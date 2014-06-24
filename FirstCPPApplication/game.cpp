@@ -117,6 +117,7 @@ unsigned long long int Game::tick_count = NULL;
 //Map* Game::world = NULL;
 Map* Game::current_map = NULL;
 int Game::current_map_index = NULL;
+std::vector<Map*>* Game::atlas = new std::vector<Map*>;
 Tile* Game::clipboard = NULL;
 
 TCODRandom* Game::spawning_rng = new TCODRandom();
@@ -382,6 +383,7 @@ Map* Game::build_world(int floor)
     }
 
     Game::fill_dungeon(world);
+    Game::atlas->push_back(world);
     //_CrtMemDumpAllObjectsSince( NULL );
 
     return world;

@@ -509,6 +509,22 @@ bool Input::process_basic_keys(TCOD_key_t request)
         };
     }
 
+    else if ( basic_cmd == basic_cmds_t::UpStairs )
+    {
+        Tile* stair_tile = Game::player->my_tile;
+        if (stair_tile->type_id == TileTypes::StairsUpTileTypeType)
+        {
+            //std::cout << "there's a stair down here, its gon go down" << std::endl;
+            new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair up here, its gon go down to the next floor.");
+            ((StairsUpTileType*)stair_tile)->GoUp();
+        }
+        else
+        {
+            //std::cout << "There's no stair here" << std::endl;
+            new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's no stair here.");
+        };
+    }
+
     else if ( basic_cmd == basic_cmds_t::DownStairs )
     {
         Tile* stair_tile = Game::player->my_tile;

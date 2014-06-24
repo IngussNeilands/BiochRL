@@ -92,6 +92,7 @@ class Game
 
         static TCODConsole* game_console;
         static Map* current_map;
+        static std::vector<Map*>* atlas;
         static int current_map_index;
 
         static bool buildmode;

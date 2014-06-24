@@ -427,15 +427,27 @@ StairsDownTileType::StairsDownTileType() : BaseTileType()
     representation = new StairsDownRepresentation; 
 };
 
-void StairsDownTileType::GoUp()
+bool one_floor_up(Map* world)
 {
-    auto map = Game::build_world(Game::current_map->depth+1);
-    Game::current_map = map;
+    return world->depth == Game::current_map->depth-1;
+};
 
-    Room* room = Game::current_map->roomVector->front();
-    int x = room->center_x;
-    int y = room->center_y;
-    Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
+void StairsUpTileType::GoUp()
+{
+    // auto map = Game::build_world(Game::current_map->depth+1);
+    // find the map with the depth of one less than the current
+    auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_up);
+    if (it != Game::atlas->end())
+    {
+        Game::current_map = *it;
+        // Room* room = Game::current_map->roomVector->front();
+        int x = this->to_x;
+        int y = this->to_y;
+        // int x = room->center_x;
+        // int y = room->center_y;
+        Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
+    };
+
 
 };
 
@@ -449,6 +461,15 @@ void StairsDownTileType::GoDown()
     int y = room->center_y;
     Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
 
+    Tile* stair_tile = Game::current_map->getTileAt(x, y);
+    //this->stair_x = x;
+    //this->stair_y = y;
+    stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
+    //(StairsUpTileType*)(stair_tile->tile)->to_x = x;
+    //(StairsUpTileType*)(stair_tile-tile)->to_y = y;
+    Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+
+
 };
 
 StairsUpTileType::StairsUpTileType() : BaseTileType() 
@@ -456,6 +477,9 @@ StairsUpTileType::StairsUpTileType() : BaseTileType()
     this->description = "Stairs leading upwards";
     type_id = TileTypes::StairsUpTileTypeType;
     representation = new StairsUpRepresentation; 
+
+    //this->to_x = NULL;
+    //this->to_y = NULL;
 };
 
 FloorTileType::FloorTileType() : BaseTileType() 

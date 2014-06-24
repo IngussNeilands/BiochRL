@@ -79,7 +79,6 @@ class StairsDownTileType : public BaseTileType
     public: 
         StairsDownTileType();
         void GoDown();
-        void GoUp();
 };
 
 class FloorTileType : public BaseTileType
@@ -91,7 +90,9 @@ class FloorTileType : public BaseTileType
 class StairsUpTileType : public BaseTileType
 {
     public: 
+        int to_x, to_y;
         StairsUpTileType();
+        void GoUp();
 };
 
 class Tile : public Object
