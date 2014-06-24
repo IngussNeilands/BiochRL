@@ -34,6 +34,7 @@ class Input
         static bool process_debug_event(TCOD_key_t request);
         static bool process_mouse_event(TCOD_mouse_t request);
         static void process_mouse_inv_event();
+        static bool user_cast_spell();
         static bool process_key_event(TCOD_key_t request);
 
         static directions_t direction_pressed(TCOD_key_t key);

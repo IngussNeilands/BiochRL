@@ -623,40 +623,45 @@ bool Input::process_basic_keys(TCOD_key_t request)
             Mix_PauseMusic();
         };
     }
-    else if ( basic_cmd == basic_cmds_t::ConfirmCast )
+    else if ( basic_cmd == basic_cmds_t::ConfirmCast && Ui::is_targetting )
     {
-        Spell* spell = (Spell*)Ui::chosen_generic;
-        if (spell == NULL)
-        {
-            std::cout << "no spell chosen" << std::endl;
-            return false;
-        }
-
-        assert(spell->master != NULL && "Spell's master is null, it should be done on spell creation");
-        Tile* targetted_tile = Ui::targetted_tile;
-        int mana_cost = spell->mana_cost;
-        int spell_range = spell->max_range;
-
-        int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);
-        if (spell->is_valid_target(targetted_tile))
-        {
-            if (spell->is_in_range(distance))
-            {
-                if (spell->has_enough_mana())
-                {
-                    spell->cast(targetted_tile);
-                    new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
-                    return true;
-                }
-            }
-        }
-
+        return Input::user_cast_spell();
     }
     else 
     {
         printf("no matching key right now\n");
     };
     return false;
+};
+
+bool Input::user_cast_spell()
+{
+    Spell* spell = (Spell*)Ui::chosen_generic;
+    if (spell == NULL)
+    {
+        std::cout << "no spell chosen" << std::endl;
+        return false;
+    }
+
+    assert(spell->master != NULL && "Spell's master is null, it should be done on spell creation");
+    Tile* targetted_tile = Ui::targetted_tile;
+    int mana_cost = spell->mana_cost;
+    int spell_range = spell->max_range;
+
+    int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);
+    if (spell->is_valid_target(targetted_tile))
+    {
+        if (spell->is_in_range(distance))
+        {
+            if (spell->has_enough_mana())
+            {
+                spell->cast(targetted_tile);
+                new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
+                return true;
+            }
+        }
+    }
+
 };
 
 
@@ -833,14 +838,14 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     {
         if (((Item*)Ui::chosen_generic)->spell_effect == NULL) { printf("no spell attached\n"); return false; };
         //take int input
-		std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
+        std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
         minimize_game();
         int input;
         std::cin >> input;
         maximize_game();
         //convert to ints
-		if (input > 5) { input = 5;}
-		else if (input < 0 ) { input = 0; };
+        if (input > 5) { input = 5;}
+        else if (input < 0 ) { input = 0; };
 
         if (input == 1) 
         {
@@ -995,41 +1000,41 @@ bool Input::process_spells_keys(TCOD_key_t request)
     }
     else if( action == spells_active_t::MarkSpell )
     {
-    {
-        //take int input
-		std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
-        minimize_game();
-        int input;
-        std::cin >> input;
-        maximize_game();
-        //convert to ints
-		if (input > 5) { input = 5;}
-		else if (input < 0 ) { input = 0; };
+        {
+            //take int input
+            std::cout << "Choose a single digit between 1 and 5 to use as a quick key" << std::endl << ">>>" ;
+            minimize_game();
+            int input;
+            std::cin >> input;
+            maximize_game();
+            //convert to ints
+            if (input > 5) { input = 5;}
+            else if (input < 0 ) { input = 0; };
 
-        if (input == 1) 
-        {
-            Game::custom_key1->assign_spell((Spell*)Ui::chosen_generic);
-        }
-        else if (input == 2) 
-        {
-            Game::custom_key2->assign_spell((Spell*)Ui::chosen_generic);
-        }
-        else if (input == 3) 
-        {
-            Game::custom_key3->assign_spell((Spell*)Ui::chosen_generic);
-        }
-        else if (input == 4) 
-        {
-            Game::custom_key4->assign_spell((Spell*)Ui::chosen_generic);
-        }
-        else if (input == 5) 
-        {
-            Game::custom_key5->assign_spell((Spell*)Ui::chosen_generic);
-        }
+            if (input == 1) 
+            {
+                Game::custom_key1->assign_spell((Spell*)Ui::chosen_generic);
+            }
+            else if (input == 2) 
+            {
+                Game::custom_key2->assign_spell((Spell*)Ui::chosen_generic);
+            }
+            else if (input == 3) 
+            {
+                Game::custom_key3->assign_spell((Spell*)Ui::chosen_generic);
+            }
+            else if (input == 4) 
+            {
+                Game::custom_key4->assign_spell((Spell*)Ui::chosen_generic);
+            }
+            else if (input == 5) 
+            {
+                Game::custom_key5->assign_spell((Spell*)Ui::chosen_generic);
+            }
 
-        //assign item to proper custom_key
-        return true;
-    }
+            //assign item to proper custom_key
+            return true;
+        }
     }
 
     else if( action == spells_active_t::EscapeMenuSpell )
@@ -1328,6 +1333,10 @@ bool Input::process_mouse_event(TCOD_mouse_t request)
     if (request.lbutton_pressed)
     {
         std::cout << "mouse lclicked" << std::endl;
+        if (Ui::is_targetting)
+        {
+            return Input::user_cast_spell();
+        }
     }
 
     return 0;
@@ -1429,7 +1438,7 @@ bool Input::process_key_event(TCOD_key_t request)
             {
 
                 std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
-				minimize_game();
+                minimize_game();
                 std::string resp;
                 std::cin >> resp;
                 if (resp.at(0) == 'y')
@@ -1437,7 +1446,7 @@ bool Input::process_key_event(TCOD_key_t request)
                     std::cout << "Goodbye now" << std::endl;
                     exit(1);
                 };
-				maximize_game();
+                maximize_game();
             }
             else
             {
