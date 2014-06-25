@@ -88,11 +88,11 @@ void HelpBox::draw()
 	}
     else
     {
-        img->blit(this->con, 9, 12);
+        img->blit(this->con, 9, 13);
     }
         delete img;
     };
 
-    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, 23);
+    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, 21);
     
 };
