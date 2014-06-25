@@ -275,6 +275,7 @@ void Game::fill_dungeon(Map* world)
         {
             //spawn one dude to whom you can sell your shit
             Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, 10, 10, 't', world);
+            world->allies.push_back(the_townsmen);
 
         }
         else
@@ -437,6 +438,24 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr, Map
     return creature;
 };
 
+void give_player_items(Actor* player)
+{
+    for (int i = 0; i < 52; i++)
+    {
+        Item* item2 = new Item();
+        item2->name = "Item of Holding";
+        item2->name.append(std::to_string((long double)i+1));
+        item2->attr_effect->health_current_val = 1;
+        item2->attr_effect->mana_current_val = 1;
+        item2->attr_effect->armor_current_val = 1;
+        item2->attr_effect->damage_current_val = 900;
+        item2->attr_effect->damage_max_val = 900;
+        item2->attr_effect->duration= 4;
+        item2->usable = true;
+        item2->description = "You can hold this item";
+        player->inventory->add_item(item2);
+    };
+};
 
 //creates a bunch of items on the map
 void  Game::initialize_items()
@@ -494,21 +513,7 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    // for (int i = 0; i < 52; i++)
-    // {
-    //     Item* item2 = new Item();
-    //     item2->name = "Item of Holding";
-    //     item2->name.append(std::to_string((long double)i+1));
-    //     item2->attr_effect->health_current_val = 1;
-    //     item2->attr_effect->mana_current_val = 1;
-    //     item2->attr_effect->armor_current_val = 1;
-    //     item2->attr_effect->damage_current_val = 900;
-    //     item2->attr_effect->damage_max_val = 900;
-    //     item2->attr_effect->duration= 4;
-    //     item2->usable = true;
-    //     item2->description = "You can hold this item";
-    //     player->inventory->add_item(item2);
-    // };
+    // give_player_items(player);
 
 };
 
@@ -519,6 +524,18 @@ void  Game::initialize_items()
 //     //Game::current_map->enemies.push_back(Game::create_troll("Second", 66, 4, 9, 'T', Game::current_map, "Second, Troll"));
 //     //Game::current_map->enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
 // };
+
+void give_player_teleport(Actor* player)
+{
+    TeleportSelfSpell* teleport = new TeleportSelfSpell();
+    teleport->master = player;
+	teleport->max_range = 999;
+	teleport->min_range = 999;
+	teleport->mana_cost = 0;
+    player->spells->push_back(teleport);
+    Game::custom_key2->assign_spell(teleport);
+
+};
 
 Person*  Game::initialize_player()
 {
@@ -561,13 +578,7 @@ Person*  Game::initialize_player()
     //player->putPerson(next_tile, player->x, player->y);
     Game::initialize_items();
 
-    // TeleportSelfSpell* teleport = new TeleportSelfSpell();
-    // teleport->master = player;
-	// teleport->max_range = 999;
-	// teleport->min_range = 999;
-	// teleport->mana_cost = 0;
-    // player->spells->push_back(teleport);
-    // Game::custom_key2->assign_spell(teleport);
+    give_player_teleport(player);
 
     Game::center_camera_on_player();
 
