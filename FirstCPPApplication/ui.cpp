@@ -451,6 +451,7 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
 
     ui_sidebar_con->print(7, y, "XP %d", Ui::game->player->xp);
     y++;
+    y++;
 
     std::string left_exp = ">";
     std::string right_exp = "";
@@ -463,21 +464,23 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
     if (right_percent < 0) right_percent = 0.0f;
     if (right_percent > 1) right_percent = 1.0f;
 
-    int left_count = floor(left_percent * (float)8);
-    int right_count = floor(right_percent * (float)8);
-    if (left_count + right_count < 8) right_count++;
+    int size = 12;
+    int left_count = floor(left_percent * (float)size);
+    int right_count = floor(right_percent * (float)size);
+    if (left_count + right_count < size) right_count++;
 
     left_exp.append(left_count, '-');
     right_exp.append(right_count, '-');
     right_exp.append(1, '>');
 
+    int padding = 2;
     if (left_percent != 1.0f)
     {
-        ui_sidebar_con->print(0, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
+        ui_sidebar_con->print(padding, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
     }
     else //fill bar all the way when level max reached
     {
-        ui_sidebar_con->print(0, y, "%c%s%s%c", TCOD_COLCTRL_1, left_exp.c_str(), right_exp.c_str(), TCOD_COLCTRL_STOP );
+        ui_sidebar_con->print(padding, y, "%c%s%s%c", TCOD_COLCTRL_1, left_exp.c_str(), right_exp.c_str(), TCOD_COLCTRL_STOP );
     }
     y++;
 
