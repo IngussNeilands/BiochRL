@@ -25,6 +25,7 @@
 #include <attribute.h>
 #include "screen.h"
 #include "helpbox.h"
+#include <color_utils.h>
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -474,14 +475,7 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
     right_exp.append(1, '>');
 
     int padding = 2;
-    if (left_percent != 1.0f)
-    {
-        ui_sidebar_con->print(padding, y, "%c%s%c%s", TCOD_COLCTRL_1, left_exp.c_str(), TCOD_COLCTRL_STOP, right_exp.c_str());
-    }
-    else //fill bar all the way when level max reached
-    {
-        ui_sidebar_con->print(padding, y, "%c%s%s%c", TCOD_COLCTRL_1, left_exp.c_str(), right_exp.c_str(), TCOD_COLCTRL_STOP );
-    }
+    ui_sidebar_con->print(padding, y, std::string(colfg(TCODColor::lighterBlue, "%s")+"%s").c_str(),  left_exp.c_str(),  right_exp.c_str());
     y++;
 
 };
