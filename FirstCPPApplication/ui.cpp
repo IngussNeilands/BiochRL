@@ -269,19 +269,19 @@ void Ui::draw_ui_sidebar()
     first_y++;
 
     //mouse stats
-    ui_sidebar_con->print(0, first_y, "MOUSE X Y" );
+    ui_sidebar_con->print(0, first_y, "MOUSE" );
+    ui_sidebar_con->print(6, first_y, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
     first_y++;
-    ui_sidebar_con->print(0, first_y, "%d %d", Ui::game->mouse_evt.cx+Game::camera_x, Ui::game->mouse_evt.cy+Game::camera_y);
     first_y++;
 
 
     //draw player inventory info
-    ui_sidebar_con->print(0, first_y++, "Items in inventory:");
-    ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_count());
+    ui_sidebar_con->print(0, first_y, "INV:");
+    ui_sidebar_con->print(5, first_y, "%d", Ui::game->player->inventory->get_count());
 
     //draw player burden
-    ui_sidebar_con->print(0, first_y++, "Total burden");
-    ui_sidebar_con->print(0, first_y++, "%d", Ui::game->player->inventory->get_total_weight());
+    ui_sidebar_con->print(10, first_y, "BUR:");
+    ui_sidebar_con->print(15, first_y, "%d", Ui::game->player->inventory->get_total_weight());
     first_y++;
 
     Ui::draw_hunger(first_y, ui_sidebar_con);
@@ -447,10 +447,9 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
     // experience bar
     ui_sidebar_con->setDefaultForeground(ui_sidebar_fore);
 
-    ui_sidebar_con->print(0, y, "XP LEVEL %d", Ui::game->player->level);
-    y++;
+    ui_sidebar_con->print(0, y, "LVL %d", Ui::game->player->level);
 
-    ui_sidebar_con->print(0, y, "XP TOTAL %d", Ui::game->player->xp);
+    ui_sidebar_con->print(7, y, "XP %d", Ui::game->player->xp);
     y++;
 
     std::string left_exp = ">";
