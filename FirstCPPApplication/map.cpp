@@ -950,8 +950,8 @@ void Map::update()
             Person* pers = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
             pers->attrs->health->current_val = 200;
             pers->attrs->health->max_val = 200;
-            pers->attrs->armor->current_val = 10;
-            pers->attrs->armor->max_val = 10;
+            pers->attrs->armor->current_val = 3;
+            pers->attrs->armor->max_val = 3;
             pers->attrs->damage->current_val = 20;
             pers->attrs->damage->max_val = 20;
             pers->xp_value = 200;
@@ -1007,7 +1007,7 @@ void Map::update()
             pers->img_path = get_data_path()+"img/thief8x8.png";
             pers->is_hero = true;
             pers->xp_value = 1000;
-            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "SAMUEL APPROACHES"));
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "SAMUEL NEARS"));
 
         }
         else if (this->depth >= 5)

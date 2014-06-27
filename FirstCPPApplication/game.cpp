@@ -578,7 +578,7 @@ Person*  Game::initialize_player()
     //player->putPerson(next_tile, player->x, player->y);
     Game::initialize_items();
 
-    give_player_teleport(player);
+    // give_player_teleport(player);
 
     Game::center_camera_on_player();
 
