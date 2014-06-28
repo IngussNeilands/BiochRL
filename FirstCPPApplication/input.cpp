@@ -31,6 +31,7 @@
 #include "class.h"
 #include <messages.h>
 #include "custom_key.h"
+#include <color_utils.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -632,8 +633,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
     }
     else if ( basic_cmd == basic_cmds_t::ToggleSneaking)
     {
-        Game::player->is_sneaking = !Game::player->is_sneaking;
-        return true;
+        bool incr_turn = Input::toggle_sneaking();
+        return incr_turn;
     }
     else if ( basic_cmd == basic_cmds_t::ToggleMusic)
     {
@@ -655,6 +656,21 @@ bool Input::process_basic_keys(TCOD_key_t request)
         printf("no matching key right now\n");
     };
     return false;
+};
+
+bool Input::toggle_sneaking()
+{
+
+    Game::player->is_sneaking = !Game::player->is_sneaking;
+    if (Game::player->is_sneaking)
+    {
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are now sneaking."));
+    }
+    else
+    {
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are no longer sneaking."));
+    };
+    return true;
 };
 
 bool Input::user_cast_spell()
