@@ -35,6 +35,8 @@ class Thinker
         int is_civ;
         int is_shopkeep;
 
+        bool is_aware; //passive mode, not looking for hero
+
         void update();
         void smart_update();
         void dumb_update();

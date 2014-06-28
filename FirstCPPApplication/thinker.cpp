@@ -41,13 +41,15 @@ Thinker::Thinker()
 
     this->is_ally = false;
     this->target = NULL;
+
+    this->is_aware = true;
 };
 
 Thinker::~Thinker()
 {
     if (this->master != NULL && this->master->l_path != NULL)
     {
-    delete this->master->l_path;
+        delete this->master->l_path;
     };
 
 };
@@ -83,8 +85,6 @@ void Thinker::smart_update()
             //if the path destination isn't adj to the player make a new path 
             if (adjItr == adj_tiles->end())
             {
-
-
                 // std::cout << "no tiles adjacent to player where I'm pathing to, so I'm making a new path" << std::endl;
                 delete master->l_path;
                 master->l_path = NULL;
@@ -95,7 +95,7 @@ void Thinker::smart_update()
 
                 //std::cout << "dest x: " << dest_tile_x;
                 //std::cout << "dest y: " << dest_tile_y << std::endl;
-                //std::cout << "CONTINUTE" << std::endl;
+                //std::cout << "CONTINUE" << std::endl;
 
             };
             delete adj_tiles;
@@ -159,7 +159,7 @@ void Thinker::smart_update()
             adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
 
             std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
-            if (adjacent_tiles->size() >0)
+            if (adjacent_tiles->size() > 0)
             {
                 master->dest_x = adjacent_tiles->back()->tile_x;
                 master->dest_y = adjacent_tiles->back()->tile_y;
@@ -259,8 +259,8 @@ void Thinker::try_attacking_player()
     if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(), assailant->master->my_tile) != adjacent_tiles->end())
     {
         // std::cout << "adjacent" << std::endl;
-	Damage* dmg = new Damage();
-    dmg->normal = master->attrs->damage->current_val;
+        Damage* dmg = new Damage();
+        dmg->normal = master->attrs->damage->current_val;
         ((Person*)master)->combat->Attack(assailant, dmg);
     };
 
@@ -279,9 +279,11 @@ void Thinker::update()
     {
         this->turn_last_seen_by_player = Game::turn_count;
         //    std::cout << "START: " << this->turn_last_seen_by_player << " END."  << std::endl;
-        auto player = Game::player;
+        Person* player = Game::player;
         int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
-        if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
+        bool player_within_distance = distance_between_player < Thinker::visibility_threshold;
+
+        if (!this->is_dumb && player_within_distance)
         {
             //aka pathing and fighting
             this->smart_update();

@@ -715,10 +715,10 @@ int Map::draw()
                     //check for item first, so it'll get drawn over by actors
                     if (the_tile->check_for_items())
                     {
-                        // Game::game_console->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
                         Item* last_item = the_tile->inventory->items->back();
                         the_char = last_item->repr->repr;
                     };
+
                     Game::player->mark_as_seen(x, y, the_tile->occupant);
 
                     the_char = the_tile->occupant->representation->repr;
@@ -746,7 +746,6 @@ int Map::draw()
 
                     if (the_tile->check_for_items())
                     {
-                        // Game::game_console->putChar(x, y, the_tile->inventory->items->back()->repr->repr);
                         Item* back_item =the_tile->inventory->items->back(); 
                         the_char = back_item->repr->repr;
                         the_fg_color = back_item->repr->fg_color;
