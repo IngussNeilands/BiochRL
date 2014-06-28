@@ -38,6 +38,7 @@ class Thinker
         int is_shopkeep;
 
         bool is_aware(Actor* actor); //passive mode, not looking for hero
+        bool get_is_aware(); //get bool without checks
 
         void update();
         void smart_update();

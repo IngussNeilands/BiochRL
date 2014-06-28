@@ -67,6 +67,12 @@ bool Thinker::is_aware(Actor* actor)
 
     return this->_is_aware;
 };
+
+bool Thinker::get_is_aware()
+{
+    return this->_is_aware;
+};
+
 Thinker::~Thinker()
 {
     if (this->master != NULL && this->master->l_path != NULL)

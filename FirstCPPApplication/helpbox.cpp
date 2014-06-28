@@ -36,13 +36,14 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     this->messages = messages;
     int max_width = 17;
     int line_width = 0;
-    int line_height = messages.size()*2;
+    int line_height = messages.size()*2+1;
     // printf("%d\n", max_height);
 
     std::vector<std::string>::iterator it = messages.begin();
     for (it; it!= messages.end(); it++)
     {
-        line_width = (int)std::min((double)(*it).size(), (double)max_width);
+        int bigger_width = (int)std::max((double)(*it).size(), (double)line_width); 
+        line_width = (int)std::min((double)bigger_width, (double)max_width);
         int height = TCODConsole::root->getHeightRect(0, 0, line_width, 1000, (*it).c_str());
         if (height>1) line_height++;
 

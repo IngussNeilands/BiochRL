@@ -26,6 +26,7 @@
 #include "screen.h"
 #include "helpbox.h"
 #include <color_utils.h>
+#include "thinker.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -175,21 +176,35 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
     //get help text
     std::string help_text = "";
     std::string health_text = "";
-    int help_text_height = 3;
+    std::vector<std::string> messages;
     if (! target_tile->is_known())
     {
         help_text = "Unknown tile";
     }
     else if (target_tile->is_occupied())
     {
-        help_text_height = 5;
-        help_text = target_tile->occupant->name;
-        float health_percent = target_tile->occupant->attrs->health->GetValPercentage();
+        // help_text_height = 5;
+        Actor* occupant = target_tile->occupant;
+        help_text = occupant->name;
+        float health_percent = occupant->attrs->health->GetValPercentage();
         if (health_percent > 75.0f) { health_text = "It's healthy."; }
         else if  (health_percent > 50.0f ) { health_text = "It's hurt."; }
         else if  (health_percent > 25.0f ) { health_text = "It's very hurt."; }
         else if  (health_percent > 10.0f ) { health_text = "It's in critical condition."; }
         else { health_text = "It's near death."; }
+
+		if (occupant->thinker != NULL)
+        {
+            bool is_aware = occupant->thinker->get_is_aware();
+            if (is_aware)
+            {
+                messages.push_back("Is aware of you");
+            }
+            else
+            {
+                messages.push_back("Isn't aware of you");
+            };
+        };
 
     }
     else if (target_tile->inventory->get_count() > 0)
@@ -201,13 +216,13 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
         help_text = target_tile->get_description();
     };
 
-    
-    std::vector<std::string> messages;
     messages.push_back(help_text);
     if (health_text.size() != 0)
     {
         messages.push_back(health_text);
     };
+
+
 
     HelpBox hb(messages, ui_sidebar_con, target_tile);
     hb.draw();
@@ -396,7 +411,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     std::vector<Actor*> targets = spell->targets_around_tile(targetted_tile);
     for (std::vector<Actor*>::iterator it = targets.begin(); it != targets.end(); it++)
     {
-		Actor* actor = *it;
+        Actor* actor = *it;
         Game::game_console->setChar(actor->x, actor->y, 'X');
     };
 
