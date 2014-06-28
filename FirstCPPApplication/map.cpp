@@ -761,7 +761,7 @@ int Map::draw()
 
                 Game::game_console->putChar(x, y, the_char);
                 Game::game_console->setCharForeground(x, y, *the_fg_color);
-                // Game::game_console->setCharBackground(x, y, *the_bg_color);
+                Game::game_console->setCharBackground(x, y, *the_bg_color);
 
 
             }

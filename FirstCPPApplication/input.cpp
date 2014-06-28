@@ -665,10 +665,12 @@ bool Input::toggle_sneaking()
     if (Game::player->is_sneaking)
     {
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are now sneaking."));
+        Game::player->representation->setBGColor(TCODColor::darkGrey, true, false, true);
     }
     else
     {
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are no longer sneaking."));
+        Game::player->representation->setBGColor(Game::game_console->getDefaultBackground(), true, false, true);
     };
     return true;
 };

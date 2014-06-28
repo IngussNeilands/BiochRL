@@ -65,7 +65,6 @@ bool Thinker::is_aware(Actor* actor)
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkRed, "Detected %s!"), actor->name.c_str());
     };
 
-
     return this->_is_aware;
 };
 Thinker::~Thinker()
