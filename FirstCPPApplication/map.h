@@ -50,6 +50,8 @@ class Map : public Object
                 int room_width, int room_height, int door_index);
 
         void update();
+        void Map::spawn_hero();
+        bool Map::should_spawn_hero();
         int draw();
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 

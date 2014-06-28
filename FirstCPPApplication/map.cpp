@@ -705,8 +705,8 @@ int Map::draw()
             // std::cout << "initial white and black" <<std::endl;
             // std::cout << the_fg_color <<std::endl << the_bg_color <<std::endl;
 
-            if (Game::debug_opts->all_vision || l_map->isInFov(x, y))
                 // if (true)
+            if (Game::debug_opts->all_vision || l_map->isInFov(x, y))
             {
                 the_tile->setKnown(true);
 
@@ -725,8 +725,7 @@ int Map::draw()
                     the_fg_color = the_tile->occupant->representation->fg_color;
                     the_bg_color = the_tile->occupant->representation->bg_color;
                 }
-                //tile is not occupied
-                else
+                else //tile is not occupied
                 {
                     the_char = the_tile->get_representation()->repr;
 
@@ -787,7 +786,8 @@ int Map::draw()
                     Game::game_console->setCharBackground(x, y, *(the_tile->get_representation()->bg_color) * TCODColor::darkGrey);
                     Game::game_console->setCharForeground(x, y, *(the_tile->get_representation()->fg_color) * TCODColor::darkGrey);
                 }
-                else {
+                else
+                {
                     Game::game_console->setCharBackground(x, y, TCODColor::black);
                     Game::game_console->setCharForeground(x, y, TCODColor::black);
                 }
@@ -933,12 +933,15 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     return false;
 }
 
-void Map::update()
+bool Map::should_spawn_hero()
 {
     int result = Game::event_rng->getInt(0, 1000);
-    if (this->has_hero_spawned == false && result == SpecialHeroSpawn)
-    {
-        this->has_hero_spawned = true;
+    return (this->has_hero_spawned == false && result == SpecialHeroSpawn);
+};
+
+void Map::spawn_hero()
+{        
+    this->has_hero_spawned = true;
 
         if (this->depth == 1)
         {
@@ -1026,5 +1029,14 @@ void Map::update()
             pers->is_hero = true;
             new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ROSSIGNOL ADVANCES"));
         }
+
+
+};
+
+void Map::update()
+{
+    if (should_spawn_hero())
+    {
+        spawn_hero();
     };
 };
