@@ -22,6 +22,7 @@ enum basic_cmds_t {
     CenterScreenToMouse,
     NextTarget, PrevTarget,
     ToggleMusic,
+    ToggleSneaking,
     CustomKey1,
     CustomKey2,
     CustomKey3,

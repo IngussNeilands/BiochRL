@@ -64,6 +64,7 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Center the screen on the mouse");
     vec.push_back("Target Mode: Cycle forwards through the targets"); vec.push_back("Target Mode: Cycle backwards through the targets");
     vec.push_back("Toggle Music");
+    vec.push_back("Toggle Sneaking");
     vec.push_back("Use spell or ability in slot 1");
     vec.push_back("Use spell or ability in slot 2");
     vec.push_back("Use spell or ability in slot 3");
@@ -157,6 +158,7 @@ std::map<char, basic_cmds_t> Input::build_char_main_keymap()
     char_movemap['q'] = basic_cmds_t::CancelCast;
     char_movemap['i'] = basic_cmds_t::OpenInventory;
     char_movemap['c'] = basic_cmds_t::OpenCharacterSheet;
+    char_movemap['s'] = basic_cmds_t::ToggleSneaking;
     char_movemap['?'] = basic_cmds_t::OpenHelp;
     char_movemap[','] = basic_cmds_t::Pickup;
     char_movemap['.'] = basic_cmds_t::EquipFromFloor;
@@ -627,6 +629,11 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
             }
         }
+    }
+    else if ( basic_cmd == basic_cmds_t::ToggleSneaking)
+    {
+        Game::player->is_sneaking = !Game::player->is_sneaking;
+        return true;
     }
     else if ( basic_cmd == basic_cmds_t::ToggleMusic)
     {
