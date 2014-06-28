@@ -42,6 +42,7 @@ class Thinker
         void update_path();
         void build_path();
         void set_target();
+        void set_destination();
 
         void dumb_update();
         Thinker();

@@ -133,6 +133,21 @@ void Thinker::set_target()
 
 };
 
+void Thinker::set_destination()
+{
+    std::vector<Tile*>* adjacent_tiles;
+    adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
+    std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
+
+    if (adjacent_tiles->size() > 0)
+    {
+        master->dest_x = adjacent_tiles->back()->tile_x;
+        master->dest_y = adjacent_tiles->back()->tile_y;
+    }
+    delete adjacent_tiles;
+
+};
+
 void Thinker::build_path()
 {
     Map* map = Game::player->my_tile->map;
@@ -141,26 +156,17 @@ void Thinker::build_path()
 
     //set the master's target to player or enemy, depending if ally or not
     this->set_target();
+    this->set_destination();
 
-    std::vector<Tile*>* adjacent_tiles;
-    adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
-
-    std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
-    if (adjacent_tiles->size() > 0)
-    {
-        master->dest_x = adjacent_tiles->back()->tile_x;
-        master->dest_y = adjacent_tiles->back()->tile_y;
-    }
-    delete adjacent_tiles;
-
-    int x, y, dest_x, dest_y;
-    x = master->x;
-    y = master->y;
-    dest_x = master->dest_x;
-    dest_y = master->dest_y;
+    int x = master->x;
+    int y = master->y;
+    int dest_x = master->dest_x;
+    int dest_y = master->dest_y;
 
     //compute a path for the master to walk
     this->path_possible = master->l_path->compute(x, y, dest_x, dest_y);
+
+    //if there's a not a path to be walked, incr fail count
     if (!this->path_possible)
     {
         // std::cout << "path aint possible" << std::endl;
