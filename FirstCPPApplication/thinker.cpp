@@ -54,6 +54,119 @@ Thinker::~Thinker()
 
 };
 
+void Thinker::update_path()
+{ 
+    Map* map = Game::player->my_tile->map;
+    if (this->master->name == "Skellie")
+    {
+        int temp = 1+1;
+    }
+    //get the destination tile coords
+
+    assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
+    if (this->target->is_active)
+    {
+        Tile* target_tile = this->target->my_tile;
+
+        //if the target tile is adjacent to the player keep moving towards
+        //it, otherwise change spots
+        int dest_tile_x, dest_tile_y;
+        master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
+        std::vector<Tile*>* adj_tiles = Game::current_map->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
+        std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), target_tile);
+        //if the path destination isn't adj to the player make a new path 
+        if (adjItr == adj_tiles->end())
+        {
+            // std::cout << "no tiles adjacent to player where I'm pathing to, so I'm making a new path" << std::endl;
+            delete master->l_path;
+            master->l_path = NULL;
+        }
+        else
+        {
+            //continue on that path
+
+            //std::cout << "dest x: " << dest_tile_x;
+            //std::cout << "dest y: " << dest_tile_y << std::endl;
+            //std::cout << "CONTINUE" << std::endl;
+
+        };
+        delete adj_tiles;
+    }
+    else
+    {
+        delete master->l_path;
+        master->l_path = NULL;
+    }
+
+
+
+
+};
+
+void Thinker::build_path()
+{
+    Map* map = Game::player->my_tile->map;
+    // std::cout << "Building Path" << std::endl;
+    master->l_path = new TCODPath(map->l_map);
+
+    //set the master's destination to above the player
+    std::vector<Tile*>* adjacent_tiles;
+    if (this->is_ally) 
+    {
+        //TODO select monster near tile
+        if (!Game::player->actors_in_sight->empty())
+        {
+            std::vector<Actor*>::iterator potential_target = Game::player->actors_in_sight->begin();
+            for (potential_target; potential_target!=Game::player->actors_in_sight->end(); potential_target++)
+            {
+                if ((*potential_target)->combat != NULL && !(*potential_target)->thinker->is_ally)
+                {
+                    this->target = *potential_target;
+                    break;
+                }
+                this->target = Game::player;
+            }
+        }
+        else
+        {
+            this->target = Game::player;
+        }
+    }
+    else 
+    {
+        this->target = Game::player;
+    };
+
+    adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
+
+    std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
+    if (adjacent_tiles->size() > 0)
+    {
+        master->dest_x = adjacent_tiles->back()->tile_x;
+        master->dest_y = adjacent_tiles->back()->tile_y;
+    }
+    delete adjacent_tiles;
+
+    int x, y, dest_x, dest_y;
+    x = master->x;
+    y = master->y;
+    dest_x = master->dest_x;
+    dest_y = master->dest_y;
+
+    //compute a path for the master to walk
+    this->path_possible = master->l_path->compute(x, y, dest_x, dest_y);
+    if (!this->path_possible)
+    {
+        // std::cout << "path aint possible" << std::endl;
+        this->consecutive_fails+=1;
+    }
+    else
+    {
+        this->consecutive_fails=0;
+    }
+
+};
+
 void Thinker::smart_update()
 {
     // printf("thinking\n");
@@ -65,48 +178,7 @@ void Thinker::smart_update()
     //until he gets there
     if (master->l_path != NULL)
     {
-        if (this->master->name == "Skellie")
-        {
-            int temp = 1+1;
-        }
-        //get the destination tile coords
-        int dest_tile_x, dest_tile_y;
-        master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
-
-        assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
-        if (this->target->is_active)
-        {
-            Tile* target_tile = this->target->my_tile;
-
-            //if the target tile is adjacent to the player keep moving towards
-            //it, otherwise change spots
-            std::vector<Tile*>* adj_tiles = Game::current_map->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
-            std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), target_tile);
-            //if the path destination isn't adj to the player make a new path 
-            if (adjItr == adj_tiles->end())
-            {
-                // std::cout << "no tiles adjacent to player where I'm pathing to, so I'm making a new path" << std::endl;
-                delete master->l_path;
-                master->l_path = NULL;
-            }
-            else
-            {
-                //continue on that path
-
-                //std::cout << "dest x: " << dest_tile_x;
-                //std::cout << "dest y: " << dest_tile_y << std::endl;
-                //std::cout << "CONTINUE" << std::endl;
-
-            };
-            delete adj_tiles;
-        }
-        else
-        {
-            delete master->l_path;
-            master->l_path = NULL;
-        }
-
-
+        this->update_path();
     };
 
     if (master->l_path == NULL)
@@ -125,64 +197,7 @@ void Thinker::smart_update()
         }
         else
         {
-            // std::cout << "Building Path" << std::endl;
-            master->l_path = new TCODPath(map->l_map);
-
-            //set the master's destination to above the player
-            std::vector<Tile*>* adjacent_tiles;
-            if (this->is_ally) 
-            {
-                //TODO select monster near tile
-                if (!Game::player->actors_in_sight->empty())
-                {
-                    std::vector<Actor*>::iterator potential_target = Game::player->actors_in_sight->begin();
-                    for (potential_target; potential_target!=Game::player->actors_in_sight->end(); potential_target++)
-                    {
-                        if ((*potential_target)->combat != NULL && !(*potential_target)->thinker->is_ally)
-                        {
-                            this->target = *potential_target;
-                            break;
-                        }
-                        this->target = Game::player;
-                    }
-                }
-                else
-                {
-                    this->target = Game::player;
-                }
-            }
-            else 
-            {
-                this->target = Game::player;
-            };
-
-            adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
-
-            std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
-            if (adjacent_tiles->size() > 0)
-            {
-                master->dest_x = adjacent_tiles->back()->tile_x;
-                master->dest_y = adjacent_tiles->back()->tile_y;
-            }
-            delete adjacent_tiles;
-
-            int x, y, dest_x, dest_y;
-            x = master->x;
-            y = master->y;
-            dest_x = master->dest_x;
-            dest_y = master->dest_y;
-
-            //compute a path for the master to walk
-            this->path_possible = master->l_path->compute(x, y, dest_x, dest_y);
-            if (!this->path_possible)
-            {
-                // std::cout << "path aint possible" << std::endl;
-                this->consecutive_fails+=1;
-            }
-            else
-            {
-                this->consecutive_fails=0;
-            }
+            this->build_path();
         }
 
         //int path_size = master->l_path->size();

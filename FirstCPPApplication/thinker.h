@@ -39,6 +39,9 @@ class Thinker
 
         void update();
         void smart_update();
+        void update_path();
+        void build_path();
+
         void dumb_update();
         Thinker();
         ~Thinker();
