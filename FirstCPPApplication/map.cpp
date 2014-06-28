@@ -942,92 +942,113 @@ void Map::spawn_hero()
 {        
     this->has_hero_spawned = true;
 
-        if (this->depth == 1)
-        {
-            //I should eventually move these definitions to serialized files
-            //And perhaps use googles newly opensourced super memory efficient
-            //Library for reading straight from serialized files with minimal
-            //Memory footprint
-            Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
-            pers->attrs->health->current_val = 200;
-            pers->attrs->health->max_val = 200;
-            pers->attrs->armor->current_val = 3;
-            pers->attrs->armor->max_val = 3;
-            pers->attrs->damage->current_val = 20;
-            pers->attrs->damage->max_val = 20;
-            pers->xp_value = 200;
-            pers->is_hero = true;
-            pers->img_path = get_data_path()+"img/hero8x8.png";
-            Game::current_map->enemies.push_back(pers);
-            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ELRIC APPROACHES"));
-        }
-        else if (this->depth == 2)
-        {
-            Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Spindly Jackson Rook", 99, room->center_x, room->center_y, 'J', Game::current_map);
-            pers->attrs->health->current_val = 300;
-            pers->attrs->health->max_val = 300;
-            pers->attrs->armor->current_val = 10;
-            pers->attrs->armor->max_val = 10;
-            pers->attrs->damage->current_val = 15;
-            pers->attrs->damage->max_val = 15;
-            pers->xp_value = 500;
-            pers->img_path = get_data_path()+"img/thief8x8.png";
-            pers->is_hero = true;
-            Game::current_map->enemies.push_back(pers);
-            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "JACKSON ARRIVES"));
-        }
-        else if (this->depth == 3)
-        {
-            Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Careful John Spiggot", 99, room->center_x, room->center_y, 'J', Game::current_map);
-            pers->attrs->health->current_val = 400;
-            pers->attrs->health->max_val = 400;
-            pers->attrs->armor->current_val = 15;
-            pers->attrs->armor->max_val =  15;
-            pers->attrs->damage->current_val = 23;
-            pers->attrs->damage->max_val = 23;
-            Game::current_map->enemies.push_back(pers);
-            pers->img_path = get_data_path()+"img/hero8x8.png";
-            pers->is_hero = true;
-            pers->xp_value = 800;
-            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "JOHN APPEARS"));
+    Person* hero;
 
-        }
-        else if (this->depth == 4)
-        {
-            Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Sneaking Samuel Giller", 99, room->center_x, room->center_y, 'S', Game::current_map);
-            pers->attrs->health->current_val = 400;
-            pers->attrs->health->max_val = 400;
-            pers->attrs->armor->current_val = 5;
-            pers->attrs->armor->max_val =  5;
-            pers->attrs->damage->current_val = 23;
-            pers->attrs->damage->max_val = 23;
-            Game::current_map->enemies.push_back(pers);
-            pers->img_path = get_data_path()+"img/thief8x8.png";
-            pers->is_hero = true;
-            pers->xp_value = 1000;
-            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "SAMUEL NEARS"));
+    if (this->depth == 1)
+    {
+        //I should eventually move these definitions to serialized files
+        //And perhaps use googles newly opensourced super memory efficient
+        //Library for reading straight from serialized files with minimal
+        //Memory footprint
+        Room* room = Game::current_map->roomVector->back();
+        hero = Game::create_person("Mighty Elric Tomes", 99, room->center_x, room->center_y, 'E', Game::current_map);
+        hero->attrs->health->current_val = 200;
+        hero->attrs->health->max_val = 200;
+        hero->attrs->armor->current_val = 3;
+        hero->attrs->armor->max_val = 3;
+        hero->attrs->damage->current_val = 20;
+        hero->attrs->damage->max_val = 20;
+        hero->xp_value = 200;
+        hero->is_hero = true;
+        hero->img_path = get_data_path()+"img/hero8x8.png";
+        Game::current_map->enemies.push_back(hero);
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ELRIC APPROACHES"));
+    }
+    else if (this->depth == 2)
+    {
+        Room* room = Game::current_map->roomVector->back();
+        hero = Game::create_person("Spindly Jackson Rook", 99, room->center_x, room->center_y, 'J', Game::current_map);
+        hero->attrs->health->current_val = 300;
+        hero->attrs->health->max_val = 300;
+        hero->attrs->armor->current_val = 10;
+        hero->attrs->armor->max_val = 10;
+        hero->attrs->damage->current_val = 15;
+        hero->attrs->damage->max_val = 15;
+        hero->xp_value = 500;
+        hero->img_path = get_data_path()+"img/thief8x8.png";
+        hero->is_hero = true;
+        Game::current_map->enemies.push_back(hero);
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "JACKSON ARRIVES"));
+    }
+    else if (this->depth == 3)
+    {
+        Room* room = Game::current_map->roomVector->back();
+        hero = Game::create_person("Careful John Spiggot", 99, room->center_x, room->center_y, 'J', Game::current_map);
+        hero->attrs->health->current_val = 400;
+        hero->attrs->health->max_val = 400;
+        hero->attrs->armor->current_val = 15;
+        hero->attrs->armor->max_val =  15;
+        hero->attrs->damage->current_val = 23;
+        hero->attrs->damage->max_val = 23;
+        Game::current_map->enemies.push_back(hero);
+        hero->img_path = get_data_path()+"img/hero8x8.png";
+        hero->is_hero = true;
+        hero->xp_value = 800;
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "JOHN APPEARS"));
 
-        }
-        else if (this->depth >= 5)
-        {
-            Room* room = Game::current_map->roomVector->back();
-            Person* pers = Game::create_person("Victorious Mr Rossignol", 99, room->center_x, room->center_y, 'R', Game::current_map);
-            pers->attrs->health->current_val = 600;
-            pers->attrs->health->max_val = 600;
-            pers->attrs->armor->current_val = 17;
-            pers->attrs->armor->max_val =  17;
-            pers->attrs->damage->current_val = 43;
-            pers->attrs->damage->max_val = 43;
-            pers->xp_value = 1500;
-            Game::current_map->enemies.push_back(pers);
-            pers->img_path = get_data_path()+"img/hero8x8.png";
-            pers->is_hero = true;
-            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ROSSIGNOL ADVANCES"));
-        }
+    }
+    else if (this->depth == 4)
+    {
+        Room* room = Game::current_map->roomVector->back();
+        hero = Game::create_person("Sneaking Samuel Giller", 99, room->center_x, room->center_y, 'S', Game::current_map);
+        hero->attrs->health->current_val = 400;
+        hero->attrs->health->max_val = 400;
+        hero->attrs->armor->current_val = 5;
+        hero->attrs->armor->max_val =  5;
+        hero->attrs->damage->current_val = 23;
+        hero->attrs->damage->max_val = 23;
+        Game::current_map->enemies.push_back(hero);
+        hero->img_path = get_data_path()+"img/thief8x8.png";
+        hero->is_hero = true;
+        hero->xp_value = 1000;
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "SAMUEL NEARS"));
+
+    }
+    else if (this->depth >= 5)
+    {
+        Room* room = Game::current_map->roomVector->back();
+        hero = Game::create_person("Victorious Mr Rossignol", 99, room->center_x, room->center_y, 'R', Game::current_map);
+        hero->attrs->health->current_val = 600;
+        hero->attrs->health->max_val = 600;
+        hero->attrs->armor->current_val = 17;
+        hero->attrs->armor->max_val =  17;
+        hero->attrs->damage->current_val = 43;
+        hero->attrs->damage->max_val = 43;
+        hero->xp_value = 1500;
+        Game::current_map->enemies.push_back(hero);
+        hero->img_path = get_data_path()+"img/hero8x8.png";
+        hero->is_hero = true;
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ROSSIGNOL ADVANCES"));
+    }
+
+    // Game::center_camera_on(hero->my_tile);
+    hero->my_tile->setKnown(true);
+    std::vector<Tile*>* adjacent_tiles = hero->my_tile->getAdjacentTiles(1);
+    std::vector<Tile*>* adjacent_tiles2 = hero->my_tile->getAdjacentTiles(2);
+    std::vector<Tile*>* adjacent_tiles3 = hero->my_tile->getAdjacentTiles(3);
+    adjacent_tiles->reserve(adjacent_tiles->size()+ adjacent_tiles2->size() + adjacent_tiles3->size());
+    adjacent_tiles->insert(adjacent_tiles->end(), adjacent_tiles2->begin(), adjacent_tiles2->end());
+    adjacent_tiles->insert(adjacent_tiles->end(), adjacent_tiles3->begin(), adjacent_tiles3->end());
+    for (std::vector<Tile*>::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+    {
+        Tile* tile = *it;
+        tile->setKnown(true);
+    };
+    delete adjacent_tiles;
+    delete adjacent_tiles2;
+    delete adjacent_tiles3;
+
+
 
 
 };

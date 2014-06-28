@@ -36,7 +36,7 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     this->messages = messages;
     int max_width = 17;
     int line_width = 0;
-    int line_height = messages.size()*2+1;
+    int line_height = messages.size()*2;
     // printf("%d\n", max_height);
 
     std::vector<std::string>::iterator it = messages.begin();

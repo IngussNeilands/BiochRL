@@ -222,8 +222,6 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
         messages.push_back(health_text);
     };
 
-
-
     HelpBox hb(messages, ui_sidebar_con, target_tile);
     hb.draw();
 }
@@ -314,7 +312,6 @@ void Ui::draw_ui_sidebar()
     if (Ui::should_draw_mouse_helpbox())
     {
         TCODMouse::showCursor(true);
-        //Ui::draw_mouse_helpbox(ui_sidebar_con);
         Ui::draw_status_helpbox(ui_sidebar_con, Game::get_mouse_tile());
     }
     else if (Ui::should_draw_attacker_helpbox())
@@ -379,7 +376,7 @@ void Ui::draw_hunger(int first_y, TCODConsole* console)
     else if (hunger_percentage > DefaultHunger)
         hunger_message = " ";
     else if (hunger_percentage > SatisfiedHunger)
-        hunger_message = "You feel satisfied.";
+        hunger_message = "You feel satiated.";
     else if (hunger_percentage > BloatedHunger)
         hunger_message = "You feel bloated.";
 
@@ -454,8 +451,6 @@ void Ui::draw_misc()
 
 
     }
-
-
 }
 
 void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
