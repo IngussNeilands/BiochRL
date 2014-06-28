@@ -93,7 +93,7 @@ bool Actor::try_detect(Actor* target)
     int hidden_bonus = 0;
     if (target->is_sneaking)
     {
-        hidden_bonus += 1000;
+        hidden_bonus += 800;
     };
     // int hidden_bonus = 0; //TODO use target bonus hidden
     int net_hidden_stat = base_hidden_stat + hidden_bonus;
