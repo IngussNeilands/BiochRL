@@ -103,14 +103,8 @@ void Thinker::update_path()
 
 };
 
-void Thinker::build_path()
+void Thinker::set_target()
 {
-    Map* map = Game::player->my_tile->map;
-    // std::cout << "Building Path" << std::endl;
-    master->l_path = new TCODPath(map->l_map);
-
-    //set the master's destination to above the player
-    std::vector<Tile*>* adjacent_tiles;
     if (this->is_ally) 
     {
         //TODO select monster near tile
@@ -137,6 +131,18 @@ void Thinker::build_path()
         this->target = Game::player;
     };
 
+};
+
+void Thinker::build_path()
+{
+    Map* map = Game::player->my_tile->map;
+    // std::cout << "Building Path" << std::endl;
+    master->l_path = new TCODPath(map->l_map);
+
+    //set the master's target to player or enemy, depending if ally or not
+    this->set_target();
+
+    std::vector<Tile*>* adjacent_tiles;
     adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
 
     std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());

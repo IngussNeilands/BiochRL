@@ -41,6 +41,7 @@ class Thinker
         void smart_update();
         void update_path();
         void build_path();
+        void set_target();
 
         void dumb_update();
         Thinker();
