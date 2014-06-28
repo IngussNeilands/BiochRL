@@ -73,6 +73,7 @@ class Actor : public Object
         bool is_moving_right;
         bool is_moving_up;
         bool is_moving_down;
+        bool is_sneaking;
         void resetIsMoving();
         int* get_direction_heading();
 

@@ -42,9 +42,22 @@ Thinker::Thinker()
     this->is_ally = false;
     this->target = NULL;
 
-    this->is_aware = true;
+    this->_is_aware = false;
 };
 
+bool Thinker::is_aware(Actor* actor)
+{
+    if (actor->is_sneaking)
+    {
+        this->_is_aware = false;
+    }
+    else
+    {
+        this->_is_aware = true;
+    };
+
+    return this->_is_aware;
+};
 Thinker::~Thinker()
 {
     if (this->master != NULL && this->master->l_path != NULL)
@@ -298,11 +311,8 @@ void Thinker::try_attacking_player()
 
 void Thinker::update()
 {
-    // return;
 
-    // vector<Actor*>::iterator aisItr;
-    // aisItr = std::find(Game::player->actors_in_sight->begin(), Game::player->actors_in_sight->end(),  this->master);
-    if (Game::player->IsActorInSight(this->master))
+    if (Game::player->IsActorInSight(this->master)) //when thinker becomes truly activated or whatever
     {
         this->turn_last_seen_by_player = Game::turn_count;
         //    std::cout << "START: " << this->turn_last_seen_by_player << " END."  << std::endl;
@@ -312,12 +322,19 @@ void Thinker::update()
 
         if (!this->is_dumb && player_within_distance)
         {
-            //aka pathing and fighting
-            this->smart_update();
+            if (!this->is_aware(Game::player)) //thinker is not aware of player yet, via sneaking or w/e
+            {
+                this->dumb_update();
+            }
+            else
+            {
+                //aka pathing and fighting
+                this->smart_update();
+            };
         }
         else
         {
-            //walking adjacent
+            //walking to adjacent tile randomly
             this->dumb_update();
         }
     }

@@ -74,6 +74,7 @@ Actor::Actor()
     this->is_moving_right = false;
     this->is_moving_up = false;
     this->is_moving_down = false;
+    this->is_sneaking = false;
 
     this->l_path = NULL;
     this->has_attacked = false;

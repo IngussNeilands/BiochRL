@@ -18,6 +18,8 @@ class Thinker
         int skip_threshold;
         int fail_threshold;
 
+        bool _is_aware;
+
 
     public:
         static int visibility_threshold;
@@ -35,7 +37,7 @@ class Thinker
         int is_civ;
         int is_shopkeep;
 
-        bool is_aware; //passive mode, not looking for hero
+        bool is_aware(Actor* actor); //passive mode, not looking for hero
 
         void update();
         void smart_update();
