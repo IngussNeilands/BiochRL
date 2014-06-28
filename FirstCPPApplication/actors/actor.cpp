@@ -87,6 +87,20 @@ TCODImage* Actor::get_image()
     return img;
 };
 
+bool Actor::try_detect(Actor* target)
+{
+    int base_hidden_stat = 100;
+    int hidden_bonus = 0; //TODO use target bonus hidden
+    int net_hidden_stat = base_hidden_stat + hidden_bonus;
+    int result = Game::stat_rolls_rng->getInt(0, net_hidden_stat);
+
+    int base_detection_stat = 5;
+    int detection_stat = 0; //TODO use this detection stat
+    int net_detection = base_detection_stat + detection_stat;
+    return result < net_detection;
+    // return false;
+};
+
 Actor::~Actor()
 {
     delete this->timed_attr_effects;

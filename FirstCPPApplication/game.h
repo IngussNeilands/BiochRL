@@ -102,6 +102,7 @@ class Game
         static TCODRandom* item_spawn_rng;
         static TCODRandom* linear_rng;
         static TCODRandom* event_rng;
+        static TCODRandom* stat_rolls_rng;
 
         static Statistics* stats;
 

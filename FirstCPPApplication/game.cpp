@@ -124,6 +124,7 @@ TCODRandom* Game::spawning_rng = new TCODRandom();
 TCODRandom* Game::item_spawn_rng = new TCODRandom();
 TCODRandom* Game::linear_rng = new TCODRandom();
 TCODRandom* Game::event_rng = new TCODRandom();
+TCODRandom* Game::stat_rolls_rng = new TCODRandom();
 
 Statistics* Game::stats = new Statistics();
 

@@ -17,6 +17,7 @@
 #include "utils.h"
 #include <messages.h>
 #include "ui.h"
+#include <color_utils.h>
 
 int Thinker::visibility_threshold = 50;
 
@@ -47,14 +48,33 @@ Thinker::Thinker()
 
 bool Thinker::is_aware(Actor* actor)
 {
-    if (actor->is_sneaking)
+    //if player not sneaking > is aware
+    //if aware > is aware
+    //if player sneaking and aware -> is aware
+    //if player sneaking -> is not aware
+
+    if (this->_is_aware) 
     {
-        this->_is_aware = false;
+        return this->_is_aware;
     }
-    else
+
+    else if (!actor->is_sneaking)
     {
-        this->_is_aware = true;
+        this->_is_aware;
+        // return this->_is_aware;
+    }
+
+    else if (actor->is_sneaking)
+    {
+        //try to detect
+        this->_is_aware = this->master->try_detect(actor);
+        if (this->_is_aware)
+        {
+            new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkRed, "Detected %s!"), actor->name.c_str());
+        };
+        // return this->_is_aware;
     };
+
 
     return this->_is_aware;
 };

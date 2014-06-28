@@ -84,6 +84,8 @@ class Actor : public Object
         bool has_live_combat;
         bool has_attacked;
 
+        bool try_detect(Actor* target);
+
         Actor();
         virtual ~Actor();
         std::string GetName();
