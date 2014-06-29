@@ -428,6 +428,37 @@ InnerStrengthSpell::InnerStrengthSpell() : Spell()
     this->attr_effect->duration = 23;
 };
 
+/* Shadower */
+ShadowRunSpell::ShadowRunSpell() : TeleportSelfSpell()
+{
+
+    this->required_level = 2;
+    this->name = "Shadow Run";
+    this->element = SpectreElement;
+    this->mana_cost = 3;
+    this->max_range = 4;
+    this->target_type = GroundTargetType;
+};
+
+CastShadowSpell::CastShadowSpell() : Spell()
+{
+    this->required_level = 4;
+    this->name = "Cast Shadows";
+    this->element = SpectreElement;
+    this->mana_cost = 6;
+    this->max_range = 2;
+    this->target_type = GroundTargetType;
+};
+
+void CastShadowSpell::cast(Tile* targetted_tile)
+{
+    //get tiles within a given radius
+    //
+    //mark occupants unaware
+    //
+    //auto sneak?
+};
+
 /* misc */
 
 TeleportSelfSpell::TeleportSelfSpell() : Spell()
@@ -443,11 +474,9 @@ TeleportSelfSpell::TeleportSelfSpell() : Spell()
 
 void TeleportSelfSpell::cast(Tile* targetted_tile)
 {
-    //check for corpse
     if (targetted_tile->is_occupied()) { return; };
 
     //cast spell, apply attrs etc
-
     if (targetted_tile->is_walkable())
     {
         this->master->putPerson(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);

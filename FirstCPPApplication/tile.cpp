@@ -318,15 +318,30 @@ Tile* Tile::getMidLeftTile(int scale)
 
 vector<Tile*>* Tile::getAdjacentTiles(int scale)
 {
-    vector<Tile*>* adjacent_tiles = new vector<Tile*>;
-    adjacent_tiles->push_back(getTopLeftTile(scale));
-    adjacent_tiles->push_back(getTopMidTile(scale));
-    adjacent_tiles->push_back(getTopRightTile(scale));
-    adjacent_tiles->push_back(getMidRightTile(scale));
-    adjacent_tiles->push_back(getBotRightTile(scale));
-    adjacent_tiles->push_back(getBotMidTile(scale));
-    adjacent_tiles->push_back(getBotLeftTile(scale));
-    adjacent_tiles->push_back(getMidLeftTile(scale));
+    //get seed tiles, mark as tested
+    vector<Tile*>* tiles_to_check = new vector<Tile*>;
+    tiles_to_check->push_back(getTopLeftTile(scale));
+    tiles_to_check->push_back(getTopMidTile(scale));
+    tiles_to_check->push_back(getTopRightTile(scale));
+    tiles_to_check->push_back(getMidRightTile(scale));
+    tiles_to_check->push_back(getBotRightTile(scale));
+    tiles_to_check->push_back(getBotMidTile(scale));
+    tiles_to_check->push_back(getBotLeftTile(scale));
+    tiles_to_check->push_back(getMidLeftTile(scale));
+
+        typedef  vector<Tile*> tv;
+        tv* adjacent_tiles = new vector<Tile*>;
+    if (scale == 1)
+    {
+        return tiles_to_check;
+    }
+    else
+    {
+        for (tv::iterator it = tiles_to_check->begin(); it != tiles_to_check->end(); it++)
+        {
+
+        };
+    };
 
     return adjacent_tiles;
 

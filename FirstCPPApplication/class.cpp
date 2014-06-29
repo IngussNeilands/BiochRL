@@ -125,7 +125,7 @@ void ShadowerClass::LevelUpSkills(int levels)
         case 2:
             // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
             new Message(Ui::msg_handler_main, MOOD_MSG, msg);
-            new_spell = new WaterBombSpell();
+            new_spell = new ShadowRunSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;

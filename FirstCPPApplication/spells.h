@@ -114,7 +114,19 @@ class TeleportSelfSpell : public Spell
     public:
         TeleportSelfSpell();
         void cast(Tile* targetted_tile);
+};
 
+class CastShadowSpell : public Spell
+{
+    public:
+        CastShadowSpell();
+        void cast(Tile* targetted_tile);
+};
+
+class ShadowRunSpell : public TeleportSelfSpell
+{
+    public:
+        ShadowRunSpell();
 };
 
 class LaunchOtherSpell : public Spell
