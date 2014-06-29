@@ -26,6 +26,7 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include <color_utils.h>
+#include "thinker.h"
 
 Map::Map()
 {
@@ -724,6 +725,10 @@ int Map::draw()
                     the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
                     the_bg_color = the_tile->occupant->representation->bg_color;
+                    if (the_tile->occupant->thinker != NULL && !the_tile->occupant->thinker->get_is_aware())
+                    {
+                        the_bg_color = &((*the_bg_color)+TCODColor::darkestGrey);
+                    }
                 }
                 else //tile is not occupied
                 {
