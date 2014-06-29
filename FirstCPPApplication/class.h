@@ -4,17 +4,28 @@
 
 class Actor;
 
+
+enum ClassType
+{
+    FighterClassType = 1,
+    ShadowerClassType = 2,
+    MageClassType = 3,
+    NecromancerClassType = 4,
+    BrawlerClassType = 5,
+    NoClassType = -1
+};
+
 class IClass
 {
     public:
-          int type;
+        ClassType type;
         Actor* master;
         std::string name;
         std::string description;
 
         TCODColor fg_color;
 
-        IClass() { this->type = -1;};
+        IClass() { this->type = NoClassType;};
         virtual ~IClass() {};
 
         virtual void LevelUpStats(int levels) = 0;
@@ -30,6 +41,14 @@ class FighterClass : public IClass
 {
     public:
         FighterClass();
+        virtual void LevelUpStats(int levels);
+        virtual void LevelUpSkills(int levels);
+};
+
+class ShadowerClass : public IClass
+{
+    public:
+        ShadowerClass();
         virtual void LevelUpStats(int levels);
         virtual void LevelUpSkills(int levels);
 };
