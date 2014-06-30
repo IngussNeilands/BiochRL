@@ -198,19 +198,30 @@ void move_window(int x, int y)
 void minimize_game()
 {
     HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
-	ShowWindow(hwnd, SW_MINIMIZE);
+    ShowWindow(hwnd, SW_MINIMIZE);
 };
 
 void maximize_game()
 {
     HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
-	ShowWindow(hwnd, SW_RESTORE);
+    ShowWindow(hwnd, SW_RESTORE);
 };
 
 std::string char_to_str(char chr)
 {
     std::stringstream ss;
-    ss << chr;
+    if (chr == 13)
+    {
+        ss << "Enter";
+    }
+    else if (chr == 32)
+    {
+        ss << "Space";
+    }
+    else
+    {
+        ss << chr;
+    }
     std::string temp_str;
     ss >> temp_str;
 

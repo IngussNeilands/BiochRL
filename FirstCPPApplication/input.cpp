@@ -1372,14 +1372,14 @@ bool Input::process_mouse_event(TCOD_mouse_t request)
     // Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
     // moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
 
-	if (request.lbutton && !Ui::is_targetting)
-	{
-		Game::center_camera_on(Game::get_mouse_tile());
-	}
+    if (request.lbutton && !Ui::is_targetting)
+    {
+        Game::center_camera_on(Game::get_mouse_tile());
+    }
 
     if (request.lbutton_pressed && Ui::is_targetting)
     {
-		return Input::user_cast_spell();
+        return Input::user_cast_spell();
     }
 
     return false;
@@ -1672,10 +1672,20 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
         }
         else 
         {
-            std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-            std::cout << "q to return to gameplay, a b c to choose the first, second, third class etc." << std::endl;
-            std::cout << "press again to select. once it's activated, press u to use" << std::endl;
-            std::cout << "e to equip, y to unequip, d to drop" << std::endl;
+            auto vk_map = Input::get_tcodkey_to_string_map();
+            if (request.c == 0 && vk_map.find(request.vk) != vk_map.end())
+            {
+                std::cout << std::endl << "command not found: " << vk_map.at(request.vk) << std::endl;
+            }
+            else
+            {
+                std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+            };
+            std::cout << "q to return to gameplay, a b c to choose the first, second, third element etc." << std::endl;
+            std::cout << "press again to select. once it's activated, press u to use items" << std::endl;
+            std::cout << "e to equip classes or items, y to unequip items, d to drop items" << std::endl;
+            std::cout << "c to choose the spell to cast, z to zap the item" << std::endl;
+            std::cout << "x to examine the spell, item or class" << std::endl;
         }
     }
 
