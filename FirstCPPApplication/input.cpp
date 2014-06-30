@@ -423,7 +423,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
 
     else if ( basic_cmd == basic_cmds_t::CenterScreenToMouse )
     {
-        Game::center_camera_on(Game::get_mouse_tile());
+        Game::center_camera_on_player();
+        // Game::center_camera_on(Game::get_mouse_tile());
     }
 
     else if ( basic_cmd == basic_cmds_t::OpenMagic )
@@ -1371,13 +1372,14 @@ bool Input::process_mouse_event(TCOD_mouse_t request)
     // Tile* moused_tile = Game::current_map->getTileAt(Game::mouse_evt.cx+Game::camera_x, Game::mouse_evt.cy+Game::camera_y);
     // moused_tile->tile->representation->temp_bg_color = &(TCODColor)(TCODColor::red); //this only works because we get a new red every turn
 
-    if (request.lbutton_pressed)
+	if (request.lbutton && !Ui::is_targetting)
+	{
+		Game::center_camera_on(Game::get_mouse_tile());
+	}
+
+    if (request.lbutton_pressed && Ui::is_targetting)
     {
-        std::cout << "mouse lclicked" << std::endl;
-        if (Ui::is_targetting)
-        {
-            return Input::user_cast_spell();
-        }
+		return Input::user_cast_spell();
     }
 
     return false;
