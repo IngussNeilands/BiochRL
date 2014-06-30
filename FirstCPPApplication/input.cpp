@@ -1681,6 +1681,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
             {
                 std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
             };
+
             std::cout << "q to return to gameplay, a b c to choose the first, second, third element etc." << std::endl;
             std::cout << "press again to select. once it's activated, press u to use items" << std::endl;
             std::cout << "e to equip classes or items, y to unequip items, d to drop items" << std::endl;

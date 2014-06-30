@@ -146,13 +146,13 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
     std::string last_msg = "";
     std::string new_msg = "";
 
+    //get the last x messages
     std::vector<Message*> limited_messages;
     int message_limit = 200;
     int i = 1;
     for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
         limited_messages.push_back((*it));
-
-        if (++i>message_limit) break;
+        if ( ++i>message_limit ) break;
     }
 
     std::stable_sort(limited_messages.begin(),
@@ -191,10 +191,6 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         };
         cur_msg.clear();
 
-
-
-
-        // if (prerendered_msgs.size() >= turn_limit+1) break;
     }
 
     typedef std::map<double, std::vector<std::string>>::reverse_iterator it_type;
@@ -204,19 +200,9 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
         {
             prerendered_single.append(*it);
         }
-        //char buffer[1024];
-        //std::size_t len = prerendered_single.copy(buffer, prerendered_single.size(), 0);
-        //buffer[len] = '\0';
-        //prerendered_msgs.push_back(std::string(buffer));
         prerendered_msgs.push_back(prerendered_single);
         prerendered_single.clear();
-        // iterator->first = key
-        // iterator->second = value
-        // Repeat if you also want to iterate through the second map.
     }
-    // if (prerendered_single.size() > 0) {
-    //     prerendered_msgs.push_back(prerendered_single);
-    // }
 
     return prerendered_msgs;
 }
