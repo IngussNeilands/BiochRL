@@ -32,6 +32,7 @@
 #include <messages.h>
 #include "custom_key.h"
 #include <color_utils.h>
+#include <thinker.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -668,7 +669,21 @@ bool Input::toggle_sneaking()
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are now sneaking."));
         Game::player->representation->setBGColor(TCODColor::darkGrey, true, false, true);
 
-        //mark all enemies that can't see you unaware now, since you slipped away
+        if (Game::player->actor_class->type == ShadowerClassType) //can cloak immediately
+        {
+            //mark all enemies that can't see you unaware now, since you slipped away
+            actor_vec_t* actors_in_sight = Game::player->actors_in_sight;
+            for (actor_vec_t::iterator it = Game::current_map->enemies.begin(); it != Game::current_map->enemies.end(); it++)
+            {
+                Actor* actor = (*it);
+                bool player_can_see = std::find(actors_in_sight->begin(), actors_in_sight->end(), actor) == actors_in_sight->end();
+                if (actor->thinker != NULL && player_can_see)
+                {
+                    actor->thinker->set_aware(false);
+                }
+            }
+        };
+
     }
     else
     {
