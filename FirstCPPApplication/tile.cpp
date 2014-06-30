@@ -319,31 +319,68 @@ Tile* Tile::getMidLeftTile(int scale)
 vector<Tile*>* Tile::getAdjacentTiles(int scale)
 {
     //get seed tiles, mark as tested
-    vector<Tile*>* tiles_to_check = new vector<Tile*>;
-    tiles_to_check->push_back(getTopLeftTile(scale));
-    tiles_to_check->push_back(getTopMidTile(scale));
-    tiles_to_check->push_back(getTopRightTile(scale));
-    tiles_to_check->push_back(getMidRightTile(scale));
-    tiles_to_check->push_back(getBotRightTile(scale));
-    tiles_to_check->push_back(getBotMidTile(scale));
-    tiles_to_check->push_back(getBotLeftTile(scale));
-    tiles_to_check->push_back(getMidLeftTile(scale));
+    vector<Tile*>* seed_tiles = new vector<Tile*>;
+    seed_tiles->push_back(getTopLeftTile(1));
+    seed_tiles->push_back(getTopMidTile(1));
+    seed_tiles->push_back(getTopRightTile(1));
+    seed_tiles->push_back(getMidRightTile(1));
+    seed_tiles->push_back(getBotRightTile(1));
+    seed_tiles->push_back(getBotMidTile(1));
+    seed_tiles->push_back(getBotLeftTile(1));
+    seed_tiles->push_back(getMidLeftTile(1));
 
-        typedef  vector<Tile*> tv;
-        tv* adjacent_tiles = new vector<Tile*>;
+    typedef  vector<Tile*> tv;
     if (scale == 1)
     {
-        return tiles_to_check;
+        // delete checked_tiles;
+        return seed_tiles;
     }
     else
     {
-        for (tv::iterator it = tiles_to_check->begin(); it != tiles_to_check->end(); it++)
+        vector<Tile*>* valid_tiles = new vector<Tile*>;
+        tv* perimeter_tiles = new vector<Tile*>(seed_tiles->begin(), seed_tiles->end());
+        //take the newly validated tiles and save them
+        valid_tiles->insert(valid_tiles->end(), perimeter_tiles->begin(), perimeter_tiles->end());
+
+        for (int count = 1; count < scale; count++)
         {
+            tv new_perimeter = tv();
+            for (tv::iterator perim = perimeter_tiles->begin(); perim != perimeter_tiles->end(); ++perim)
+            {
+                //look through the perimeters neighbors
+                tv* neighbors = (*perim)->getAdjacentTiles(1);
+                for (tv::iterator neighbor = neighbors->begin(); neighbor != neighbors->end(); ++neighbor)
+                {
+                    //if not already found, add to new perimeter
+                    if (std::find(perimeter_tiles->begin(), perimeter_tiles->end(), *neighbor) == perimeter_tiles->end())
+                    // if (std::find(valid_tiles->begin(), valid_tiles->end(), *neighbor) == valid_tiles->end())
+                    {
+						Tile* tile = *neighbor;
+						printf("%d %d\n", tile->tile_x, tile->tile_y );
+                        new_perimeter.push_back(*neighbor);
+                    };
+                };
+                delete neighbors;
+
+            };
+
+            //take the newly validated tiles and save them
+            std::sort(new_perimeter.begin(), new_perimeter.end());
+            new_perimeter.erase( unique( new_perimeter.begin(), new_perimeter.end() ), new_perimeter.end() );
+            valid_tiles->insert(valid_tiles->end(), new_perimeter.begin(), new_perimeter.end());
+
+            //new_perimeter becomes the next perimeter_tiles to check
+            perimeter_tiles->clear();
+            perimeter_tiles->reserve(new_perimeter.size());
+            perimeter_tiles->insert(perimeter_tiles->end(), new_perimeter.begin(), new_perimeter.end());
+
+            //reset new peri tiles
+            new_perimeter.clear();
 
         };
+        return valid_tiles;
     };
 
-    return adjacent_tiles;
 
 };
 

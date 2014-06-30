@@ -939,6 +939,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 
 bool Map::should_spawn_hero()
 {
+    // int result = Game::event_rng->getInt(0, 1);
     int result = Game::event_rng->getInt(0, 1000);
     return (this->has_hero_spawned == false && result == SpecialHeroSpawn);
 };
@@ -1038,23 +1039,13 @@ void Map::spawn_hero()
 
     // Game::center_camera_on(hero->my_tile);
     hero->my_tile->setKnown(true);
-    std::vector<Tile*>* adjacent_tiles = hero->my_tile->getAdjacentTiles(1);
-    std::vector<Tile*>* adjacent_tiles2 = hero->my_tile->getAdjacentTiles(2);
-    std::vector<Tile*>* adjacent_tiles3 = hero->my_tile->getAdjacentTiles(3);
-    adjacent_tiles->reserve(adjacent_tiles->size()+ adjacent_tiles2->size() + adjacent_tiles3->size());
-    adjacent_tiles->insert(adjacent_tiles->end(), adjacent_tiles2->begin(), adjacent_tiles2->end());
-    adjacent_tiles->insert(adjacent_tiles->end(), adjacent_tiles3->begin(), adjacent_tiles3->end());
+    std::vector<Tile*>* adjacent_tiles = hero->my_tile->getAdjacentTiles(3);
     for (std::vector<Tile*>::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
     {
         Tile* tile = *it;
         tile->setKnown(true);
     };
     delete adjacent_tiles;
-    delete adjacent_tiles2;
-    delete adjacent_tiles3;
-
-
-
 
 };
 
