@@ -318,8 +318,14 @@ Tile* Tile::getMidLeftTile(int scale)
 
 vector<Tile*>* Tile::getAdjacentTiles(int scale)
 {
-    //get seed tiles, mark as tested
     vector<Tile*>* seed_tiles = new vector<Tile*>;
+    if (scale == 0) 
+    {
+        seed_tiles->push_back(this);
+        return seed_tiles;
+    };
+
+    //get seed tiles, mark as tested
     seed_tiles->push_back(getTopLeftTile(1));
     seed_tiles->push_back(getTopMidTile(1));
     seed_tiles->push_back(getTopRightTile(1));

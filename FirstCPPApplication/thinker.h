@@ -26,13 +26,12 @@ class Thinker
         long turn_last_seen_by_player;
         double tracking_memory;
 
-        bool is_ally;
-
         Actor* master;
         Civilian* civilian;
 
         Actor* target;
 
+        bool is_ally;
         int is_dumb;
         int is_civ;
         int is_shopkeep;

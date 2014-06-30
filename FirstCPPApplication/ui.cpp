@@ -204,6 +204,13 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
             {
                 messages.push_back("Isn't aware of you");
             };
+
+            bool is_ally = occupant->thinker->is_ally;
+            if (is_ally)
+            {
+                messages.push_back("Is your ally");
+            }
+
         };
 
     }

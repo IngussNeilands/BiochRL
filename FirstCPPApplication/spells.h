@@ -123,6 +123,13 @@ class CastShadowSpell : public Spell
         void cast(Tile* targetted_tile);
 };
 
+class BribeSpell : public Spell
+{
+    public:
+        BribeSpell();
+        void cast(Tile* targetted_tile);
+};
+
 class ShadowRunSpell : public TeleportSelfSpell
 {
     public:

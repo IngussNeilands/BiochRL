@@ -472,6 +472,35 @@ void CastShadowSpell::cast(Tile* targetted_tile)
     //auto sneak?
 };
 
+BribeSpell::BribeSpell() : Spell()
+{
+    this->required_level = 6;
+    this->name = "Bribery";
+    this->element = SpectreElement;
+    this->mana_cost = 15;
+    this->max_range = 4;
+    this->aoe = 0;
+    this->target_type = TargettedTargetType;
+};
+
+void BribeSpell::cast(Tile* targetted_tile)
+{
+    //get tiles within a given radius
+    std::vector<Tile*>* tiles = targetted_tile->getAdjacentTiles(this->aoe);
+
+    std::vector<Tile*>::iterator it = tiles->begin();
+    for (it; it != tiles->end(); it++)
+    {
+        Tile* tile = *it;
+        if (tile->is_occupied() && tile->occupant != this->master && tile->occupant->thinker != NULL)
+        {
+            tile->occupant->thinker->is_ally = true;
+        };
+    };
+    this->master->attrs->mana->current_val -= mana_cost;
+
+};
+
 /* misc */
 
 TeleportSelfSpell::TeleportSelfSpell() : Spell()

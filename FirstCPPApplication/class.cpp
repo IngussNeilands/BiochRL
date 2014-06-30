@@ -139,7 +139,7 @@ void ShadowerClass::LevelUpSkills(int levels)
 
         case 6:
             new Message(Ui::msg_handler_main, MOOD_MSG, msg);
-            new_spell = new PoisonCoughSpell();
+            new_spell = new BribeSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;
