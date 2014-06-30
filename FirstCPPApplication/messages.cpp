@@ -84,7 +84,9 @@ void MessageHandler::draw(TCODConsole* console)
         console->setDefaultForeground(new_color);
 
         //check width of drawing area and wrap
-        int y_height = console->printRect(x, y, console->getWidth(), console->getHeight(), (it)->c_str());
+        int width = console->getWidth();
+        int height = console->getHeight();
+        int y_height = console->printRect(x, y, width, height, (it)->c_str());
         y += y_height;
 
         if (y > 10) break; //don't need to loop over all messages
@@ -211,7 +213,7 @@ void Message::Init()
 {
     this->type = message_types_t::NOTYPE_MSG;
     this->type_index = 0;
-    this->content = "Unspecified %s";
+    this->content = "Unspecified ";
     this->count = 0;
     this->turn = Game::turn_count;
 };
