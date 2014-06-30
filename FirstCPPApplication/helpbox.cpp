@@ -81,19 +81,19 @@ void HelpBox::draw()
     if (selected_tile->occupant != NULL)
     {
         TCODImage* img = selected_tile->occupant->get_image();
-	int w, h;
-    img->getSize(&w, &h);
-	if (w == 20)
-	{
-	    img->blit2x(this->con, 4, 7);
-	}
-    else
-    {
-        img->blit(this->con, 9, 13);
-    }
+        int w, h;
+        img->getSize(&w, &h);
+        if (w == 20)
+        {
+            img->blit2x(this->con, 4, 7);
+        }
+        else
+        {
+            img->blit(this->con, 9, 13);
+        }
         delete img;
     };
 
     TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, 21);
-    
+
 };

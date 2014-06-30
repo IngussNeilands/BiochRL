@@ -466,9 +466,10 @@ void CastShadowSpell::cast(Tile* targetted_tile)
             tile->occupant->thinker->set_aware(false);
         };
     };
+    this->master->attrs->mana->current_val -= mana_cost;
+
     //
     //auto sneak?
-    this->master->attrs->mana->current_val -= mana_cost;
 };
 
 /* misc */
