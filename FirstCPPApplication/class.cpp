@@ -132,7 +132,7 @@ void ShadowerClass::LevelUpSkills(int levels)
 
         case 4:
             new Message(Ui::msg_handler_main, MOOD_MSG, msg);
-            new_spell = new AutoChemHPSpell();
+            new_spell = new CastShadowSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;

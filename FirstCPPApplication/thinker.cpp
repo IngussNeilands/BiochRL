@@ -322,6 +322,11 @@ void Thinker::try_attacking_player()
     //calm the combat down
     ((Person*)master)->combat->was_attacked = false;
 
+}
+
+void Thinker::set_aware(bool aware)
+{
+	this->_is_aware = aware;
 };
 
 void Thinker::update()

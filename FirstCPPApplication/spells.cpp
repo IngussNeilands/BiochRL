@@ -16,7 +16,7 @@
 #include "inventory.h"
 #include "enemies\skeleton.h"
 #include "map.h"
-
+#include <thinker.h>
 
 
 Spell::Spell()
@@ -149,8 +149,8 @@ std::vector<Actor*> Spell::targets_around_tile(Tile* target_tile)
     std::vector<Actor*> targets;
     if (this->aoe > 0)
     {
-        if (this->aoe != 1) printf("aoe is only directly adjacent tiles, anything higher than 1 is ignored\n");
-        std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(1);
+        //if (this->aoe != 1) printf("aoe is only directly adjacent tiles, anything higher than 1 is ignored\n");
+        std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(this->aoe);
         for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
         {
 			Tile* tile = *it;
@@ -445,18 +445,30 @@ CastShadowSpell::CastShadowSpell() : Spell()
     this->required_level = 4;
     this->name = "Cast Shadows";
     this->element = SpectreElement;
-    this->mana_cost = 6;
+    this->mana_cost = 15;
     this->max_range = 2;
+    this->aoe = 2;
     this->target_type = GroundTargetType;
 };
 
 void CastShadowSpell::cast(Tile* targetted_tile)
 {
     //get tiles within a given radius
+    std::vector<Tile*>* tiles = targetted_tile->getAdjacentTiles(this->aoe);
     //
     //mark occupants unaware
+    std::vector<Tile*>::iterator it = tiles->begin();
+    for (it; it != tiles->end(); it++)
+    {
+        Tile* tile = *it;
+        if (tile->is_occupied() && tile->occupant != this->master && tile->occupant->thinker != NULL)
+        {
+            tile->occupant->thinker->set_aware(false);
+        };
+    };
     //
     //auto sneak?
+    this->master->attrs->mana->current_val -= mana_cost;
 };
 
 /* misc */

@@ -54,5 +54,6 @@ class Thinker
         void walk_dumbly();
         void try_attacking_player();
 
+	void set_aware(bool aware);
 };
 #endif
