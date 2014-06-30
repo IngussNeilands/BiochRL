@@ -12,12 +12,12 @@ class Event
         bool is_active;
 
         std::string message; //once the event happens, thisll get posted
-        std::vector<Actor*>* actors;
+        actor_vec_t* actors;
         std::vector<Item*>* items;
-        std::vector<Tile*>* tiles;
+        tile_vec_t* tiles;
 
         Event();
-        Event(std::string message, std::vector<Actor*>* actors, std::vector<Item*>* items, std::vector<Tile*>* tiles);
+        Event(std::string message, actor_vec_t* actors, std::vector<Item*>* items, tile_vec_t* tiles);
 
         void activate();
         void initialize();

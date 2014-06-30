@@ -30,7 +30,7 @@
 
 Map::Map()
 {
-    this->enemies = std::vector<Actor*>();
+    this->enemies = actor_vec_t();
     this->roomVector = new std::vector<Room*>;
 
     this->has_hero_spawned = false;
@@ -808,8 +808,8 @@ int Map::draw()
     }
 
     //TODO debug pathing
-    // std::vector<Actor*>* ais = Game::player->actors_in_sight;
-    // for(std::vector<Actor*>::iterator it = ais->begin(); it != ais->end(); ++it) {
+    // actor_vec_t* ais = Game::player->actors_in_sight;
+    // for(actor_vec_t::iterator it = ais->begin(); it != ais->end(); ++it) {
     //     char the_char = (*it)->representation->repr;
     //     TCODConsole::root->putChar((*it)->dest_x, (*it)->dest_y,the_char);
     //     TCODConsole::root->setCharForeground((*it)->dest_x, (*it)->dest_y, TCODColor::darkRed);
@@ -1039,8 +1039,8 @@ void Map::spawn_hero()
 
     // Game::center_camera_on(hero->my_tile);
     hero->my_tile->setKnown(true);
-    std::vector<Tile*>* adjacent_tiles = hero->my_tile->getAdjacentTiles(3);
-    for (std::vector<Tile*>::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+    tile_vec_t* adjacent_tiles = hero->my_tile->getAdjacentTiles(3);
+    for (tile_vec_t::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
     {
         Tile* tile = *it;
         tile->setKnown(true);

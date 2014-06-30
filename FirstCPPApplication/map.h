@@ -28,8 +28,8 @@ class Map : public Object
         Map();
         ~Map();
 
-        std::vector<Actor*> enemies;
-        std::vector<Actor*> allies;  
+        actor_vec_t enemies;
+        actor_vec_t allies;  
         std::vector<Event*>* events;
 
         int width, height;

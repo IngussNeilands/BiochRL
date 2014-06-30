@@ -106,8 +106,8 @@ TCODColor Spell::get_spell_color()
 void Spell::cast(Tile* targetted_tile)
 {
     this->cast_count += 1;
-    std::vector<Actor*> targets = this->targets_around_tile(targetted_tile);
-    typedef std::vector<Actor*> actor_vector;
+    actor_vec_t targets = this->targets_around_tile(targetted_tile);
+    typedef actor_vec_t actor_vector;
     for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* target = *it;
@@ -143,14 +143,14 @@ void Spell::apply_attr_effects(Actor* target)
 };
 
 
-std::vector<Actor*> Spell::targets_around_tile(Tile* target_tile)
+actor_vec_t Spell::targets_around_tile(Tile* target_tile)
 {
-    typedef std::vector<Tile*> tile_vector;
-    std::vector<Actor*> targets;
+    typedef tile_vec_t tile_vector;
+    actor_vec_t targets;
     if (this->aoe > 0)
     {
         //if (this->aoe != 1) printf("aoe is only directly adjacent tiles, anything higher than 1 is ignored\n");
-        std::vector<Tile*>* adjacent_tiles = target_tile->getAdjacentTiles(this->aoe);
+        tile_vec_t* adjacent_tiles = target_tile->getAdjacentTiles(this->aoe);
         for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
         {
 			Tile* tile = *it;
@@ -454,10 +454,10 @@ CastShadowSpell::CastShadowSpell() : Spell()
 void CastShadowSpell::cast(Tile* targetted_tile)
 {
     //get tiles within a given radius
-    std::vector<Tile*>* tiles = targetted_tile->getAdjacentTiles(this->aoe);
+    tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
     //
     //mark occupants unaware
-    std::vector<Tile*>::iterator it = tiles->begin();
+    tile_vec_t::iterator it = tiles->begin();
     for (it; it != tiles->end(); it++)
     {
         Tile* tile = *it;
@@ -486,9 +486,9 @@ BribeSpell::BribeSpell() : Spell()
 void BribeSpell::cast(Tile* targetted_tile)
 {
     //get tiles within a given radius
-    std::vector<Tile*>* tiles = targetted_tile->getAdjacentTiles(this->aoe);
+    tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
 
-    std::vector<Tile*>::iterator it = tiles->begin();
+    tile_vec_t::iterator it = tiles->begin();
     for (it; it != tiles->end(); it++)
     {
         Tile* tile = *it;

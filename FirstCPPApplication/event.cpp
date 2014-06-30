@@ -17,7 +17,7 @@ void Event::initialize()
     this->tiles = NULL;
 };
 
-Event::Event(std::string message, std::vector<Actor*>* actors, std::vector<Item*>* items, std::vector<Tile*>* tiles)
+Event::Event(std::string message, actor_vec_t* actors, std::vector<Item*>* items, tile_vec_t* tiles)
 {
     this->message = message;
     this->actors = actors;

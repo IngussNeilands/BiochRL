@@ -41,7 +41,7 @@ Tile::Tile()
     this->is_custom_tile = false;
     this->custom_tile = NULL;
 
-    this->occupants = new std::vector<Actor*>;
+    this->occupants = new actor_vec_t;
     this->occupant = NULL;
     // items = new std::vector<Item*>;
     this->inventory = new Inventory;
@@ -157,7 +157,7 @@ void Tile::makeOccupied(Actor* the_actor)
 void Tile::makeUnoccupied(Actor* the_actor)
 {
     //remove the actor from vector
-    for(std::vector<Actor*>::size_type i = 0; i != occupants->size(); i++) 
+    for(actor_vec_t::size_type i = 0; i != occupants->size(); i++) 
     {
         if (occupants->at(i) == the_actor)
         {

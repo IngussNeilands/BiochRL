@@ -100,8 +100,8 @@ void Thinker::update_path()
         //it, otherwise change spots
         int dest_tile_x, dest_tile_y;
         master->l_path->getDestination(&dest_tile_x, &dest_tile_y);
-        std::vector<Tile*>* adj_tiles = Game::current_map->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
-        std::vector<Tile*>::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), target_tile);
+        tile_vec_t* adj_tiles = Game::current_map->getTileAt(dest_tile_x, dest_tile_y)->getAdjacentTiles();
+        tile_vec_t::iterator adjItr = std::find(adj_tiles->begin(), adj_tiles->end(), target_tile);
         //if the path destination isn't adj to the player make a new path 
         if (adjItr == adj_tiles->end())
         {
@@ -138,7 +138,7 @@ void Thinker::set_target()
         //TODO select monster near tile
         if (!Game::player->actors_in_sight->empty())
         {
-            std::vector<Actor*>::iterator potential_target = Game::player->actors_in_sight->begin();
+            actor_vec_t::iterator potential_target = Game::player->actors_in_sight->begin();
             for (potential_target; potential_target!=Game::player->actors_in_sight->end(); potential_target++)
             {
                 if ((*potential_target)->combat != NULL && !(*potential_target)->thinker->is_ally)
@@ -163,7 +163,7 @@ void Thinker::set_target()
 
 void Thinker::set_destination()
 {
-    std::vector<Tile*>* adjacent_tiles;
+    tile_vec_t* adjacent_tiles;
     adjacent_tiles  = this->target->my_tile->getVacantAdjacentTiles();  
     std::random_shuffle(adjacent_tiles->begin(), adjacent_tiles->end());
 
@@ -277,7 +277,7 @@ void Thinker::walk_dumbly()
 {
     //pick a random direction if its not a wall or a boundary of some kind ie
     //the exit of their shop
-    std::vector<Tile*>* adj_tiles = this->master->my_tile->getVacantAdjacentTiles();
+    tile_vec_t* adj_tiles = this->master->my_tile->getVacantAdjacentTiles();
     std::random_shuffle ( adj_tiles->begin(), adj_tiles->end());
     Tile * next_tile = adj_tiles->back();
     master->putPerson(next_tile, next_tile->tile_x, next_tile->tile_y); 
@@ -310,7 +310,7 @@ void Thinker::try_attacking_player()
     // cout << "IMNA ATTACK THE PLAYER" << endl;
     //attack the player if he's in range (aka adjacent tile)
     Combat* assailant = this->target->combat;
-    std::vector<Tile*>* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
+    tile_vec_t* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
     if (std::find(adjacent_tiles->begin(), adjacent_tiles->end(), assailant->master->my_tile) != adjacent_tiles->end())
     {
         // std::cout << "adjacent" << std::endl;

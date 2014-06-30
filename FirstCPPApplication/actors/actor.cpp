@@ -63,7 +63,7 @@ Actor::Actor()
     this->attrs->owner = this;
     this->spells = new std::vector<Spell*>;
 
-    this->actors_in_sight = new std::vector<Actor*>;
+    this->actors_in_sight = new actor_vec_t;
 
     this->thinker = new Thinker;
     this->thinker->master = this;
@@ -140,7 +140,7 @@ const char* Actor::GetNameC()
 bool Actor::IsActorInSight(Actor* actor)
 {
 
-    std::vector<Actor*>::iterator it;
+    actor_vec_t::iterator it;
     it = std::find(this->actors_in_sight->begin(), this->actors_in_sight->end(),  actor);
     if (it != this->actors_in_sight->end()) 
     {
@@ -156,7 +156,7 @@ bool Actor::IsActorInSight(Actor* actor)
 void Actor::mark_as_unseen(Actor * actor)
 {
     // std::cout << "removing from sight" << std::endl;
-    std::vector<Actor*>* ais = this->actors_in_sight;
+    actor_vec_t* ais = this->actors_in_sight;
     //if the actor is in sight and isnt this actor:
     if (actor == this) 
     {
@@ -167,7 +167,7 @@ void Actor::mark_as_unseen(Actor * actor)
 }
 void Actor::mark_as_seen(int x, int y, Actor * actor)
 {
-    std::vector<Actor*>* ais = this->actors_in_sight;
+    actor_vec_t* ais = this->actors_in_sight;
     //if the actor is in sight and isnt this actor:
     if (actor == this) 
     {

@@ -16,11 +16,19 @@
 #include <algorithm>
 #include <iostream>
 
+#include <libtcod.hpp>
+
 #include <utils.h>
+#include "color_utils.h"
 #include "statistics.h"
 
 // TODO: reference additional headers your program requires here
-#include <libtcod.hpp>
+
+class Actor;
+class Tile;
+
+typedef std::vector<Actor*> actor_vec_t;
+typedef std::vector<Tile*> tile_vec_t;
 
 //[assembly:AssemblyKeyFileAttribute("keyPair.snk")];
 //debugging the heap that didn't work

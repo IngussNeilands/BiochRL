@@ -551,7 +551,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         if (Ui::is_targetting) 
         {
             int max_range = ((Spell*)Ui::chosen_generic)->max_range;
-            std::vector<Actor*> targets;
+            actor_vec_t targets;
             Tile* mouse_tile = Game::get_mouse_tile();
             for (int i = 0; i < max_range; i++) {
                 auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
@@ -594,7 +594,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
 
             int max_range = ((Spell*)Ui::chosen_generic)->max_range;
-            std::vector<Actor*> targets;
+            actor_vec_t targets;
             Tile* mouse_tile = Game::get_mouse_tile();
             for (int i = 0; i < max_range; i++) {
                 auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
@@ -667,6 +667,8 @@ bool Input::toggle_sneaking()
     {
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are now sneaking."));
         Game::player->representation->setBGColor(TCODColor::darkGrey, true, false, true);
+
+        //mark all enemies that can't see you unaware now, since you slipped away
     }
     else
     {

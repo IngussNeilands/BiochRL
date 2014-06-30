@@ -77,7 +77,7 @@ class Actor : public Object
         void resetIsMoving();
         int* get_direction_heading();
 
-        std::vector<Actor*> * actors_in_sight;
+        actor_vec_t * actors_in_sight;
 
         bool is_fighter;
         Combat * combat;

@@ -59,7 +59,7 @@ class Spell
 
         virtual void cast(Tile* targetted_tile);
         virtual void apply_attr_effects(Actor* target);
-        std::vector<Actor*> targets_around_tile(Tile* target_tile);
+        actor_vec_t targets_around_tile(Tile* target_tile);
 
 };
 

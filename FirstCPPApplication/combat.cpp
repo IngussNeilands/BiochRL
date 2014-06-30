@@ -111,8 +111,8 @@ void Combat::LevelUp(int levels)
 
     //animate
     // Tile* tile = this->master->my_tile;
-    // std::vector<Tile*>* adj_tiles = tile->getAdjacentTiles(2);
-    // for (std::vector<Tile*>::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
+    // tile_vec_t* adj_tiles = tile->getAdjacentTiles(2);
+    // for (tile_vec_t::iterator it = adj_tiles->begin(); it != adj_tiles->end(); ++it)
     // {
     //     (*it)->tile->representation->temp_bg_color = (TCODColor*)(&TCODColor::gold);
     // };

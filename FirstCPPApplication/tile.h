@@ -164,8 +164,8 @@ class Tile : public Object
         void makeUnoccupied(Actor* the_actor);
 
         Tile* getTileAtRelative(int x, int y);
-        std::vector<Tile*>* getAdjacentTiles(int scale = 1);
-        std::vector<Tile*>* getVacantAdjacentTiles();
+        tile_vec_t* getAdjacentTiles(int scale = 1);
+        tile_vec_t* getVacantAdjacentTiles();
 
         Tile* getTopLeftTile(int scale = 1);
         Tile* getTopMidTile(int scale = 1);

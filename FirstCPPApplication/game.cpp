@@ -108,7 +108,7 @@ Person* Game::player = NULL;     //the PC
 TCOD_key_t Game::key_evt;
 TCOD_mouse_t Game::mouse_evt;
 
-std::vector<Actor*> Game::enemies = std::vector<Actor*>();  //later, this will be an array of all the enemies 
+actor_vec_t Game::enemies = actor_vec_t();  //later, this will be an array of all the enemies 
 std::vector<Item*> Game::items = std::vector<Item*>();  //later, this will be an array of all the enemies 
 
 unsigned long int Game::turn_count = 1;
@@ -615,7 +615,7 @@ void Game::update()
 
     //update actors in this floor
     int enemies_size = Game::current_map->enemies.size();
-    for (std::vector<Actor*>::size_type i = 0; i != enemies_size; i++) 
+    for (actor_vec_t::size_type i = 0; i != enemies_size; i++) 
     {
         Actor* enemy = Game::current_map->enemies.at(i);
         // cout << "\t" << enemy->name << "is updating" << endl;
@@ -628,7 +628,7 @@ void Game::update()
     }
     //update actors in this floor
     int allies_size = Game::current_map->allies.size();
-    for (std::vector<Actor*>::size_type i = 0; i != allies_size; i++) 
+    for (actor_vec_t::size_type i = 0; i != allies_size; i++) 
     {
         Actor* ally = Game::current_map->allies.at(i);
         // cout << "\t" << ally->name << "is updating" << endl;
