@@ -136,6 +136,14 @@ class ShadowRunSpell : public TeleportSelfSpell
         ShadowRunSpell();
 };
 
+class SpawnShadowlingSpell : public Spell 
+{
+    public: 
+        SpawnShadowlingSpell();
+        void cast(Tile* targetted_tile);
+        void spawn(Tile* targetted_tile);
+};
+
 class LaunchOtherSpell : public Spell
 {
     public:

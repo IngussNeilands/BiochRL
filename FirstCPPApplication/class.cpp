@@ -146,7 +146,7 @@ void ShadowerClass::LevelUpSkills(int levels)
 
         case 8:
             new Message(Ui::msg_handler_main, MOOD_MSG, msg);
-            new_spell = new InnerSanctuarySpell();
+            new_spell = new SpawnShadowlingSpell();
             new_spell->master = this->master;
             this->master->spells->push_back(new_spell);
             break;

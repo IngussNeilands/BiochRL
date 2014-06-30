@@ -472,6 +472,43 @@ void CastShadowSpell::cast(Tile* targetted_tile)
     //auto sneak?
 };
 
+SpawnShadowlingSpell::SpawnShadowlingSpell() : Spell()
+{
+    this->required_level = 8;
+    this->name = "Spawn Shadowling";
+    this->element = SpectreElement;
+    this->mana_cost = 30;
+    this->max_range = 2;
+    this->aoe = 0;
+    this->target_type = GroundTargetType;
+};
+
+void SpawnShadowlingSpell::cast(Tile* targetted_tile)
+{
+    //get tiles within a given radius
+    tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
+
+    //spawn creature at tile
+    tile_vec_t::iterator it = tiles->begin();
+    for (it; it != tiles->end(); it++)
+    {
+        Tile* tile = *it;
+        if (!tile->is_occupied())
+        {
+            this->spawn(tile);
+        };
+    };
+    this->master->attrs->mana->current_val -= mana_cost;
+
+};
+
+void SpawnShadowlingSpell::spawn(Tile* targetted_tile)
+{
+    Skeleton* creature = Game::spawn_creature_ally<Skeleton>(targetted_tile, "Shadowling", 1000, 'l', Game::current_map);
+	creature->img_path = get_data_path()+ "img/dark_elf8x8.png";
+};
+
+
 BribeSpell::BribeSpell() : Spell()
 {
     this->required_level = 6;
