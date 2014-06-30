@@ -1575,13 +1575,13 @@ void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*
 };
 
     template<class T>
-void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
+void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (*active_func)(TCOD_key_t), bool (*process_func)(TCOD_key_t))
 {
-    int size = generic_vector->size();
+    int size = elements->size();
     bool successful_action = true;
 
-    generic_keypair_t generic_map = Input::build_keypairs(size, Ui::offset);
-    generic_keypair_t::iterator it = generic_map.find(request.c);
+    generic_keypair_t key_map = Input::build_keypairs(size, Ui::offset);
+    generic_keypair_t::iterator it = key_map.find(request.c);
 
     if (Ui::generic_active == false)
     {
@@ -1608,11 +1608,11 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                     Ui::page_num--;
                     Ui::offset = Ui::per_page*Ui::page_num;
                     Input::generic_index = 'a' + Ui::per_page-1;
-                    generic_map = Input::build_keypairs(size, Ui::offset);
+                    key_map = Input::build_keypairs(size, Ui::offset);
                 };
                 //  set g_i to last character on page
             }
-            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
+            Input::match_key<T>(Input::generic_index, key_map, elements, false);
         }
         else if (request.vk == TCODK_DOWN && request.pressed == 1)
         {
@@ -1620,7 +1620,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
             if (Input::generic_index >= 'a' + Ui::per_page)
             {
                 //go to next page unless its the last page
-                if (Ui::offset+Ui::per_page > generic_vector->size())
+                if (Ui::offset+Ui::per_page > elements->size())
                 {
                     Input::generic_index--;
                 }
@@ -1629,16 +1629,16 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
                     Ui::page_num++;
                     Ui::offset = Ui::per_page*Ui::page_num;
                     Input::generic_index = 'a';
-                    generic_map = Input::build_keypairs(size, Ui::offset);
+                    key_map = Input::build_keypairs(size, Ui::offset);
                 };
             }
 
-            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, false);
+            Input::match_key<T>(Input::generic_index, key_map, elements, false);
         }
 
         else if (request.vk == TCODK_ENTER && request.pressed == 1)
         {
-            Input::match_key<T>(Input::generic_index, generic_map, generic_vector, true);
+            Input::match_key<T>(Input::generic_index, key_map, elements, true);
         }
         else if ( (request.vk == TCODK_PAGEDOWN || request.c == '+') && request.pressed == 1) 
         {
@@ -1661,7 +1661,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* generic_vector, 
         else 
         {
             //choose generic from letter to generic map
-            Input::match_key<T>(request.c, generic_map, generic_vector, true);
+            Input::match_key<T>(request.c, key_map, elements, true);
         };
     }
     else // generic_active is true
