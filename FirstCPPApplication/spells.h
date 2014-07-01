@@ -58,6 +58,7 @@ class Spell
         bool has_enough_mana();
 
         virtual void cast(Tile* targetted_tile);
+        void spend_mana();
         virtual void apply_attr_effects(Actor* target);
         actor_vec_t targets_around_tile(Tile* target_tile);
 
@@ -152,5 +153,13 @@ class LaunchOtherSpell : public Spell
         void cast(Tile* targetted_tile);
 
 };
+
+class IlluminationSpell : public Spell
+{
+    public:
+        IlluminationSpell();
+        void cast(Tile* targetted_tile);
+};
+
 
 #endif

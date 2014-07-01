@@ -103,25 +103,29 @@ TCODColor Spell::get_spell_color()
     return spell_color.at(this->element);
 };
 
+void Spell::spend_mana()
+{
+    this->master->attrs->mana->current_val -= mana_cost;
+};
+
 void Spell::cast(Tile* targetted_tile)
 {
     this->cast_count += 1;
     actor_vec_t targets = this->targets_around_tile(targetted_tile);
-    typedef actor_vec_t actor_vector;
-    for (actor_vector::iterator it = targets.begin(); it != targets.end(); it++)
+    for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* target = *it;
         this->apply_attr_effects(target);
+
         Game::player->combat->last_victim = target;
         target->combat->RememberAttacker(Game::player->combat, true);
-        //Game::player->combat->Attack(target->combat, 0); //HACK to get exp and printout from casting
     };
 
     if (this->master == Game::player)
     {
         Game::stats->spells_cast++;
     };
-    this->master->attrs->mana->current_val -= mana_cost;
+    this->spend_mana();
 };
 
 void Spell::apply_attr_effects(Actor* target)
@@ -363,7 +367,7 @@ void RaiseDeadSpell::cast(Tile* targetted_tile)
         {
             Game::stats->spells_cast++;
         };
-        this->master->attrs->mana->current_val -= this->mana_cost;
+        this->spend_mana();
         // Spell::cast(targetted_tile);
     };
 };
@@ -466,7 +470,7 @@ void CastShadowSpell::cast(Tile* targetted_tile)
             tile->occupant->thinker->set_aware(false);
         };
     };
-    this->master->attrs->mana->current_val -= mana_cost;
+    this->spend_mana();
 
     //
     //auto sneak?
@@ -498,7 +502,7 @@ void SpawnShadowlingSpell::cast(Tile* targetted_tile)
             this->spawn(tile);
         };
     };
-    this->master->attrs->mana->current_val -= mana_cost;
+    this->spend_mana();
 
 };
 
@@ -534,8 +538,7 @@ void BribeSpell::cast(Tile* targetted_tile)
             tile->occupant->thinker->is_ally = true;
         };
     };
-    this->master->attrs->mana->current_val -= mana_cost;
-
+    this->spend_mana();
 };
 
 /* misc */
@@ -563,7 +566,7 @@ void TeleportSelfSpell::cast(Tile* targetted_tile)
         {
             Game::stats->spells_cast++;
         };
-        this->master->attrs->mana->current_val -= mana_cost;
+        this->spend_mana();
         // Spell::cast(targetted_tile);
     }
     else
@@ -639,12 +642,22 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
         {
             Game::stats->spells_cast++;
         };
-        this->master->attrs->mana->current_val -= mana_cost;
+        this->spend_mana();
         // Spell::cast(targetted_tile);
     }
     else
     {
         printf("Is not walkable\n");
     }
+
+};
+
+IlluminationSpell::IlluminationSpell() : Spell()
+{
+
+};
+
+void IlluminationSpell::cast(Tile* targetted_tile)
+{
 
 };
