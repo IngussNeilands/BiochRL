@@ -623,7 +623,7 @@ Item* spawnPotion()
         dropped_item->repr->setFGColor(TCODColor::lighterBlue, true, false, true);
 
         //mana regen
-        int health = rng->getInt(5, 50, 15);
+        int mana = rng->getInt(5, 50, 15);
         dropped_item->attr_effect->mana_current_val = mana;
         dropped_item->attr_effect->mana_max_val = mana;
     }
