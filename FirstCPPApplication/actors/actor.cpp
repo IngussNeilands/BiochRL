@@ -411,12 +411,22 @@ Item* spawnArmor()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<ArmorSpawnTypes> rwm = RandomWeightMap<ArmorSpawnTypes>();
-    rwm.add_item(ChainmailSpawn, 25);
     rwm.add_item(LeatherChestSpawn, 50);
+    rwm.add_item(ChainmailSpawn, 25);
+    rwm.add_item(CuirassSpawn, 20);
+    rwm.add_item(LinkedMailSpawn, 10);
+    rwm.add_item(PlateMailSpawn, 10);
+    rwm.add_item(DemonhideSpawn, 2);
+
     rwm.add_item(ShieldSpawn, 50);
     rwm.add_item(TargetShieldSpawn, 25);
+    rwm.add_item(KiteShieldSpawn, 20);
+
     rwm.add_item(HelmetSpawn, 50);
+    rwm.add_item(MaskSpawn, 30);
     rwm.add_item(CrownSpawn, 10);
+    rwm.add_item(GrimHelmSpawn, 10);
+
 
     ArmorSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == ChainmailSpawn)
@@ -430,7 +440,7 @@ Item* spawnArmor()
     else if (result == LeatherChestSpawn)
     {
         std::string description = "It looks like it's made up of leather hide.";
-        dropped_item = spawnEquippable("Leather Chestpiece", description, '&', slots_t::Chest, 10);
+        dropped_item = spawnEquippable("Leather Chestpiece", description, '#', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
         // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 2);
         dropped_item->set_and_name_for_arm("Some", "Leather Chestpiece", rng, 2, 6, 2);
@@ -452,6 +462,15 @@ Item* spawnArmor()
         dropped_item->set_and_name_for_arm("A", "target shield", rng, 3, 7, 3);
         
     }
+    else if (result == KiteShieldSpawn)
+    {
+        std::string description = "It looks large and sturdy.";
+        dropped_item = spawnEquippable("A kite shield", description, '#', slots_t::OffHand, 5);
+        dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("A", "kite shield", rng, 3, 9, 3);
+
+    }
     else if (result == HelmetSpawn)
     {
         std::string description = "It looks sturdy.";
@@ -459,6 +478,60 @@ Item* spawnArmor()
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
         // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "helmet", rng, 1, 7, 3);
+
+    }
+    else if (result == LinkedMailSpawn)
+    {
+        std::string description = "It looks like several pieces of steel are sown together.";
+        dropped_item = spawnEquippable("Some linked mail", description, '#', slots_t::Chest, 5);
+        dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("Some", "linked mail", rng, 4, 11, 5);
+
+    }
+    else if (result == CuirassSpawn)
+    {
+        std::string description = "It looks nearly sturdy.";
+        dropped_item = spawnEquippable("Some cuirass", description, '#', slots_t::Chest, 5);
+        dropped_item->repr->setFGColor(TCODColor::darkSepia, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("Some", "cuirass", rng, 2, 9, 3);
+
+    }
+    else if (result == PlateMailSpawn)
+    {
+        std::string description = "It looks hella sturdy.";
+        dropped_item = spawnEquippable("Some platemail", description, '#', slots_t::Chest, 5);
+        dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("Some", "platemail", rng, 7, 14, 6);
+
+    }
+    else if (result == DemonhideSpawn)
+    {
+        std::string description = "It looks like it was forged in the shadows.";
+        dropped_item = spawnEquippable("A Demonhide chestpiece", description, '#', slots_t::Chest, 5);
+        dropped_item->repr->setFGColor(TCODColor::darkestCrimson, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("A", "Demonhide chestpiece", rng, 10, 20, 13);
+
+    }
+    else if (result == MaskSpawn)
+    {
+        std::string description = "It looks like it'd be perfect for hiding your face from others.";
+        dropped_item = spawnEquippable("A mask", description, '^', slots_t::Head, 5);
+        dropped_item->repr->setFGColor(TCODColor::lightOrange, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("A", "mask", rng, 2, 6, 5);
+
+    }
+    else if (result == GrimHelmSpawn)
+    {
+        std::string description = "It looks this wouldn't help you make any more allies.";
+        dropped_item = spawnEquippable("A grimhelm", description, '^', slots_t::Head, 7);
+        dropped_item->repr->setFGColor(TCODColor::darkerRed, true, false, true);
+        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
+        dropped_item->set_and_name_for_arm("A", "grimhelm", rng, 1, 7, 3);
 
     }
     else if (result == CrownSpawn)

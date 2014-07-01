@@ -62,8 +62,16 @@ enum ArmorSpawnTypes {
     LeatherChestSpawn,
     ShieldSpawn,
     TargetShieldSpawn,
+    KiteShieldSpawn,
     HelmetSpawn,
     CrownSpawn,
+    LinkedMailSpawn,
+    CuirassSpawn,
+    PlateMailSpawn,
+    DemonhideSpawn,
+    MaskSpawn,
+    GrimHelmSpawn,
+
     NothingArmorSpawn
 };
 
