@@ -428,7 +428,7 @@ InnerStrengthSpell::InnerStrengthSpell() : Spell()
     this->attr_effect->duration = 23;
 };
 
-/* Shadower */
+/* Stalker */
 ShadowRunSpell::ShadowRunSpell() : TeleportSelfSpell()
 {
 

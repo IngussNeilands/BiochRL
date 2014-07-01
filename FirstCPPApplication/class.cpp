@@ -93,15 +93,15 @@ void FighterClass::LevelUpSkills(int levels)
 
 };
 
-ShadowerClass::ShadowerClass()
+StalkerClass::StalkerClass()
 {
-    this->type = ShadowerClassType;
-    this->name = "Shadower";
-    this->description = "Stealth Class, loves his knives more than gold.";
+    this->type = StalkerClassType;
+    this->name = "Stalker";
+    this->description = "Stealth Class, sticks to the shadows.";
     this->fg_color = TCODColor::darkerSepia;
 };
 
-void ShadowerClass::LevelUpStats(int levels)
+void StalkerClass::LevelUpStats(int levels)
 {
     int i = 0;
     while (i < levels)
@@ -114,7 +114,7 @@ void ShadowerClass::LevelUpStats(int levels)
     };
 };
 
-void ShadowerClass::LevelUpSkills(int levels)
+void StalkerClass::LevelUpSkills(int levels)
 {
     Spell* new_spell;
     std::stringstream ss;

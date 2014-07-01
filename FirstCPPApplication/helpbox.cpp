@@ -78,7 +78,7 @@ void HelpBox::draw()
     else
         draw_rect(this->con, 0, 0, this->width, this->height);
 
-    if (selected_tile->occupant != NULL)
+    if (selected_tile->occupant != NULL && selected_tile->is_known())
     {
         TCODImage* img = selected_tile->occupant->get_image();
         int w, h;

@@ -213,7 +213,7 @@ void Message::Init()
 {
     this->type = message_types_t::NOTYPE_MSG;
     this->type_index = 0;
-    this->content = "Unspecified ";
+    this->content = "Unspecified";
     this->count = 0;
     this->turn = Game::turn_count;
 };

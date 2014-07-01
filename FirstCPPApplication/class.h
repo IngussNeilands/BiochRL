@@ -8,7 +8,7 @@ class Actor;
 enum ClassType
 {
     FighterClassType = 1,
-    ShadowerClassType = 2,
+    StalkerClassType = 2,
     MageClassType = 3,
     NecromancerClassType = 4,
     BrawlerClassType = 5,
@@ -45,10 +45,10 @@ class FighterClass : public IClass
         virtual void LevelUpSkills(int levels);
 };
 
-class ShadowerClass : public IClass
+class StalkerClass : public IClass
 {
     public:
-        ShadowerClass();
+        StalkerClass();
         virtual void LevelUpStats(int levels);
         virtual void LevelUpSkills(int levels);
 };

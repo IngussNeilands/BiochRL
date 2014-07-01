@@ -669,7 +669,7 @@ bool Input::toggle_sneaking()
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are now sneaking."));
         Game::player->representation->setBGColor(TCODColor::darkGrey, true, false, true);
 
-        if (Game::player->actor_class->type == ShadowerClassType) //can cloak immediately
+        if (Game::player->actor_class->type == StalkerClassType) //can cloak immediately
         {
             //mark all enemies that can't see you unaware now, since you slipped away
             actor_vec_t* actors_in_sight = Game::player->actors_in_sight;
