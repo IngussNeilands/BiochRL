@@ -57,7 +57,7 @@ class Spell
         bool is_in_range(int distance);
         bool has_enough_mana();
 
-        virtual void cast(Tile* targetted_tile);
+        virtual bool cast(Tile* targetted_tile);
         void spend_mana();
         virtual void apply_attr_effects(Actor* target);
         actor_vec_t targets_around_tile(Tile* target_tile);
@@ -81,7 +81,7 @@ class CorpseBlastSpell : public Spell
 {
     public:
         CorpseBlastSpell(); 
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
 };
 
 class SiphonSpiritSpell : public Spell 
@@ -95,7 +95,7 @@ class RaiseDeadSpell : public Spell
 {
     public: 
         RaiseDeadSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
         void raise_dead(Tile* targetted_tile);
 };
 class InnerFireSpell : public Spell {  public: InnerFireSpell(); };
@@ -114,21 +114,21 @@ class TeleportSelfSpell : public Spell
 {
     public:
         TeleportSelfSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
 };
 
 class CastShadowSpell : public Spell
 {
     public:
         CastShadowSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
 };
 
 class BribeSpell : public Spell
 {
     public:
         BribeSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
 };
 
 class ShadowRunSpell : public TeleportSelfSpell
@@ -141,7 +141,7 @@ class SpawnShadowlingSpell : public Spell
 {
     public: 
         SpawnShadowlingSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
         void spawn(Tile* targetted_tile);
 };
 
@@ -150,7 +150,7 @@ class LaunchOtherSpell : public Spell
     public:
         int force;
         LaunchOtherSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
 
 };
 
@@ -158,7 +158,7 @@ class IlluminationSpell : public Spell
 {
     public:
         IlluminationSpell();
-        void cast(Tile* targetted_tile);
+        bool cast(Tile* targetted_tile);
 };
 
 

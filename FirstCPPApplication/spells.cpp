@@ -108,7 +108,7 @@ void Spell::spend_mana()
     this->master->attrs->mana->current_val -= mana_cost;
 };
 
-void Spell::cast(Tile* targetted_tile)
+bool Spell::cast(Tile* targetted_tile)
 {
     this->cast_count += 1;
     actor_vec_t targets = this->targets_around_tile(targetted_tile);
@@ -127,6 +127,8 @@ void Spell::cast(Tile* targetted_tile)
     };
 
     this->spend_mana();
+
+	return true;
 };
 
 void Spell::apply_attr_effects(Actor* target)
@@ -280,11 +282,11 @@ CorpseBlastSpell::CorpseBlastSpell() : Spell()
     this->max_range = 11;
 };
 
-void CorpseBlastSpell::cast(Tile* targetted_tile)
+bool CorpseBlastSpell::cast(Tile* targetted_tile)
 {
     //check for corpse
     std::vector<Item*>* items = targetted_tile->inventory->items;
-    if (items->empty()) { return; };
+    if (items->empty()) { return false; };
     auto it = items->begin();
     bool found_corpse = false;
     std::string corpse = "corpse";
@@ -301,8 +303,10 @@ void CorpseBlastSpell::cast(Tile* targetted_tile)
     //cast spell, apply attrs etc
     if (found_corpse)
     {
-        Spell::cast(targetted_tile);
+        return Spell::cast(targetted_tile);
     };
+
+	return false;
 };
 
 SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
@@ -342,11 +346,11 @@ void RaiseDeadSpell::raise_dead(Tile* targetted_tile)
     Game::spawn_creature_ally<Skeleton>(targetted_tile, "Skellie", 1000, 'S', Game::current_map);
 };
 
-void RaiseDeadSpell::cast(Tile* targetted_tile)
+bool RaiseDeadSpell::cast(Tile* targetted_tile)
 {
     //check for corpse
     std::vector<Item*>* items = targetted_tile->inventory->items;
-    if (items->empty() || targetted_tile->is_occupied()) { return; };
+    if (items->empty() || targetted_tile->is_occupied()) { return false; };
     auto it = items->begin();
     bool found_corpse = false;
     std::string corpse = "corpse";
@@ -369,8 +373,11 @@ void RaiseDeadSpell::cast(Tile* targetted_tile)
             Game::stats->spells_cast++;
         };
         this->spend_mana();
-        // Spell::cast(targetted_tile);
+
+		return true;
     };
+
+	return false;
 };
 
 InnerFireSpell::InnerFireSpell() : Spell()
@@ -456,7 +463,7 @@ CastShadowSpell::CastShadowSpell() : Spell()
     this->target_type = GroundTargetType;
 };
 
-void CastShadowSpell::cast(Tile* targetted_tile)
+bool CastShadowSpell::cast(Tile* targetted_tile)
 {
     //get tiles within a given radius
     tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
@@ -473,6 +480,8 @@ void CastShadowSpell::cast(Tile* targetted_tile)
     };
     this->spend_mana();
 
+	return true;
+
     //
     //auto sneak?
 };
@@ -488,7 +497,7 @@ SpawnShadowlingSpell::SpawnShadowlingSpell() : Spell()
     this->target_type = GroundTargetType;
 };
 
-void SpawnShadowlingSpell::cast(Tile* targetted_tile)
+bool SpawnShadowlingSpell::cast(Tile* targetted_tile)
 {
     //get tiles within a given radius
     tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
@@ -505,6 +514,7 @@ void SpawnShadowlingSpell::cast(Tile* targetted_tile)
     };
     this->spend_mana();
 
+	return true;
 };
 
 void SpawnShadowlingSpell::spawn(Tile* targetted_tile)
@@ -525,7 +535,7 @@ BribeSpell::BribeSpell() : Spell()
     this->target_type = TargettedTargetType;
 };
 
-void BribeSpell::cast(Tile* targetted_tile)
+bool BribeSpell::cast(Tile* targetted_tile)
 {
     //get tiles within a given radius
     tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
@@ -537,9 +547,11 @@ void BribeSpell::cast(Tile* targetted_tile)
         if (tile->is_occupied() && tile->occupant != this->master && tile->occupant->thinker != NULL)
         {
             tile->occupant->thinker->is_ally = true;
+			this->spend_mana();
         };
     };
-    this->spend_mana();
+
+	return false;
 };
 
 /* misc */
@@ -555,9 +567,9 @@ TeleportSelfSpell::TeleportSelfSpell() : Spell()
     this->target_type = GroundTargetType;
 };
 
-void TeleportSelfSpell::cast(Tile* targetted_tile)
+bool TeleportSelfSpell::cast(Tile* targetted_tile)
 {
-    if (targetted_tile->is_occupied()) { return; };
+    if (targetted_tile->is_occupied()) { return false; };
 
     //cast spell, apply attrs etc
     if (targetted_tile->is_walkable())
@@ -568,10 +580,12 @@ void TeleportSelfSpell::cast(Tile* targetted_tile)
             Game::stats->spells_cast++;
         };
         this->spend_mana();
-        // Spell::cast(targetted_tile);
+
+		return true;
     }
     else
     {
+		return false;
         printf("Is not walkable\n");
     }
 };
@@ -600,10 +614,10 @@ LaunchOtherSpell::LaunchOtherSpell() : Spell()
     // this->target_type = GroundTargetType;
 };
 
-void LaunchOtherSpell::cast(Tile* targetted_tile)
+bool LaunchOtherSpell::cast(Tile* targetted_tile)
 {
     //make sure someone is there
-    if (!targetted_tile->is_occupied()) { return; };
+    if (!targetted_tile->is_occupied()) { return false; };
 
     //cast spell, apply attrs etc
 
@@ -644,11 +658,13 @@ void LaunchOtherSpell::cast(Tile* targetted_tile)
             Game::stats->spells_cast++;
         };
         this->spend_mana();
+
+		return true;
         // Spell::cast(targetted_tile);
     }
     else
     {
-        printf("Is not walkable\n");
+		return false;
     }
 
 };
@@ -658,7 +674,8 @@ IlluminationSpell::IlluminationSpell() : Spell()
 
 };
 
-void IlluminationSpell::cast(Tile* targetted_tile)
+bool IlluminationSpell::cast(Tile* targetted_tile)
 {
 
+	return true;
 };
