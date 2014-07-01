@@ -342,7 +342,7 @@ Item* spawnPotion()
         //health restore
         int health = rng->getInt(1, 5, 1);
         dropped_item->attr_effect->health_regen_rate = health;
-        dropped_item->attr_effect->health_regen_interval = -floor((double)health/2);
+        dropped_item->attr_effect->health_regen_interval = - floor((double)health/2);
     }
     else if (result == ManaPotionSpawn)
     {
@@ -610,7 +610,7 @@ Item* spawnItem(Actor* actor)
     return dropped_item;
 };
 
-Item* DropHandler::item_drop_handler(Actor* actor)
+Item* DropHandler::handle_for_actor(Actor* actor)
 {
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
     if (actor->is_champion)

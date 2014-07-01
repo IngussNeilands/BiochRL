@@ -324,7 +324,7 @@ void Actor::ScorePrintout()
 void Actor::Die()
 {
     Item* dropped_item = NULL;
-    dropped_item = DropHandler::item_drop_handler(this);
+    dropped_item = DropHandler::handle_for_actor(this);
 
     if (dropped_item != NULL)
     {
@@ -333,7 +333,7 @@ void Actor::Die()
 
     if (this->combat != NULL)
     {
-	Combat* last_attacker = this->combat->GetLastAttacker();
+        Combat* last_attacker = this->combat->GetLastAttacker();
         //if (last_attacker != NULL && last_attacker->master == Game::player)
         if (last_attacker->master == Game::player)
         {

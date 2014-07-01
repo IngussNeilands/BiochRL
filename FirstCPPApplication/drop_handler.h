@@ -10,7 +10,7 @@ class Tile;
 class DropHandler
 {
     public:
-        static Item* item_drop_handler(Actor* actor);
+        static Item* handle_for_actor(Actor* actor);
 
 };
 #endif
