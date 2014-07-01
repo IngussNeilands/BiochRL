@@ -715,7 +715,7 @@ bool Input::user_cast_spell()
             if (spell->has_enough_mana())
             {
                 spell->cast(targetted_tile);
-                new Message(Ui::msg_handler_main, NOTYPE_MSG, "BAM casted a spell at the range of %i", distance, ".");
+                new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(spell->get_spell_color(), "Invoked %s!"), spell->name.c_str());
                 return true;
             }
         }
