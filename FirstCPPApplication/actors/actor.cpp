@@ -315,14 +315,12 @@ Item* spawnWeapon()
         dropped_item = spawnEquippable("A sword", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
         dropped_item->set_and_name_for_dmg("A", "sword", rng, 5, 15, 7);
-        // dropped_item->attr_effect->set_rng_damage(rng, 5, 15, 8);
     }
     else if (result == MaceSpawn)
     {
         std::string description = "It looks like your mom.";
         dropped_item = spawnEquippable("A mace", description, '/', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 1, 5, 3);
         dropped_item->set_and_name_for_dmg("A", "mace", rng, 1, 5, 3);
     }
     else if (result == DaggerSpawn)
@@ -330,7 +328,6 @@ Item* spawnWeapon()
         std::string description = "It cuts quickly and deeply";
         dropped_item = spawnEquippable("A dagger", description, '/', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lighterSepia, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 1, 5, 3);
         dropped_item->set_and_name_for_dmg("A", "dagger", rng, 1, 5, 3);
     }
     else if (result == TridentSpawn)
@@ -338,7 +335,6 @@ Item* spawnWeapon()
         std::string description = "It looks like it could kill a man.";
         dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 14);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 4, 20, 5);
         dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 10);
     }
     else if (result == WhipSpawn)
@@ -346,7 +342,6 @@ Item* spawnWeapon()
         std::string description = "It looks as if it had been used on something recently.";
         dropped_item = spawnEquippable("A whip", description, '&', slots_t::MainHand, 5);
         dropped_item->repr->setFGColor(TCODColor::darkerOrange, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 4, 9, 4);
         dropped_item->set_and_name_for_dmg("A", "whip", rng, 5, 10, 6);
     }
     else if (result == KatanaSpawn)
@@ -354,7 +349,6 @@ Item* spawnWeapon()
         std::string description = "It looks very sharp.";
         dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 7);
         dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "katana", rng, 10, 30, 11);
     }
     else if (result == TomahawkSpawn)
@@ -362,7 +356,6 @@ Item* spawnWeapon()
         std::string description = "It looks as if both edges have spilled blood.";
         dropped_item = spawnEquippable("A tomahawk", description, '(', slots_t::MainHand, 9);
         dropped_item->repr->setFGColor(TCODColor::darkerFlame, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "tomahawk", rng, 10, 20, 11);
     }
     else if (result == BroadswordSpawn)
@@ -370,7 +363,6 @@ Item* spawnWeapon()
         std::string description = "It looks like a sword, only broader.";
         dropped_item = spawnEquippable("A broadsword", description, '\\', slots_t::MainHand, 12);
         dropped_item->repr->setFGColor(TCODColor::darkerGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "broadsword", rng, 8, 17, 11);
     }
     else if (result == GreatAxeSpawn)
@@ -378,7 +370,6 @@ Item* spawnWeapon()
         std::string description = "Both edges look as sharp as stalker's tongue.";
         dropped_item = spawnEquippable("A greataxe", description, '(', slots_t::MainHand, 20);
         dropped_item->repr->setFGColor(TCODColor::darkerGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "greataxe", rng, 15, 30, 13);
     }
     else if (result == HatchetSpawn)
@@ -386,7 +377,6 @@ Item* spawnWeapon()
         std::string description = "It looks like it could barely cut through a tree.";
         dropped_item = spawnEquippable("A hatchet", description, '(', slots_t::MainHand, 7);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "hatchet", rng, 5, 15, 7);
     }
     else if (result == DarkBladeSpawn)
@@ -394,7 +384,6 @@ Item* spawnWeapon()
         std::string description = "It looks as if it blends in with the shadows.";
         dropped_item = spawnEquippable("A darkblade", description, '/', slots_t::OffHand, 3);
         dropped_item->repr->setFGColor(TCODColor::darkestGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "darkblade", rng, 10, 20, 11);
     }
     else
@@ -434,7 +423,6 @@ Item* spawnArmor()
         std::string description = "It looks like it's made up of smaller more delicate pieces.";
         dropped_item = spawnEquippable("Chainmail", description, '&', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 3, 8, 3);
         dropped_item->set_and_name_for_arm("Some", "Chainmail", rng, 3, 8, 3);
     }
     else if (result == LeatherChestSpawn)
@@ -442,7 +430,6 @@ Item* spawnArmor()
         std::string description = "It looks like it's made up of leather hide.";
         dropped_item = spawnEquippable("Leather Chestpiece", description, '#', slots_t::Chest, 10);
         dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 2);
         dropped_item->set_and_name_for_arm("Some", "Leather Chestpiece", rng, 2, 6, 2);
     }
     else if (result == ShieldSpawn)
@@ -450,7 +437,6 @@ Item* spawnArmor()
         std::string description = "It looks like it can take a few hits.";
         dropped_item = spawnEquippable("A shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "shield", rng, 1, 5, 3);
     }
     else if (result == TargetShieldSpawn)
@@ -458,7 +444,6 @@ Item* spawnArmor()
         std::string description = "It looks like it can block several hits.";
         dropped_item = spawnEquippable("A target shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightestGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 3, 7, 3);
         dropped_item->set_and_name_for_arm("A", "target shield", rng, 3, 7, 3);
         
     }
@@ -467,7 +452,6 @@ Item* spawnArmor()
         std::string description = "It looks large and sturdy.";
         dropped_item = spawnEquippable("A kite shield", description, '#', slots_t::OffHand, 5);
         dropped_item->repr->setFGColor(TCODColor::sepia, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "kite shield", rng, 3, 9, 3);
 
     }
@@ -476,7 +460,6 @@ Item* spawnArmor()
         std::string description = "It looks sturdy.";
         dropped_item = spawnEquippable("A helmet", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "helmet", rng, 1, 7, 3);
 
     }
@@ -485,7 +468,6 @@ Item* spawnArmor()
         std::string description = "It looks like several pieces of steel are sown together.";
         dropped_item = spawnEquippable("Some linked mail", description, '#', slots_t::Chest, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("Some", "linked mail", rng, 4, 11, 5);
 
     }
@@ -494,7 +476,6 @@ Item* spawnArmor()
         std::string description = "It looks nearly sturdy.";
         dropped_item = spawnEquippable("Some cuirass", description, '#', slots_t::Chest, 5);
         dropped_item->repr->setFGColor(TCODColor::darkSepia, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("Some", "cuirass", rng, 2, 9, 3);
 
     }
@@ -503,7 +484,6 @@ Item* spawnArmor()
         std::string description = "It looks hella sturdy.";
         dropped_item = spawnEquippable("Some platemail", description, '#', slots_t::Chest, 5);
         dropped_item->repr->setFGColor(TCODColor::lightGrey, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("Some", "platemail", rng, 7, 14, 6);
 
     }
@@ -512,7 +492,6 @@ Item* spawnArmor()
         std::string description = "It looks like it was forged in the shadows.";
         dropped_item = spawnEquippable("A Demonhide chestpiece", description, '#', slots_t::Chest, 5);
         dropped_item->repr->setFGColor(TCODColor::darkestCrimson, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "Demonhide chestpiece", rng, 10, 20, 13);
 
     }
@@ -521,7 +500,6 @@ Item* spawnArmor()
         std::string description = "It looks like it'd be perfect for hiding your face from others.";
         dropped_item = spawnEquippable("A mask", description, '^', slots_t::Head, 5);
         dropped_item->repr->setFGColor(TCODColor::lightOrange, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "mask", rng, 2, 6, 5);
 
     }
@@ -530,7 +508,6 @@ Item* spawnArmor()
         std::string description = "It looks this wouldn't help you make any more allies.";
         dropped_item = spawnEquippable("A grimhelm", description, '^', slots_t::Head, 7);
         dropped_item->repr->setFGColor(TCODColor::darkerRed, true, false, true);
-        // dropped_item->attr_effect->set_rng_armor(rng, 1, 5, 3);
         dropped_item->set_and_name_for_arm("A", "grimhelm", rng, 1, 7, 3);
 
     }
