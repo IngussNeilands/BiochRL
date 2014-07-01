@@ -564,10 +564,12 @@ Item* spawnPotion()
 
     RandomWeightMap<PotionSpawnTypes> rwm = RandomWeightMap<PotionSpawnTypes>();
     rwm.add_item(HealthPotionSpawn, 50);
-    rwm.add_item(GlowingHealthPotionSpawn, 30);
+    rwm.add_item(GlowingHealthPotionSpawn, 25);
     rwm.add_item(PulsatingHealthSpawn, 10);
+
     rwm.add_item(ManaPotionSpawn, 50);
     rwm.add_item(GlowingManaPotionSpawn, 25);
+    rwm.add_item(PulsatingManaSpawn, 10);
 
     PotionSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == HealthPotionSpawn)
@@ -618,6 +620,17 @@ Item* spawnPotion()
     {
         std::string description = "It looks like a good time.";
         dropped_item = spawnUsable("A glowing blue potion", description, '!', slots_t::NoSlot, 1);
+        dropped_item->repr->setFGColor(TCODColor::lighterBlue, true, false, true);
+
+        //mana regen
+        int health = rng->getInt(5, 50, 15);
+        dropped_item->attr_effect->mana_current_val = mana;
+        dropped_item->attr_effect->mana_max_val = mana;
+    }
+    else if (result == PulsatingManaSpawn)
+    {
+        std::string description = "It looks like an especially good time.";
+        dropped_item = spawnUsable("A pulsating blue potion", description, '!', slots_t::NoSlot, 1);
         dropped_item->repr->setFGColor(TCODColor::lightestBlue, true, false, true);
 
         //mana regen

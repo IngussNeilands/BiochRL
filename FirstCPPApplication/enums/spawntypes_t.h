@@ -79,6 +79,7 @@ enum PotionSpawnTypes {
     HealthPotionSpawn,
     GlowingHealthPotionSpawn,
     PulsatingHealthSpawn,
+    PulsatingManaSpawn,
     GlowingManaPotionSpawn,
     ManaPotionSpawn,
     NothingPotionSpawn
