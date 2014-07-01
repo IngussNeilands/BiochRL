@@ -699,6 +699,7 @@ int Map::draw()
         for(y=0; y<height; y++)
         {
             Tile * the_tile = getTileAt(x, y);
+            //set default colors
             TCODColor* the_bg_color = &(TCODColor)(TCODColor::black);
             TCODColor* the_fg_color = &(TCODColor)(TCODColor::white);
             char the_char;
@@ -707,9 +708,13 @@ int Map::draw()
             // std::cout << the_fg_color <<std::endl << the_bg_color <<std::endl;
 
                 // if (true)
-            if (Game::debug_opts->all_vision || l_map->isInFov(x, y))
+            bool is_in_fov = l_map->isInFov(x, y);
+            if (Game::debug_opts->all_vision || is_in_fov)
             {
-                the_tile->setKnown(true);
+                if (is_in_fov)
+                {
+                    the_tile->setKnown(true);
+                };
 
                 if(the_tile->is_occupied())
                 {
@@ -720,7 +725,10 @@ int Map::draw()
                         the_char = last_item->repr->repr;
                     };
 
-                    Game::player->mark_as_seen(x, y, the_tile->occupant);
+                    if (is_in_fov)
+                    {
+                        Game::player->mark_as_seen(x, y, the_tile->occupant);
+                    };
 
                     the_char = the_tile->occupant->representation->repr;
                     the_fg_color = the_tile->occupant->representation->fg_color;
