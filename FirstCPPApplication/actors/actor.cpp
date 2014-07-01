@@ -339,7 +339,7 @@ Item* spawnWeapon()
         dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 14);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
         // dropped_item->attr_effect->set_rng_damage(rng, 4, 20, 5);
-        dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 5);
+        dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 10);
     }
     else if (result == WhipSpawn)
     {
