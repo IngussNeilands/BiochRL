@@ -313,7 +313,7 @@ void Ui::draw_ui_sidebar()
     first_y++;
 
     //facing direction
-    Ui::draw_facing_angle(ui_sidebar_con, first_y);
+    // Ui::draw_facing_angle(ui_sidebar_con, first_y);
     first_y++;
 
     if (Ui::should_draw_mouse_helpbox())
