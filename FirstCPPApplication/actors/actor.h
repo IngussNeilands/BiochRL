@@ -95,7 +95,6 @@ class Actor : public Object
 
         Item* Actor::CreateCorpse();
         virtual void Die();
-        static Item* item_drop_handler(Actor* actor);
 
         void ScorePrintout();
 

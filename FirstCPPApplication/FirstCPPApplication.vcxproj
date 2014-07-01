@@ -161,6 +161,7 @@
     <ClInclude Include="custom_key.h" />
     <ClInclude Include="debug_options.h" />
     <ClInclude Include="draw_utils.h" />
+    <ClInclude Include="drop_handler.h" />
     <ClInclude Include="enemies\bad_mother.h" />
     <ClInclude Include="enemies\crazedcook.h" />
     <ClInclude Include="enemies\hulkingmantis.h" />
@@ -272,6 +273,7 @@
     <ClCompile Include="combat.cpp" />
     <ClCompile Include="custom_key.cpp" />
     <ClCompile Include="draw_utils.cpp" />
+    <ClCompile Include="drop_handler.cpp" />
     <ClCompile Include="enemies\bad_mother.cpp" />
     <ClCompile Include="enemies\crazedcook.cpp" />
     <ClCompile Include="enemies\hulkingmantis.cpp" />
