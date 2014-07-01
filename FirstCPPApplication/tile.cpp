@@ -508,7 +508,7 @@ void StairsUpTileType::GoUp()
         int y = this->to_y;
         // int x = room->center_x;
         // int y = room->center_y;
-        Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
+        Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
     };
 
 
@@ -531,7 +531,7 @@ void StairsDownTileType::GoDown()
     Room* room = Game::current_map->roomVector->front();
     int x = room->center_x;
     int y = room->center_y;
-    Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
+    Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
 
     Tile* stair_tile = Game::current_map->getTileAt(x, y);
     //this->stair_x = x;

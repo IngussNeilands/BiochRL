@@ -190,7 +190,7 @@ void Combat::Die()
     //make position unblocked
     if (master != NULL)
     {
-        master->Die();
+        master->die();
     }
     else if (master == NULL)
     {

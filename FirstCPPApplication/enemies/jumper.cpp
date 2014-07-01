@@ -70,7 +70,7 @@ void Jumper::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void Jumper::Die() 
+void Jumper::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

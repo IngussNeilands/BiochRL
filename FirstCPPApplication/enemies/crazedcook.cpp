@@ -72,7 +72,7 @@ void CrazedCook::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void CrazedCook::Die() 
+void CrazedCook::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

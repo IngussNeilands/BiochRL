@@ -128,17 +128,17 @@ void Actor::resetIsMoving()
     this->is_moving_left = false;
 };
 
-std::string Actor::GetName()
+std::string Actor::get_name()
 {
     return name;
 };
 
-const char* Actor::GetNameC()
+const char* Actor::get_name_c()
 {
     return name.c_str();
 };
 
-bool Actor::IsActorInSight(Actor* actor)
+bool Actor::is_actor_in_sight(Actor* actor)
 {
 
     actor_vec_t::iterator it;
@@ -184,7 +184,7 @@ void Actor::mark_as_seen(int x, int y, Actor * actor)
 
 }
 
-void Actor::putPerson( Tile * next_tile, int new_x, int new_y)
+void Actor::put_person( Tile * next_tile, int new_x, int new_y)
 {	//puts a person on a tile, resets the old tile
 
     if (my_tile != NULL){
@@ -212,7 +212,7 @@ void Actor::putPerson( Tile * next_tile, int new_x, int new_y)
 
 };
 
-void Actor::pickUpItem(Item* item)
+void Actor::pick_up_item(Item* item)
 {
 
     //add to inventory
@@ -228,7 +228,7 @@ bool Actor::has_attributes()
     return this->attrs != NULL;
 };
 
-Item* Actor::CreateCorpse()
+Item* Actor::create_corpse()
 {
     Item* corpse = new Item;
     corpse->repr->repr = '%';
@@ -266,7 +266,7 @@ int* Actor::get_direction_heading()
 };
 
 
-void Actor::ScorePrintout()
+void Actor::printout_score()
 {
     time_t rawtime;
     struct tm * timeinfo;
@@ -321,7 +321,7 @@ void Actor::ScorePrintout()
     necro.close();
 };
 
-void Actor::Die()
+void Actor::die()
 {
     Item* dropped_item = NULL;
     dropped_item = DropHandler::handle_for_actor(this);
@@ -351,7 +351,7 @@ void Actor::Die()
 
     //remove master from ai update list
     this->is_active = false;
-    this->putPerson(NULL, NULL, NULL);
+    this->put_person(NULL, NULL, NULL);
 
     //FIXME this is because people can still 'see' the dead dude. removing only
     //from players view, will need to remove from everyone elses at some point
@@ -379,7 +379,7 @@ void Actor::Die()
         }
 
         std::cout << "Death log is being prepared..." << std::endl;
-        this->ScorePrintout();
+        this->printout_score();
 
         TCODSystem::setFps(Game::fps_limit);
         exit(1);

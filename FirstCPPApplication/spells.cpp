@@ -574,7 +574,7 @@ bool TeleportSelfSpell::cast(Tile* targetted_tile)
     //cast spell, apply attrs etc
     if (targetted_tile->is_walkable())
     {
-        this->master->putPerson(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
+        this->master->put_person(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
         if (this->master == Game::player)
         {
             Game::stats->spells_cast++;
@@ -652,7 +652,7 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
             delete targetted_tile->occupant->l_path;
             targetted_tile->occupant->l_path = NULL;
         };
-        targetted_tile->occupant->putPerson(new_tile, new_tile->tile_x, new_tile->tile_y);
+        targetted_tile->occupant->put_person(new_tile, new_tile->tile_x, new_tile->tile_y);
         if (this->master == Game::player)
         {
             Game::stats->spells_cast++;

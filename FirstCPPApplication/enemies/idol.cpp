@@ -71,7 +71,7 @@ void Idol::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void Idol::Die() 
+void Idol::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

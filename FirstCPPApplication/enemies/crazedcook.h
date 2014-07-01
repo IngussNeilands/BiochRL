@@ -9,6 +9,6 @@ class CrazedCook : public Person
         CrazedCook(std::string name, int age, int x, int y, char repr);
         static const int CrazedCook::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 #endif

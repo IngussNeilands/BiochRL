@@ -9,6 +9,6 @@ class Jumper : public Person
         Jumper(std::string name, int age, int x, int y, char repr);
         static const int Jumper::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 #endif

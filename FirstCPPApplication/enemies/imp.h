@@ -9,6 +9,6 @@ class Imp : public Person
         Imp(std::string name, int age, int x, int y, char repr);
         static const int Imp::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 #endif

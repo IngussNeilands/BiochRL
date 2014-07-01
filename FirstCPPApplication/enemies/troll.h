@@ -9,7 +9,7 @@ class Troll : public Person
         Troll(std::string name, int age, int x, int y, char repr);
         static const int Troll::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 
 #endif

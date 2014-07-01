@@ -88,23 +88,23 @@ class Actor : public Object
 
         Actor();
         virtual ~Actor();
-        std::string GetName();
-        const char* GetNameC();
+        std::string get_name();
+        const char* get_name_c();
 
         virtual void update() = 0;
 
-        Item* Actor::CreateCorpse();
-        virtual void Die();
+        Item* Actor::create_corpse();
+        virtual void die();
 
-        void ScorePrintout();
+        void printout_score();
 
-        bool IsActorInSight(Actor * actor);
+        bool is_actor_in_sight(Actor * actor);
         void mark_as_unseen(Actor* actor);
         void mark_as_seen(int x, int y, Actor * actor);
 
-        void putPerson( Tile * next_tile, int new_x, int new_y);
+        void put_person( Tile * next_tile, int new_x, int new_y);
 
-        void pickUpItem(Item* item);
+        void pick_up_item(Item* item);
 
         virtual void championize() = 0;
 

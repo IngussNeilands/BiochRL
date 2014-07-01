@@ -11,6 +11,6 @@ class Wildling : public Person
         Wildling(std::string name, int age, int x, int y, char repr);
         static const int Wildling::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 #endif

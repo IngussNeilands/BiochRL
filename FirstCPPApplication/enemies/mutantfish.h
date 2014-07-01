@@ -9,6 +9,6 @@ class MutantFish : public Person
         MutantFish(std::string name, int age, int x, int y, char repr);
         static const int MutantFish::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 #endif

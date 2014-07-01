@@ -883,7 +883,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     {
         thePerson->has_attacked = false;
         thePerson->combat->last_victim = NULL;
-        thePerson->putPerson(target_tile, new_x, new_y);
+        thePerson->put_person(target_tile, new_x, new_y);
         return true;
     }
 
@@ -910,7 +910,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     {
         if (target_tile->is_open)
         {
-            thePerson->putPerson(target_tile, new_x, new_y);
+            thePerson->put_person(target_tile, new_x, new_y);
         }
         else
         {

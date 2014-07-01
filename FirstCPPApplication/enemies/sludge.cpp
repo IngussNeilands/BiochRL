@@ -70,7 +70,7 @@ void Sludge::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void Sludge::Die() 
+void Sludge::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

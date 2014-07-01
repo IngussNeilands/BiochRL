@@ -73,7 +73,7 @@ void HulkingMantis::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void HulkingMantis::Die() 
+void HulkingMantis::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

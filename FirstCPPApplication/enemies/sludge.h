@@ -9,6 +9,6 @@ class Sludge : public Person
         Sludge(std::string name, int age, int x, int y, char repr);
         static const int Sludge::pack_size = 10;
         void championize();
-        void Die() ;
+        void die() ;
 };
 #endif

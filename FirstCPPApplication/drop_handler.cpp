@@ -633,7 +633,7 @@ Item* DropHandler::handle_for_actor(Actor* actor)
     Item* dropped_item = NULL;
     if (result == CorpseSpawn)
     {
-        dropped_item = actor->CreateCorpse();
+        dropped_item = actor->create_corpse();
     }
     else if (result == GenericSpawn)
     {

@@ -70,7 +70,7 @@ void Imp::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void Imp::Die() 
+void Imp::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

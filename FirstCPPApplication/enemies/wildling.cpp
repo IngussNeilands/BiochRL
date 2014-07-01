@@ -73,7 +73,7 @@ void Wildling::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void Wildling::Die() 
+void Wildling::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

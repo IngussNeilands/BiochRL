@@ -69,7 +69,7 @@ void Troll::championize()
     this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
-void Troll::Die() 
+void Troll::die() 
 {
-    Actor::Die();
+    Actor::die();
 };

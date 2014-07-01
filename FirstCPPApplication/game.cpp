@@ -399,7 +399,7 @@ Person * Game::create_person(std::string name, int age, int x, int y, char repr,
 
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);
-    new_pers->putPerson(next_tile, x, y);
+    new_pers->put_person(next_tile, x, y);
 
     return new_pers;
 };
@@ -413,7 +413,7 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 
     //put it on the map somewhere
     Tile * next_tile = map->getTileAt(x,y);
-    new_pers->putPerson(next_tile, x, y);
+    new_pers->put_person(next_tile, x, y);
 
     new_pers->thinker->is_dumb = true;
     new_pers->thinker->civilian = new Civilian;
@@ -434,7 +434,7 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr, Map
 
     //put it on the map somewhere
     Tile * next_tile = world->getTileAt(x,y);
-    creature->putPerson(next_tile, x, y);
+    creature->put_person(next_tile, x, y);
 
     return creature;
 };
@@ -575,8 +575,8 @@ Person*  Game::initialize_player()
     Room* room = Game::current_map->roomVector->front();
     int x = room->center_x;
     int y = room->center_y;
-    Game::player->putPerson(Game::current_map->getTileAt(x, y), x, y);
-    //player->putPerson(next_tile, player->x, player->y);
+    Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
+    //player->put_person(next_tile, player->x, player->y);
     Game::initialize_items();
 
     // give_player_teleport(player);

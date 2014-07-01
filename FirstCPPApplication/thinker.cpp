@@ -280,7 +280,7 @@ void Thinker::walk_dumbly()
     tile_vec_t* adj_tiles = this->master->my_tile->getVacantAdjacentTiles();
     std::random_shuffle ( adj_tiles->begin(), adj_tiles->end());
     Tile * next_tile = adj_tiles->back();
-    master->putPerson(next_tile, next_tile->tile_x, next_tile->tile_y); 
+    master->put_person(next_tile, next_tile->tile_x, next_tile->tile_y); 
     delete adj_tiles;
 };
 
@@ -289,7 +289,7 @@ void Thinker::walk_towards_target()
     assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
     master->l_path->walk(&master->x, &master->y, true);
     Tile * next_tile = this->target->my_tile->map->getTileAt(master->x, master->y);
-    master->putPerson(next_tile, master->x, master->y); 
+    master->put_person(next_tile, master->x, master->y); 
 }
 
 void Thinker::try_attacking_player()
@@ -332,7 +332,7 @@ void Thinker::set_aware(bool aware)
 void Thinker::update()
 {
 
-    if (Game::player->IsActorInSight(this->master)) //when thinker becomes truly activated or whatever
+    if (Game::player->is_actor_in_sight(this->master)) //when thinker becomes truly activated or whatever
     {
         this->turn_last_seen_by_player = Game::turn_count;
         //    std::cout << "START: " << this->turn_last_seen_by_player << " END."  << std::endl;

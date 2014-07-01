@@ -365,7 +365,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
             std::cout << "the last item you picked up now" << std::endl;
             //TODO:open ui for item pickup to choose which item
             Item* item = Game::player->my_tile->inventory->items->back();
-            Game::player->pickUpItem(item);
+            Game::player->pick_up_item(item);
             // player->equipment->chest->AddToSlot(item);
             new Message(Ui::msg_handler_main, ITEM_MSG, "Picked up the item.");
 
@@ -392,7 +392,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
 
                 //pickup and equip new one
-                Game::player->pickUpItem(item);
+                Game::player->pick_up_item(item);
                 Game::player->equipment->equip_item(item);
                 item->equip(Game::player);
                 new Message(Ui::msg_handler_main, ITEM_MSG, "Equipped an item straight off the floor, impressive.");
@@ -401,7 +401,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
             }
             else if (item->usable)
             {
-                Game::player->pickUpItem(item);
+                Game::player->pick_up_item(item);
                 item->use(Game::player);
                 new Message(Ui::msg_handler_main, ITEM_MSG, "Used an item straight off the floor, gross.");
             }
@@ -606,7 +606,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                     Tile* tile = Game::current_map->getTileAt(x, y);
                     if ( tile->is_occupied())
                     {
-                        if (Game::player->IsActorInSight(tile->occupant))
+                        if (Game::player->is_actor_in_sight(tile->occupant))
                         {
                             targets.push_back(tile->occupant);
                         };
@@ -1460,7 +1460,7 @@ bool Input::process_debug_event(TCOD_key_t request)
     {
         //this'll redraw the entire screen incase shit goes black
         // TCODConsole::root->setDirty(0, 0, 1000, 1000);
-        Game::player->Die();
+        Game::player->die();
     }
 
     return false;

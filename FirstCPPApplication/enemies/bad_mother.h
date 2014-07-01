@@ -10,7 +10,7 @@ class BadMother : public Person
         static const int BadMother::pack_size = 1;
         static const int preferred_pack_size = 1;
         void championize();
-	void Die();
+	void die();
 
 };
 
