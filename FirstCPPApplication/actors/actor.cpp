@@ -296,12 +296,17 @@ Item* spawnWeapon()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<WeaponSpawnTypes> rwm = RandomWeightMap<WeaponSpawnTypes>();
-    rwm.add_item(SwordSpawn, 25);
     rwm.add_item(MaceSpawn, 50);
     rwm.add_item(DaggerSpawn, 50);
-    rwm.add_item(TridentSpawn, 10);
+    rwm.add_item(HatchetSpawn, 45);
     rwm.add_item(WhipSpawn, 30);
+    rwm.add_item(SwordSpawn, 25);
+    rwm.add_item(TomahawkSpawn, 20);
+    rwm.add_item(BroadswordSpawn, 20);
+    rwm.add_item(TridentSpawn, 10);
+    rwm.add_item(GreatAxeSpawn, 5);
     rwm.add_item(KatanaSpawn, 2);
+    rwm.add_item(DarkBladeSpawn, 2);
 
     WeaponSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
     if (result == SwordSpawn)
@@ -331,7 +336,7 @@ Item* spawnWeapon()
     else if (result == TridentSpawn)
     {
         std::string description = "It looks like it could kill a man.";
-        dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 12);
+        dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 14);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
         // dropped_item->attr_effect->set_rng_damage(rng, 4, 20, 5);
         dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 5);
@@ -347,10 +352,50 @@ Item* spawnWeapon()
     else if (result == KatanaSpawn)
     {
         std::string description = "It looks very sharp.";
-        dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 12);
+        dropped_item = spawnEquippable("A katana", description, '\\', slots_t::MainHand, 7);
         dropped_item->repr->setFGColor(TCODColor::lightestHan, true, false, true);
         // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
         dropped_item->set_and_name_for_dmg("A", "katana", rng, 10, 30, 11);
+    }
+    else if (result == TomahawkSpawn)
+    {
+        std::string description = "It looks as if both edges have spilled blood.";
+        dropped_item = spawnEquippable("A tomahawk", description, '(', slots_t::MainHand, 9);
+        dropped_item->repr->setFGColor(TCODColor::darkerFlame, true, false, true);
+        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
+        dropped_item->set_and_name_for_dmg("A", "tomahawk", rng, 10, 20, 11);
+    }
+    else if (result == BroadswordSpawn)
+    {
+        std::string description = "It looks like a sword, only broader.";
+        dropped_item = spawnEquippable("A broadsword", description, '\\', slots_t::MainHand, 12);
+        dropped_item->repr->setFGColor(TCODColor::darkerGrey, true, false, true);
+        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
+        dropped_item->set_and_name_for_dmg("A", "broadsword", rng, 8, 17, 11);
+    }
+    else if (result == GreatAxeSpawn)
+    {
+        std::string description = "Both edges look as sharp as stalker's tongue.";
+        dropped_item = spawnEquippable("A greataxe", description, '(', slots_t::MainHand, 20);
+        dropped_item->repr->setFGColor(TCODColor::darkerGrey, true, false, true);
+        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
+        dropped_item->set_and_name_for_dmg("A", "greataxe", rng, 15, 30, 13);
+    }
+    else if (result == HatchetSpawn)
+    {
+        std::string description = "It looks like it could barely cut through a tree.";
+        dropped_item = spawnEquippable("A hatchet", description, '(', slots_t::MainHand, 7);
+        dropped_item->repr->setFGColor(TCODColor::grey, true, false, true);
+        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
+        dropped_item->set_and_name_for_dmg("A", "hatchet", rng, 5, 15, 7);
+    }
+    else if (result == DarkBladeSpawn)
+    {
+        std::string description = "It looks as if it blends in with the shadows.";
+        dropped_item = spawnEquippable("A darkblade", description, '/', slots_t::OffHand, 3);
+        dropped_item->repr->setFGColor(TCODColor::darkestGrey, true, false, true);
+        // dropped_item->attr_effect->set_rng_damage(rng, 10, 20, 11);
+        dropped_item->set_and_name_for_dmg("A", "darkblade", rng, 10, 20, 11);
     }
     else
     {
@@ -751,7 +796,6 @@ Item* Actor::item_drop_handler(Actor* actor)
     else if (actor->is_hero)
     {
         rwm.add_item(GenericSpawn, 30);
-
     }
     else
     {

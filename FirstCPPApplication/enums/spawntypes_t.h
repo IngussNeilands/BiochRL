@@ -49,6 +49,11 @@ enum WeaponSpawnTypes {
     TridentSpawn,
     WhipSpawn,
     KatanaSpawn,
+    TomahawkSpawn,
+    BroadswordSpawn,
+    GreatAxeSpawn,
+    HatchetSpawn,
+    DarkBladeSpawn,
     NothingWeaponSpawn
 };
 
