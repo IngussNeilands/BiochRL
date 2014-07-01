@@ -19,7 +19,7 @@ class HelpBox
         ~HelpBox();
         void initialize();
         HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Tile* selected_tile);
-        void draw();
+        void draw(int& first_y);
 };
 
 #endif

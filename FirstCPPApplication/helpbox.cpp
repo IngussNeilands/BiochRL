@@ -54,7 +54,7 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     this->con = new TCODConsole(this->width+this->extra_padding, this->height+this->extra_padding);
 };
 
-void HelpBox::draw()
+void HelpBox::draw(int& first_y)
 {
     draw_rect(this->con, 0, 0, this->width, this->height);//, "?", "?", "?", "?", "?", "?", "?", "?");
     int y = 1;
@@ -94,6 +94,6 @@ void HelpBox::draw()
         delete img;
     };
 
-    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, 16);
+    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, first_y);
 
 };

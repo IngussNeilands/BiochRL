@@ -125,6 +125,7 @@ void Spell::cast(Tile* targetted_tile)
     {
         Game::stats->spells_cast++;
     };
+
     this->spend_mana();
 };
 

@@ -75,7 +75,7 @@ class Ui
 
         static bool should_draw_mouse_helpbox();
         static bool should_draw_attacker_helpbox();
-        static void draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile);
+        static void draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* victim_tile, int& y);
 
         static TCODConsole* create_screen();
         static void draw_screen_title(std::string title, TCODConsole* con);

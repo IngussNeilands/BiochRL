@@ -171,7 +171,7 @@ bool Ui::should_draw_attacker_helpbox()
     return Game::player->combat->last_victim != NULL && Game::player->combat->last_victim->is_active;
 };
 
-void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
+void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int& y)
 {
     //get help text
     std::string help_text = "";
@@ -230,7 +230,7 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile)
     };
 
     HelpBox hb(messages, ui_sidebar_con, target_tile);
-    hb.draw();
+    hb.draw(y);
 }
 
 
@@ -312,6 +312,13 @@ void Ui::draw_ui_sidebar()
     first_y++;
     first_y++;
 
+    if (Ui::is_targetting)
+    {
+        ui_sidebar_con->print(0, first_y, "SPL:");
+        Spell* spell = static_cast<Spell*>(Ui::chosen_generic);
+        ui_sidebar_con->print(5, first_y++, "%s", colfg(spell->get_spell_color(), spell->name).c_str());
+    };
+
     //facing direction
     // Ui::draw_facing_angle(ui_sidebar_con, first_y);
     first_y++;
@@ -319,11 +326,11 @@ void Ui::draw_ui_sidebar()
     if (Ui::should_draw_mouse_helpbox())
     {
         TCODMouse::showCursor(true);
-        Ui::draw_status_helpbox(ui_sidebar_con, Game::get_mouse_tile());
+        Ui::draw_status_helpbox(ui_sidebar_con, Game::get_mouse_tile(), first_y);
     }
     else if (Ui::should_draw_attacker_helpbox())
     {
-        Ui::draw_status_helpbox(ui_sidebar_con, Game::player->combat->last_victim->my_tile);
+        Ui::draw_status_helpbox(ui_sidebar_con, Game::player->combat->last_victim->my_tile, first_y);
     }
     else 
     {
