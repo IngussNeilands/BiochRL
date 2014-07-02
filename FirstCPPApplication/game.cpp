@@ -74,6 +74,8 @@ int Game::screen_h = 50;
 
 int Game::targetting_index = 1;
 
+
+std::vector<CustomKey*>* Game::custom_keys;
 CustomKey* Game::custom_key1 = new CustomKey;
 CustomKey* Game::custom_key2 = new CustomKey;
 CustomKey* Game::custom_key3 = new CustomKey;
@@ -785,11 +787,39 @@ void set_icon()
 
 }
 
+void Game::init_custom_keys()
+{
+	Game::custom_keys = new std::vector<CustomKey*>();
+	Game::custom_keys->push_back(Game::custom_key1);
+    Game::custom_keys->push_back(Game::custom_key2);
+    Game::custom_keys->push_back(Game::custom_key3);
+    Game::custom_keys->push_back(Game::custom_key4);
+    Game::custom_keys->push_back(Game::custom_key5);
+};
+
+CustomKey* Game::get_free_custom_key()
+{
+    for (std::vector<CustomKey*>::iterator it = Game::custom_keys->begin();
+            it != Game::custom_keys->end();
+            it++)
+    {
+        CustomKey* ck = *it;
+        if (ck->element == NULL)
+        {
+	        return ck;
+        }
+    };
+
+	return NULL;
+};
+
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
 	Game::init_engine();
+
+    Game::init_custom_keys();
 	
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
