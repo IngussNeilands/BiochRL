@@ -1048,7 +1048,7 @@ void Map::spawn_hero()
     // Game::center_camera_on(hero->my_tile);
     hero->my_tile->setKnown(true);
     tile_vec_t* adjacent_tiles = hero->my_tile->getAdjacentTiles(3);
-    for (tile_vec_t::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+    for (tile_vec_t_it it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
     {
         Tile* tile = *it;
         tile->setKnown(true);

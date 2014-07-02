@@ -75,7 +75,7 @@ int Game::screen_h = 50;
 int Game::targetting_index = 1;
 
 
-std::vector<CustomKey*>* Game::custom_keys;
+ckey_vec_t* Game::custom_keys;
 CustomKey* Game::custom_key1 = new CustomKey;
 CustomKey* Game::custom_key2 = new CustomKey;
 CustomKey* Game::custom_key3 = new CustomKey;
@@ -789,7 +789,7 @@ void set_icon()
 
 void Game::init_custom_keys()
 {
-	Game::custom_keys = new std::vector<CustomKey*>();
+	Game::custom_keys = new ckey_vec_t();
 	Game::custom_keys->push_back(Game::custom_key1);
     Game::custom_keys->push_back(Game::custom_key2);
     Game::custom_keys->push_back(Game::custom_key3);
@@ -799,7 +799,7 @@ void Game::init_custom_keys()
 
 CustomKey* Game::get_free_custom_key()
 {
-    for (std::vector<CustomKey*>::iterator it = Game::custom_keys->begin();
+    for (ckey_vec_t::iterator it = Game::custom_keys->begin();
             it != Game::custom_keys->end();
             it++)
     {

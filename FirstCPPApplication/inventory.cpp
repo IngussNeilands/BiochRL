@@ -7,6 +7,7 @@
 #include "tile.h"
 #include "equipment.h"
 #include "spells.h"
+#include "custom_key.h"
 
 Inventory::Inventory()
 {
@@ -50,6 +51,16 @@ void Inventory::drop_item(Item* item)
     if (item->spell_effect != NULL)
     {
         item->spell_effect->master = NULL;
+
+        //loop through customkeys and unassign
+        ckey_vec_t_it it = Game::custom_keys->begin();
+        for (it; it != Game::custom_keys->end(); it++)
+        {
+            if ((*it)->element == item)
+            {
+                (*it)->reset_state();
+            };
+        }
     };
     this->remove_item(item);
     if (master != NULL)

@@ -26,9 +26,16 @@
 
 class Actor;
 class Tile;
+class CustomKey;
 
 typedef std::vector<Actor*> actor_vec_t;
+typedef std::vector<Actor*>::iterator actor_vec_t_it;
+
 typedef std::vector<Tile*> tile_vec_t;
+typedef std::vector<Tile*>::iterator tile_vec_t_it;
+
+typedef std::vector<CustomKey*> ckey_vec_t;
+typedef std::vector<CustomKey*>::iterator ckey_vec_t_it;
 
 //[assembly:AssemblyKeyFileAttribute("keyPair.snk")];
 //debugging the heap that didn't work
