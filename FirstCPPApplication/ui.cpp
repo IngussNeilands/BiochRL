@@ -675,181 +675,7 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 
 };
 
-void Ui::class_ui_loop(TCODConsole* con, int offset, int i, char key)
-{
-    TCODColor foreground, background;
-    foreground = TCODColor::white;
 
-    std::string buffer = "Select a class";
-    con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer.c_str());
-
-    bool is_chosen, is_active;
-    std::vector<IClass*>* v  = Ui::game->player->actor_class_choices;
-    for (std::vector<IClass*>::iterator it = v->begin(); it != v->end(); ++it) 
-    {
-        // std::string msg_str = "%c-%c%c%c %c%s%c : %c%d mana%c";
-        std::string msg_str = "%c- %c%s%c";
-        is_chosen = (*it) == Ui::chosen_generic;
-        is_active = Ui::generic_active;
-
-        // TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_class_color(), con->getDefaultBackground());
-
-        // background = con->getDefaultBackground();
-        // if (is_chosen)
-        // {
-        //     msg_str.append(" <-");
-        //     if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
-        // }
-        // else
-        // {
-        foreground = TCODColor::white;
-        // };
-
-        //mouse selection
-        if (Game::mouse_evt.lbutton_pressed)
-        {
-            if (Game::mouse_evt.cy == i)
-            {
-                if ( (*it)!= Ui::chosen_generic)
-                {
-                    Ui::chosen_generic= (*it);
-                    Ui::generic_active = false;
-                }
-                else if ( (*it) == Ui::chosen_generic)
-                {
-                    Ui::generic_active = true;
-                    background = TCODColor::green;
-                };
-            }
-        }
-        else if (Game::mouse_evt.rbutton_pressed)
-        {
-            Ui::reset_generic();
-        };
-
-        //print the class name and selection
-        i++;
-        i++;
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
-        const char *msg_char = msg_str.c_str();
-        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-                TCOD_alignment_t::TCOD_LEFT, msg_char, key, TCOD_COLCTRL_1,
-                (*it)->name.c_str(), TCOD_COLCTRL_STOP);
-
-        i++;
-
-        // //print the class effects
-        // std::string msg = (*it)->class_effect->oneline_str();
-        // std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->class_effect->oneline_str_colours();
-        // one_line_helper(con, i, msg, colctrl_vec);
-        // i++;
-        // i++;
-
-        key++;
-
-    }
-};
-
-void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key)
-{
-    TCODColor foreground, background;
-    foreground = TCODColor::white;
-
-    char buffer[512];
-
-    bool is_chosen, is_active, has_duration;
-    std::vector<Spell*>* v  = Ui::game->player->spells;
-    for (std::vector<Spell*>::iterator it = v->begin(); it != v->end(); ++it) 
-    {
-        is_chosen = (*it) == Ui::chosen_generic;
-        is_active = Ui::generic_active;
-        has_duration = (*it)->attr_effect->duration != -1;
-
-        TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_2, (*it)->get_spell_color(), con->getDefaultBackground());
-        TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
-        TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
-        background = con->getDefaultBackground();
-
-        std::string base_msg_str = "%c-%c%c%c %c%s%c : ";
-        sprintf(buffer, base_msg_str.c_str(), key, TCOD_COLCTRL_2, 's',
-                TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, (*it)->name.c_str(),
-                TCOD_COLCTRL_STOP);
-
-
-        std::string msg_str = buffer;
-        msg_str.append("%c%d mana%c, %c%drng%c");
-        sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_3,
-                (*it)->mana_cost, TCOD_COLCTRL_STOP, TCOD_COLCTRL_4,
-                (*it)->max_range, TCOD_COLCTRL_STOP);
-
-        msg_str = buffer;
-        if (has_duration)
-        {
-            msg_str.append(", %ddur");
-            sprintf(buffer, msg_str.c_str(), (*it)->attr_effect->duration);
-            msg_str = buffer;
-        };
-
-        if ((*it)->aoe > 0)
-        {
-            std::stringstream ss;
-            ss << msg_str << ", " << (*it)->aoe << "aoe";
-            msg_str = ss.str();
-        };
-
-        if (is_chosen)
-        {
-            msg_str.append(" <-");
-            if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
-        }
-        else
-        {
-            foreground = TCODColor::white;
-        };
-
-        //mouse selection
-        if (Game::mouse_evt.lbutton_pressed)
-        {
-            if (Game::mouse_evt.cy == i)
-            {
-                if ( (*it)!= Ui::chosen_generic)
-                {
-                    Ui::chosen_generic= (*it);
-                    Ui::generic_active = false;
-                }
-                else if ( (*it) == Ui::chosen_generic)
-                {
-                    Ui::generic_active = true;
-                    background = TCODColor::green;
-                };
-            }
-        }
-        else if (Game::mouse_evt.rbutton_pressed)
-        {
-            Ui::reset_generic();
-        };
-
-        //print the spell name and selection
-        const char *msg_char = msg_str.c_str();
-        con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-                TCOD_alignment_t::TCOD_LEFT, msg_char 
-                );
-
-        i++;
-
-        //print the spell effects
-        std::string msg = (*it)->attr_effect->oneline_str();
-        std::vector<TCOD_colctrl_t> colctrl_vec = (*it)->attr_effect->oneline_str_colours();
-        one_line_helper(con, offset, i, msg, colctrl_vec);
-        i++;
-        i++;
-
-        key++;
-
-    }
-};
 
 
 void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*, int, int, char))
@@ -886,7 +712,6 @@ void Ui::draw_inventory_ui()
     InventoryScreen<Item> inv_screen;
     inv_screen.elements = Game::player->inventory->items;
     inv_screen.draw();
-    //Ui::draw_screen("Inventory Screen", &Ui::inventory_ui_loop);
 };
 
 void Ui::draw_spell_select_ui()
@@ -894,12 +719,10 @@ void Ui::draw_spell_select_ui()
     SpellScreen<Spell> spell_screen;
     spell_screen.elements = Game::player->spells;
     spell_screen.draw();
-    // Ui::draw_screen("Select Spell", &Ui::spell_ui_loop);
 };
 
 void Ui::draw_class_select_ui()
 {
-    // Ui::draw_screen("Select Class", &Ui::class_ui_loop);
     ClassScreen<IClass> class_screen;
     class_screen.elements = Game::player->actor_class_choices;
     class_screen.draw();

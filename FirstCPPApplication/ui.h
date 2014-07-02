@@ -92,7 +92,6 @@ class Ui
         static void character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key);
         static void help_screen_ui_loop(TCODConsole* con, int offset, int i, char key);
 
-        static void Ui::spell_ui_loop(TCODConsole* con, int offset, int i, char key);
         static void draw_spell_select_ui();
         static void Ui::draw_spell_select_main();
         static void Ui::draw_spell_select_msg();
@@ -102,12 +101,10 @@ class Ui
         static void draw_class_select_main();
         static void draw_class_select_ui();
         static void Ui::draw_class_select_msg();
-        static void class_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static void draw_inventory_main();
         static void draw_inventory_ui();
         static void draw_inventory_msg();
-        // static void inventory_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static void reset_generic();
 
