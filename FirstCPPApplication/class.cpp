@@ -9,6 +9,7 @@
 #include "attr_effect.h"
 #include "item.h"
 #include <color_utils.h>
+#include <map>
 
 void IClass::LevelUpHealth(double change)
 {
@@ -36,7 +37,14 @@ FighterClass::FighterClass()
     this->type = FighterClassType;
     this->name = "Fighter";
     this->description = "Basic Class, all around decent guy.";
+    this->levelup_message = "You've learned a new technique";
     this->fg_color = TCODColor::celadon;
+
+    this->spell_map = new std::map<int, Spell*>();
+	this->spell_map->insert(std::make_pair<int, Spell*>(2, new WaterBombSpell()));
+	this->spell_map->insert(std::make_pair<int, Spell*>(4, new AutoChemHPSpell()));
+	this->spell_map->insert(std::make_pair<int, Spell*>(6, new PoisonCoughSpell()));
+	this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerSanctuarySpell()));
 };
 
 void FighterClass::LevelUpStats(int levels)
@@ -54,33 +62,15 @@ void FighterClass::LevelUpStats(int levels)
 
 void FighterClass::LevelUpSkills(int levels)
 {
-    Spell* new_spell = NULL;
     std::stringstream ss;
-    ss << colfg(TCODColor::lighterAzure, "You've learned a new technique!");
+    ss << colfg(TCODColor::lighterAzure, this->levelup_message);
     std::string msg = ss.str();
-    switch (this->master->level)
+
+	auto new_spell_pair = this->spell_map->find(this->master->level);
+
+    if (new_spell_pair != this->spell_map->end())
     {
-        case 2:
-            // new Message(Ui::msg_handler_main, MOOD_MSG, "%c%c%c%cYou've learned a new spell!%c", TCOD_COLCTRL_FORE_RGB, (int)TCODColor::blue.r, (int)TCODColor::blue.g, (int)TCODColor::blue.b, TCOD_COLCTRL_STOP);
-            new_spell = new WaterBombSpell();
-            break;
-
-        case 4:
-            new_spell = new AutoChemHPSpell();
-            break;
-
-        case 6:
-            new_spell = new PoisonCoughSpell();
-            break;
-
-        case 8:
-            new_spell = new InnerSanctuarySpell();
-            break;
-
-    };
-
-    if (new_spell != NULL)
-    {
+        Spell* new_spell = (*new_spell_pair).second;
         new Message(Ui::msg_handler_main, MOOD_MSG, msg);
         new_spell->master = this->master;
         this->master->spells->push_back(new_spell);

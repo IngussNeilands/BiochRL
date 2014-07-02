@@ -3,6 +3,8 @@
 #define CLASS_H
 
 class Actor;
+class Spell;
+
 
 
 enum ClassType
@@ -15,6 +17,8 @@ enum ClassType
     NoClassType = -1
 };
 
+#include <map>
+
 class IClass
 {
     public:
@@ -22,6 +26,9 @@ class IClass
         Actor* master;
         std::string name;
         std::string description;
+        std::string levelup_message;
+
+        std::map<int, Spell*>* spell_map;
 
         TCODColor fg_color;
 
