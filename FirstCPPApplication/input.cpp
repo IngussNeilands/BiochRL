@@ -729,7 +729,7 @@ std::map<int, generic_menu_active_t>  Input::build_spec_generic_menu_keymap()
 
     std::map<int, generic_menu_active_t> spec_genmenactivemap; //Keypad, punctuation
     // 
-    spec_genmenactivemap[TCODK_ESCAPE] = generic_menu_active_t::EscapeGenericMenu;
+    // spec_genmenactivemap[TCODK_ESCAPE] = generic_menu_active_t::EscapeGenericMenu;
     return spec_genmenactivemap;
 }; //Keypad, punctuation
 
@@ -737,6 +737,7 @@ std::map<char, generic_menu_active_t> Input::build_char_generic_menu_keymap()
 {
 
     std::map<char, generic_menu_active_t> char_genmenactivemap; //regular letters
+    char_genmenactivemap['q'] = generic_menu_active_t::EscapeGenericMenu;
     return char_genmenactivemap;
 }; //regular letters
 
@@ -753,9 +754,14 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
 
     if( action == generic_menu_active_t::EscapeGenericMenu )
     {
-        Ui::generic_active = false;
-        Ui::chosen_generic = false;
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
+        // Ui::generic_active = false;
+        // Ui::chosen_generic = false;
+        //Ui::reset_generic();
+        std::cout << "Back to the game." << std::endl;
+        // Ui::reset_generic();
+        // Input::generic_index = 'a';
+        Game::current_state = GameStates::GameplayState;
+        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
         return true;
     }
 
@@ -1602,7 +1608,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
 
     if (Ui::generic_active == false)
     {
-        if (request.c == 'q' && request.pressed == 1 && Ui::generic_active == false && Ui::generic_active == false && Ui::generic_active == false)
+        if (request.c == 'q' && request.pressed == 1)// && Ui::generic_active == false)
         {
             std::cout << "Back to the game." << std::endl;
             Ui::reset_generic();
