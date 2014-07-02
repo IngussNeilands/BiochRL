@@ -483,35 +483,56 @@ bool Input::process_basic_keys(TCOD_key_t request)
         if (Game::custom_key1->element != NULL)
         {
             Game::custom_key1->activate();
-        };
+        }
+        else 
+        {
+            printf("Custom Key 1 is not bound to an item or spell\n");
+        }
     }
     else if ( basic_cmd == basic_cmds_t::CustomKey2 )
     {
         if (Game::custom_key2->element != NULL)
         {
             Game::custom_key2->activate();
-        };
+        }
+        else 
+        {
+            printf("Custom Key 2 is not bound to an item or spell\n");
+        }
+
     }
     else if ( basic_cmd == basic_cmds_t::CustomKey3 )
     {
         if (Game::custom_key3->element != NULL)
         {
             Game::custom_key3->activate();
-        };
+        }
+        else 
+        {
+            printf("Custom Key 3 is not bound to an item or spell\n");
+        }
     }
     else if ( basic_cmd == basic_cmds_t::CustomKey4 )
     {
         if (Game::custom_key4->element != NULL)
         {
             Game::custom_key4->activate();
-        };
+        }
+        else 
+        {
+            printf("Custom Key 4 is not bound to an item or spell\n");
+        }
     }
     else if ( basic_cmd == basic_cmds_t::CustomKey5 )
     {
         if (Game::custom_key5->element != NULL)
         {
             Game::custom_key5->activate();
-        };
+        }
+        else 
+        {
+            printf("Custom Key 5 is not bound to an item or spell\n");
+        }
     }
 
     else if ( basic_cmd == basic_cmds_t::UpStairs )
