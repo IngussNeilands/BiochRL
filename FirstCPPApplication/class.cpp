@@ -10,6 +10,7 @@
 #include "item.h"
 #include <color_utils.h>
 #include <map>
+#include "custom_key.h"
 
 void IClass::LevelUpHealth(double change)
 {
@@ -46,8 +47,13 @@ void IClass::LevelUpSkills(int levels)
         new Message(Ui::msg_handler_main, MOOD_MSG, msg);
         new_spell->master = this->master;
         this->master->spells->push_back(new_spell);
-    };
 
+        CustomKey* ck = Game::get_free_custom_key();
+        if (ck != NULL)
+        {
+            ck->assign_spell(new_spell);
+        };
+    };
 
 };
 
