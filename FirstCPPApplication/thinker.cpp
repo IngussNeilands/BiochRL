@@ -366,7 +366,8 @@ void Thinker::update()
         //     std::cout << this->turn_last_seen_by_player << std::endl;
         //     std::cout << this->tracking_memory << std::endl << std::endl;
         // }
-        if ((Game::turn_count - this->turn_last_seen_by_player) < this->tracking_memory)
+        int turns_since_last_seen = Game::turn_count - this->turn_last_seen_by_player;
+        if (turns_since_last_seen < this->tracking_memory)
         {
             // std::cout << "i remember" << std::endl;
             auto player = Game::player;
