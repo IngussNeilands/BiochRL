@@ -40,7 +40,6 @@ class Map : public Object
 
         bool has_hero_spawned;
 
-        int build_from_file(std::string filename);
         int build_dungeon_from_random(int seed, int floor);
         int build_town_from_random(int seed);
 
