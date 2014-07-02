@@ -36,7 +36,7 @@ class IClass
         virtual ~IClass() {};
 
         virtual void LevelUpStats(int levels) = 0;
-        virtual void LevelUpSkills(int levels) = 0;
+        virtual void LevelUpSkills(int levels);
 
         void LevelUpHealth(double change);
         void LevelUpMana(double change);
@@ -49,7 +49,6 @@ class FighterClass : public IClass
     public:
         FighterClass();
         virtual void LevelUpStats(int levels);
-        virtual void LevelUpSkills(int levels);
 };
 
 class StalkerClass : public IClass
@@ -57,7 +56,6 @@ class StalkerClass : public IClass
     public:
         StalkerClass();
         virtual void LevelUpStats(int levels);
-        virtual void LevelUpSkills(int levels);
 };
 
 class MageClass : public IClass
@@ -65,7 +63,6 @@ class MageClass : public IClass
     public:
         MageClass();
         virtual void LevelUpStats(int levels);
-        virtual void LevelUpSkills(int levels);
 };
 
 class NecromancerClass : public IClass
@@ -73,7 +70,6 @@ class NecromancerClass : public IClass
     public:
         NecromancerClass();
         virtual void LevelUpStats(int levels);
-        virtual void LevelUpSkills(int levels);
 };
 
 class BrawlerClass : public IClass
@@ -81,7 +77,6 @@ class BrawlerClass : public IClass
     public:
         BrawlerClass();
         virtual void LevelUpStats(int levels);
-        virtual void LevelUpSkills(int levels);
 };
 
 
