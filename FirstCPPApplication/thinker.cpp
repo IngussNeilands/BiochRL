@@ -278,9 +278,12 @@ void Thinker::walk_dumbly()
     //pick a random direction if its not a wall or a boundary of some kind ie
     //the exit of their shop
     tile_vec_t* adj_tiles = this->master->my_tile->getVacantAdjacentTiles();
-    std::random_shuffle ( adj_tiles->begin(), adj_tiles->end());
-    Tile * next_tile = adj_tiles->back();
-    master->put_person(next_tile, next_tile->tile_x, next_tile->tile_y); 
+    if (! adj_tiles->empty())
+    {
+        std::random_shuffle ( adj_tiles->begin(), adj_tiles->end());
+        Tile * next_tile = adj_tiles->back();
+        master->put_person(next_tile, next_tile->tile_x, next_tile->tile_y); 
+    };
     delete adj_tiles;
 };
 
@@ -326,7 +329,7 @@ void Thinker::try_attacking_player()
 
 void Thinker::set_aware(bool aware)
 {
-	this->_is_aware = aware;
+    this->_is_aware = aware;
 };
 
 void Thinker::update()
