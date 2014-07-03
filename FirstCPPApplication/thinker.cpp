@@ -375,7 +375,7 @@ void Thinker::update()
             // std::cout << "i remember" << std::endl;
             auto player = Game::player;
             int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
-            if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold)
+            if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold && this->get_is_aware())
             {
                 //aka pathing and fighting
                 this->smart_update();
