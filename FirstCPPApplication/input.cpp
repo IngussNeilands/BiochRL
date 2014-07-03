@@ -960,8 +960,18 @@ bool Input::process_inventory_keys(TCOD_key_t request)
 
     else if( action == inventory_items_active_t::UnequipItem )
     {
-        ((Item*)Ui::chosen_generic)->unequip(Game::player);
-        Game::player->equipment->unequip_item(((Item*)Ui::chosen_generic));
+        Item* item = static_cast<Item*>(Ui::chosen_generic);
+        item->unequip(Game::player);
+        Game::player->equipment->unequip_item(item);
+
+        ckey_vec_t_it it = Game::custom_keys->begin();
+        for (it; it != Game::custom_keys->end(); it++)
+        {
+            if ((*it)->element == item)
+            {
+                (*it)->reset_state();
+            };
+        }
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Unequipping item.");
         return true;
     }

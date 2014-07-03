@@ -202,7 +202,7 @@ void Equipment::unequip_item(Item* item)
         if ((*it)->GetEquippedItem() == item)
         {
             (*it)->RemoveFromSlot();
-	    (*it)->equipped_item = NULL;
+            (*it)->equipped_item = NULL;
             //std::cout << "removed from slot" << std::endl;
         }
 
