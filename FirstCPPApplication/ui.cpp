@@ -821,15 +821,18 @@ void Ui::draw_class_select_msg()
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
     ui_inv_msg_con->print(0, y++, "Press the desired class's letter once to select it, and once more to confirm");
-    ui_inv_msg_con->print(0, y++, "You can then press X to examine it or E to equip it.");
+    std::string equip_msg = colfg(TCODColor::white, "e to equip");
+    std::string examine_msg = colfg(TCODColor::white, "x to examine");
+    std::string message(std::string("You can then press "+equip_msg+" it or "+examine_msg+" it."));
+    ui_inv_msg_con->print(0, y++, message.c_str());
     y++;
     // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
     // ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
 
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
-    ui_inv_msg_con->print(0, y++, "is class chosen? %i", Ui::class_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is class active? %i", Ui::generic_active);
+    ui_inv_msg_con->print(2, y++, "Class chosen? %s", BoolToString(Ui::class_is_chosen()));
+    ui_inv_msg_con->print(2, y++, "Class active? %s", BoolToString(Ui::generic_active));
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
@@ -851,16 +854,19 @@ void Ui::draw_spell_select_msg()
     //draw the message text
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
-    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and once more to confirm");
-    ui_inv_msg_con->print(0, y++, "You can then press X to examine it.");
+    ui_inv_msg_con->print(0, y++, "Press the desired spell's letter once to select it, and once more to confirm");
+    std::string equip_msg = colfg(TCODColor::white, "c to cast");
+    std::string examine_msg = colfg(TCODColor::white, "x to examine");
+    std::string message(std::string("You can then press "+equip_msg+" it or "+examine_msg+" it."));
+    ui_inv_msg_con->print(0, y++, message.c_str());
     y++;
     // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
     // ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
 
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
-    ui_inv_msg_con->print(0, y++, "is spell chosen? %i", Ui::spell_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is spell active? %i", Ui::generic_active);
+    ui_inv_msg_con->print(2, y++, "Spell chosen? %s", BoolToString(Ui::spell_is_chosen()));
+    ui_inv_msg_con->print(2, y++, "Spell active? %s", BoolToString(Ui::generic_active));
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
@@ -889,8 +895,8 @@ void Ui::draw_inventory_msg()
 
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
-    ui_inv_msg_con->print(0, y++, "is item chosen? %i", Ui::item_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is item active? %i", Ui::generic_active);
+    ui_inv_msg_con->print(2, y++, "Item chosen? %s", BoolToString(Ui::item_is_chosen()));
+    ui_inv_msg_con->print(2, y++, "Item active? %s", BoolToString(Ui::generic_active));
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
