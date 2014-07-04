@@ -932,7 +932,7 @@ void Game::mainloop()
     TCODConsole::setKeyboardRepeat(250, 10);
 
     new Message(Ui::msg_handler_main, NOTYPE_MSG, "Run from ogres and skeletons, kill troll and jackals!");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "You're going to die a lot, this isn't Dark Souls 2.");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "You're going to die a lot, be careful.");
     //
 
     //draw the map to libtconsole
