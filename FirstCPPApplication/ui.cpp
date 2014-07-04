@@ -829,7 +829,7 @@ void Ui::draw_class_select_msg()
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
     ui_inv_msg_con->print(0, y++, "is class chosen? %i", Ui::class_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is class confirmed? %i", Ui::generic_active);
+    ui_inv_msg_con->print(0, y++, "is class active? %i", Ui::generic_active);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
@@ -860,7 +860,7 @@ void Ui::draw_spell_select_msg()
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
     ui_inv_msg_con->print(0, y++, "is spell chosen? %i", Ui::spell_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is spell confirmed? %i", Ui::generic_active);
+    ui_inv_msg_con->print(0, y++, "is spell active? %i", Ui::generic_active);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
@@ -890,7 +890,7 @@ void Ui::draw_inventory_msg()
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
     ui_inv_msg_con->print(0, y++, "is item chosen? %i", Ui::item_is_chosen());
-    ui_inv_msg_con->print(0, y++, "is item confirmed? %i", Ui::generic_active);
+    ui_inv_msg_con->print(0, y++, "is item active? %i", Ui::generic_active);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
