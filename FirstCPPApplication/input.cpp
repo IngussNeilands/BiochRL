@@ -1608,10 +1608,10 @@ generic_keypair_t Input::build_keypairs(int limit, int offset)
     template<class T>
 void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*>* generic_vector, bool allow_activate)
 {
-
     generic_keypair_t::iterator it = generic_map.find(letter);
     if (it != generic_map.end())
     {
+        Input::generic_index = letter;
         if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
         {
             if (allow_activate)
