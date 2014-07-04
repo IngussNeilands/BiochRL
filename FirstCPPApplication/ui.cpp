@@ -887,8 +887,17 @@ void Ui::draw_inventory_msg()
     //draw the message text
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
-    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and once more to confirm");
-    ui_inv_msg_con->print(0, y++, "You can then press E to equip, Y to unequip, U to use, D to drop, Q to deselect item.");
+    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and again to confirm it");
+    std::string equip_msg = colfg(TCODColor::white, "e to equip");
+    std::string use_msg = colfg(TCODColor::white, "u to use");
+    std::string drop_msg = colfg(TCODColor::white, "d to drop");
+    std::string quit_msg = colfg(TCODColor::white, "q to deselect/quit");
+    std::string examine_msg = colfg(TCODColor::white, "y to examine");
+    std::string zap_msg = colfg(TCODColor::white, "z to zap");
+    std::string message("You can then press "+equip_msg+" it or "+use_msg+" it, "+drop_msg+" it,");
+	std::string message2(quit_msg+", "+examine_msg+" it, "+zap_msg+" it.");
+    ui_inv_msg_con->print(0, y++, message.c_str());
+    ui_inv_msg_con->print(0, y++, message2.c_str());
     y++;
     ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
     ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
