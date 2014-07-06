@@ -516,7 +516,7 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    // give_player_items(player);
+    give_player_items(player);
 
 };
 

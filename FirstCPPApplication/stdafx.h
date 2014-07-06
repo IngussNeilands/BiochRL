@@ -26,6 +26,7 @@
 
 class Actor;
 class Tile;
+class Item;
 class CustomKey;
 
 typedef std::vector<Actor*> actor_vec_t;
@@ -33,6 +34,9 @@ typedef std::vector<Actor*>::iterator actor_vec_t_it;
 
 typedef std::vector<Tile*> tile_vec_t;
 typedef std::vector<Tile*>::iterator tile_vec_t_it;
+
+typedef std::vector<Item*> item_vec_t;
+typedef std::vector<Item*>::iterator item_vec_t_it;
 
 typedef std::vector<CustomKey*> ckey_vec_t;
 typedef std::vector<CustomKey*>::iterator ckey_vec_t_it;

@@ -161,6 +161,11 @@ void Screen<T>::draw_scroll_arrows(TCODConsole* con, bool left_to_draw)
 void Screen<T>::build_screen_items(TCODConsole* con, int i)
 {
     int item_count = 0;
+	if (this->elements->size() < Ui::offset) //TODO:: give each screen its own offset
+	{
+		Ui::offset = 0;
+	}
+
     std::vector<T*>::iterator it = this->elements->begin() + Ui::offset;
     for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
     {

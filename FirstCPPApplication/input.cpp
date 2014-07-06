@@ -1670,7 +1670,19 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
         }
         else if (request.vk == TCODK_DOWN && request.pressed == 1)
         {
-            Input::generic_index++;
+            //check to see if pressing down takes you too far down the list
+            std::vector<T*>::iterator it = elements->begin()+Ui::offset;
+            int selection_index = Input::generic_index-97;
+            it+=selection_index;
+            if (it+1 == elements->end())
+            {
+
+            }
+            else
+            {
+                Input::generic_index++;
+            };
+
             if (Input::generic_index >= 'a' + Ui::per_page)
             {
                 //go to next page unless its the last page
