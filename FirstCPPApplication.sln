@@ -11,9 +11,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BiochRL++", "BiochRL++\Bioc
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items (2)", "Solution Items (2)", "{96CF0FCA-A8A4-4802-9638-5B07FC0F2EF5}"
-	ProjectSection(SolutionItems) = preProject
-		..\NextFlicksMVC4\NextFlickMVC4_Git\TraceAndTestImpact.testsettings = ..\NextFlicksMVC4\NextFlickMVC4_Git\TraceAndTestImpact.testsettings
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E182281D-6B43-40C1-87C6-ECB40925CDD5}"
 EndProject

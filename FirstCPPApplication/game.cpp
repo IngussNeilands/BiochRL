@@ -319,21 +319,21 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, M
     // int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
     // for (int i = 0; i <= enemy_count; i++)
     // {
-        int creature_x, creature_y;
-        creature_x = tile->tile_x;
-        creature_y = tile->tile_y;
+    int creature_x, creature_y;
+    creature_x = tile->tile_x;
+    creature_y = tile->tile_y;
 
-        if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {return NULL;};
+    if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {return NULL;};
 
-        T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, world);
-        if (linear_rng->getInt(1, 100) < 10) 
-        {
-            the_creature->championize();
-        };
+    T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, world);
+    if (linear_rng->getInt(1, 100) < 10) 
+    {
+        the_creature->championize();
+    };
 
-        world->allies.push_back(the_creature);
-        the_creature->thinker->is_ally = true;
-		return the_creature;
+    world->allies.push_back(the_creature);
+    the_creature->thinker->is_ally = true;
+    return the_creature;
     // }
 };
 template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr, Map* world);
@@ -532,9 +532,9 @@ void give_player_teleport(Actor* player)
 {
     TeleportSelfSpell* teleport = new TeleportSelfSpell();
     teleport->master = player;
-	teleport->max_range = 999;
-	teleport->min_range = 999;
-	teleport->mana_cost = 0;
+    teleport->max_range = 999;
+    teleport->min_range = 999;
+    teleport->mana_cost = 0;
     player->spells->push_back(teleport);
     Game::custom_key2->assign_spell(teleport);
 
@@ -762,7 +762,7 @@ bool gameplay_loop(bool incr_turn)
     //draw the game_console to root, taking from where the camera is looking at
     TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
-     Game::game_console->clear();
+    Game::game_console->clear();
 
     return incr_turn;
 };
@@ -770,7 +770,7 @@ bool gameplay_loop(bool incr_turn)
 void set_icon()
 {
 
-	SetConsoleTitle(Game::term_name.c_str());
+    SetConsoleTitle(Game::term_name.c_str());
     HWND hwnd2 = FindWindow(NULL, Game::term_name.c_str());
     std::string s2 = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
     std::wstring stemp2 = std::wstring(s2.begin(), s2.end());
@@ -789,8 +789,8 @@ void set_icon()
 
 void Game::init_custom_keys()
 {
-	Game::custom_keys = new ckey_vec_t();
-	Game::custom_keys->push_back(Game::custom_key1);
+    Game::custom_keys = new ckey_vec_t();
+    Game::custom_keys->push_back(Game::custom_key1);
     Game::custom_keys->push_back(Game::custom_key2);
     Game::custom_keys->push_back(Game::custom_key3);
     Game::custom_keys->push_back(Game::custom_key4);
@@ -806,21 +806,21 @@ CustomKey* Game::get_free_custom_key()
         CustomKey* ck = *it;
         if (ck->element == NULL)
         {
-	        return ck;
+            return ck;
         }
     };
 
-	return NULL;
+    return NULL;
 };
 
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
-	Game::init_engine();
+    Game::init_engine();
 
     Game::init_custom_keys();
-	
+
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
@@ -852,7 +852,7 @@ void Game::init_engine()
     TCODSystem::setFps(fps_limit);
     TCODConsole::setKeyboardRepeat(1000, 1);
 
-	set_icon();
+    set_icon();
 };
 
 void play_music()
@@ -879,7 +879,7 @@ void play_music()
     // if(Mix_Init(MIX_INIT_MOD) != MIX_INIT_MOD)
     //     std::cout << "MIX_INIT_MOD isn't the same";
 
-    Mix_Volume(-1, MIX_MAX_VOLUME);
+    // Mix_Volume(-1, MIX_MAX_VOLUME);
 
     music = Mix_LoadMUS(std::string(get_data_path()+"lvl1.wav").c_str());
 
@@ -889,18 +889,15 @@ void play_music()
     }
 
 
-    Mix_VolumeMusic(MIX_MAX_VOLUME);
-
-    Mix_PlayMusic(music, -1);
-    Mix_PauseMusic();
+    std::cout << std::endl;
     std::cout << Mix_GetError();
-    Mix_FadeInChannelTimed(-1, wave, 0, 100, 1);
-    std::cout << Mix_GetError();
+    std::cout << std::endl;
 
     //parser to read file settings. currently only music
     TCODParser parser = TCODParser::TCODParser();
     TCODParserStruct* generalSettingsStruct = parser.newStructure("general");
-    generalSettingsStruct->addProperty("enable_music", TCOD_TYPE_BOOL, false);
+    generalSettingsStruct->addProperty("enable_music", TCOD_TYPE_BOOL, true);
+    generalSettingsStruct->addProperty("music_volume", TCOD_TYPE_FLOAT, 1.0);
 
     std::string path = std::string(get_data_path()+"config.txt");
     parser.run(path.c_str(), NULL);
@@ -908,7 +905,9 @@ void play_music()
     bool should_enable = parser.getBoolProperty("general.enable_music");
     if (should_enable)
     {
-        Mix_ResumeMusic();
+        Mix_FadeInMusic(music, -1, 1000);
+        float volume = MIX_MAX_VOLUME*parser.getFloatProperty("general.music_volume");
+        Mix_VolumeMusic(volume);
     }
 };
 
