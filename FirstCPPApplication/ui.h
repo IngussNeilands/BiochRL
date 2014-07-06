@@ -105,6 +105,7 @@ class Ui
         static void draw_inventory_main();
         static void draw_inventory_ui();
         static void draw_inventory_msg();
+        static std::string item_display_line();
 
         static void reset_generic();
 

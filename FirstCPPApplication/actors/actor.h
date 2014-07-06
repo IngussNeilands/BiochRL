@@ -49,7 +49,7 @@ class Actor : public Object
 
         int xp;
         int xp_this_level;
-        int xp_required;
+        int xp_required_to_lvlup;
 
         int level;
         int xp_value;

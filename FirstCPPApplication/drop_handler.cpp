@@ -399,6 +399,7 @@ Item* spawnWand()
 
         std::string description = "It flickers in and out of existence.";
         dropped_item = spawnUsable("A shimmering wand", description, '`', slots_t::NoSlot, 1);
+        dropped_item->uses = 99999;
         dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
 
         dropped_item->spell_effect = new TeleportSelfSpell;
@@ -410,6 +411,7 @@ Item* spawnWand()
     {
         std::string description = "It flutters quite a bit for a piece of bark.";
         dropped_item = spawnUsable("A moving wand", description, '`', slots_t::NoSlot, 1);
+        dropped_item->uses = 99999;
         dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
 
         dropped_item->spell_effect = new LaunchOtherSpell;

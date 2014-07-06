@@ -445,12 +445,12 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
 
     std::string left_exp = ">";
     std::string right_exp = "";
-    float left_percent = ((float)(Ui::game->player->xp_this_level)) / Ui::game->player->xp_required ;
+    float left_percent = ((float)(Ui::game->player->xp_this_level)) / Ui::game->player->xp_required_to_lvlup ;
     if (left_percent < 0) left_percent = 0.0f;
     if (left_percent > 1) left_percent = 1.0f;
 
-    float right_raw = ((float)Ui::game->player->xp_required - (float)Ui::game->player->xp_this_level);
-    float right_percent = right_raw / (float)Ui::game->player->xp_required;
+    float right_raw = ((float)Ui::game->player->xp_required_to_lvlup - (float)Ui::game->player->xp_this_level);
+    float right_percent = right_raw / (float)Ui::game->player->xp_required_to_lvlup;
     if (right_percent < 0) right_percent = 0.0f;
     if (right_percent > 1) right_percent = 1.0f;
 
@@ -548,7 +548,7 @@ void Ui::print_experience(TCODConsole* con, int& offset, int& i)
     i++;
 
     std::string msg_template = "%i out of %i XP to next level, with %i total.";
-    sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required, player->xp);
+    sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required_to_lvlup, player->xp);
     con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
     i++;
     i++;
@@ -565,7 +565,7 @@ void Ui::print_class(TCODConsole* con, int& offset, int& i)
     i++;
 
     //std::string msg_template = "%i out of %i XP to next level, with %i total.";
-    //sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required, player->xp);
+    //sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required_to_lvlup, player->xp);
     //con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
 };
 
@@ -919,7 +919,7 @@ void Ui::draw_inventory_msg()
     // ui_inv_msg_con->print(2, y++, "Item chosen? %s", BoolToString(Ui::item_is_chosen()));
     if (Ui::item_is_chosen())
     {
-        ui_inv_msg_con->print(2, y++, "%s", ((Item*)(Ui::chosen_generic))->name.c_str());
+        ui_inv_msg_con->print(2, y++, "%s", Ui::item_display_line().c_str());
     }
     else
     {
@@ -931,6 +931,27 @@ void Ui::draw_inventory_msg()
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
     delete ui_inv_msg_con;
+};
+
+std::string Ui::item_display_line()
+{
+    std::stringstream ss;
+    Item* item = (Item*)Ui::chosen_generic;
+    ss << item->name << ".";
+    if (Game::player->equipment->is_item_equipped(item))
+    {
+        ss << " equipped";
+    }
+    else if (item->equippable)
+    {
+        ss << " equippable";
+    }
+    else if (item->usable)
+    {
+        ss << " uses: " << item->uses;
+    }
+
+    return ss.str();
 };
 
 bool Ui::item_is_chosen()

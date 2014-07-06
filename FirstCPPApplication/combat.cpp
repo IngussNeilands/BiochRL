@@ -101,13 +101,13 @@ void Combat::LevelUp(int levels)
             new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lightBlue, msg.str()));
         };
         //log(lvl * 10) * 100
-        // this->master->xp_required = std::floor(std::log(this->master->level *10.0f) * 100.0f);
+        // this->master->xp_required_to_lvlup = std::floor(std::log(this->master->level *10.0f) * 100.0f);
         //((x*10)^(x*10)/200))*100
         float level = this->master->level;
         float lvl10 = level*10;
         double result = std::pow((double)(lvl10),(double)(lvl10)/200)*100;
-        this->master->xp_required = std::floor(result);
-        this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
+        this->master->xp_required_to_lvlup = std::floor(result);
+        this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required_to_lvlup; 
 
         this->LevelUpStats(1);
         this->LevelUpSkills(1);
@@ -139,7 +139,7 @@ void Combat::GiveExp(int exp_to_gain)
     this->master->xp += exp_to_gain;
     this->master->xp_this_level += exp_to_gain;
     // calc if level up
-    if (this->master->xp_this_level >= this->master->xp_required)
+    if (this->master->xp_this_level >= this->master->xp_required_to_lvlup)
     {
         this->LevelUp();
     };
