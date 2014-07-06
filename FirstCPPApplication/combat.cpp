@@ -101,7 +101,12 @@ void Combat::LevelUp(int levels)
             new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lightBlue, msg.str()));
         };
         //log(lvl * 10) * 100
-        this->master->xp_required = std::floor(std::log(this->master->level *10.0f) * 100.0f);
+        // this->master->xp_required = std::floor(std::log(this->master->level *10.0f) * 100.0f);
+        //((x*10)^(x*10)/200))*100
+        float level = this->master->level;
+        float lvl10 = level*10;
+        double result = std::pow((double)(lvl10),(double)(lvl10)/200)*100;
+        this->master->xp_required = std::floor(result);
         this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required; 
 
         this->LevelUpStats(1);
@@ -250,10 +255,10 @@ void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
         //save attacker in history
         this->RememberAttacker(combat_attacker);
 
-	if (dmg != 0)
-    {
-        this->TryToDie();
-    }
+        if (dmg != 0)
+        {
+            this->TryToDie();
+        }
     }
     else
     {
@@ -289,12 +294,12 @@ Damage::Damage()
 int Damage::get_raw_total()
 {
     return this->normal +
-    this->fire +
-    this->water +
-    this->death +
-    this->life +
-    this->crystal +
-    this->spectre;
+        this->fire +
+        this->water +
+        this->death +
+        this->life +
+        this->crystal +
+        this->spectre;
 };
 
 
@@ -312,11 +317,11 @@ Armor::Armor()
 int Armor::get_raw_total()
 {
     return this->normal +
-    this->fire +
-    this->water +
-    this->death +
-    this->life +
-    this->crystal +
-    this->spectre;
+        this->fire +
+        this->water +
+        this->death +
+        this->life +
+        this->crystal +
+        this->spectre;
 };
 
