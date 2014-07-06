@@ -167,6 +167,29 @@ std::string get_data_path()
 
     return StringJoin(exesplit, kPathSeparator, false);
 };
+std::string get_config_path()
+{
+    //ex: C:\Users\Mark\Documents\Visual Studio
+    //2010\Projects\FirstCPPApplication\Debug\BiochRL++.exe
+    std::string exepath = get_exe_path();
+    std::vector<std::string> exesplit = StringSplit(exepath, kPathSeparator);
+
+    exesplit.pop_back();
+    std::string data = "config";
+    data+=kPathSeparator;
+    exesplit.push_back(data);
+
+    return StringJoin(exesplit, kPathSeparator, false);
+};
+
+std::string get_computer_name()
+{
+	TCHAR name[512];
+	DWORD len = 512;
+	GetComputerName(name, &len);
+    std::wstring wide_string(&name[0]); //TODO figure this out
+    return std::string(wide_string.begin(), wide_string.end());
+};
 
 std::string get_exe_path() 
 {

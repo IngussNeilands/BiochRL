@@ -242,6 +242,7 @@
     <ClInclude Include="libtcod_cpp_hpp\zip.hpp" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="parser.h" />
     <ClInclude Include="randsys.h" />
     <ClInclude Include="Representation.h" />
     <ClInclude Include="resource.h" />
@@ -298,6 +299,7 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="messages.cpp" />
+    <ClCompile Include="parser.cpp" />
     <ClCompile Include="randsys.cpp" />
     <ClCompile Include="Representation.cpp" />
     <ClCompile Include="Room.cpp" />

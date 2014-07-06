@@ -56,6 +56,7 @@
 #include <equipment.h>
 #include <enums\slots_t.h>
 #include "custom_key.h"
+#include "parser.h"
 
 
 int Game::__version_major = 0;
@@ -588,13 +589,12 @@ Person*  Game::initialize_player()
     player->attrs->hunger->current_val=210;
     player->attrs->hunger->regen_interval=5;
 
+	//LPWSTR name = "asdasd";
     player->actor_class = new FighterClass;
     player->actor_class->master = player;
 
     delete player->thinker;
     player->thinker = NULL;
-
-
 
     //Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     Room* room = Game::current_map->roomVector->front();
@@ -918,21 +918,18 @@ void play_music()
     std::cout << std::endl;
 
     //parser to read file settings. currently only music
-    TCODParser parser = TCODParser::TCODParser();
-    TCODParserStruct* generalSettingsStruct = parser.newStructure("general");
-    generalSettingsStruct->addProperty("enable_music", TCOD_TYPE_BOOL, true);
-    generalSettingsStruct->addProperty("music_volume", TCOD_TYPE_FLOAT, 1.0);
+	Parser* parser = new Parser();
 
-    std::string path = std::string(get_data_path()+"config.txt");
-    parser.run(path.c_str(), NULL);
-
-    bool should_enable = parser.getBoolProperty("general.enable_music");
+    bool should_enable = parser->get_enable_music();
     if (should_enable)
     {
         Mix_FadeInMusic(music, -1, 1000);
-        float volume = MIX_MAX_VOLUME*parser.getFloatProperty("general.music_volume");
+        float percent = parser->get_music_volume();
+        float volume = MIX_MAX_VOLUME*percent;
         Mix_VolumeMusic(volume);
     }
+
+    delete parser;
 };
 
 void Game::mainloop()

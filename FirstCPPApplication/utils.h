@@ -23,7 +23,10 @@ std::string StringJoin(std::vector<std::string> string_vector, char delim, bool 
 //getting various paths
 std::string get_exe_path();
 std::string get_data_path();
+std::string get_config_path();
 std::string get_images_path();
+
+std::string get_computer_name();
 
 // template<class T, class T2>
 // bool isInVector<T, T2>(T vect, T2 elem);
