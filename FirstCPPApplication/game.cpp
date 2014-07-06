@@ -567,7 +567,6 @@ void give_player_god_mode()
 Person*  Game::initialize_player()
 {
     player = new Person("Player", 23, 0, 0, '@');
-    player->representation->setFGColor(TCODColor::celadon, true, true, true);
 
     // player->attrs->health->current_val=200;
     // player->attrs->health->max_val=200;
@@ -598,6 +597,7 @@ Person*  Game::initialize_player()
         if (cls->type == chosen_type)
             player->actor_class = cls;
     };
+    player->representation->setFGColor(player->actor_class->fg_color, true, true, true);
     // player->actor_class = new FighterClass;
     player->actor_class->master = player;
 
