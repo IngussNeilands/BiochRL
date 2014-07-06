@@ -848,7 +848,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 
 bool Map::should_spawn_hero()
 {
-    // int result = Game::event_rng->getInt(0, 1);
+    // return true;
     int result = Game::event_rng->getInt(0, 1000);
     return (this->has_hero_spawned == false && result == SpecialHeroSpawn);
 };

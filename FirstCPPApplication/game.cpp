@@ -540,6 +540,29 @@ void give_player_teleport(Actor* player)
 
 };
 
+void give_player_god_mode()
+{
+    Person* player = Game::player;
+    player->attrs->health->current_val=3000;
+    player->attrs->health->max_val=3000;
+
+    player->attrs->mana->current_val=3000;
+    player->attrs->mana->max_val=3000;
+    player->attrs->mana->regen_rate=100;
+    player->attrs->mana->regen_interval=500;
+
+    player->attrs->damage->current_val=500;
+    player->attrs->damage->max_val=500;
+
+    player->attrs->armor->current_val=0;
+    player->attrs->armor->max_val=0;
+
+    player->attrs->hunger->max_val=1000;
+    player->attrs->hunger->current_val=210;
+    player->attrs->hunger->regen_interval=5;
+
+};
+
 Person*  Game::initialize_player()
 {
     player = new Person("Player", 23, 0, 0, '@');
@@ -581,6 +604,7 @@ Person*  Game::initialize_player()
     //player->put_person(next_tile, player->x, player->y);
     Game::initialize_items();
 
+    // give_player_god_mode();
     // give_player_teleport(player);
 
     Game::center_camera_on_player();

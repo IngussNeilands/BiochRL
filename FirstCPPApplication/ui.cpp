@@ -68,41 +68,6 @@ int Ui::ui_sidebar_h = 0;
 MessageHandler* Ui::msg_handler_main = new MessageHandler;
 MessageHandler* Ui::msg_handler_inv = new MessageHandler;
 MessageHandler* Ui::msg_handler_spell_select = new MessageHandler;
-//  Ui::Ui()
-// {
-//     Ui::chosen_item = NULL;
-//     Ui::item_active = false;
-// 
-//     Ui::turn_checking_against = 1;
-//     Ui::last_turn_noted = 1;
-// 
-//     Ui::tick_turn_changed = 0;
-// 
-//     Ui::tick_threshold = 50;
-// 
-//     Ui::tick_checking_against = Ui::tick_threshold;
-//     Ui::msg_handler_main = new MessageHandler;
-//     Ui::msg_handler_main->game = Ui::game;
-// };
-// 
-// Ui::Ui(Game* game)
-// {
-//     Ui::chosen_item = NULL;
-//     Ui::item_active = false;
-// 
-//     Ui::turn_checking_against = 1;
-//     Ui::last_turn_noted = 1;
-// 
-//     Ui::tick_turn_changed = 0;
-// 
-//     Ui::tick_threshold = 50;
-// 
-//     Ui::tick_checking_against = Ui::tick_threshold;
-//     Ui::msg_handler_main = new MessageHandler;
-// 
-//     Ui::game = game;
-//     Ui::msg_handler_main->game = Ui::game;
-// };
 
 void Ui::update_inventory_ui()
 {

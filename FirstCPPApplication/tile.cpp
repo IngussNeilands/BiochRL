@@ -359,10 +359,10 @@ vector<Tile*>* Tile::getAdjacentTiles(int scale)
                 {
                     //if not already found, add to new perimeter
                     if (std::find(perimeter_tiles->begin(), perimeter_tiles->end(), *neighbor) == perimeter_tiles->end())
-                    // if (std::find(valid_tiles->begin(), valid_tiles->end(), *neighbor) == valid_tiles->end())
+                        // if (std::find(valid_tiles->begin(), valid_tiles->end(), *neighbor) == valid_tiles->end())
                     {
-						Tile* tile = *neighbor;
-						printf("%d %d\n", tile->tile_x, tile->tile_y );
+                        Tile* tile = *neighbor;
+                        // printf("%d %d\n", tile->tile_x, tile->tile_y );
                         new_perimeter.push_back(*neighbor);
                     };
                 };
@@ -517,7 +517,7 @@ void StairsUpTileType::GoUp()
 void StairsDownTileType::GoDown()
 {
     auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_down);
-	Map* map;
+    Map* map;
     if (it == Game::atlas->end())
     {
         map = Game::build_world(Game::current_map->depth+1);
