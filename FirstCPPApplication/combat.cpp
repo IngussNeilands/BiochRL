@@ -102,6 +102,7 @@ void Combat::LevelUp(int levels)
         };
         //log(lvl * 10) * 100
         // this->master->xp_required_to_lvlup = std::floor(std::log(this->master->level *10.0f) * 100.0f);
+
         //((x*10)^(x*10)/200))*100
         float level = this->master->level;
         float lvl10 = level*10;
@@ -158,7 +159,8 @@ void Combat::Attack(Combat* combat_target, Damage* dmg){
     this->last_victim = combat_target->master;
 
     bool is_target_dead = combat_target->CheckDeath();
-    if (is_target_dead){
+    if (is_target_dead)
+    {
         //get opponents exp value
         int exp_to_gain = combat_target->master->xp_value;
         //add it to the master's exp
@@ -244,7 +246,13 @@ void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
     {
         if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
         if (this->master == Game::player) { Game::stats->damage_taken += dmg->normal; };
+
         int adjusted_dmg = this->adjust_damage_to_armor(dmg);
+        if (this->master->is_sneaking)
+        {
+            adjusted_dmg *= 1.6;
+        };
+
         (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
 
         std::cout << this->master->name;
