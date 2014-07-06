@@ -441,7 +441,7 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr, Map
     return creature;
 };
 
-void give_player_items(Actor* player)
+void give_player_debug_items(Actor* player)
 {
     for (int i = 0; i < 52; i++)
     {
@@ -516,7 +516,7 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    give_player_items(player);
+    // give_player_debug_items(player);
 
 };
 
