@@ -590,7 +590,15 @@ Person*  Game::initialize_player()
     player->attrs->hunger->regen_interval=5;
 
 	//LPWSTR name = "asdasd";
-    player->actor_class = new FighterClass;
+    ClassType chosen_type = Parser().get_preferred_class_type();
+    std::vector<IClass*>* choices = Actor::actor_class_choices;
+    for (std::vector<IClass*>::iterator it = choices->begin(); it != choices->end(); it++)
+    {
+		IClass* cls = *it;
+        if (cls->type == chosen_type)
+            player->actor_class = cls;
+    };
+    // player->actor_class = new FighterClass;
     player->actor_class->master = player;
 
     delete player->thinker;

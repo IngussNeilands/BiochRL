@@ -5,8 +5,6 @@
 class Actor;
 class Spell;
 
-
-
 enum ClassType
 {
     FighterClassType = 1,
