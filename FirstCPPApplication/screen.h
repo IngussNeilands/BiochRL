@@ -7,6 +7,7 @@ class ScreenItem;
 class InventoryScreenItem;
 class Representation;
 class AttrEffect;
+class MessageHandler;
 
 template< typename T>
 class Screen 
@@ -17,6 +18,8 @@ class Screen
         int offset;
         char key;
         int hline;
+
+        // MessageHandler* msg_hdlr;
 
         std::vector<T*>* elements;
         std::vector<ScreenItem*>* screen_items;
@@ -42,6 +45,7 @@ class Screen
         virtual ScreenItem build_screen_item(TCODConsole* con, int i, T* element) = 0;
 
         virtual void draw();
+        virtual void draw_msg();
         virtual void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si) = 0;
 
 

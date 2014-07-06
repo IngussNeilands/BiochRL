@@ -33,6 +33,7 @@ Screen<T>::Screen()
     this->key = 'a';
     this->hline = 2;
 
+    // this->msg_hdlr = NULL;
     this->elements = new std::vector<T*>;
     this->screen_items = new std::vector<ScreenItem*>;
 };
@@ -111,6 +112,26 @@ void Screen<T>::draw()
 
     TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
     delete con;
+
+};
+
+    template<typename T>
+void Screen<T>::draw_msg()
+{
+
+    // TCODConsole::root->clear();
+
+    // TCODConsole *con = this->create_screen();
+    // this->draw_screen_title(con);
+
+    // //draw mouse line
+    // this->draw_mouse_horiz_line(con);
+
+    // int i = 5;
+    // this->loop(con, i);
+
+    // TCODConsole::blit(con, 0, 0, Ui::ui_inv_w, Ui::ui_inv_h, TCODConsole::root, 0, 0);
+    // delete con;
 
 };
 

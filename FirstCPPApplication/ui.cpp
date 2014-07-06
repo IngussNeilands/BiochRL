@@ -676,6 +676,7 @@ void Ui::draw_inventory_ui()
 {
     InventoryScreen<Item> inv_screen;
     inv_screen.elements = Game::player->inventory->items;
+    // inv_screen->msg_hdlr = Ui::msg_handler_inv;
     inv_screen.draw();
 };
 
@@ -683,6 +684,7 @@ void Ui::draw_spell_select_ui()
 {
     SpellScreen<Spell> spell_screen;
     spell_screen.elements = Game::player->spells;
+    // spell_screen->msg_hdlr = Ui::msg_handler_spell_select;
     spell_screen.draw();
 };
 
@@ -852,25 +854,55 @@ void Ui::draw_inventory_msg()
     //draw the message text
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
-    ui_inv_msg_con->print(0, y++, "Press the desired item's letter once to select it, and again to confirm it");
-    std::string equip_msg = colfg(TCODColor::white, "e to equip");
-    std::string use_msg = colfg(TCODColor::white, "u to use");
-    std::string drop_msg = colfg(TCODColor::white, "d to drop");
-    std::string quit_msg = colfg(TCODColor::white, "q to deselect/quit");
-    std::string examine_msg = colfg(TCODColor::white, "y to examine");
-    std::string zap_msg = colfg(TCODColor::white, "z to zap");
-    std::string message("You can then press "+equip_msg+" it or "+use_msg+" it, "+drop_msg+" it,");
-	std::string message2(quit_msg+", "+examine_msg+" it, "+zap_msg+" it.");
-    ui_inv_msg_con->print(0, y++, message.c_str());
-    ui_inv_msg_con->print(0, y++, message2.c_str());
-    y++;
-    ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
-    ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
+    if (!Ui::generic_active)
+    {
+        TCODColor chosen_col = ui_inv_msg_con->getDefaultForeground();
+        if (!Ui::item_is_chosen())
+        {
+            chosen_col = TCODColor::darkerYellow;
+        };
+        TCODColor active_col = ui_inv_msg_con->getDefaultForeground();
+        if (Ui::item_is_chosen())
+        {
+            active_col = TCODColor::darkerYellow;
+        };
+        std::string choose_msg = colfg(chosen_col, "desired item's letter once to select it");
+        std::string active_msg = colfg(active_col, "and again to confirm");
+        ui_inv_msg_con->print(0, y++, std::string("Press the "+choose_msg+", "+active_msg+" ").c_str());
+        ui_inv_msg_con->print(0, y++, "your selection. Otherwise, press q to unchoose or quit back to game.");
+        y++;
+        ui_inv_msg_con->print(0, y++, "IE 'a' for the first item on screen, 'b' for the second etc");
+    }
+    else if (Ui::generic_active)
+    {
+        std::string equip_msg = colfg(TCODColor::white, "e to equip");
+        std::string use_msg = colfg(TCODColor::white, "u to use");
+        std::string drop_msg = colfg(TCODColor::white, "d to drop");
+        std::string quit_msg = colfg(TCODColor::white, "q to deselect/quit");
+        std::string examine_msg = colfg(TCODColor::white, "y to examine");
+        std::string zap_msg = colfg(TCODColor::white, "z to zap");
+        std::string message("You can press "+equip_msg+" it or "+use_msg+" it, "+drop_msg+" it,");
+        std::string message2(quit_msg+", "+examine_msg+" it, "+zap_msg+" it.");
+        ui_inv_msg_con->print(0, y++, message.c_str());
+        ui_inv_msg_con->print(0, y++, message2.c_str());
+        y++;
+        ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
+        ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
+    };
 
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
-    ui_inv_msg_con->print(2, y++, "Item chosen? %s", BoolToString(Ui::item_is_chosen()));
-    ui_inv_msg_con->print(2, y++, "Item active? %s", BoolToString(Ui::generic_active));
+    // ui_inv_msg_con->print(2, y++, "Item chosen? %s", BoolToString(Ui::item_is_chosen()));
+    if (Ui::item_is_chosen())
+    {
+        ui_inv_msg_con->print(2, y++, "%s", ((Item*)(Ui::chosen_generic))->name.c_str());
+    }
+    else
+    {
+        ui_inv_msg_con->print(2, y++, "No item chosen");
+
+    };
+    // ui_inv_msg_con->print(2, y++, "Item active? %s", BoolToString(Ui::generic_active));
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
