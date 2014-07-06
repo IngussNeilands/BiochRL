@@ -787,19 +787,43 @@ void Ui::draw_class_select_msg()
     //draw the message text
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
-    ui_inv_msg_con->print(0, y++, "Press the desired class's letter once to select it, and once more to confirm");
-    std::string equip_msg = colfg(TCODColor::white, "e to equip");
-    std::string examine_msg = colfg(TCODColor::white, "x to examine");
-    std::string message(std::string("You can then press "+equip_msg+" it or "+examine_msg+" it."));
-    ui_inv_msg_con->print(0, y++, message.c_str());
+    ui_inv_msg_con->print(0, y++, "Press the desired class's letter once to select it, and once more to confirm.");
     y++;
+    ui_inv_msg_con->print(0, y++, "To confirm a selection, press 'a' for the first class on screen, 'b' for the");
+    ui_inv_msg_con->print(0, y++, "second etc.");
+    y++;
+
     // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
     // ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
 
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
-    y++;
-    ui_inv_msg_con->print(2, y++, "Class chosen? %s", BoolToString(Ui::class_is_chosen()));
-    ui_inv_msg_con->print(2, y++, "Class active? %s", BoolToString(Ui::generic_active));
+    if (Ui::item_is_chosen())
+    {
+        ui_inv_msg_con->print(2, y++, "%s", ((IClass*)(Ui::chosen_generic))->name.c_str());
+    }
+    else
+    {
+        ui_inv_msg_con->print(2, y++, "No class chosen");
+
+    };
+    // ui_inv_msg_con->print(2, y++, "Class chosen? %s", BoolToString(Ui::class_is_chosen()));
+    if (!Ui::generic_active)
+    {
+        ui_inv_msg_con->print(2, y++, "Confirm a class");
+    }
+    else if (Ui::generic_active)
+    {
+        y++;
+
+        ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
+        std::string equip_msg = colfg(TCODColor::white, "e to equip");
+        std::string examine_msg = colfg(TCODColor::white, "x to examine");
+        std::string message(std::string("Now you can press "+equip_msg+" the class or "+examine_msg+" it."));
+        ui_inv_msg_con->print(0, y++, message.c_str());
+        y++;
+    };
+
+    ui_inv_msg_con->setDefaultForeground(TCODColor::white);
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
