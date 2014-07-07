@@ -1,0 +1,15 @@
+general {
+	enable_music=false
+    music_volume=1.0
+    preferred_class_type=2
+}
+
+//0 for random each time
+rng_seeds {
+    spawning=0
+    item_spawn=0
+    linear=0
+    event=0
+    stat_rolls=0
+    dungeon_builder=0
+}

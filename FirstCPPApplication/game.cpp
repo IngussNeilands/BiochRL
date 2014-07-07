@@ -849,42 +849,42 @@ CustomKey* Game::get_free_custom_key()
 void Game::init_rng()
 {
     Parser parser = Parser();
-    if (parser.get_spawning_rng_seed() != -1) 
+    if (parser.get_spawning_rng_seed() != NULL) 
     {
         delete Game::spawning_rng;
         Game::spawning_rng = new TCODRandom(parser.get_spawning_rng_seed());
     };
     Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
 
-    if (parser.get_item_spawn_rng_seed() != -1) 
+    if (parser.get_item_spawn_rng_seed() != NULL) 
     {
         delete Game::item_spawn_rng;
         Game::item_spawn_rng = new TCODRandom(parser.get_item_spawn_rng_seed());
     };
     Game::item_spawn_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
-    if (parser.get_linear_rng_seed() != -1) 
+    if (parser.get_linear_rng_seed() != NULL) 
     {
         delete Game::linear_rng;
         Game::linear_rng = new TCODRandom(parser.get_linear_rng_seed());
     };
     Game::linear_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
-    if (parser.get_event_rng_seed() != -1) 
+    if (parser.get_event_rng_seed() != NULL) 
     {
         delete Game::event_rng;
         Game::event_rng = new TCODRandom(parser.get_event_rng_seed());
     };
     Game::event_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
-    if (parser.get_stat_rolls_rng_seed() != -1) 
+    if (parser.get_stat_rolls_rng_seed() != NULL) 
     {
         delete Game::stat_rolls_rng;
         Game::stat_rolls_rng = new TCODRandom(parser.get_stat_rolls_rng_seed());
     };
     Game::stat_rolls_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
-    if (parser.get_dungeon_builder_rng_seed() != -1) 
+    if (parser.get_dungeon_builder_rng_seed() != NULL) 
     {
         delete Game::dungeon_builder_rng;
         Game::dungeon_builder_rng = new TCODRandom(parser.get_dungeon_builder_rng_seed());
