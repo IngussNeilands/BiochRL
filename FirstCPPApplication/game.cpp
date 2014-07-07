@@ -862,6 +862,9 @@ void Game::start_game()
     Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
     Game::item_spawn_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
     Game::linear_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::event_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::stat_rolls_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+
 
 
     std::cout << "starting world gen" << std::endl;
