@@ -901,10 +901,10 @@ void Game::start_game()
     Game::init_custom_keys();
 
     Actor::actor_class_choices->push_back(new FighterClass);
+    Actor::actor_class_choices->push_back(new StalkerClass);
     Actor::actor_class_choices->push_back(new MageClass);
     Actor::actor_class_choices->push_back(new BrawlerClass);
     Actor::actor_class_choices->push_back(new NecromancerClass);
-    Actor::actor_class_choices->push_back(new StalkerClass);
 
     Game::init_rng();
 
