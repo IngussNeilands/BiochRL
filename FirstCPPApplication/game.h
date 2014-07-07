@@ -108,6 +108,8 @@ class Game
         static TCODRandom* stat_rolls_rng;
         static TCODRandom* dungeon_builder_rng;
 
+        static void init_rng();
+
         static Statistics* stats;
 
         static std::string last_cmd;

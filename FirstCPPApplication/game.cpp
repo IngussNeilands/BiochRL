@@ -846,6 +846,16 @@ CustomKey* Game::get_free_custom_key()
     return NULL;
 };
 
+void Game::init_rng()
+{
+    Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+    Game::item_spawn_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::linear_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::event_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::stat_rolls_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+};
+
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
@@ -860,13 +870,7 @@ void Game::start_game()
     Actor::actor_class_choices->push_back(new NecromancerClass);
     Actor::actor_class_choices->push_back(new StalkerClass);
 
-    Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
-    Game::item_spawn_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
-    Game::linear_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
-    Game::event_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
-    Game::stat_rolls_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
-    Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
-
+    Game::init_rng();
 
 
     std::cout << "starting world gen" << std::endl;
