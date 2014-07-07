@@ -128,6 +128,7 @@ TCODRandom* Game::item_spawn_rng = new TCODRandom();
 TCODRandom* Game::linear_rng = new TCODRandom();
 TCODRandom* Game::event_rng = new TCODRandom();
 TCODRandom* Game::stat_rolls_rng = new TCODRandom();
+TCODRandom* Game::dungeon_builder_rng = new TCODRandom();
 
 Statistics* Game::stats = new Statistics();
 
@@ -864,6 +865,7 @@ void Game::start_game()
     Game::linear_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
     Game::event_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
     Game::stat_rolls_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
+    Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
 
 

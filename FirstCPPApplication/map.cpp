@@ -124,7 +124,7 @@ class DungeonListener : public ITCODBspCallback
                 int room_x, room_y, room_w, room_h;
                 int room_min_size = 5;
                 // dig a room
-                TCODRandom *rng = TCODRandom::getInstance();
+                TCODRandom *rng = Game::dungeon_builder_rng;
 
                 // room_w = rng->getInt(room_min_size, node->w-2);
                 // room_h = rng->getInt(room_min_size, node->h-2);
@@ -157,7 +157,7 @@ class DungeonListener : public ITCODBspCallback
                 // std::cout << "nodes NOT A leaf " << std::endl;
 
                 Tile* tile;
-                TCODRandom *rng = TCODRandom::getInstance();
+                TCODRandom *rng = Game::dungeon_builder_rng;
                 int x, y;
                 for (int i = 0; i < 6; i++)
                 {
@@ -198,7 +198,7 @@ class TownListener : public ITCODBspCallback
                 int room_x,room_y,room_w,room_h;
                 int room_min_size = 10;
                 // dig a room
-                TCODRandom *rng = TCODRandom::getInstance();
+                TCODRandom *rng = Game::dungeon_builder_rng;
 
                 room_w = rng->getInt(room_min_size, node->w-2);
                 room_h = rng->getInt(room_min_size, node->h-2);
@@ -251,7 +251,7 @@ class TownListener : public ITCODBspCallback
                 // std::cout << "nodes NOT A leaf " << std::endl;
 
                 Tile* tile;
-                TCODRandom *rng = TCODRandom::getInstance();
+                TCODRandom *rng = Game::dungeon_builder_rng;
                 int x, y;
                 for (int i = 0; i < 16; i++)
                 {

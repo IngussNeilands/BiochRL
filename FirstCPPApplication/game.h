@@ -106,6 +106,7 @@ class Game
         static TCODRandom* linear_rng;
         static TCODRandom* event_rng;
         static TCODRandom* stat_rolls_rng;
+        static TCODRandom* dungeon_builder_rng;
 
         static Statistics* stats;
 
