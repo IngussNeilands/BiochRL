@@ -420,7 +420,7 @@ int Map::build_dungeon_from_random(int seed, int floor)
 
     //split the map into a bsp
     TCODBsp bsp(0, 0, width, height);
-    bsp.splitRecursive(NULL, 8, room_min_x, room_min_y, 1.0f, 1.0f);
+    bsp.splitRecursive(Game::dungeon_builder_rng, 8, room_min_x, room_min_y, 1.0f, 1.0f);
 
     //go through entire map and build rooms
     DungeonListener listener(*this);
