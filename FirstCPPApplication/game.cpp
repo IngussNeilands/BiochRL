@@ -900,6 +900,7 @@ void Game::start_game()
 
     Game::init_custom_keys();
 
+    //TODO use ClassType instead of actual class instances like an idiot
     Actor::actor_class_choices->push_back(new FighterClass);
     Actor::actor_class_choices->push_back(new StalkerClass);
     Actor::actor_class_choices->push_back(new MageClass);
