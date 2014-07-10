@@ -1,6 +1,6 @@
 general {
-	enable_music=false
-    music_volume=1.0
+	enable_music=true
+    music_volume=0.9
     preferred_class_type=2
 }
 
