@@ -61,7 +61,7 @@
 
 int Game::__version_major = 0;
 int Game::__version_minor = 11;
-int Game::__version_mini = 0;
+int Game::__version_mini = 1;
 
 
 // Game initialization
@@ -988,7 +988,6 @@ void play_music()
 
 void Game::mainloop()
 {
-
 
     WelcomeMessage();
     //move main window over a bit so that the console isn't blocked

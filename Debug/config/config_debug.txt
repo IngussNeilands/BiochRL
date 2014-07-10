@@ -1,5 +1,5 @@
 general {
-	enable_music=true
+	enable_music=false
     music_volume=0.9
     preferred_class_type=2
 }

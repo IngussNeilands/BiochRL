@@ -127,8 +127,8 @@ std::vector<std::string> Input::spells_active_char = make_spells_active_char();
 std::vector<std::string> make_classes_active_char()
 {
     std::vector<std::string> vec;
-    vec.push_back("ExamineClass");
-    vec.push_back("EquipClass"); vec.push_back("UnequipClass");
+    vec.push_back("Examine Class");
+    vec.push_back("Choose class"); vec.push_back("UnequipClass");
     vec.push_back("DropClass"); vec.push_back("EscapeMenuClass");
     vec.push_back("CastClass");
     vec.push_back("NO_MATCHING_CLASSES_ACTIVE");
@@ -994,7 +994,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
     if( action == classes_active_t::ExamineClass )
     {
         IClass* iclass = (IClass*)Ui::chosen_generic;
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE CLASS.");
+        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE CLASS.");
         std::cout << iclass->name << " : " << iclass->description << std::endl;
         return true;
     }
@@ -1030,6 +1030,9 @@ bool Input::process_classes_keys(TCOD_key_t request)
         // Ui::chosen_spell->equip(Game::player);
         // Game::player->equipment->equip_spell(Ui::chosen_item);
         // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping spell.");
+        Ui::reset_generic();
+        Input::generic_index = 'a';
+        Game::current_state = GameStates::GameplayState;
         // return true;
     }
 

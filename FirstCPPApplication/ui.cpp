@@ -790,7 +790,7 @@ void Ui::draw_class_select_msg()
     ui_inv_msg_con->print(0, y++, "Press the desired class's letter once to select it, and once more to confirm.");
     y++;
     ui_inv_msg_con->print(0, y++, "To confirm a selection, press 'a' for the first class on screen, 'b' for the");
-    ui_inv_msg_con->print(0, y++, "second etc.");
+    ui_inv_msg_con->print(0, y++, "second etc. Once you're done, press 'q' to quit the menu and play.");
     y++;
 
     // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
