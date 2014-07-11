@@ -246,7 +246,12 @@ void Ui::draw_ui_sidebar()
     ui_sidebar_con->print(9, first_y, "TURN %c%d%c", TCOD_COLCTRL_1, Ui::game->turn_count, TCOD_COLCTRL_STOP);
     first_y++;
 
-    ui_sidebar_con->print(0, first_y, "CLS %s", Game::player->actor_class->name.c_str());
+    std::string class_msg = Game::player->actor_class->name.c_str();
+    if (Game::player->is_sneaking)
+    { 
+        class_msg.append(colfg(TCODColor::lightGrey, " Sneaking"));
+    };
+    ui_sidebar_con->print(0, first_y, class_msg.c_str());
     first_y++;
 
     //draw attributes
