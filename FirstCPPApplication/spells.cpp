@@ -55,15 +55,23 @@ bool Spell::check_resistances(Actor* target)
     TCODRandom* rng = Game::stat_rolls_rng;
     int result = rng->getInt(0, 100);
     int spell_resistance = 25; //TODO use target's spell resistance and the spells power to determine how likely it is to hit
+    if (target->is_champion)
+    {
+        spell_resistance+=15;
+    }
+    else if (target->is_hero)
+    {
+        spell_resistance+25;
+    };
 
     if (result > spell_resistance)
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s affected %s", this->name.c_str(), target->name.c_str() );
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lighterGreen, "%s affected %s").c_str(), this->name.c_str(), target->name.c_str() );
         return true; //Spell was a success
     }
     else
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s resisted %s!", target->name.c_str(), this->name.c_str() );
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lighterRed, "%s resisted %s!").c_str(), target->name.c_str(), this->name.c_str() );
         return false;
     };
 };
