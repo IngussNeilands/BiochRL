@@ -50,6 +50,24 @@ Spell::Spell()
 
 };
 
+bool Spell::check_resistances(Actor* target)
+{
+    TCODRandom* rng = Game::stat_rolls_rng;
+    int result = rng->getInt(0, 100);
+    int spell_resistance = 25; //TODO use target's spell resistance and the spells power to determine how likely it is to hit
+
+    if (result > spell_resistance)
+    {
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s affected %s", this->name.c_str(), target->name.c_str() );
+        return true; //Spell was a success
+    }
+    else
+    {
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "%s resisted %s!", target->name.c_str(), this->name.c_str() );
+        return false;
+    };
+};
+
 bool Spell::is_valid_target(Tile* targetted_tile)
 {
     if (Ui::is_targetting && targetted_tile->is_occupied() || this->target_type == GroundTargetType)
@@ -115,6 +133,7 @@ bool Spell::cast(Tile* targetted_tile)
     for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* target = *it;
+        if (! this->check_resistances(target)) { continue; };
         this->apply_attr_effects(target);
 
         Game::player->combat->last_victim = target;
@@ -475,6 +494,7 @@ bool CastShadowSpell::cast(Tile* targetted_tile)
         Tile* tile = *it;
         if (tile->is_occupied() && tile->occupant != this->master && tile->occupant->thinker != NULL)
         {
+            if (! this->check_resistances(tile->occupant)) { continue; };
             tile->occupant->thinker->set_aware(false);
         };
     };
@@ -546,6 +566,7 @@ bool BribeSpell::cast(Tile* targetted_tile)
         Tile* tile = *it;
         if (tile->is_occupied() && tile->occupant != this->master && tile->occupant->thinker != NULL)
         {
+            if (! this->check_resistances(tile->occupant)) { continue; };
             tile->occupant->thinker->is_ally = true;
 			this->spend_mana();
         };
@@ -622,7 +643,7 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
     //cast spell, apply attrs etc
 
     //if (targetted_tile->is_walkable())
-    if (true)
+    if (this->check_resistances(targetted_tile->occupant))
     {
         //get angle
         int x1, y1, x2, y2;

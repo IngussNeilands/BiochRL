@@ -56,6 +56,8 @@ class Spell
         bool is_valid_target(Tile* targetted_tile);
         bool is_in_range(int distance);
         bool has_enough_mana();
+        
+        bool check_resistances(Actor* target);
 
         virtual bool cast(Tile* targetted_tile);
         void spend_mana();
