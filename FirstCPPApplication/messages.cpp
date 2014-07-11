@@ -27,11 +27,9 @@ MessageHandler::MessageHandler()
 {
     this->msg_list = std::vector<Message*>();
     Message* msg = new Message;
-    msg->content = "Welcome to BiochRL++";
-    //msg->vlist = " ";
+    msg->content = "Welcome to BiochRL++.";
     msg->count = 0;
     this->msg_list.push_back(msg);
-    // std::cout << "creating message handler" << std::endl;
 };
 
 void MessageHandler::new_msg(Message* message)
