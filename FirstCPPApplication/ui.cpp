@@ -158,7 +158,7 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
         else if  (health_percent > 10.0f ) { health_text = "It's in critical condition."; }
         else { health_text = "It's near death."; }
 
-		if (occupant->thinker != NULL)
+        if (occupant->thinker != NULL)
         {
             bool is_aware = occupant->thinker->get_is_aware();
             if (is_aware)
@@ -804,17 +804,22 @@ void Ui::draw_class_select_msg()
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     if (Ui::item_is_chosen())
     {
-        ui_inv_msg_con->print(2, y++, "%s", ((IClass*)(Ui::chosen_generic))->name.c_str());
+        IClass* chosen_class = (IClass*)Ui::chosen_generic;
+        std::string class_name = chosen_class->name;
+        ui_inv_msg_con->print(2, y++, "%s", class_name.c_str());
     }
     else
     {
-        ui_inv_msg_con->print(2, y++, "No class chosen");
+        ui_inv_msg_con->print(2, y++, "No class highlighted");
 
     };
     // ui_inv_msg_con->print(2, y++, "Class chosen? %s", BoolToString(Ui::class_is_chosen()));
     if (!Ui::generic_active)
     {
-        ui_inv_msg_con->print(2, y++, "Confirm a class");
+        // IClass* chosen_class = (IClass*)Ui::chosen_generic;
+        // std::string class_name = chosen_class->name;
+        // ui_inv_msg_con->print(2, y++, "Press '%c' again to enter actions mode to equip %s", Input::generic_index, class_name.c_str());
+        ui_inv_msg_con->print(2, y++, "Enter the class actions menu by pressing the %c key, or Enter, once more.", Input::generic_index);
     }
     else if (Ui::generic_active)
     {
