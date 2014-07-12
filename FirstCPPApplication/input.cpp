@@ -1355,12 +1355,15 @@ bool Input::process_movement_keys(TCOD_key_t request)
     }
     else if( direction == directions_t::X)
     {
-        std::cout << "WAITING" << std::endl;
-        // player->is_moving_left = true;
-        // if(Game::current_map->attackMovePlayer(player, -1, 0) )
-        // { 
-        return true;
-        // }
+        if (Ui::is_targetting)
+        {
+            return Input::user_cast_spell();
+        }
+        else
+        {
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Waiting in place.");
+            return true;
+        }
     };
 
     if (has_moved) return true;
@@ -1521,7 +1524,7 @@ bool Input::process_key_event(TCOD_key_t request)
             if(is_key_move_command(request))
             {
                 incr_turn = Input::process_movement_keys(request);
-                if (incr_turn)
+                if (incr_turn && direction_pressed(request) != directions_t::X)
                 {
                     //stop the targetting so that user has to retry
                     Ui::is_targetting = false;
