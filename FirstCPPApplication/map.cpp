@@ -207,14 +207,16 @@ class TownListener : public ITCODBspCallback
 
                 int perimeter = room_w*2 + room_h*2 - 4;
                 int door_index = rng->getInt(0, perimeter);
-                // int room_style = rng->getInt(0, 100);
-                // if (room_style < 75)
-                // {
-                //     map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
-                // }
-                // else
-                // {
-                Room* new_room = this->map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                int room_style = rng->getInt(0, 100);
+                Room* new_room;
+                if (room_style < 75)
+                {
+                    new_room = map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+                }
+                else
+                {
+                    new_room = this->map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                }
                 int center_x = new_room->center_x, center_y =new_room->center_y+1;
                 Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, center_x, center_y, 't', &this->map);
 
@@ -244,30 +246,30 @@ class TownListener : public ITCODBspCallback
                     stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
                     this->map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
                 }
-            }
-            else
-            {
-                TownListener::output << "nodes NOT A leaf " << std::endl;
-                // std::cout << "nodes NOT A leaf " << std::endl;
+        }
+        else
+        {
+            TownListener::output << "nodes NOT A leaf " << std::endl;
+            // std::cout << "nodes NOT A leaf " << std::endl;
 
-                Tile* tile;
-                TCODRandom *rng = Game::dungeon_builder_rng;
-                int x, y;
-                for (int i = 0; i < 16; i++)
+            Tile* tile;
+            TCODRandom *rng = Game::dungeon_builder_rng;
+            int x, y;
+            for (int i = 0; i < 16; i++)
+            {
+                x = rng->getInt(node->x+1, node->x+node->w -3);
+                y = rng->getInt(node->y+1, node->y+node->h -3);
+                tile = map.getTileAt(x, y);
+                if ( tile->type_id == TileTypes::FloorTileTypeType)
                 {
-                    x = rng->getInt(node->x+1, node->x+node->w -3);
-                    y = rng->getInt(node->y+1, node->y+node->h -3);
-                    tile = map.getTileAt(x, y);
-                    if ( tile->type_id == TileTypes::FloorTileTypeType)
-                    {
-                        tile->get_representation()->repr = ',';
-                        tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
-                        tile->get_description() = "A small stone presides here.";
-                    }
+                    tile->get_representation()->repr = ',';
+                    tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
+                    tile->get_description() = "A small stone presides here.";
                 }
             }
-            return true;
-        };
+        }
+        return true;
+};
 };
 std::stringstream TownListener::output = std::stringstream();
 
@@ -342,28 +344,6 @@ int Map::build_town_from_random(int seed)
 
 int Map::build_dungeon_from_random(int seed, int floor)
 {
-    //std::string path = get_data_path()+"testing_jansson.json";
-    //std::ifstream myfile(path);
-    //if (!myfile.is_open())
-    //{
-    //    throw std::bad_exception();
-    //}
-    //std::stringstream ss;
-    //ss << myfile.rdbuf(); 
-
-    ////JANNSON TESTING
-    //json_t* root;
-    //json_error_t error;
-    //std::string s = ss.str();
-    //const char* j_text = s.c_str();
-    //root = json_loads(j_text, 0, &error);
-    //json_t* text = json_object_get(root, "testing");
-    //if (!text)
-    //{
-    //    std::cout << error.text << std::endl;
-    //    throw std::exception("help");
-    //}
-    //std::cout << json_string_value(text) << std::endl;
 
     width = Game::map_width;
     height = Game::map_height;
@@ -608,7 +588,7 @@ int Map::draw()
             // std::cout << "initial white and black" <<std::endl;
             // std::cout << the_fg_color <<std::endl << the_bg_color <<std::endl;
 
-                // if (true)
+            // if (true)
             bool is_in_fov = l_map->isInFov(x, y);
             if (Game::debug_opts->all_vision || is_in_fov)
             {
