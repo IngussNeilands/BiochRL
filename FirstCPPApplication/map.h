@@ -54,7 +54,6 @@ class Map : public Object
         int draw();
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 
-        Tile *tileArray;
         std::vector< std::vector<Tile> > *tileVector;
         std::vector<Room*> * roomVector;
         // Tile * getTileAt(int x, int y);
