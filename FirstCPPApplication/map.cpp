@@ -209,14 +209,14 @@ class TownListener : public ITCODBspCallback
                 int door_index = rng->getInt(0, perimeter);
                 int room_style = rng->getInt(0, 100);
                 Room* new_room;
-                if (room_style < 75)
-                {
-                    new_room = map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
-                }
-                else
-                {
-                    new_room = this->map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
-                }
+                // if (room_style < 75)
+                // {
+                new_room = map.build_rect_room(room_x, room_y, room_w, room_h, door_index);
+                // }
+                // else
+                // {
+                //     new_room = this->map.build_circle_room(room_x, room_y, room_w, room_h, door_index);
+                // }
                 int center_x = new_room->center_x, center_y =new_room->center_y+1;
                 Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, center_x, center_y, 't', &this->map);
 
@@ -275,6 +275,7 @@ std::stringstream TownListener::output = std::stringstream();
 
 int Map::build_town_from_random(int seed)
 {
+    this->has_hero_spawned = true; //stop Heroes from spawning
 
     this->width = Game::town_width;
     this->height = Game::town_height;
