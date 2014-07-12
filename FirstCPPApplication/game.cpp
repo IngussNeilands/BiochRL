@@ -917,6 +917,7 @@ void Game::start_game()
     Game::initialize_player(); //created the Person player
     Game::mainloop();
 
+
 };
 
 void Game::init_engine()

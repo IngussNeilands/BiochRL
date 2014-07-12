@@ -261,6 +261,7 @@
     <ClInclude Include="ui.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="vector_helper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="actors\actor.cpp" />

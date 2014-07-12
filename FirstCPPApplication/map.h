@@ -55,8 +55,8 @@ class Map : public Object
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 
         std::vector< std::vector<Tile> > *tileVector;
-        std::vector<Room*> * roomVector;
-        // Tile * getTileAt(int x, int y);
+        std::vector<Room*>* roomVector;
+        std::vector<Vec2i>* inside_tiles;
         Tile * getTileAt(int x, int y, bool is_original_pos=true, int ox=-1, int oy=-1);
 
         TCODMap* l_map;

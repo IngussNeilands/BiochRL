@@ -32,6 +32,7 @@ Map::Map()
 {
     this->enemies = actor_vec_t();
     this->roomVector = new std::vector<Room*>;
+    this->inside_tiles = new std::vector<Vec2i>;
 
     this->has_hero_spawned = false;
 
@@ -262,9 +263,11 @@ class TownListener : public ITCODBspCallback
                 tile = map.getTileAt(x, y);
                 if ( tile->type_id == TileTypes::FloorTileTypeType)
                 {
-                    tile->get_representation()->repr = ',';
-                    tile->get_representation()->setFGColor(TCODColor::darkerGrey, true, true, true);
-                    tile->get_description() = "A small stone presides here.";
+                    Representation* stone_repr = new FloorRepresentation;
+                    stone_repr->repr = ',';
+                    stone_repr->setFGColor(TCODColor::darkerGrey, true, true, true);
+                    tile->set_description("A small stone lays here.");
+                    tile->set_representation(stone_repr);
                 }
             }
         }
@@ -545,7 +548,7 @@ Room* Map::build_rect_room(int room_x, int room_y,
             if (room->isPerimeter(new_x, new_y))
             {
                 tile->updateTileType(TileTypes::WallTileTypeType); //for wall
-                l_map -> setProperties(adj_x, adj_y, false, false);
+                l_map ->setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (door_index != -1 && room->checkDoorCount())
@@ -559,7 +562,10 @@ Room* Map::build_rect_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //set darker indoor color
-                // tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); 
+                Representation* repr = new FloorRepresentation;
+                // Representation* repr = tile->get_representation();
+                repr->setFGColor(*(repr->fg_color) * TCODColor::darkestSepia, true, false, true); 
+                tile->set_representation(repr);
             }
 
         }

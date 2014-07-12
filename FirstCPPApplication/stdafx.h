@@ -21,6 +21,7 @@
 #include <utils.h>
 #include "color_utils.h"
 #include "statistics.h"
+#include "vector_helper.h"
 
 // TODO: reference additional headers your program requires here
 
