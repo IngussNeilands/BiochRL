@@ -127,12 +127,27 @@ void Combat::LevelUp(int levels)
 
 void Combat::LevelUpSkills(int levels)
 {
-    this->master->actor_class->LevelUpSkills(levels);
+    if (this->master->actor_class == NULL)
+    {
+    }
+    else
+    {
+        this->master->actor_class->LevelUpSkills(levels);
+    }
 };
 
 void Combat::LevelUpStats(int levels)
 {
-    this->master->actor_class->LevelUpStats(levels);
+    if (this->master->actor_class == NULL)
+    {
+        FighterClass fighter_class = FighterClass();
+        fighter_class.master = this->master;
+        fighter_class.LevelUpStats(levels);
+    }
+    else
+    {
+        this->master->actor_class->LevelUpStats(levels);
+    }
 };
 
 void Combat::GiveExp(int exp_to_gain)
@@ -242,8 +257,10 @@ int Combat::adjust_damage_to_armor(Damage* dmg)
 
 void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
 {
-    if (dmg >= 0) 
+    if (dmg >= 0 ) 
     {
+        // if (this->master->thinker != NULL && this->master->thinker->is_ally) { return; }; //ally invincible
+
         if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
         if (this->master == Game::player) { Game::stats->damage_taken += dmg->normal; };
 

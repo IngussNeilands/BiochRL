@@ -41,6 +41,7 @@ Actor::Actor()
 {
     this->cls_name = "Actor";
     this->name = "Unset Actor name";
+    this->actor_class = NULL;
 
     this->img_path = get_data_path()+"img/Troll_Icon_01.png";
 
