@@ -460,8 +460,8 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
     if (right_percent > 1) right_percent = 1.0f;
 
     int size = 12;
-    int left_count = floor(left_percent * (float)size);
-    int right_count = floor(right_percent * (float)size);
+    int left_count = (int)floor(left_percent * (float)size);
+    int right_count = (int)floor(right_percent * (float)size);
     if (left_count + right_count < size) right_count++;
 
     left_exp.append(left_count, '-');

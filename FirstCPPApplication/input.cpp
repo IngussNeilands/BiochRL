@@ -87,7 +87,7 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Examine the item");
     vec.push_back("Equip the active item"); vec.push_back("Unequip the active item");
     vec.push_back("Drop the active item"); vec.push_back("Exit the menu");
-    vec.push_back("Use the active item \(if its a corpse, eat it for food\)");
+    vec.push_back("Use the active item (if its a corpse, eat it for food)");
     vec.push_back("Sort inventory by equippable");
     vec.push_back("Sort inventory by usable");
     vec.push_back("Sort inventory by equipped");
@@ -604,7 +604,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
                 else
                 {
-                    Ui::targetted_tile == Game::player->my_tile;
+                    Ui::targetted_tile = Game::player->my_tile;
                 }
             }
         }
@@ -649,7 +649,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 }
                 else
                 {
-                    Ui::targetted_tile == Game::player->my_tile;
+                    Ui::targetted_tile = Game::player->my_tile;
                 }
             }
         }
@@ -741,6 +741,8 @@ bool Input::user_cast_spell()
             }
         }
     }
+
+	return false;
 
 };
 

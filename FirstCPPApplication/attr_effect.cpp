@@ -559,9 +559,9 @@ std::string buffer_color(std::string input, int val, int fore_or_back, TCODColor
         return "";
     };
 
-    int r = std::max((double)1, (double)color.r);
-    int g = std::max((double)1, (double)color.g);
-    int b = std::max((double)1, (double)color.b);
+    int r = (int)std::max((double)1, (double)color.r);
+    int g = (int)std::max((double)1, (double)color.g);
+    int b = (int)std::max((double)1, (double)color.b);
     sprintf(buffer, input.c_str(), fore_or_back, r, g, b, val, TCOD_COLCTRL_STOP);
 
     return std::string(buffer);

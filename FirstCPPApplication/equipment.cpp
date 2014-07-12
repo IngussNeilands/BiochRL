@@ -104,7 +104,7 @@ Item* Slot::GetEquippedItem()
 {
     if (this->equipped_item != NULL)
     {
-    return this->equipped_item;
+        return this->equipped_item;
     }
     return NULL;
 };
@@ -151,22 +151,24 @@ Equipment::Equipment()
     this->right_shin = new Slot(slots_t::Shins, this);
     this->left_foot = new Slot(slots_t::Feet, this);
     this->right_foot = new Slot(slots_t::Feet, this);
-    
+
 
 };
-	Slot* Equipment::get_slots_for_type(slots_t slot_type)
-	{
-
-	assert(slot_type != NoSlot && "noslots have, by definition, no slot, what are you trying to do?");
-for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); it++)
+Slot* Equipment::get_slots_for_type(slots_t slot_type)
 {
-if ( (*it)->type == slot_type)
-{
-    return (*it);
-}
-}
 
-	}
+    assert(slot_type != NoSlot && "noslots have, by definition, no slot, what are you trying to do?");
+    for (std::vector<Slot*>::iterator it = this->slots->begin(); it != this->slots->end(); it++)
+    {
+        if ( (*it)->type == slot_type)
+        {
+            return (*it);
+        }
+    }
+
+	return NULL;
+
+}
 
 void Equipment::equip_item(Item* item)
 {
@@ -244,9 +246,9 @@ bool Equipment::is_item_equipped(Item* item)
             this->left_foot->GetEquippedItem() == item ||
             this->right_foot->GetEquippedItem() == item
             ) 
-    {
-        return true;
-    }
+            {
+                return true;
+            }
     else 
     {
         return false;

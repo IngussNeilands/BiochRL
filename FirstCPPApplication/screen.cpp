@@ -48,7 +48,8 @@ int Screen<T>::get_custom_key_index(T* element)
         else if (ck == Game::custom_key2) { return 2; }
         else if (ck == Game::custom_key3) { return 3; }
         else if (ck == Game::custom_key4) { return 4; }
-        else if (ck == Game::custom_key5) { return 5; };
+        else if (ck == Game::custom_key5) { return 5; }
+		else { return -1; }
     };
 };
 

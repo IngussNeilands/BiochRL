@@ -131,6 +131,7 @@ bool sorting_by_type(Message* a, Message* b)
         assert(false && "this means turn is not anything rational, I guess.");
     };
 
+	return false;
 };
 
 //goes through all the vectors of this turn and creates a std::string of the

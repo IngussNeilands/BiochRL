@@ -61,7 +61,7 @@ bool Spell::check_resistances(Actor* target)
     }
     else if (target->is_hero)
     {
-        spell_resistance+25;
+        spell_resistance+=25;
     };
 
     if (result > spell_resistance)
