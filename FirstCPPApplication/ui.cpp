@@ -950,15 +950,15 @@ std::string Ui::item_display_line()
     ss << item->name << ".";
     if (Game::player->equipment->is_item_equipped(item))
     {
-        ss << " equipped";
+        ss << " is equipped";
     }
     else if (item->equippable)
     {
-        ss << " equippable";
+        ss << " is equippable";
     }
     else if (item->usable)
     {
-        ss << " uses: " << item->uses;
+        ss << " uses left: " << item->uses;
     }
 
     return ss.str();
