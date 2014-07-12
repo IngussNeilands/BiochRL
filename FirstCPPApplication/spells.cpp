@@ -66,7 +66,7 @@ bool Spell::check_resistances(Actor* target)
 
     if (result > spell_resistance)
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lighterGreen, "%s affected %s").c_str(), this->name.c_str(), target->name.c_str() );
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lighterGreen, "%s affected %s.").c_str(), this->name.c_str(), target->name.c_str() );
         return true; //Spell was a success
     }
     else
