@@ -601,7 +601,7 @@ int Map::draw()
         {
             Tile * the_tile = getTileAt(x, y);
             //set default colors
-            TCODColor* the_bg_color = &(TCODColor)(TCODColor::black);
+            TCODColor* the_bg_color = &(TCODColor)(TCODColor(2,2,2));
             TCODColor* the_fg_color = &(TCODColor)(TCODColor::white);
             char the_char;
 
@@ -637,6 +637,10 @@ int Map::draw()
                     if (the_tile->occupant->thinker != NULL && !the_tile->occupant->thinker->get_is_aware())
                     {
                         the_bg_color = &((*the_bg_color)+TCODColor::darkestGrey);
+                    }
+                    if (the_tile->occupant->thinker != NULL && the_tile->occupant->thinker->is_ally)
+                    {
+                        the_bg_color = &((*the_bg_color)+TCODColor::darkestGreen);
                     }
                 }
                 else //tile is not occupied
