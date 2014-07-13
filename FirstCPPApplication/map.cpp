@@ -261,7 +261,7 @@ class TownListener : public ITCODBspCallback
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
                     tile = map.getTileAt(x, y);
-                    if ( tile->type_id == TileTypes::FloorTileTypeType)
+                    if ( tile->type_id == TileTypes::FloorTileTypeType && !tile->is_custom_tile)
                     {
                         Representation* stone_repr = new FloorRepresentation;
                         stone_repr->repr = ',';

@@ -102,7 +102,6 @@ class Tile : public Object
         bool _is_known;
         bool is_deleted;
 
-        bool is_custom_tile;
         BaseTileType* custom_tile;
         BaseTileType* tile;
 
@@ -119,6 +118,7 @@ class Tile : public Object
 
         int type_id;               // type of tile
         BaseTileType* get_tile_type();
+        bool is_custom_tile;
 
         int tile_x;
         int tile_y;
