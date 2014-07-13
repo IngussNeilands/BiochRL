@@ -117,6 +117,7 @@ class Game
         // Game();
         static Map* build_world(int floor);
         static Map* build_town();
+        static bool validate_town(Map* town);
         static void update();
 
         static void update_ui();

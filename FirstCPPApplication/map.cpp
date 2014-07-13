@@ -30,7 +30,6 @@
 
 Map::Map()
 {
-    this->enemies = actor_vec_t();
     this->roomVector = new std::vector<Room*>;
     this->inside_tiles = new std::vector<Vec2i>;
 
@@ -44,7 +43,7 @@ Map::Map()
 
 Map::~Map()
 {
-
+    
 }
 
 Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)

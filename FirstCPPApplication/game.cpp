@@ -340,11 +340,28 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, M
 };
 template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr, Map* world);
 
+bool Game::validate_town(Map* town)
+{
+    return false;
+    if (town == NULL)
+    {
+        return false;
+    };
+
+    return true;
+};
+
 Map* Game::build_town()
 {
     Map* world = new Map;
     world->build_town_from_random(0);
     Game::fill_town(world);
+
+    while (!validate_town(world))
+    {
+        world->build_town_from_random(0);
+        Game::fill_town(world);
+    };
     return world;
 }
 

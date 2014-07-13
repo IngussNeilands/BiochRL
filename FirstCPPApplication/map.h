@@ -35,9 +35,8 @@ class Map : public Object
         int width, height;
         int stair_x, stair_y;
         int depth;
-        bool pos_in_map(int x, int y);
         std::string description; // default description if tile does not have one
-
+        bool pos_in_map(int x, int y);
         bool has_hero_spawned;
 
         int build_dungeon_from_random(int seed, int floor);
