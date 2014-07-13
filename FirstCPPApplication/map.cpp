@@ -194,6 +194,7 @@ class TownListener : public ITCODBspCallback
         {
             if (node->isLeaf())
             {
+                TownListener::output << "a leaf" << std::endl;
                 // std::cout << "nodes a leaf" << std::endl;
 
                 int room_x,room_y,room_w,room_h;
@@ -235,8 +236,6 @@ class TownListener : public ITCODBspCallback
                 }
 
 
-                // }
-
                 lastx=room_x+room_w/2;
                 lasty=room_y+room_h/2;
                 roomNum++;
@@ -247,32 +246,33 @@ class TownListener : public ITCODBspCallback
                     stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
                     this->map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
                 }
-        }
-        else
-        {
-            TownListener::output << "nodes NOT A leaf " << std::endl;
-            // std::cout << "nodes NOT A leaf " << std::endl;
-
-            Tile* tile;
-            TCODRandom *rng = Game::dungeon_builder_rng;
-            int x, y;
-            for (int i = 0; i < 16; i++)
+            }
+            else
             {
-                x = rng->getInt(node->x+1, node->x+node->w -3);
-                y = rng->getInt(node->y+1, node->y+node->h -3);
-                tile = map.getTileAt(x, y);
-                if ( tile->type_id == TileTypes::FloorTileTypeType)
+
+                TownListener::output << "nodes NOT A leaf " << std::endl;
+                // std::cout << "nodes NOT A leaf " << std::endl;
+
+                Tile* tile;
+                TCODRandom *rng = Game::dungeon_builder_rng;
+                int x, y;
+                for (int i = 0; i < 16; i++)
                 {
-                    Representation* stone_repr = new FloorRepresentation;
-                    stone_repr->repr = ',';
-                    stone_repr->setFGColor(TCODColor::darkerGrey, true, true, true);
-                    tile->set_description("A small stone lays here.");
-                    tile->set_representation(stone_repr);
+                    x = rng->getInt(node->x+1, node->x+node->w -3);
+                    y = rng->getInt(node->y+1, node->y+node->h -3);
+                    tile = map.getTileAt(x, y);
+                    if ( tile->type_id == TileTypes::FloorTileTypeType)
+                    {
+                        Representation* stone_repr = new FloorRepresentation;
+                        stone_repr->repr = ',';
+                        stone_repr->setFGColor(TCODColor::darkerGrey, true, true, true);
+                        tile->set_description("A small stone lays here.");
+                        tile->set_representation(stone_repr);
+                    }
                 }
             }
-        }
-        return true;
-};
+            return true;
+        };
 };
 std::stringstream TownListener::output = std::stringstream();
 
@@ -506,7 +506,7 @@ Room* Map::build_circle_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
-                tile->get_description() = "Crumbling bricks are scattered here.";
+                tile->set_description("Crumbling bricks are scattered here.");
             }
 
         }
