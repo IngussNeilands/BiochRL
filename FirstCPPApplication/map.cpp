@@ -437,7 +437,7 @@ int Map::build_dungeon_from_random(int seed, int floor)
         do {
             this->getTileAt(draw_x, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
             this->getTileAt(draw_x+1, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
-            // this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
+            this->getTileAt(draw_x, draw_y-1)->updateTileType(TileTypes::FloorTileTypeType);
         }
         while (!TCODLine::step(&draw_x, &draw_y));
 
