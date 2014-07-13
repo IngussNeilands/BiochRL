@@ -357,11 +357,13 @@ Map* Game::build_town()
     world->build_town_from_random(0);
     Game::fill_town(world);
 
-    while (!validate_town(world))
-    {
-        world->build_town_from_random(0);
-        Game::fill_town(world);
-    };
+    //TODO checkout 'desctructor' branch
+    // while (!validate_town(world))
+    // {
+    //     world->build_town_from_random(0);
+    //     Game::fill_town(world);
+    // };
+
     return world;
 }
 
@@ -926,8 +928,8 @@ void Game::start_game()
 
 
     std::cout << "starting world gen" << std::endl;
-    // Map* new_map = Game::build_world(1);
-    Map* new_map = Game::build_town();
+    Map* new_map = Game::build_world(1);
+    // Map* new_map = Game::build_town();
     std::cout << "ending world gen" << std::endl;
     Game::current_map = new_map;
 
