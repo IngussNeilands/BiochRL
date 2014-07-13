@@ -59,7 +59,7 @@ Actor::Actor()
     this->my_tile = NULL;
 
     this->representation = new Representation;
-    this->inventory = new Inventory;
+    this->inventory = new Inventory();
     this->inventory->master = this;
     this->attrs = new AttributeContainer;
     this->attrs->owner = this;
@@ -114,6 +114,7 @@ Actor::~Actor()
     delete this->timed_spell_effects;
 
     delete this->actors_in_sight;
+	std::cout << "ACTOR: " << this->inventory << std::endl;
     delete this->inventory;
     delete this->representation;
     delete this->attrs;

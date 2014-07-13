@@ -53,7 +53,7 @@ Person::Person(std::string name, int age, int x, int y, char repr)
     this->representation->repr = repr;
     this->representation->setFGColor(TCODColor::lighterFlame, true, true, true);
 
-    Inventory* inventory =   new Inventory;
+    Inventory* inventory =   new Inventory();
     this->inventory = inventory;
     this->inventory->master = this;
     this->equipment = new Equipment;
@@ -89,7 +89,7 @@ Person::Person() : Actor()
     //set its representation, aka color and char
     this->representation->repr = '~';
 
-    Inventory* inventory =   new Inventory;
+    Inventory* inventory =   new Inventory();
     this->inventory = inventory;
     this->inventory->master = this;
     this->equipment = new Equipment;

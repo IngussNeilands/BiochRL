@@ -39,6 +39,11 @@ Room::Room(int x, int y, int width, int height, int door_index)
     assert(x+y+height+width >0 && "make sure room coords make sense");
 };
 
+Room::~Room()
+{
+
+};
+
 bool Room::checkDoorCount()
 {
 

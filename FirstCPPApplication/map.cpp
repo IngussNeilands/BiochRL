@@ -6,6 +6,7 @@
 #include "libtcod.hpp"
 #include <exception>
 #include <iterator>
+#include <assert.h>
 
 #include <jansson.h>
 
@@ -30,6 +31,7 @@
 
 Map::Map()
 {
+    this->tileVector = new std::vector<std::vector<Tile>>;
     this->roomVector = new std::vector<Room*>;
     this->inside_tiles = new std::vector<Vec2i>;
 
@@ -43,7 +45,42 @@ Map::Map()
 
 Map::~Map()
 {
-    
+    for (auto it = this->roomVector->begin(); it != this->roomVector->end(); it++)
+    {
+        delete *it;
+    };
+    this->roomVector->clear();
+    assert(this->roomVector->size() == 0);
+    delete this->roomVector;
+
+    for (auto it = this->enemies.begin(); it != this->enemies.end(); it++)
+    {
+        delete *it;
+    };
+    this->enemies.clear();
+    assert(this->enemies.size() == 0);
+
+    for (auto it = this->allies.begin(); it != this->allies.end(); it++)
+    {
+        delete *it;
+    };
+    this->allies.clear();
+    assert(this->allies.size() == 0);
+
+    delete this->l_map;
+
+    //for(int ix = 0; ix < this->height; ++ix)
+    for (auto it = this->tileVector->begin(); it != this->tileVector->end(); ++it)
+    {
+        //std::vector<std::vector<Tile>> tvec = *this->tileVector;
+        std::vector<Tile> tvec = *it;
+
+        tvec.clear();
+        assert(tvec.size() == 0);
+    }
+    this->tileVector->clear();
+    assert(this->tileVector->size() == 0);
+    delete this->tileVector;
 }
 
 Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
@@ -285,10 +322,12 @@ int Map::build_town_from_random(int seed)
     //the default tile description
     this->description = "This is a town of nice people, please refrain from hurting anyone.";
 
-    this->tileVector = new std::vector<std::vector<Tile>>;
     this->tileVector->resize(this->height);
     for(int ix = 0; ix < this->height; ++ix)
+    // for (auto it = this->tileVector->begin(); it != this->tileVector->end(); ++it)
     {
+        // std::vector<Tile> inner_vec = *it;
+        // inner_vec.resize(this->width);
         (*this->tileVector)[ix].resize(this->width);
     }
 
@@ -355,7 +394,7 @@ int Map::build_dungeon_from_random(int seed, int floor)
     //the default tile description
     description = "poppycock";
 
-    tileVector = new std::vector<std::vector<Tile>>;
+    // tileVector = new std::vector<std::vector<Tile>>;
     tileVector->resize(height);
     for(int ix = 0; ix < height; ++ix)
     {
@@ -650,7 +689,7 @@ int Map::draw()
 
                     if (the_tile->check_for_items())
                     {
-                        Item* back_item =the_tile->inventory->items->back(); 
+                        Item* back_item = the_tile->inventory->items->back(); 
                         the_char = back_item->repr->repr;
                         the_fg_color = back_item->repr->fg_color;
                     };

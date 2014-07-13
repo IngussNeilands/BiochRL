@@ -11,8 +11,26 @@
 
 Inventory::Inventory()
 {
-    this->items = new std::vector<Item*>;
+    this->items = new std::vector<Item*>();
     this->master = NULL;
+    this->test = "ASDADS";
+};
+
+Inventory::~Inventory()
+{
+    //std::cout << this->test << std::endl;
+    if (this->items != NULL)
+    {
+        for (auto it = this->items->begin(); it != this->items->end(); it++)
+       { 
+            std::cout << this->items->size() << std::endl;
+            delete *it;
+            *it = NULL;
+        };
+        this->items->clear();
+    };
+    delete this->items;
+    this->items = NULL;
 };
 
 void Inventory::add_item(Item* item)

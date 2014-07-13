@@ -17,7 +17,11 @@ class Inventory
         void add_item(Item*);
         void remove_item(Item*);
         int get_count();
+
+		std::string test;
+
         Inventory();
+        ~Inventory();
 
         void drop_item(Item* item);
 

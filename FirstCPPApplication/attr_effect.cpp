@@ -48,6 +48,13 @@ AttrEffect::AttrEffect()
     this->actors_applied_to = new std::vector<applied_to_s*>;
 };
 
+AttrEffect::~AttrEffect()
+{
+    delete this->armor;
+    delete this->damage;
+    delete this->actors_applied_to;
+};
+
 bool AttrEffect::is_timed()
 {
     return this->duration != NO_DURATION;

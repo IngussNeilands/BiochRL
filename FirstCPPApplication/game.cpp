@@ -357,8 +357,12 @@ Map* Game::build_town()
     world->build_town_from_random(0);
     Game::fill_town(world);
 
+	std::cout << "going in " << std::endl;
     while (!validate_town(world))
     {
+	std::cout << "\t\tlooping " << std::endl;
+        delete world;
+        world = new Map;
         world->build_town_from_random(0);
         Game::fill_town(world);
     };

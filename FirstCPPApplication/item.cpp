@@ -8,6 +8,8 @@
 #include "tile.h"
 #include "inventory.h"
 #include <color_utils.h>
+#include <custom_key.h>
+#include <spells.h>
 
 Item::Item()
 {
@@ -25,6 +27,22 @@ Item::Item()
     this->usable = false;
     this->uses = 1;
     this->equippable = false;
+};
+
+Item::~Item()
+{
+    delete this->repr;
+    delete this->attr_effect;
+
+    if (this->spell_effect != NULL)
+    {
+        delete this->spell_effect;
+    };
+
+    if (this->custom_key != NULL)
+    {
+        this->custom_key->reset_state();
+    };
 };
 
 

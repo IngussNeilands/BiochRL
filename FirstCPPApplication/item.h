@@ -35,6 +35,7 @@ class Item
         CustomKey* custom_key;
 
         Item();
+        ~Item();
         void use(Actor* target);
         void equip(Actor* target);
         void unequip(Actor* target);

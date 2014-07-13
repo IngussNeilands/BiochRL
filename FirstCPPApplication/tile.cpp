@@ -44,11 +44,29 @@ Tile::Tile()
     this->occupants = new actor_vec_t;
     this->occupant = NULL;
     // items = new std::vector<Item*>;
-    this->inventory = new Inventory;
+    this->inventory = new Inventory();
 
     this->is_open = false;
 
     updateTileType(type_id);
+};
+
+Tile::~Tile()
+{
+    // this->occupants->clear();
+    // delete this->occupants;
+
+
+	//if (this->inventory != NULL)
+	//{
+    delete this->inventory; //TODO impl delete inventory
+	this->inventory = NULL;
+	//};
+    if (this->is_custom_tile)
+    {
+        delete this->custom_tile;
+    };
+
 };
 
 BaseTileType* Tile::get_tile_type()
@@ -422,6 +440,12 @@ BaseTileType::BaseTileType()
     this->description = "Another descriptionless tile.";
     this->type_id = TileTypes::BaseTileTypeType;
     this->representation = new BaseRepresentation; 
+};
+
+BaseTileType::~BaseTileType() 
+{
+    delete this->color;
+    delete this->representation;
 };
 
 WallTileType::WallTileType() : BaseTileType() 

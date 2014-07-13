@@ -96,6 +96,8 @@ class AttrEffect
         std::vector<applied_to_s*>* actors_applied_to;
 
         AttrEffect();
+        ~AttrEffect();
+
         void ApplyAllEffects(Actor* actor);
         void ApplyHealthEffects(Actor* actor);
         void ApplyManaEffects(Actor* actor);
