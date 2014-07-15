@@ -381,7 +381,6 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
         Game::game_console->setChar(dx, dy, 'x');
         // TCODConsole::root->setChar(dx, dy, '&');
         // Game::game_console->setChar(target_tile->tile_x+Game::camera_x, target_tile->tile_y+Game::camera_y, 'X');
-        line_color = TCODColor::darkGreen;
     }
     else
     {
@@ -394,6 +393,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     {
         Actor* actor = *it;
         Game::game_console->setChar(actor->x, actor->y, 'X');
+        line_color = TCODColor::darkGreen;
     };
 
     // draw line from player to mouse
