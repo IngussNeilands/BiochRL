@@ -51,6 +51,31 @@ Tile::Tile()
     updateTileType(type_id);
 };
 
+Tile::Tile(const Tile& other)
+{
+    //TODO doesnt copy occupants, inventory, custom tile
+    this->is_deleted = other.is_deleted;
+    this->tile = new BaseTileType;
+    this->type_id = other.type_id;
+
+    this->_is_occupied = other._is_occupied;
+    this->_is_known = other._is_known;
+
+    this->occupants = new actor_vec_t;
+    this->occupant = NULL;
+
+    this->inventory = new Inventory();
+
+    this->is_open = other.is_open;
+    this->updateTileType(this->type_id);
+
+    this->is_custom_tile = false;
+    this->custom_tile = NULL;
+    // this->is_custom_tile = other.is_custom_tile;
+    // this->custom_tile = other.custom_tile;
+
+};
+
 Tile::~Tile()
 {
     // this->occupants->clear();

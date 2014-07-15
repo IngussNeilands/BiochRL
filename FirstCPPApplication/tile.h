@@ -158,6 +158,7 @@ class Tile : public Object
         Tile(); 
         //~Tile(){ delete tile; };
         ~Tile();
+        Tile(const Tile& other);
 
         void updateTileType(int type = 0);
         void updateCustomTileType(int type );
