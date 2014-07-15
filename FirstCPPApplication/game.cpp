@@ -355,11 +355,15 @@ bool Game::validate_town(Map* town)
         Room* room = *it;
         if (room == first_room) { continue; }
         TCODPath path = TCODPath(town->l_map);
-        path.compute(room->center_x+1, room->center_y+1, first_room->center_x-1, first_room->center_y-1);
+        int ox= room->center_x+1;
+        int oy = room->center_y+1;
+        int dx = first_room->center_x-1;
+        int dy = first_room->center_y-1;
+        path.compute(ox, oy, dx, dy);
         if (path.isEmpty())
         {
-            printf("FORCED it from %d, %d to %d, %d",room->center_x+1, room->center_y+1, first_room->center_x-1, first_room->center_y-1);
-            return true;
+            printf("failed validation from %d, %d to %d, %d", ox, oy, dx, dy);
+            return false;
         }
     };
 

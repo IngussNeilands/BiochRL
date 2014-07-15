@@ -299,6 +299,7 @@ void Tile::updateTileType(int type )
     else if (type == 4) {
         // tile = new DoorTileType; 
         tile = Tile::DoorType;
+        this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
     }
     else if (type == 5) 
     {

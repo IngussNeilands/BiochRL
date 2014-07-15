@@ -529,13 +529,12 @@ Room* Map::build_circle_room(int room_x, int room_y,
             {
                 // std::cout << "is circle" << std::endl;
                 tile->updateTileType(TileTypes::WallTileTypeType); //for wall
-                l_map -> setProperties(adj_x, adj_y, false, false);
+                l_map->setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (room->checkDoorCount())
                 {
                     tile->updateTileType(TileTypes::DoorTileTypeType); //for door
-                    l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
 
@@ -590,13 +589,11 @@ Room* Map::build_rect_room(int room_x, int room_y,
             if (room->isPerimeter(new_x, new_y))
             {
                 tile->updateTileType(TileTypes::WallTileTypeType); //for wall
-                l_map ->setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (door_index != -1 && room->checkDoorCount())
                 {
                     tile->updateTileType(TileTypes::DoorTileTypeType); //for door
-                    l_map -> setProperties(adj_x, adj_y, false, false);
                 }
             }
             //everything else
