@@ -400,17 +400,19 @@ Item* spawnWand()
         std::string description = "It flickers in and out of existence.";
         dropped_item = spawnUsable("A shimmering wand", description, '`', slots_t::NoSlot, 1);
         dropped_item->uses = 99999;
+        dropped_item->usable = false;
         dropped_item->repr->setFGColor(TCODColor::lightGreen, true, false, true);
 
         dropped_item->spell_effect = new TeleportSelfSpell;
         //health restore
         // int health = rng->getInt(10, 100, 25);
-        dropped_item->attr_effect->health_current_val = 1;
+        // dropped_item->attr_effect->health_current_val = 1;
     }
     else if (result == ForcePushWandSpawn)
     {
         std::string description = "It flutters quite a bit for a piece of bark.";
         dropped_item = spawnUsable("A moving wand", description, '`', slots_t::NoSlot, 1);
+        dropped_item->usable = false;
         dropped_item->uses = 99999;
         dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
 
@@ -418,7 +420,7 @@ Item* spawnWand()
         //health restore
         // int health = rng->getInt(5, 50, 15);
         // dropped_item->attr_effect->health_current_val = health;
-        dropped_item->attr_effect->health_max_val = 1;
+        // dropped_item->attr_effect->health_max_val = 1;
     }
     else if (result == PulsatingHealthSpawn)
     {
