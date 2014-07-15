@@ -146,7 +146,7 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
     {
         help_text = "Unknown tile";
     }
-    else if (target_tile->is_occupied())
+    else if (target_tile->is_occupied() && Game::current_map->l_map->isInFov(target_tile->tile_x, target_tile->tile_y))
     {
         // help_text_height = 5;
         Actor* occupant = target_tile->occupant;
@@ -393,7 +393,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* actor = *it;
-        if (distance < spell->max_range)
+        if (distance < spell->max_range && Game::current_map->l_map->isInFov(actor->x, actor->y))
         {
             Game::game_console->setChar(actor->x, actor->y, 'X');
             line_color = TCODColor::darkGreen;
