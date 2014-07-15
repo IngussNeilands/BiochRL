@@ -388,12 +388,16 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     }
 
     Spell* spell = (Spell*)Ui::chosen_generic;
+    int distance = get_euclidean_distance(sx, sy, dx, dy);
     actor_vec_t targets = spell->targets_around_tile(targetted_tile);
     for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* actor = *it;
-        Game::game_console->setChar(actor->x, actor->y, 'X');
-        line_color = TCODColor::darkGreen;
+        if (distance < spell->max_range)
+        {
+            Game::game_console->setChar(actor->x, actor->y, 'X');
+            line_color = TCODColor::darkGreen;
+        };
     };
 
     // draw line from player to mouse
@@ -401,11 +405,16 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     TCODLine::init(sx, sy, dx, dy);
     do {
         count++;
-        if (count > ((Spell*)Ui::chosen_generic)->max_range)
+        if (count > spell->max_range)
         {
             line_color = TCODColor::darkRed;
         }
-        Game::game_console->setCharBackground(sx, sy, line_color);
+        TCODColor to_draw = line_color;
+        if (distance > spell->max_range)
+        {
+            to_draw = to_draw * TCODColor::darkestGrey;
+        }
+        Game::game_console->setCharBackground(sx, sy, to_draw);
     } while (!TCODLine::step(&sx,&sy));
 
 
