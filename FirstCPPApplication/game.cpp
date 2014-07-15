@@ -930,8 +930,8 @@ void Game::start_game()
 
 
     std::cout << "starting world gen" << std::endl;
-    // Map* new_map = Game::build_world(1);
-    Map* new_map = Game::build_town();
+    Map* new_map = Game::build_world(1);
+    // Map* new_map = Game::build_town();
     std::cout << "ending world gen" << std::endl;
     Game::current_map = new_map;
 

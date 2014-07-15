@@ -476,7 +476,7 @@ int Map::build_dungeon_from_random(int seed, int floor)
         do {
             this->getTileAt(draw_x, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
             this->getTileAt(draw_x+1, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
-            // this->getTileAt(draw_x, draw_y)->tile->representation->setBGColor(TCODColor::red, true, true, true);
+            this->getTileAt(draw_x, draw_y-1)->updateTileType(TileTypes::FloorTileTypeType);
         }
         while (!TCODLine::step(&draw_x, &draw_y));
 
@@ -544,7 +544,11 @@ Room* Map::build_circle_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
-                tile->set_description("Crumbling bricks are scattered here.");
+                // Representation* repr = new FloorRepresentation;
+                // repr->fg_color = Tile::FloorType->representation->fg_color;
+                // repr->setFGColor(*(repr->fg_color) * TCODColor::darkestSepia, true, false, true); 
+                // tile->set_description("Crumbling bricks are scattered here.");
+                // tile->set_representation(repr);
             }
 
         }
@@ -600,10 +604,11 @@ Room* Map::build_rect_room(int room_x, int room_y,
             {
                 tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
                 //set darker indoor color
-                Representation* repr = new FloorRepresentation;
-                // Representation* repr = tile->get_representation();
-                repr->setFGColor(*(repr->fg_color) * TCODColor::darkestSepia, true, false, true); 
-                tile->set_representation(repr);
+                // Representation* repr = new FloorRepresentation;
+                // // Representation* repr = tile->get_representation();
+                // repr->fg_color = Tile::FloorType->representation->fg_color;
+                // repr->setFGColor(*(repr->fg_color) * TCODColor::darkestSepia, true, false, true); 
+                // tile->set_representation(repr);
             }
 
         }
