@@ -190,7 +190,7 @@ class DungeonListener : public ITCODBspCallback
             }
             else
             {
-                DungeonListener::output << "nodes NOT A leaf " << std::endl;
+                // DungeonListener::output << "nodes NOT A leaf " << std::endl;
                 // std::cout << "nodes NOT A leaf " << std::endl;
 
                 Tile* tile;
@@ -230,7 +230,7 @@ class TownListener : public ITCODBspCallback
         {
             if (node->isLeaf())
             {
-                TownListener::output << "a leaf" << std::endl;
+                // TownListener::output << "a leaf" << std::endl;
                 // std::cout << "nodes a leaf" << std::endl;
 
                 int room_x,room_y,room_w,room_h;
@@ -286,7 +286,7 @@ class TownListener : public ITCODBspCallback
             else
             {
 
-                TownListener::output << "nodes NOT A leaf " << std::endl;
+                // TownListener::output << "nodes NOT A leaf " << std::endl;
                 // std::cout << "nodes NOT A leaf " << std::endl;
 
                 Tile* tile;

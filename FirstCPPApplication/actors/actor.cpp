@@ -114,7 +114,7 @@ Actor::~Actor()
     delete this->timed_spell_effects;
 
     delete this->actors_in_sight;
-	std::cout << "ACTOR: " << this->inventory << std::endl;
+	//std::cout << "DELETE ACTOR: " << this->inventory << std::endl;
     delete this->inventory;
     delete this->representation;
     delete this->attrs;

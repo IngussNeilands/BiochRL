@@ -342,10 +342,25 @@ template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string 
 
 bool Game::validate_town(Map* town)
 {
-    return false;
+    // return false;
     if (town == NULL)
     {
         return false;
+    };
+
+    Room* first_room = town->roomVector->front();
+    //go through rooms trying to path to the first room, and rejecting if can't 
+    for (auto it = town->roomVector->begin(); it != town->roomVector->end(); it++)
+    {
+        Room* room = *it;
+        if (room == first_room) { continue; }
+        TCODPath path = TCODPath(town->l_map);
+        path.compute(room->center_x+1, room->center_y+1, first_room->center_x-1, first_room->center_y-1);
+        if (path.isEmpty())
+        {
+            printf("FORCED it from %d, %d to %d, %d",room->center_x+1, room->center_y+1, first_room->center_x-1, first_room->center_y-1);
+            return true;
+        }
     };
 
     return true;
@@ -357,10 +372,10 @@ Map* Game::build_town()
     world->build_town_from_random(0);
     Game::fill_town(world);
 
-	std::cout << "going in " << std::endl;
+    std::cout << "going in " << std::endl;
     while (!validate_town(world))
     {
-	std::cout << "\t\tlooping " << std::endl;
+        std::cout << "\t\tlooping " << std::endl;
         delete world;
         world = new Map;
         world->build_town_from_random(0);
