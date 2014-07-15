@@ -47,6 +47,11 @@ Tile::Tile()
     this->inventory = new Inventory();
 
     this->is_open = false;
+    
+    this->tile_x = -1;
+    this->tile_y = -1;
+
+    this->map = NULL;
 
     updateTileType(type_id);
 };
@@ -67,12 +72,17 @@ Tile::Tile(const Tile& other)
     this->inventory = new Inventory();
 
     this->is_open = other.is_open;
+
+    this->map = other.map;
     this->updateTileType(this->type_id);
 
     this->is_custom_tile = false;
     this->custom_tile = NULL;
     // this->is_custom_tile = other.is_custom_tile;
     // this->custom_tile = other.custom_tile;
+
+    this->tile_x = -1;
+    this->tile_y = -1;
 
 };
 
