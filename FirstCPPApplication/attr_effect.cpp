@@ -558,20 +558,17 @@ std::string AttrEffect::small_convert(std::string prefix, int val)
 // };
 
 
-std::string buffer_color(std::string input, int val, int fore_or_back, TCODColor color)
+std::string buffer_color(std::string input, int val, TCODColor color)
 {
-    char buffer[999];
     if (val == 0)
     {
         return "";
     };
 
-    int r = (int)std::max((double)1, (double)color.r);
-    int g = (int)std::max((double)1, (double)color.g);
-    int b = (int)std::max((double)1, (double)color.b);
-    sprintf(buffer, input.c_str(), fore_or_back, r, g, b, val, TCOD_COLCTRL_STOP);
+    std::stringstream ss;
+    ss << input << ": " << val << " ";
 
-    return std::string(buffer);
+    return colfg(color, ss.str());
 };
 
 std::string AttrEffect::oneline_str_FIXED()
@@ -591,33 +588,33 @@ std::string AttrEffect::oneline_str_FIXED()
 
     std::stringstream ss;
 
-    ss << buffer_color("%c%c%c%cHCV: %i%c ", (int)this->health_current_val, TCOD_COLCTRL_FORE_RGB, health_color);
-    ss << buffer_color("%c%c%c%cHMV: %i%c ", (int)this->health_max_val, TCOD_COLCTRL_FORE_RGB, health_color);
-    ss << buffer_color("%c%c%c%cHRR: %i%c ", (int)this->health_regen_rate, TCOD_COLCTRL_FORE_RGB, health_color);
-    ss << buffer_color("%c%c%c%cHRI: %i%c ", (int)this->health_regen_interval, TCOD_COLCTRL_FORE_RGB, health_color);
+    ss << buffer_color("HCV", this->health_current_val, health_color);
+    ss << buffer_color("HMV", this->health_max_val, health_color);
+    ss << buffer_color("HRR", this->health_regen_rate, health_color);
+    ss << buffer_color("HRI", this->health_regen_interval, health_color);
 
-    ss << buffer_color("%c%c%c%cMCV: %i%c ", (int)this->mana_current_val, TCOD_COLCTRL_FORE_RGB, mana_color);
-    ss << buffer_color("%c%c%c%cMMV: %i%c ", (int)this->mana_max_val, TCOD_COLCTRL_FORE_RGB, mana_color);
-    ss << buffer_color("%c%c%c%cMRR: %i%c ", (int)this->mana_regen_rate, TCOD_COLCTRL_FORE_RGB, mana_color);
-    ss << buffer_color("%c%c%c%cMRI: %i%c ", (int)this->mana_regen_interval, TCOD_COLCTRL_FORE_RGB, mana_color);
+    ss << buffer_color("MCV", this->mana_current_val, mana_color);
+    ss << buffer_color("MMV", this->mana_max_val, mana_color);
+    ss << buffer_color("MRR", this->mana_regen_rate, mana_color);
+    ss << buffer_color("MRI", this->mana_regen_interval, mana_color);
 
-    ss << buffer_color("%c%c%c%cACV: %i%c ", (int)this->armor_current_val, TCOD_COLCTRL_FORE_RGB, armor_color);
-    ss << buffer_color("%c%c%c%cAMV: %i%c ", (int)this->armor_max_val, TCOD_COLCTRL_FORE_RGB, armor_color);
-    ss << buffer_color("%c%c%c%cARR: %i%c ", (int)this->armor_regen_rate, TCOD_COLCTRL_FORE_RGB, armor_color);
-    ss << buffer_color("%c%c%c%cARI: %i%c ", (int)this->armor_regen_interval, TCOD_COLCTRL_FORE_RGB, armor_color);
+    ss << buffer_color("ACV", this->armor_current_val, armor_color);
+    ss << buffer_color("AMV", this->armor_max_val, armor_color);
+    ss << buffer_color("ARR", this->armor_regen_rate, armor_color);
+    ss << buffer_color("ARI", this->armor_regen_interval, armor_color);
 
-    ss << buffer_color("%c%c%c%cDCV: %i%c ", (int)this->damage_current_val, TCOD_COLCTRL_FORE_RGB, damage_color);
-    ss << buffer_color("%c%c%c%cDMV: %i%c ", (int)this->damage_max_val, TCOD_COLCTRL_FORE_RGB, damage_color);
-    ss << buffer_color("%c%c%c%cDRR: %i%c ", (int)this->damage_regen_rate, TCOD_COLCTRL_FORE_RGB, damage_color);
-    ss << buffer_color("%c%c%c%cDRI: %i%c ", (int)this->damage_regen_interval, TCOD_COLCTRL_FORE_RGB, damage_color);
+    ss << buffer_color("DCV", this->damage_current_val, damage_color);
+    ss << buffer_color("DMV", this->damage_max_val, damage_color);
+    ss << buffer_color("DRR", this->damage_regen_rate, damage_color);
+    ss << buffer_color("DRI", this->damage_regen_interval, damage_color);
 
-    ss << buffer_color("%c%c%c%cNRM: %i%c ", (int)this->damage->normal, TCOD_COLCTRL_FORE_RGB, damage_color);
-    ss << buffer_color("%c%c%c%cFIR: %i%c ", (int)this->damage->fire, TCOD_COLCTRL_FORE_RGB, TCODColor::desaturatedRed);
-    ss << buffer_color("%c%c%c%cWTR: %i%c ", (int)this->damage->water, TCOD_COLCTRL_FORE_RGB, TCODColor::desaturatedBlue);
-    ss << buffer_color("%c%c%c%cLIF: %i%c ", (int)this->damage->life, TCOD_COLCTRL_FORE_RGB, TCODColor::lightGreen);
-    ss << buffer_color("%c%c%c%cDTH: %i%c ", (int)this->damage->death, TCOD_COLCTRL_FORE_RGB, TCODColor::darkestGrey);
-    ss << buffer_color("%c%c%c%cCTL: %i%c ", (int)this->damage->crystal, TCOD_COLCTRL_FORE_RGB, TCODColor::darkPurple);
-    ss << buffer_color("%c%c%c%cSPR: %i%c ", (int)this->damage->spectre, TCOD_COLCTRL_FORE_RGB, TCODColor::magenta);
+    ss << buffer_color("NRM", this->damage->normal, damage_color);
+    ss << buffer_color("FIR", this->damage->fire, TCODColor::desaturatedRed);
+    ss << buffer_color("WTR", this->damage->water, TCODColor::desaturatedBlue);
+    ss << buffer_color("LIF", this->damage->life, TCODColor::lightGreen);
+    ss << buffer_color("DTH", this->damage->death, TCODColor::darkestGrey);
+    ss << buffer_color("CTL", this->damage->crystal, TCODColor::darkPurple);
+    ss << buffer_color("SPR", this->damage->spectre, TCODColor::magenta);
 
     return ss.str();
     return StringJoin(string_vec, ' ', true);
