@@ -245,7 +245,18 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
 {
     ScreenItem result;
     TCODColor foreground, background;
+    std::vector<TCODColor> colors = this->get_enabled_colors(con,  element);
+    foreground = colors.at(0);
+    background = colors.at(1);
+
     std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
+    std::stringstream ss;
+
+    std::string key = char_to_str(this->key);
+    std::string letter = colfg(*element->repr->fg_color, char_to_str(element->repr->repr));
+    std::string name = colfg(foreground, element->name);
+    std::string weight = colfg(TCODColor::lightGrey, std::string("weighs ")+std::to_string((long double)element->weight)+" stones");
+    ss << key << "-" << letter << " " << name << " : " << weight;
 
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
@@ -254,37 +265,37 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     if (is_chosen)
     {
         msg_str.append(" <-");
+        ss << " <-";
     }
     if (element->custom_key != NULL)
     {
         std::string index = std::to_string((long double)this->get_custom_key_index(element));
         msg_str.append(colfg(TCODColor::green, " "+index));
+        ss << colfg(TCODColor::green, " "+index);
     };
 
-    std::vector<TCODColor> colors = this->get_enabled_colors(con,  element);
-    foreground = colors.at(0);
-    background = colors.at(1);
 
-    char buffer[512];
-    TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
-    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
-    sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_2,
-            (element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-            (element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (element)->weight,
-            TCOD_COLCTRL_STOP);
+    // char buffer[512];
+    // TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
+    // TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
+    // sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_2,
+    //         (element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
+    //         (element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (element)->weight,
+    //         TCOD_COLCTRL_STOP);
 
 
 
-    if (element->spell_effect != NULL)
-    {
-        msg_str = buffer;
-        msg_str.append(" @ %s, mana: %i, rng: %i");
-        sprintf(buffer, msg_str.c_str(), element->spell_effect->name.c_str(), element->spell_effect->mana_cost, element->spell_effect->max_range);
-        msg_str = buffer;
+    // if (element->spell_effect != NULL) //TODO get spell effects showing
+    // {
+    //     msg_str = buffer;
+    //     msg_str.append(" @ %s, mana: %i, rng: %i");
+    //     sprintf(buffer, msg_str.c_str(), element->spell_effect->name.c_str(), element->spell_effect->mana_cost, element->spell_effect->max_range);
+    //     msg_str = buffer;
 
-    };
+    // };
 
-    msg_str = buffer;
+    // msg_str = buffer;
+    msg_str = ss.str();
     result.foreground = foreground;
     result.background = background;
     result.msg_str = msg_str;
