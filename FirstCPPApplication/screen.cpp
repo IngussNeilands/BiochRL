@@ -285,14 +285,19 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
 
 
 
-    // if (element->spell_effect != NULL) //TODO get spell effects showing
-    // {
-    //     msg_str = buffer;
-    //     msg_str.append(" @ %s, mana: %i, rng: %i");
-    //     sprintf(buffer, msg_str.c_str(), element->spell_effect->name.c_str(), element->spell_effect->mana_cost, element->spell_effect->max_range);
-    //     msg_str = buffer;
+    if (element->spell_effect != NULL) //TODO get spell effects showing
+    {
+        // msg_str = buffer;
+        // msg_str.append(" @ %s, mana: %i, rng: %i");
+        Spell* spell = element->spell_effect;
+        // sprintf(buffer, msg_str.c_str(), spell->name.c_str(), spell->mana_cost, spell->max_range);
+        // msg_str = buffer;
+        std::string key_string = std::string(" @ ") + spell->name + std::string(",");
+        std::string mana_cost = std::string(" mana: ") + std::to_string((long double)spell->mana_cost) + std::string(",");
+        std::string range = std::string(" rng: ") + std::to_string((long double)spell->max_range) + std::string(",");;
+        ss << key_string << mana_cost << range;
 
-    // };
+    };
 
     // msg_str = buffer;
     msg_str = ss.str();
