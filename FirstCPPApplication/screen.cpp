@@ -438,9 +438,6 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 
     //print the item effects
-    // std::string msg = ((T*)si.element)->attr_effect->oneline_str();
-    // std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->attr_effect->oneline_str_colours();
-    // one_line_helper(con, offset, i, msg, colctrl_vec);
     con->print(this->offset, i, ((T*)si.element)->attr_effect->oneline_str_FIXED().c_str());
     si.max_y = i;
 
