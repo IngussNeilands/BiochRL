@@ -454,8 +454,6 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 {
     ScreenItem result;
 
-    char buffer[512];
-
     bool has_duration;
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
@@ -471,19 +469,17 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
 
     //key, element, name
-    std::string msg_str = "%c-%c%s%c";
-    sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_1, 
-            element->name.c_str(), TCOD_COLCTRL_STOP);
-    msg_str = buffer;
+    std::stringstream ss;
+    ss << this->key << "-" << colfg(foreground, element->name);
 
     if (is_chosen)
     {
-        msg_str.append(" <-");
+        ss << " <-";
     }
 
     result.foreground = foreground;
     result.background = background;
-    result.msg_str = msg_str;
+    result.msg_str = ss.str();
     result.element = element;
 
     return result;
