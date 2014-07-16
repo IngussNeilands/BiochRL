@@ -249,9 +249,7 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     foreground = colors.at(0);
     background = colors.at(1);
 
-    std::string msg_str = "%c-%c%c%c %c%s%c : %cweighs %d stones%c";
     std::stringstream ss;
-
     std::string key = char_to_str(this->key);
     std::string letter = colfg(*element->repr->fg_color, char_to_str(element->repr->repr));
     std::string name = colfg(foreground, element->name);
@@ -264,42 +262,25 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
 
     if (is_chosen)
     {
-        msg_str.append(" <-");
         ss << " <-";
     }
     if (element->custom_key != NULL)
     {
         std::string index = std::to_string((long double)this->get_custom_key_index(element));
-        msg_str.append(colfg(TCODColor::green, " "+index));
         ss << colfg(TCODColor::green, " "+index);
     };
 
 
-    // char buffer[512];
-    // TCODConsole::setColorControl(TCOD_COLCTRL_2, *(element)->repr->fg_color, con->getDefaultBackground());
-    // TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightGrey, background);
-    // sprintf(buffer, msg_str.c_str(), this->key, TCOD_COLCTRL_2,
-    //         (element)->repr->repr, TCOD_COLCTRL_STOP, TCOD_COLCTRL_1,
-    //         (element)->name.c_str(), TCOD_COLCTRL_STOP, TCOD_COLCTRL_3, (element)->weight,
-    //         TCOD_COLCTRL_STOP);
-
-
-
     if (element->spell_effect != NULL) //TODO get spell effects showing
     {
-        // msg_str = buffer;
-        // msg_str.append(" @ %s, mana: %i, rng: %i");
         Spell* spell = element->spell_effect;
-        // sprintf(buffer, msg_str.c_str(), spell->name.c_str(), spell->mana_cost, spell->max_range);
-        // msg_str = buffer;
-        std::string key_string = std::string(" @ ") + spell->name + std::string(",");
-        std::string mana_cost = std::string(" mana: ") + std::to_string((long double)spell->mana_cost) + std::string(",");
-        std::string range = std::string(" rng: ") + std::to_string((long double)spell->max_range) + std::string(",");;
-        ss << key_string << mana_cost << range;
+        std::string spell_name = spell->name;
+        int mana_cost = spell->mana_cost;
+        int range = spell->max_range;
+        ss << " @ " << spell_name << ", mana: " << mana_cost << ", rng: " << range;
 
     };
 
-    // msg_str = buffer;
     msg_str = ss.str();
     result.foreground = foreground;
     result.background = background;
