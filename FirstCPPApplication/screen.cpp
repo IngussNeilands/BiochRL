@@ -281,7 +281,7 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
 
     };
 
-    msg_str = ss.str();
+    std::string msg_str = ss.str();
     result.foreground = foreground;
     result.background = background;
     result.msg_str = msg_str;
