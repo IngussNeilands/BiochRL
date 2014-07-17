@@ -17,9 +17,14 @@ class HelpBox
 
         HelpBox();
         ~HelpBox();
-        void initialize();
         HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Tile* selected_tile);
+
+        void initialize();
         void draw(int& first_y);
+        virtual void set_background();
+        virtual void draw_outline();
+        virtual void draw_image();
+        virtual void draw_messages();
 };
 
 class TargetHelpBox : public HelpBox

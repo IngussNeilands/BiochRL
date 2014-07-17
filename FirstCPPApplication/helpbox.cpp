@@ -54,29 +54,24 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     this->con = new TCODConsole(this->width+this->extra_padding, this->height+this->extra_padding);
 };
 
-void HelpBox::draw(int& first_y)
+void HelpBox::set_background()
 {
-    draw_rect(this->con, 0, 0, this->width, this->height);//, "?", "?", "?", "?", "?", "?", "?", "?");
-    int y = 1;
-    std::vector<std::string>::iterator it = messages.begin();
-    for (it; it!= messages.end(); it++)
-    {
-        // this->con->print(1+this->left_pad, y+this->top_pad, (*it).c_str());
-        int diff = this->con->printRect(1+this->left_pad, y+this->top_pad, this->width-this->left_pad-this->right_pad, this->height, (*it).c_str());
-        y+= diff;
-        // y++;
-        y++;
-    };
-
-    if (!selected_tile->is_known())
+    if (this->selected_tile && !selected_tile->is_known())
     {
         this->con->setDefaultForeground(TCODColor::darkestGrey);
     };
+};
 
-    if (!selected_tile->is_known())
+void HelpBox::draw_outline()
+{
+    if (selected_tile && !selected_tile->is_known())
         draw_rect(this->con, 0, 0, this->width, this->height, "?", "?", "?", "?", "?", "?", "?", "?");
     else
         draw_rect(this->con, 0, 0, this->width, this->height);
+};
+
+void HelpBox::draw_image()
+{
 
     if (selected_tile->occupant != NULL && selected_tile->is_known())
     {
@@ -93,6 +88,30 @@ void HelpBox::draw(int& first_y)
         }
         delete img;
     };
+
+};
+
+void HelpBox::draw_messages()
+{
+    int y = 1;
+    std::vector<std::string>::iterator it = messages.begin();
+    for (it; it!= messages.end(); it++)
+    {
+        // this->con->print(1+this->left_pad, y+this->top_pad, (*it).c_str());
+        int diff = this->con->printRect(1+this->left_pad, y+this->top_pad, this->width-this->left_pad-this->right_pad, this->height, (*it).c_str());
+        y+= diff;
+        // y++;
+        y++;
+    };
+
+};
+
+void HelpBox::draw(int& first_y)
+{
+    this->draw_messages();
+    this->set_background();
+    this->draw_outline();
+    this->draw_image();
 
     TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, first_y);
 
