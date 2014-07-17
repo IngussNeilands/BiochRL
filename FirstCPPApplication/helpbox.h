@@ -22,4 +22,11 @@ class HelpBox
         void draw(int& first_y);
 };
 
+class TargetHelpBox : public HelpBox
+{
+    public:
+        TargetHelpBox(std::vector<std::string> messages, TCODConsole* target_con, Tile* selected_tile) ;
+
+};
+
 #endif

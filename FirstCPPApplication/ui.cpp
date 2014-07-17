@@ -194,7 +194,7 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
         messages.push_back(health_text);
     };
 
-    HelpBox hb(messages, ui_sidebar_con, target_tile);
+    TargetHelpBox hb(messages, ui_sidebar_con, target_tile);
     hb.draw(y);
 }
 

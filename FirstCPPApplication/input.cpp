@@ -33,6 +33,7 @@
 #include "custom_key.h"
 #include <color_utils.h>
 #include <thinker.h>
+#include "draw_utils.h"
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -1540,6 +1541,9 @@ bool Input::process_key_event(TCOD_key_t request)
 
             else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
             {
+
+                // HelpBox hb(messages, ui_sidebar_con, target_tile);
+                // draw_rect(TCODConsole::root, 0, 0, 100, 100);
 
                 std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
                 minimize_game();

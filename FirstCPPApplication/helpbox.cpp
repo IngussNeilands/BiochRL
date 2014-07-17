@@ -97,3 +97,9 @@ void HelpBox::draw(int& first_y)
     TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, first_y);
 
 };
+
+TargetHelpBox::TargetHelpBox(std::vector<std::string> messages, TCODConsole* target_con, Tile* selected_tile) : HelpBox(messages, target_con, selected_tile)
+{
+
+};
+
