@@ -73,7 +73,7 @@ void HelpBox::draw_outline()
 void HelpBox::draw_image()
 {
 
-    if (selected_tile->occupant != NULL && selected_tile->is_known())
+    if (selected_tile && selected_tile->occupant != NULL && selected_tile->is_known())
     {
         TCODImage* img = selected_tile->occupant->get_image();
         int w, h;
@@ -106,14 +106,14 @@ void HelpBox::draw_messages()
 
 };
 
-void HelpBox::draw(int& first_y)
+void HelpBox::draw(int& first_x, int& first_y)
 {
     this->draw_messages();
     this->set_background();
     this->draw_outline();
     this->draw_image();
 
-    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, 0, first_y);
+    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, first_x, first_y);
 
 };
 

@@ -20,7 +20,7 @@ class HelpBox
         HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Tile* selected_tile);
 
         void initialize();
-        void draw(int& first_y);
+        void draw(int& first_x, int& first_y);
         virtual void set_background();
         virtual void draw_outline();
         virtual void draw_image();
