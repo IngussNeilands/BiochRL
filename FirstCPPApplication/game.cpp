@@ -769,11 +769,8 @@ void Game::draw_ui()
     };
 };
 
-bool gameplay_loop(bool incr_turn)
+void write_floor_message()
 {
-    if (incr_turn)
-    {
-
         //this used to be after input was processed but turn hadn't
         //been incremented
         int item_count = Game::player->my_tile->inventory->get_count();
@@ -790,17 +787,24 @@ bool gameplay_loop(bool incr_turn)
 
         //tile description
         new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());
+};
 
-        //new Message(Ui::msg_handler_main, NOTYPE_MSG, "TURN: %d", Game::turn_count);
+bool gameplay_loop(bool incr_turn)
+{
+    if (incr_turn)
+    {
+
+        write_floor_message();
+
         Game::turn_count++;
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
         incr_turn = false;
     }
 
-    // TCOD_event_t evt = TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key_evt, &mouse_evt, false);
     if ((Game::key_evt.vk != NULL || Game::key_evt.c != NULL) && Game::key_evt.pressed == 1 ){
         incr_turn = Input::process_key_event(Game::key_evt);
     }
+
     if (Game::key_evt.pressed == 1)
     {
         Input::process_debug_event(Game::key_evt);
