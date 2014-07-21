@@ -8,6 +8,7 @@ enum Screens {
     MainMenuScreenType,
     HelpScreenType,
     SpellSelectScreenType,
-    ClassSelectScreenType
+    ClassSelectScreenType,
+    AlertScreenType
 };
 #endif

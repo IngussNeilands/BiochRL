@@ -745,6 +745,10 @@ void Game::draw_ui()
     if (Game::current_state == GameStates::GameplayState)
     {
         Ui::draw_ui();
+        if (Game::current_screen == Screens::AlertScreenType)
+        {
+            Game::draw_alerts();
+        };
     }
     else
     {
@@ -796,6 +800,19 @@ void write_floor_message()
         new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());
 };
 
+bool menu_loop(bool incr_turn)
+{
+    auto key_evt = Game::key_evt;
+    if ((key_evt.vk != NULL || key_evt.c != NULL) && key_evt.pressed == 1 ){
+        incr_turn = Input::process_key_event(key_evt);
+    };
+
+    Game::draw_ui();
+    Input::process_mouse_inv_event();
+
+    return incr_turn;
+};
+
 bool gameplay_loop(bool incr_turn)
 {
     if (incr_turn)
@@ -841,7 +858,6 @@ bool gameplay_loop(bool incr_turn)
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
     Game::game_console->clear();
 
-    Game::draw_alerts();
 
     return incr_turn;
 };
@@ -1027,7 +1043,7 @@ void play_music()
     std::cout << std::endl;
 
     //parser to read file settings. currently only music
-	Parser* parser = new Parser();
+    Parser* parser = new Parser();
 
     bool should_enable = parser->get_enable_music();
     if (should_enable)
@@ -1088,12 +1104,7 @@ void Game::mainloop()
                 break;
 
             case GameStates::MenuState:
-                if ((key_evt.vk != NULL || key_evt.c != NULL) && key_evt.pressed == 1 ){
-                    incr_turn = Input::process_key_event(key_evt);
-                };
-
-                Game::draw_ui();
-                Input::process_mouse_inv_event();
+                incr_turn = menu_loop(incr_turn);
                 break;
 
             default:
