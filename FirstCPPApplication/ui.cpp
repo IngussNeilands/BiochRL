@@ -198,10 +198,6 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
 	int x = 0;
     target_help_box.draw(x, y);
 
-    std::vector<std::string> temp_msgs;
-    temp_msgs.push_back("ASDADS");
-    TargetHelpBox temp(temp_msgs, TCODConsole::root, NULL);
-    temp.draw(x, y);
 }
 
 

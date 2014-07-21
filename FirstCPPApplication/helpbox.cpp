@@ -13,7 +13,7 @@ void HelpBox::initialize()
     this->con = NULL;
     this->selected_tile = NULL;
 
-    this->extra_padding = 100;
+    this->extra_padding = 20;
 };
 HelpBox::HelpBox()
 {
@@ -32,6 +32,7 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
 {
     this->initialize();
     this->selected_tile = selected_tile;
+    if (selected_tile == NULL) { this->extra_padding = 0; };
     this->target_con = target_con;
     this->messages = messages;
     int max_width = 17;
@@ -51,7 +52,7 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
 
     this->width = line_width+left_pad+right_pad;
     this->height = line_height+top_pad+bot_pad;
-    this->con = new TCODConsole(this->width+this->extra_padding, this->height+this->extra_padding);
+    this->con = new TCODConsole(this->width, this->height+this->extra_padding);
 };
 
 void HelpBox::set_background()

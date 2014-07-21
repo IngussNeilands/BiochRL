@@ -57,6 +57,7 @@
 #include <enums\slots_t.h>
 #include "custom_key.h"
 #include "parser.h"
+#include <helpbox.h>
 
 
 int Game::__version_major = 0;
@@ -829,15 +830,16 @@ bool gameplay_loop(bool incr_turn)
     //draw the UI
     Game::draw_ui();
 
-
-
-
-
-
     //draw the game_console to root, taking from where the camera is looking at
-    TCODConsole::root->blit(Game::game_console, Game::camera_x, Game::camera_y,
+    TCODConsole::blit(Game::game_console, Game::camera_x, Game::camera_y,
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
     Game::game_console->clear();
+
+    std::vector<std::string> temp_msgs;
+    temp_msgs.push_back("ASDADS");
+    TargetHelpBox temp(temp_msgs, TCODConsole::root, NULL);
+    int x = 0, y = 10;
+    temp.draw(x, y);
 
     return incr_turn;
 };
