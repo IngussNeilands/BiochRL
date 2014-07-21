@@ -731,14 +731,20 @@ void Game::update_ui()
     };
 }
 
+void Game::draw_alerts()
+{
+    std::vector<std::string> temp_msgs;
+    temp_msgs.push_back("ASDADS");
+    TargetHelpBox temp(temp_msgs, TCODConsole::root, NULL);
+    int x = 0, y = 10;
+    temp.draw(x, y);
+};
+
 void Game::draw_ui()
 {
     if (Game::current_state == GameStates::GameplayState)
-        // switch(Game::current_state)
     {
-        // case GameStates::GameplayState: 
         Ui::draw_ui();
-        // break;
     }
     else
     {
@@ -835,11 +841,7 @@ bool gameplay_loop(bool incr_turn)
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
     Game::game_console->clear();
 
-    std::vector<std::string> temp_msgs;
-    temp_msgs.push_back("ASDADS");
-    TargetHelpBox temp(temp_msgs, TCODConsole::root, NULL);
-    int x = 0, y = 10;
-    temp.draw(x, y);
+    Game::draw_alerts();
 
     return incr_turn;
 };

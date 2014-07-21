@@ -123,6 +123,7 @@ class Game
         static void update_ui();
 
         static void draw_ui();
+        static void draw_alerts();
 
         static Person*  initialize_player();
         // static void  initialize_enemies();
