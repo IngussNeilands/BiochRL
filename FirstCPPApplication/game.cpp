@@ -57,7 +57,7 @@
 #include <enums\slots_t.h>
 #include "custom_key.h"
 #include "parser.h"
-#include <helpbox.h>
+#include "helpbox.h"
 
 
 int Game::__version_major = 0;
@@ -733,11 +733,11 @@ void Game::update_ui()
 
 void Game::draw_alerts()
 {
-    std::vector<std::string> temp_msgs;
-    temp_msgs.push_back("ASDADS");
-    TargetHelpBox temp(temp_msgs, TCODConsole::root, NULL);
-    int x = 0, y = 10;
-    temp.draw(x, y);
+    std::vector<HelpBox*> alerts = Ui::alerts;
+    for (auto it = alerts.begin(); it!=alerts.end(); it++)
+    {
+        (*it)->draw();
+    };
 };
 
 void Game::draw_ui()
@@ -943,6 +943,14 @@ void Game::start_game()
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
     Game::init_engine();
+
+    std::vector<std::string> temp_msgs;
+    temp_msgs.push_back("ASDADS");
+    HelpBox* temp = new HelpBox(temp_msgs, TCODConsole::root, NULL);
+    int x = 0, y = 10;
+    temp->x = x;
+    temp->y = y;
+    Ui::alerts.push_back(temp);
 
     Game::init_custom_keys();
 

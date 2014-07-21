@@ -6,6 +6,9 @@
 
 void HelpBox::initialize()
 {
+    this->x = -1;
+    this->y = -1;
+
     this->left_pad=1;
     this->right_pad=2;
     this->top_pad=1;
@@ -114,7 +117,22 @@ void HelpBox::draw(int& first_x, int& first_y)
     this->draw_outline();
     this->draw_image();
 
-    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding, this->height+this->extra_padding, this->target_con, first_x, first_y);
+    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding,
+            this->height+this->extra_padding, this->target_con, first_x,
+            first_y);
+
+};
+
+void HelpBox::draw()
+{
+    this->draw_messages();
+    this->set_background();
+    this->draw_outline();
+    this->draw_image();
+
+    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding,
+            this->height+this->extra_padding, this->target_con, this->x,
+            this->y);
 
 };
 

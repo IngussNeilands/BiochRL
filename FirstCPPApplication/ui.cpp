@@ -27,6 +27,7 @@
 #include "helpbox.h"
 #include <color_utils.h>
 #include "thinker.h"
+#include "helpbox.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -50,6 +51,7 @@ unsigned long long int Ui::tick_key_released = 0;
 bool Ui::is_targetting = false;
 Tile* Ui::targetted_tile = NULL;
 
+std::vector<HelpBox*> Ui::alerts = std::vector<HelpBox*>();
 
 int Ui::per_page = 10;
 int Ui::page_num = 0;
