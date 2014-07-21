@@ -962,7 +962,7 @@ void Game::start_game()
 
     std::vector<std::string> temp_msgs;
     temp_msgs.push_back("ASDADS");
-    HelpBox* temp = new HelpBox(temp_msgs, TCODConsole::root, NULL);
+    HelpBox* temp = new HelpBox(temp_msgs, Game::game_console, NULL);
     int x = 0, y = 10;
     temp->x = x;
     temp->y = y;

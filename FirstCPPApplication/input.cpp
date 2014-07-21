@@ -1502,6 +1502,12 @@ bool Input::process_debug_event(TCOD_key_t request)
         TCODConsole::root->setDirty(0, 0, 1000, 1000);
     }
 
+    if (request.vk == TCODK_F9)
+    {
+        //this'll redraw the entire screen incase shit goes black
+        Game::current_screen = Screens::AlertScreenType;
+    }
+
     if (request.vk == TCODK_F11)
     {
         //toggle fullscreen

@@ -112,14 +112,15 @@ void HelpBox::draw_messages()
 
 void HelpBox::draw(int& first_x, int& first_y)
 {
-    this->draw_messages();
-    this->set_background();
-    this->draw_outline();
-    this->draw_image();
+    int old_x = this->x;
+    int old_y = this->y;
 
-    TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding,
-            this->height+this->extra_padding, this->target_con, first_x,
-            first_y);
+    this->x = first_x;
+    this->y = first_y;
+    this->draw();
+
+    this->x = old_x;
+    this->y = old_y;
 
 };
 
