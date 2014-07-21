@@ -3,6 +3,7 @@
 #include "draw_utils.h"
 #include "tile.h"
 #include "actors\actor.h"
+#include <game.h>
 
 void HelpBox::initialize()
 {
@@ -131,9 +132,19 @@ void HelpBox::draw()
     this->draw_outline();
     this->draw_image();
 
+    int draw_x = this->x;
+    int draw_y = this->y;
+
+    //hack to avoid moving the ui sidebar alerts
+    if (this->target_con == Game::game_console)
+    {
+        draw_x+=Game::camera_x;
+        draw_y+=Game::camera_y;
+    };
+
     TCODConsole::root->blit(this->con, 0, 0, this->width+this->extra_padding,
-            this->height+this->extra_padding, this->target_con, this->x,
-            this->y);
+            this->height+this->extra_padding, this->target_con, draw_x,
+            draw_y);
 
 };
 
