@@ -7,7 +7,6 @@
 #include "actors/actor.h"
 #include "tile.h"
 #include "inventory.h"
-#include <color_utils.h>
 #include <custom_key.h>
 #include <spells.h>
 

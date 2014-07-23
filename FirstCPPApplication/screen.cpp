@@ -21,7 +21,6 @@
 #include "class.h"
 #include "enums\hunger_threshold.h"
 #include "screenitem.h"
-#include "color_utils.h"
 
 
     template<typename T>

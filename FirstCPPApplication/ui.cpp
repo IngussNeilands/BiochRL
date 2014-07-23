@@ -25,7 +25,6 @@
 #include <attribute.h>
 #include "screen.h"
 #include "helpbox.h"
-#include <color_utils.h>
 #include "thinker.h"
 #include "helpbox.h"
 

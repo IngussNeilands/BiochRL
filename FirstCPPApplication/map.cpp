@@ -26,7 +26,6 @@
 #include "combat.h"
 #include "attribute.h"
 #include "attribute_container.h"
-#include <color_utils.h>
 #include "thinker.h"
 
 Map::Map()

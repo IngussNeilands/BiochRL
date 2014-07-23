@@ -21,7 +21,6 @@
 #include "civilian.h"
 #include "enums\hunger_threshold.h"
 #include <utils.h>
-#include <color_utils.h>
 
 Person::Person(std::string name, int age, int x, int y, char repr)
 {

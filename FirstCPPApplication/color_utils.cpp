@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "color_utils.h"
 
     std::string colfg(TCODColor color, std::string to_wrap)
     {

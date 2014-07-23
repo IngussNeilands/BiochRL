@@ -17,7 +17,6 @@
 #include "utils.h"
 #include <messages.h>
 #include "ui.h"
-#include <color_utils.h>
 
 int Thinker::visibility_threshold = 50;
 

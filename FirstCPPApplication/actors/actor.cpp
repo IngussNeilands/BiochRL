@@ -27,7 +27,6 @@
 #include <spells.h>
 #include "map.h"
 #include "combat.h"
-#include <color_utils.h>
 #include <drop_handler.h>
 
 

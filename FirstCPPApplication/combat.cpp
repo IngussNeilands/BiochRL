@@ -18,7 +18,6 @@
 #include "attr_effect.h"
 #include "class.h"
 #include "thinker.h"
-#include <color_utils.h>
 
 
 void Combat::printout(){
