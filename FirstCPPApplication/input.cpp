@@ -1,5 +1,4 @@
 #include "stdafx.h"
-// #include "libtcod.hpp"
 #include <sstream>
 #include <fstream>
 #include <typeinfo>
@@ -31,7 +30,6 @@
 #include "class.h"
 #include <messages.h>
 #include "custom_key.h"
-#include <color_utils.h>
 #include <thinker.h>
 #include "draw_utils.h"
 
@@ -743,7 +741,7 @@ bool Input::user_cast_spell()
         }
     }
 
-	return false;
+    return false;
 
 };
 
