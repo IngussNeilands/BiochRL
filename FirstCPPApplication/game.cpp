@@ -275,9 +275,10 @@ void Game::fill_generic_room(Room* room, Map* world)
 void Game::fill_dungeon(Map* world)
 {
     //fill rooms with enemies and monsters
-    for (std::vector<Room*>::iterator it = world->roomVector->begin(); it != world->roomVector->end(); ++it)
+    std::vector<Room*>* rooms = world->roomVector;
+    for (std::vector<Room*>::iterator it = rooms->begin(); it != rooms->end(); ++it)
     {
-        if (it == world->roomVector->begin())
+        if (it == rooms->begin())
         {
             //spawn one dude to whom you can sell your shit
             Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, 10, 10, 't', world);
