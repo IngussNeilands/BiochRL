@@ -84,10 +84,10 @@ CustomKey* Game::custom_key3 = new CustomKey;
 CustomKey* Game::custom_key4 = new CustomKey;
 CustomKey* Game::custom_key5 = new CustomKey;
 
-int Game::map_width = 60;
-int Game::map_height = 40;
-int Game::town_width = 60;
-int Game::town_height = 40;
+int Game::map_width = 70;
+int Game::map_height = 50;
+int Game::town_width = 70;
+int Game::town_height = 50;
 
 int Game::view_width = 60;
 int Game::view_height = 40;
@@ -662,10 +662,45 @@ Person*  Game::initialize_player()
 
 };
 
+bool validate_camera_pos(int& new_x, int& new_y)
+{
+    // printf("in %i %i", new_x, new_y);
+    bool is_valid = true;
+    int c_width = Game::game_console->getWidth();
+    int c_height = Game::game_console->getHeight();
+    if (new_x < 0)
+    {
+        new_x = 0;
+        is_valid = false;
+    }
+    if (new_x+Game::camera_w > c_width)
+    {
+        is_valid = false;
+        new_x = c_width-Game::camera_w;
+    }
+    if (new_y < 0)
+    {
+        new_y = 0;
+        is_valid = false;
+    }
+    if (new_y+Game::camera_h > c_height)
+    {
+        new_y = c_height-Game::camera_h;
+        is_valid = false;
+    }
+
+    // printf(" out %i %i\n", new_x, new_y);
+    return is_valid;
+};
+
 void Game::center_camera_on(int abs_x, int abs_y)
 {
-    Game::camera_x = abs_x - (Game::game_console->getWidth()/2);
-    Game::camera_y = abs_y - (Game::game_console->getHeight()/2);
+    int new_x = abs_x - (Game::game_console->getWidth()/2);
+    int new_y = abs_y - (Game::game_console->getHeight()/2);
+    bool is_valid = validate_camera_pos(new_x, new_y);
+    std::cout << "is valid? " << is_valid << std::endl;
+    Game::camera_x = new_x;
+    Game::camera_y = new_y;
 };
 
 void Game::center_camera_on(Actor* actor)
