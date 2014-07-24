@@ -628,12 +628,12 @@ Person*  Game::initialize_player()
     player->attrs->hunger->current_val=210;
     player->attrs->hunger->regen_interval=5;
 
-	//LPWSTR name = "asdasd";
+    //LPWSTR name = "asdasd";
     ClassType chosen_type = Parser().get_preferred_class_type();
     std::vector<IClass*>* choices = Actor::actor_class_choices;
     for (std::vector<IClass*>::iterator it = choices->begin(); it != choices->end(); it++)
     {
-		IClass* cls = *it;
+        IClass* cls = *it;
         if (cls->type == chosen_type)
             player->actor_class = cls;
     };
@@ -782,22 +782,22 @@ void Game::draw_ui()
 
 void write_floor_message()
 {
-        //this used to be after input was processed but turn hadn't
-        //been incremented
-        int item_count = Game::player->my_tile->inventory->get_count();
-        if (item_count == 1)
-        {
-            std::string msg_str =  "%s is on the ground.";
-            new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
-        }
-        else if (item_count > 1)
-        {
-            std::string msg_str = "%d items are on the ground.";
-            new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
-        }
+    //this used to be after input was processed but turn hadn't
+    //been incremented
+    int item_count = Game::player->my_tile->inventory->get_count();
+    if (item_count == 1)
+    {
+        std::string msg_str =  "%s is on the ground.";
+        new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, Game::player->my_tile->inventory->items->back()->name.c_str());
+    }
+    else if (item_count > 1)
+    {
+        std::string msg_str = "%d items are on the ground.";
+        new Message(Ui::msg_handler_main, ITEM_MSG, msg_str, item_count);
+    }
 
-        //tile description
-        new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());
+    //tile description
+    new Message(Ui::msg_handler_main, TILE_DESCRIPTION_MSG, "%s", Game::player->my_tile->get_description().c_str());
 };
 
 bool menu_loop(bool incr_turn)
