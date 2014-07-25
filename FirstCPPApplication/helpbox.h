@@ -36,4 +36,11 @@ class TargetHelpBox : public HelpBox
 
 };
 
+class DialogHelpBox : public HelpBox
+{
+    public:
+        DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) ;
+
+};
+
 #endif

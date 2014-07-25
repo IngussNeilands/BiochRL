@@ -1533,40 +1533,56 @@ bool Input::process_key_event(TCOD_key_t request)
     {
         case GameStates::GameplayState: 
 
-            if(is_key_move_command(request))
+            if (Game::current_screen == Screens::AlertScreenType)
             {
-                incr_turn = Input::process_movement_keys(request);
-            }
-
-            else if (is_key_basic_command(request))
-            {
-                incr_turn = Input::process_basic_keys(request);
-            }
-
-            else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
-            {
-
-                // HelpBox hb(messages, ui_sidebar_con, target_tile);
-                // draw_rect(TCODConsole::root, 0, 0, 100, 100);
-
-                std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
-                minimize_game();
-                std::string resp;
-                std::cin >> resp;
-                if (resp.at(0) == 'y')
+                if (request.c == 'y')
                 {
-                    std::cout << "Goodbye now" << std::endl;
-                    exit(1);
-                };
-                maximize_game();
-            }
-            else
-            {
-                std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                std::cout << "nswe or numpad to move, i to open inventory, ESC to quit, o to open doors" << std::endl;
-                std::cout << "c to open character sheet, m and k to cast spells, ? for help, > to go down" << std::endl;
-            }
 
+                }
+                else if (request.c == 'n')
+                {
+                    Ui::alerts.pop_back();
+
+                    Game::current_screen = Screens::NoScreenType;
+                }
+            }
+            else 
+            {
+                if(is_key_move_command(request))
+                {
+                    incr_turn = Input::process_movement_keys(request);
+                }
+
+                else if (is_key_basic_command(request))
+                {
+                    incr_turn = Input::process_basic_keys(request);
+                }
+
+                else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
+                {
+
+                    // HelpBox hb(messages, ui_sidebar_con, target_tile);
+                    // draw_rect(TCODConsole::root, 0, 0, 100, 100);
+
+                    std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
+                    minimize_game();
+                    std::string resp;
+                    std::cin >> resp;
+                    if (resp.at(0) == 'y')
+                    {
+                        std::cout << "Goodbye now" << std::endl;
+                        exit(1);
+                    };
+                    maximize_game();
+                }
+                else
+                {
+                    std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                    std::cout << "nswe or numpad to move, i to open inventory, ESC to quit, o to open doors" << std::endl;
+                    std::cout << "c to open character sheet, m and k to cast spells, ? for help, > to go down" << std::endl;
+                }
+
+            }
             break;
 
         case GameStates::MenuState:
