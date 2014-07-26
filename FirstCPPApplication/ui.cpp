@@ -196,7 +196,7 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
     };
 
     TargetHelpBox target_help_box(messages, ui_sidebar_con, target_tile);
-	int x = 0;
+    int x = 0;
     target_help_box.draw(x, y);
 
 }

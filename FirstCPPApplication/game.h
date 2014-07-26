@@ -157,6 +157,8 @@ class Game
         static int __version_mini;
 
         static std::string get_version();
+
+        static void quit_game();
 };
 
 

@@ -29,16 +29,16 @@ TCODParser* Parser::init_parser()
     rngseedsSettingsStruct->addProperty("stat_rolls", TCOD_TYPE_INT, false);
     rngseedsSettingsStruct->addProperty("dungeon_builder", TCOD_TYPE_INT, false);
 
-	// std::cout << "NAME >>" << get_computer_name() << " << " << std::endl<< std::endl<< std::endl<< std::endl;
+    // std::cout << "NAME >>" << get_computer_name() << " << " << std::endl<< std::endl<< std::endl<< std::endl;
     std::string path;
     // if (false)
     if (get_computer_name() == "ADMIN-PC") //hack to make it load the debug one on my PC
     {
-         path = std::string(get_config_path()+"config_debug.txt");
+        path = std::string(get_config_path()+"config_debug.txt");
     }
     else
     {
-         path = std::string(get_config_path()+"config.txt");
+        path = std::string(get_config_path()+"config.txt");
     };
     parser->run(path.c_str(), NULL);
 

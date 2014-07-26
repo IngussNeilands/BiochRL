@@ -281,7 +281,7 @@ void AttrEffect::mark_applied_health(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-           ((*it)->health.all = true);
+            ((*it)->health.all = true);
         };
 
     };
@@ -297,7 +297,7 @@ void AttrEffect::mark_applied_mana(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-           ((*it)->mana.all = true);
+            ((*it)->mana.all = true);
         };
 
     };
@@ -312,7 +312,7 @@ void AttrEffect::mark_applied_armor(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-           ((*it)->armor.all = true);
+            ((*it)->armor.all = true);
         };
 
     };
@@ -327,7 +327,7 @@ void AttrEffect::mark_applied_damage(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-           ((*it)->damage.all = true);
+            ((*it)->damage.all = true);
         };
 
     };
@@ -342,7 +342,7 @@ void AttrEffect::mark_applied_hunger(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-           ((*it)->hunger.all = true);
+            ((*it)->hunger.all = true);
         };
 
     };
@@ -357,10 +357,10 @@ void AttrEffect::mark_applied_all(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-           ((*it)->health.all = true);
-           ((*it)->mana.all = true);
-           ((*it)->armor.all = true);
-           ((*it)->damage.all = true);
+            ((*it)->health.all = true);
+            ((*it)->mana.all = true);
+            ((*it)->armor.all = true);
+            ((*it)->damage.all = true);
         };
 
     };
@@ -381,16 +381,16 @@ void AttrEffect::mark_applied_all(Actor* actor)
 //
 //    };
 
-    // auto it = std::find(this->actors_applied_to->begin(), this->actors_applied_to->end(), actor);
+// auto it = std::find(this->actors_applied_to->begin(), this->actors_applied_to->end(), actor);
 
-    // if ( it != this->actors_applied_to->end() )
-    // {
-    //     //do nothing because it already exists in the vector
-    // }
-    // else
-    // {
-    //     this->actors_applied_to->push_back(actor);
-    // };
+// if ( it != this->actors_applied_to->end() )
+// {
+//     //do nothing because it already exists in the vector
+// }
+// else
+// {
+//     this->actors_applied_to->push_back(actor);
+// };
 //};
 
 void AttrEffect::ApplyAllEffects(Actor* actor)
@@ -642,7 +642,7 @@ std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours()
         color_vector.push_back(TCOD_COLCTRL_1);
     if (this->health_regen_interval != 0)
         color_vector.push_back(TCOD_COLCTRL_1);
-    
+
     if (this->mana_current_val != 0)
         color_vector.push_back(TCOD_COLCTRL_2);
     if (this->mana_max_val != 0)
@@ -672,7 +672,7 @@ std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours()
 
     //color_vector.push_back(TCOD_COLCTRL_STOP);
     return color_vector;
-    
+
 };
 
 std::string AttrEffect::oneline_str()

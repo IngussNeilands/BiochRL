@@ -22,7 +22,7 @@ class Parser
         int get_event_rng_seed();
         int get_stat_rolls_rng_seed();
         int get_dungeon_builder_rng_seed();
-        
+
 
 };
 

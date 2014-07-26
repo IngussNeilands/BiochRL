@@ -1010,14 +1010,6 @@ void Game::start_game()
 
     Game::init_engine();
 
-    std::vector<std::string> temp_msgs;
-    temp_msgs.push_back("ASDADS");
-
-    DialogHelpBox* temp = new DialogHelpBox(temp_msgs, Game::game_console);
-    int x = 0, y = 10;
-    temp->x = x;
-    temp->y = y;
-    Ui::alerts.push_back(temp);
 
     Game::init_custom_keys();
 
@@ -1185,4 +1177,11 @@ void Game::mainloop()
     }
 
     std::cout << "Hit enter to exit" << std::endl;
+};
+
+void Game::quit_game()
+{
+    std::cout << "Goodbye now" << std::endl;
+    exit(1);
+
 };

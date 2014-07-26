@@ -323,7 +323,7 @@ int Map::build_town_from_random(int seed)
 
     this->tileVector->resize(this->height);
     for(int ix = 0; ix < this->height; ++ix)
-    // for (auto it = this->tileVector->begin(); it != this->tileVector->end(); ++it)
+        // for (auto it = this->tileVector->begin(); it != this->tileVector->end(); ++it)
     {
         // std::vector<Tile> inner_vec = *it;
         // inner_vec.resize(this->width);

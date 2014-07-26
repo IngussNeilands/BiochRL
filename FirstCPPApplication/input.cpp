@@ -1538,20 +1538,20 @@ bool Input::process_key_event(TCOD_key_t request)
             {
                 if (request.c == 'y')
                 {
-					if (!Ui::alerts.empty())
-					{
-						DialogHelpBox* alert = Ui::alerts.back();
+                    if (!Ui::alerts.empty())
+                    {
+                        DialogHelpBox* alert = Ui::alerts.back();
                         alert->accept();
-					}
+                    }
 
                 }
                 else if (request.c == 'n')
                 {
-					if (!Ui::alerts.empty())
-					{
-						DialogHelpBox* alert = Ui::alerts.back();
+                    if (!Ui::alerts.empty())
+                    {
+                        DialogHelpBox* alert = Ui::alerts.back();
                         alert->cancel();
-					}
+                    }
                 }
             }
             else 
@@ -1569,19 +1569,17 @@ bool Input::process_key_event(TCOD_key_t request)
                 else if(request.vk == TCODK_ESCAPE && request.pressed == 1)
                 {
 
-                    // HelpBox hb(messages, ui_sidebar_con, target_tile);
-                    // draw_rect(TCODConsole::root, 0, 0, 100, 100);
+                    //create quit dialog
+                    std::vector<std::string> quit_msgs;
+                    quit_msgs.push_back("Quit?");
+                    quit_msgs.push_back("Y/N");
+                    DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, &Game::quit_game, NULL, Game::game_console);
+                    int x = Game::camera_w/2, y = Game::camera_h/2;
+                    quit_dialog->x = x;
+                    quit_dialog->y = y;
+                    Ui::alerts.push_back(quit_dialog);
 
-                    std::cout << "Are you sure you want to quit?" << std::endl << ">>> " ;
-                    minimize_game();
-                    std::string resp;
-                    std::cin >> resp;
-                    if (resp.at(0) == 'y')
-                    {
-                        std::cout << "Goodbye now" << std::endl;
-                        exit(1);
-                    };
-                    maximize_game();
+                    Game::current_screen = Screens::AlertScreenType;
                 }
                 else
                 {

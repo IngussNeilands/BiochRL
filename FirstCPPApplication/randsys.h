@@ -30,14 +30,14 @@ RandomWeightMap<T>::RandomWeightMap()
     this->_map = std::map<T, int>();
 };
 
-template<typename T>
+    template<typename T>
 void RandomWeightMap<T>::add_item(T item, int weight)
 {
     std::pair<T, int> pair = std::make_pair<T, int>(item, weight);
     this->_map.insert(pair);
 };
 
-template<typename T>
+    template<typename T>
 T RandomWeightMap<T>::get_item(TCODRandom* rng)
 {
     int total_weight = this->get_total_weight();
@@ -45,7 +45,7 @@ T RandomWeightMap<T>::get_item(TCODRandom* rng)
     return this->get_item(rng->getInt(0, total_weight));
 };
 
-template<typename T>
+    template<typename T>
 T RandomWeightMap<T>::get_item(int score)
 {
     int total_weight = this->get_total_weight();
@@ -64,7 +64,7 @@ T RandomWeightMap<T>::get_item(int score)
     assert(false && ss.str().c_str());
 };
 
-template<typename T>
+    template<typename T>
 int RandomWeightMap<T>::get_total_weight()
 {
     int total_weight = 0;
