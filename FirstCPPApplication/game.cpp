@@ -1009,6 +1009,10 @@ void Game::init_rng()
 void Game::specify_player()
 {
     //choose stuff like race, class, sex background
+    std::string* first = new std::string("first choice");
+    std::string* second = new std::string("second choice");
+    Game::menu_choices->push_back(first);
+    Game::menu_choices->push_back(second);
 };
 
 void Game::start_game()

@@ -98,6 +98,7 @@ class MainMenuScreen : public Screen<T>
         MainMenuScreen::~MainMenuScreen(){};
 
         virtual bool is_enabled(T* element);
+        // virtual bool is_active(T* element);
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };

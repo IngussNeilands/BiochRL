@@ -705,8 +705,8 @@ void Ui::draw_class_select_ui()
 void Ui::draw_main_menu_ui()
 {
     MainMenuScreen<std::string> main_menu_screen;
-    std::vector<std::string*>* menu_choices = new std::vector<std::string*>();
-    main_menu_screen.elements = menu_choices;
+    // std::vector<std::string*>* menu_choices = new std::vector<std::string*>();
+    main_menu_screen.elements = Game::menu_choices;
     main_menu_screen.draw();
     // Ui::draw_screen("Main menu", &Ui::main_menu_screen_ui_loop);
 };

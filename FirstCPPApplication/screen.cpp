@@ -554,6 +554,12 @@ bool MainMenuScreen<T>::is_enabled(T* element)
     return false;
 }
 
+//     template<typename T>
+// bool MainMenuScreen<T>::is_active(T* element)
+// {
+//     return false;
+// }
+// 
     template<typename T>
 void MainMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
@@ -601,6 +607,7 @@ template void Screen<std::string>::draw();
 template void Screen<std::string>::build_screen_items(TCODConsole* con, int i);
 template void Screen<std::string>::loop(TCODConsole* con, int i);
 template bool MainMenuScreen<std::string>::is_enabled(std::string* element);
+template bool Screen<std::string>::is_active(std::string* element);
 template ScreenItem MainMenuScreen<std::string>::build_screen_item(TCODConsole* con, int i, std::string* element);
 template std::vector<TCODColor> Screen<std::string>::get_enabled_colors(TCODConsole* con, std::string* element);
 template void MainMenuScreen<std::string>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
