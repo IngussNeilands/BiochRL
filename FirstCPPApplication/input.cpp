@@ -1541,8 +1541,10 @@ bool Input::process_key_event(TCOD_key_t request)
                 }
                 else if (request.c == 'n')
                 {
-                    Ui::alerts.pop_back();
-
+					if (!Ui::alerts.empty())
+					{
+						Ui::alerts.pop_back();
+					}
                     Game::current_screen = Screens::NoScreenType;
                 }
             }

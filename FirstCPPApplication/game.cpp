@@ -784,7 +784,14 @@ void Game::draw_ui()
         Ui::draw_ui();
         if (Game::current_screen == Screens::AlertScreenType)
         {
-            Game::draw_alerts();
+            if (Ui::alerts.empty())
+            {
+                Game::current_screen == Screens::NoScreenType;
+            }
+            else
+            {
+                Game::draw_alerts();
+            };
         };
     }
     else
@@ -876,7 +883,6 @@ bool gameplay_loop(bool incr_turn)
         incr_turn = true;
     };
 
-    //AIs update
     if (incr_turn == true)
     {
         Game::update();
