@@ -1503,7 +1503,6 @@ bool Input::process_debug_event(TCOD_key_t request)
 
     if (request.vk == TCODK_F9)
     {
-        //this'll redraw the entire screen incase shit goes black
         Game::current_screen = Screens::AlertScreenType;
     }
 
@@ -1514,8 +1513,6 @@ bool Input::process_debug_event(TCOD_key_t request)
     }
     if (request.vk == TCODK_F12)
     {
-        //this'll redraw the entire screen incase shit goes black
-        // TCODConsole::root->setDirty(0, 0, 1000, 1000);
         Game::player->die();
     }
 
