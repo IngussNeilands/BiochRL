@@ -185,3 +185,27 @@ void BrawlerClass::LevelUpStats(int levels)
     this->LevelUpDamage(.9);
 };
 
+
+BloodMageClass::BloodMageClass()
+{
+    this->type = BloodMageClassType;
+    this->name = "BloodMage";
+    this->description = "Bloody Class, more of a sicko, than anything else.";
+    this->levelup_message = "You've learned a new ritual!";
+    this->fg_color = TCODColor::lighterRed;
+
+    this->spell_map = new std::map<int, Spell*>();
+	this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceFistSpell()));
+	this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
+	this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
+	this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerStrengthSpell()));
+};
+
+void BloodMageClass::LevelUpStats(int levels)
+{
+    this->LevelUpHealth(4);
+    this->LevelUpMana(1);
+    this->LevelUpArmor(0.7);
+    this->LevelUpDamage(.9);
+};
+

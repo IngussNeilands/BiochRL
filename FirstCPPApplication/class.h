@@ -12,6 +12,7 @@ enum ClassType
     MageClassType = 3,
     NecromancerClassType = 4,
     BrawlerClassType = 5,
+    BloodMageClassType = 5,
     NoClassType = -1
 };
 
@@ -74,6 +75,13 @@ class BrawlerClass : public IClass
 {
     public:
         BrawlerClass();
+        virtual void LevelUpStats(int levels);
+};
+
+class BloodMageClass : public IClass
+{
+    public:
+        BloodMageClass();
         virtual void LevelUpStats(int levels);
 };
 
