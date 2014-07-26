@@ -22,6 +22,7 @@ TCODParser* Parser::init_parser()
 
     TCODParserStruct* rngseedsSettingsStruct = parser->newStructure("rng_seeds");
     rngseedsSettingsStruct->addProperty("spawning", TCOD_TYPE_INT, false);
+    rngseedsSettingsStruct->addProperty("spawning_ratio", TCOD_TYPE_INT, false);
     rngseedsSettingsStruct->addProperty("item_spawn", TCOD_TYPE_INT, false);
     rngseedsSettingsStruct->addProperty("linear", TCOD_TYPE_INT, false);
     rngseedsSettingsStruct->addProperty("event", TCOD_TYPE_INT, false);
@@ -63,6 +64,11 @@ ClassType Parser::get_preferred_class_type()
 int Parser::get_spawning_rng_seed()
 {
     return this->tcod_parser->getIntProperty("rng_seeds.spawning");
+};
+
+int Parser::get_spawning_ratio_rng_seed()
+{
+    return this->tcod_parser->getIntProperty("rng_seeds.spawning_ratio");
 };
 
 int Parser::get_item_spawn_rng_seed()

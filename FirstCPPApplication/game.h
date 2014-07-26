@@ -102,6 +102,7 @@ class Game
         static Tile *clipboard;
 
         static TCODRandom* spawning_rng;
+        static TCODRandom* spawning_ratio_rng;
         static TCODRandom* item_spawn_rng;
         static TCODRandom* linear_rng;
         static TCODRandom* event_rng;

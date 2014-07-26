@@ -125,6 +125,7 @@ std::vector<Map*>* Game::atlas = new std::vector<Map*>;
 Tile* Game::clipboard = NULL;
 
 TCODRandom* Game::spawning_rng = new TCODRandom();
+TCODRandom* Game::spawning_ratio_rng = new TCODRandom();
 TCODRandom* Game::item_spawn_rng = new TCODRandom();
 TCODRandom* Game::linear_rng = new TCODRandom();
 TCODRandom* Game::event_rng = new TCODRandom();
@@ -187,7 +188,7 @@ MonsterSpawnTypes Game::get_spawn_type(int floor)
 
     };
 
-    return rwm.get_item(Game::spawning_rng);
+    return rwm.get_item(Game::spawning_ratio_rng);
 };
 
 Tile* Game::get_mouse_tile()
@@ -953,6 +954,13 @@ void Game::init_rng()
         Game::spawning_rng = new TCODRandom(parser.get_spawning_rng_seed());
     };
     Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_GAUSSIAN_RANGE);
+
+    if (parser.get_spawning_ratio_rng_seed() != NULL) 
+    {
+        delete Game::spawning_ratio_rng;
+        Game::spawning_ratio_rng = new TCODRandom(parser.get_spawning_ratio_rng_seed());
+    };
+    Game::spawning_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 
     if (parser.get_item_spawn_rng_seed() != NULL) 
     {

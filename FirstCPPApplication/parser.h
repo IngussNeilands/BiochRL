@@ -16,6 +16,7 @@ class Parser
         ClassType get_preferred_class_type();
 
         int get_spawning_rng_seed();
+        int get_spawning_ratio_rng_seed();
         int get_item_spawn_rng_seed();
         int get_linear_rng_seed();
         int get_event_rng_seed();
