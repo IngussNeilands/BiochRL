@@ -39,9 +39,14 @@ class TargetHelpBox : public HelpBox
 class DialogHelpBox : public HelpBox
 {
     public:
+        static void default_accept();
+        static void default_cancel();
+
+        DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) ;
+        DialogHelpBox(std::vector<std::string> messages, TCODConsole* target_con) ;
+
         void (*on_accept)();
         void (*on_cancel)();
-        DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) ;
         void accept();
         void cancel();
 

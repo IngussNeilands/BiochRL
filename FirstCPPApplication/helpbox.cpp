@@ -153,6 +153,16 @@ TargetHelpBox::TargetHelpBox(std::vector<std::string> messages, TCODConsole* tar
 
 };
 
+void DialogHelpBox::default_accept()
+{
+    std::cout << "Woo hoo, you love me!" << std::endl;
+};
+
+void DialogHelpBox::default_cancel()
+{
+    Game::current_screen = Screens::NoScreenType;
+};
+
 
 DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) : HelpBox(messages, target_con, NULL)
 {
@@ -160,12 +170,32 @@ DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, void (*on_accept
     this->on_cancel = on_cancel;
 };
 
+DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, TCODConsole* target_con) : HelpBox(messages, target_con, NULL)
+{
+    this->on_accept = NULL;
+    this->on_cancel = NULL;
+};
+
 void DialogHelpBox::accept()
 {
-    this->on_accept();
+    if (this->on_accept != NULL)
+    {
+        this->on_accept();
+    }
+    else
+    {
+        DialogHelpBox::default_accept();
+    };
 };
 
 void DialogHelpBox::cancel()
 {
-    this->on_cancel();
+    if (this->on_cancel != NULL)
+    {
+        this->on_cancel();
+    }
+    else
+    {
+        DialogHelpBox::default_cancel();
+    };
 };

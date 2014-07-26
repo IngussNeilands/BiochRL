@@ -1004,16 +1004,6 @@ void Game::init_rng()
     Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 };
 
-void default_accept()
-{
-    std::cout << "Woo hoo, you love me!" << std::endl;
-};
-
-void default_cancel()
-{
-    Game::current_screen = Screens::NoScreenType;
-};
-
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
@@ -1023,7 +1013,7 @@ void Game::start_game()
     std::vector<std::string> temp_msgs;
     temp_msgs.push_back("ASDADS");
 
-    DialogHelpBox* temp = new DialogHelpBox(temp_msgs, &default_accept, &default_cancel, Game::game_console);
+    DialogHelpBox* temp = new DialogHelpBox(temp_msgs, Game::game_console);
     int x = 0, y = 10;
     temp->x = x;
     temp->y = y;
