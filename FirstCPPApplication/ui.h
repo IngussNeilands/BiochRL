@@ -84,7 +84,6 @@ class Ui
         static void draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*, int, int, char));
 
         static void draw_main_menu_ui();
-        static void main_menu_screen_ui_loop(TCODConsole* con, int offset, int i, char key);
 
         static void format_attribute(Attribute* attr, char buffer[]);
         static void print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name);

@@ -43,6 +43,8 @@ class Game
         static std::wstring main_name;
         static std::wstring term_name;
 
+        static std::vector<std::string*>* menu_choices;
+
         static Person* player;     //the PC
         //static Ui* ui;
         static GameStates current_state;
@@ -126,6 +128,7 @@ class Game
         static void draw_ui();
         static void draw_alerts();
 
+        static void specify_player();
         static Person*  initialize_player();
         // static void  initialize_enemies();
         static void  initialize_items();

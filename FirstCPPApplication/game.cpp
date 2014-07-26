@@ -64,6 +64,8 @@ int Game::__version_major = 0;
 int Game::__version_minor = 11;
 int Game::__version_mini = 4;
 
+std::vector<std::string*>* Game::menu_choices = new std::vector<std::string*>();
+
 
 // Game initialization
 DebugOptions* Game::debug_opts = new DebugOptions;
@@ -1004,6 +1006,11 @@ void Game::init_rng()
     Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 };
 
+void Game::specify_player()
+{
+    //choose stuff like race, class, sex background
+};
+
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
@@ -1030,6 +1037,14 @@ void Game::start_game()
     Game::current_map = new_map;
 
     Game::initialize_player(); //created the Person player
+
+    Game::specify_player();
+
+    WelcomeMessage();
+    //move main window over a bit so that the console isn't blocked
+    move_window(600, 100);
+
+
     Game::mainloop();
 
 
@@ -1102,11 +1117,6 @@ void play_music()
 
 void Game::mainloop()
 {
-
-    WelcomeMessage();
-    //move main window over a bit so that the console isn't blocked
-    move_window(600, 100);
-
     bool incr_turn  = false;
     Game::turn_count = 1;
 

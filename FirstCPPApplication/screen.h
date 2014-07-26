@@ -89,5 +89,18 @@ class ClassScreen : public Screen<T>
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
+template<typename T>
+class MainMenuScreen : public Screen<T>
+{
+    public:
+
+        MainMenuScreen<T>() : Screen() { this->title="Main Menu!"; };
+        MainMenuScreen::~MainMenuScreen(){};
+
+        virtual bool is_enabled(T* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+};
+
 
 #endif

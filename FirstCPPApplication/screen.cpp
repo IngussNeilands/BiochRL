@@ -482,6 +482,13 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 };
 
     template<typename T>
+bool ClassScreen<T>::is_enabled(T* element)
+{
+    return Ui::game->player->actor_class->type == element->type;
+};
+
+
+    template<typename T>
 void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
@@ -504,12 +511,72 @@ void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 };
 
+/* MAIN MENU SCREEN */
+    template<typename T>
+ScreenItem MainMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+{
+    ScreenItem result;
+
+    bool has_duration;
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
+
+    TCODColor foreground, background;
+    std::vector<TCODColor> colors = this->get_enabled_colors(con, element);
+    foreground = colors.at(0);
+    background = colors.at(1);
+
+    TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_2, TCODColor::lightGrey+TCODColor::yellow, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
+
+    //key, element, name
+    std::stringstream ss;
+    ss << this->key << "-" << colfg(foreground, *element);
+
+    if (is_chosen)
+    {
+        ss << " <-";
+    }
+
+    result.foreground = foreground;
+    result.background = background;
+    result.msg_str = ss.str();
+    result.element = element;
+
+    return result;
+};
 
     template<typename T>
-bool ClassScreen<T>::is_enabled(T* element)
+bool MainMenuScreen<T>::is_enabled(T* element)
 {
-    return Ui::game->player->actor_class->type == element->type;
+    return false;
+}
+
+    template<typename T>
+void MainMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+{
+    //print the item name and selection
+    const char *msg_char = si.msg_str.c_str();
+    si.min_y = i;
+    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+            TCOD_alignment_t::TCOD_LEFT, msg_char);
+    i++;
+
+    char buffer[512];
+    std::string msg_str = "%c%s%c";
+    sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
+            ((T*)si.element)->c_str(), TCOD_COLCTRL_STOP);
+    msg_str = buffer;
+    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+            TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    si.max_y = i;
+
+    i++;
+    i++;
 };
+
 
 /* templates are sorta lame */
 template Screen<Item>::Screen();
@@ -524,6 +591,19 @@ template bool InventoryScreen<Item>::is_enabled(Item* element);
 template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
 template std::vector<TCODColor> Screen<Item>::get_enabled_colors(TCODConsole* con, Item* element);
 template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+
+template Screen<std::string>::Screen();
+template bool Screen<std::string>::is_chosen(std::string* element);
+template bool Screen<std::string>::is_active(std::string* element);
+template void Screen<std::string>::draw_mouse_horiz_line(TCODConsole* con);
+template TCODConsole* Screen<std::string>::create_screen();
+template void Screen<std::string>::draw();
+template void Screen<std::string>::build_screen_items(TCODConsole* con, int i);
+template void Screen<std::string>::loop(TCODConsole* con, int i);
+template bool MainMenuScreen<std::string>::is_enabled(std::string* element);
+template ScreenItem MainMenuScreen<std::string>::build_screen_item(TCODConsole* con, int i, std::string* element);
+template std::vector<TCODColor> Screen<std::string>::get_enabled_colors(TCODConsole* con, std::string* element);
+template void MainMenuScreen<std::string>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 template Screen<IClass>::Screen();
 template bool Screen<IClass>::is_chosen(IClass* element);
