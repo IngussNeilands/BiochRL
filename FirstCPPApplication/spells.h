@@ -21,6 +21,11 @@ enum TargetTypes {
     GroundTargetType = 1
 };
 
+enum ManaTypes {
+    ManaManaType = 0,
+    BloodManaType = 1
+};
+
 class Spell 
 {
     public:
@@ -29,6 +34,7 @@ class Spell
 
         std::string name;
         int mana_cost;
+        ManaTypes mana_type;
 
         elements_t element;
 

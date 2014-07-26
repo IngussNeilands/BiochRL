@@ -335,8 +335,8 @@ void Actor::die()
     if (this->combat != NULL)
     {
         Combat* last_attacker = this->combat->GetLastAttacker();
-        //if (last_attacker != NULL && last_attacker->master == Game::player)
-        if (last_attacker->master == Game::player)
+        if (last_attacker != NULL && last_attacker->master == Game::player) //TODO why was this commented out?
+        //if (last_attacker->master == Game::player)
         {
             Game::stats->monsters_killed++;
         };

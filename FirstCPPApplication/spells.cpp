@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <math.h>
+#include <assert.h>
 
 #include "game.h"
 #include "actors\actor.h"
@@ -23,6 +24,8 @@ Spell::Spell()
 {
     this->name = "Unamed spell";
     this->mana_cost = 10;
+
+    this->mana_type = ManaManaType;
 
 
     this->turn_cooldown = 1;
@@ -131,7 +134,18 @@ TCODColor Spell::get_spell_color()
 
 void Spell::spend_mana()
 {
+    if (this->mana_type == ManaManaType)
+    {
     this->master->attrs->mana->current_val -= mana_cost;
+    }
+    else if (this->mana_type == BloodManaType)
+    {
+    this->master->attrs->health->current_val -= mana_cost;
+    }
+    else
+    {
+        assert(false && "Unknown ManaType");
+    };
 };
 
 bool Spell::cast(Tile* targetted_tile)
