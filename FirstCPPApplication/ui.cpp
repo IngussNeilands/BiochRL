@@ -50,7 +50,7 @@ unsigned long long int Ui::tick_key_released = 0;
 bool Ui::is_targetting = false;
 Tile* Ui::targetted_tile = NULL;
 
-std::vector<HelpBox*> Ui::alerts = std::vector<HelpBox*>();
+std::vector<DialogHelpBox*> Ui::alerts = std::vector<DialogHelpBox*>();
 
 int Ui::per_page = 10;
 int Ui::page_num = 0;

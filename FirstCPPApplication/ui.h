@@ -17,6 +17,7 @@ class IClass;
 class MessageHandler;
 class Message;
 class HelpBox;
+class DialogHelpBox;
 
 void one_line_helper(TCODConsole* ui_inv_con,int& offset, int& i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
 
@@ -108,7 +109,7 @@ class Ui
         static void draw_inventory_msg();
         static std::string item_display_line();
 
-        static std::vector<HelpBox*> alerts;
+        static std::vector<DialogHelpBox*> alerts;
 
         static void reset_generic();
 

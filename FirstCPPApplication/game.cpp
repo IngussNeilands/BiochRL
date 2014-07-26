@@ -770,7 +770,7 @@ void Game::update_ui()
 
 void Game::draw_alerts()
 {
-    std::vector<HelpBox*> alerts = Ui::alerts;
+    std::vector<DialogHelpBox*> alerts = Ui::alerts;
     for (auto it = alerts.begin(); it!=alerts.end(); it++)
     {
         (*it)->draw();
@@ -1004,6 +1004,16 @@ void Game::init_rng()
     Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 };
 
+void default_accept()
+{
+    std::cout << "Woo hoo, you love me!" << std::endl;
+};
+
+void default_cancel()
+{
+    Game::current_screen = Screens::NoScreenType;
+};
+
 void Game::start_game()
 {
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
@@ -1012,7 +1022,8 @@ void Game::start_game()
 
     std::vector<std::string> temp_msgs;
     temp_msgs.push_back("ASDADS");
-    HelpBox* temp = new HelpBox(temp_msgs, Game::game_console, NULL);
+
+    DialogHelpBox* temp = new DialogHelpBox(temp_msgs, &default_accept, &default_cancel, Game::game_console);
     int x = 0, y = 10;
     temp->x = x;
     temp->y = y;

@@ -156,6 +156,16 @@ TargetHelpBox::TargetHelpBox(std::vector<std::string> messages, TCODConsole* tar
 
 DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) : HelpBox(messages, target_con, NULL)
 {
-
+    this->on_accept = on_accept;
+    this->on_cancel = on_cancel;
 };
 
+void DialogHelpBox::accept()
+{
+    this->on_accept();
+};
+
+void DialogHelpBox::cancel()
+{
+    this->on_cancel();
+};

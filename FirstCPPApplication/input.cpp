@@ -32,6 +32,7 @@
 #include "custom_key.h"
 #include <thinker.h>
 #include "draw_utils.h"
+#include "helpbox.h"
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -1537,15 +1538,20 @@ bool Input::process_key_event(TCOD_key_t request)
             {
                 if (request.c == 'y')
                 {
+					if (!Ui::alerts.empty())
+					{
+						DialogHelpBox* alert = Ui::alerts.back();
+                        alert->accept();
+					}
 
                 }
                 else if (request.c == 'n')
                 {
 					if (!Ui::alerts.empty())
 					{
-						Ui::alerts.pop_back();
+						DialogHelpBox* alert = Ui::alerts.back();
+                        alert->cancel();
 					}
-                    Game::current_screen = Screens::NoScreenType;
                 }
             }
             else 
