@@ -1029,9 +1029,13 @@ bool Input::process_classes_keys(TCOD_key_t request)
         Game::player->actor_class->master = Game::player;
         Game::player->representation->setFGColor(Game::player->actor_class->fg_color, true, false, true);
         std::cout << "Class changed to " << ((IClass*)Ui::chosen_generic)->name << std::endl;
-        // Ui::chosen_spell->equip(Game::player);
-        // Game::player->equipment->equip_spell(Ui::chosen_item);
-        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Equipping spell.");
+
+        //modify starting stats if level 1
+        if (Game::player->level == 1)
+        {
+            Game::player->actor_class->apply_starting_stats();
+        };
+
         Ui::reset_generic();
         Input::generic_index = 'a';
         Game::current_state = GameStates::GameplayState;

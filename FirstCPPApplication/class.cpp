@@ -11,6 +11,16 @@
 #include <map>
 #include "custom_key.h"
 
+void IClass::apply_starting_stats()
+{
+
+        // int starting_health;
+        // int starting_mana;
+        // int starting_armor;
+        // int starting_damage;
+
+};
+
 void IClass::LevelUpHealth(double change)
 {
     this->master->attrs->health->current_val+=change;
@@ -203,9 +213,9 @@ BloodMageClass::BloodMageClass()
 
 void BloodMageClass::LevelUpStats(int levels)
 {
-    this->LevelUpHealth(4);
-    this->LevelUpMana(1);
-    this->LevelUpArmor(0.7);
+    this->LevelUpHealth(8);
+    this->LevelUpMana(0.1);
+    this->LevelUpArmor(0.4);
     this->LevelUpDamage(.9);
 };
 

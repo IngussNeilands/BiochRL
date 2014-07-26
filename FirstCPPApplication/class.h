@@ -27,12 +27,27 @@ class IClass
         std::string description;
         std::string levelup_message;
 
+        int starting_health;
+        int starting_mana;
+        int starting_damage;
+        int starting_armor;
+
         std::map<int, Spell*>* spell_map;
 
         TCODColor fg_color;
 
-        IClass() { this->type = NoClassType;};
+        IClass() 
+        { 
+            this->type = NoClassType;
+
+            this->starting_health = 30;
+            this->starting_mana = 30;
+            this->starting_damage = 5;
+            this->starting_armor = 0;
+        };
         virtual ~IClass() {};
+
+        virtual void apply_starting_stats();
 
         virtual void LevelUpStats(int levels) = 0;
         virtual void LevelUpSkills(int levels);

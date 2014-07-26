@@ -342,6 +342,7 @@ void Actor::die()
         };
     };
 
+    //bloody the ground
     Representation* repr = this->my_tile->get_representation();
     Representation* new_repr = new FloorRepresentation;
     new_repr->repr = repr->repr;
