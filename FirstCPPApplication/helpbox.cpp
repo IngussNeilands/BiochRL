@@ -6,8 +6,13 @@
 #include <game.h>
 #include "ui.h"
 
+int HelpBox::count = 0;
+
 void HelpBox::initialize()
 {
+    this->id = HelpBox::count;
+    HelpBox::count++;
+
     int x = Game::camera_w/2, y = Game::camera_h/2;
     this->x = x;
     this->y = y;
@@ -23,6 +28,12 @@ void HelpBox::initialize()
 
     this->extra_padding = 20;
 };
+
+bool HelpBox::operator==(HelpBox& other)
+{
+    return this->id == other.id;
+};
+
 HelpBox::HelpBox()
 {
     this->initialize();
@@ -165,10 +176,11 @@ const void DialogHelpBox::default_accept()
 const void DialogHelpBox::default_cancel()
 {
     Game::current_screen = this->return_screen;
+    delete this;
 };
 
 
-DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) : HelpBox(messages, target_con, NULL)
+DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(DialogHelpBox* dialog), void (*on_cancel)(DialogHelpBox* dialog), TCODConsole* target_con) : HelpBox(messages, target_con, NULL)
 {
     this->on_accept = on_accept;
     this->on_cancel = on_cancel;
@@ -180,11 +192,26 @@ DialogHelpBox::DialogHelpBox(std::vector<std::string> messages, TCODConsole* tar
     this->on_cancel = NULL;
 };
 
+DialogHelpBox::~DialogHelpBox()
+{
+    //delete messages
+    this->messages.clear();
+
+    //remove from vectors if its in any
+	auto that = this;
+    Ui::alerts.erase(
+            std::remove_if(
+                Ui::alerts.begin(),
+                Ui::alerts.end(),
+                [this](DialogHelpBox* s) -> bool {return *s == *this;}),
+            Ui::alerts.end());
+};
+
 void DialogHelpBox::accept()
 {
     if (this->on_accept != NULL)
     {
-        this->on_accept();
+        this->on_accept(this);
     }
     else
     {
@@ -196,7 +223,7 @@ void DialogHelpBox::cancel()
 {
     if (this->on_cancel != NULL)
     {
-        this->on_cancel();
+        this->on_cancel(this);
     }
     else
     {

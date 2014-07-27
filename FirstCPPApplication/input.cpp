@@ -989,6 +989,13 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     return false;
 };
 
+
+void close_all(DialogHelpBox* dialog)
+{
+    Game::current_screen = dialog->return_screen;
+    Ui::clear_alerts();
+};
+
 bool Input::process_classes_keys(TCOD_key_t request)
 {
     classes_active_t action = classes_active_pressed(request);
@@ -1004,10 +1011,21 @@ bool Input::process_classes_keys(TCOD_key_t request)
         examine_msgs.insert(examine_msgs.begin(), "Examining "+iclass->name);
         examine_msgs.push_back(" ");
         examine_msgs.push_back("Hit N to continue");
-        DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, TCODConsole::root);
+        DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, NULL, &close_all, TCODConsole::root);
         examine_dialog->return_screen = Game::current_screen;
         examine_dialog->y = 5;
         Ui::alerts.push_back(examine_dialog);
+
+        //create examine dialog
+        std::vector<std::string> details_msgs = iclass->starting_attrs->PrettyVectorColored();
+        details_msgs.insert(details_msgs.begin(), "Examining "+iclass->name);
+        details_msgs.push_back(" ");
+        details_msgs.push_back("Hit N to continue");
+        DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, NULL, &close_all, TCODConsole::root);
+        details_dialog->return_screen = Game::current_screen;
+        details_dialog->y = 5;
+        details_dialog->x = 5;
+        Ui::alerts.push_back(details_dialog);
         Game::current_screen = Screens::AlertScreenType;
         return true;
     }
@@ -1535,6 +1553,11 @@ bool Input::process_debug_event(TCOD_key_t request)
     return false;
 };
 
+void quit_game_dialog(DialogHelpBox* dialog)
+{
+    Game::quit_game();
+};
+
 bool Input::process_key_event(TCOD_key_t request)
 {
 
@@ -1586,7 +1609,7 @@ bool Input::process_key_event(TCOD_key_t request)
                     std::vector<std::string> quit_msgs;
                     quit_msgs.push_back("Quit?");
                     quit_msgs.push_back("Y/N");
-                    DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, &Game::quit_game, NULL, Game::game_console);
+                    DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, &quit_game_dialog, NULL, Game::game_console);
                     int x = Game::camera_w/2, y = Game::camera_h/2;
                     quit_dialog->x = x;
                     quit_dialog->y = y;

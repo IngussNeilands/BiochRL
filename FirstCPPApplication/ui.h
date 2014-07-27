@@ -85,6 +85,15 @@ class Ui
 
         static void draw_main_menu_ui();
 
+        static void clear_alerts()
+        {
+            for (auto it = Ui::alerts.begin(); it != Ui::alerts.end(); it++)
+            {
+                delete *it;
+            }
+            Ui::alerts.clear();
+        };
+
         static void format_attribute(Attribute* attr, char buffer[]);
         static void print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name);
         static void print_experience(TCODConsole* con, int& offset, int& i);

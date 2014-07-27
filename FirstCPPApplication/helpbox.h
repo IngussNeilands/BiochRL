@@ -10,6 +10,9 @@ class Tile;
 class HelpBox 
 {
     public:
+        int id;
+        static int count;
+
         std::vector<std::string> messages;
         int x, y;
         int height, width;
@@ -25,6 +28,7 @@ class HelpBox
         ~HelpBox();
         HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Tile* selected_tile);
 
+        bool operator==(HelpBox& other);
         void initialize();
         void draw();
         void draw(int& first_x, int& first_y);
@@ -48,11 +52,12 @@ class DialogHelpBox : public HelpBox
         const void default_cancel();
 
 
-        DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) ;
+        DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(DialogHelpBox* dialog), void (*on_cancel)(DialogHelpBox* dialog), TCODConsole* target_con);
         DialogHelpBox(std::vector<std::string> messages, TCODConsole* target_con) ;
+        ~DialogHelpBox();
 
-        void (*on_accept)();
-        void (*on_cancel)();
+        void (*on_accept)(DialogHelpBox* dialog);
+        void (*on_cancel)(DialogHelpBox* dialog);
         void accept();
         void cancel();
 
