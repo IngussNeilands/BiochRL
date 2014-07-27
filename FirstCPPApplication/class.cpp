@@ -118,6 +118,8 @@ StalkerClass::StalkerClass() : IClass()
     this->levelup_message = "You've mastered a new shade!";
     this->fg_color = TCODColor::darkerSepia;
 
+    this->starting_attrs->health->SetVals(25);
+
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new ShadowRunSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new CastShadowSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new BribeSpell()));
@@ -145,6 +147,9 @@ MageClass::MageClass() : IClass()
     this->levelup_message = "You've mastered a new spell!";
     this->fg_color = TCODColor::desaturatedBlue;
 
+    this->starting_attrs->mana->SetVals(50);
+    this->starting_attrs->mana->regen_rate = 2;
+
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceBoltSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new InnerHealingSpiritSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsTouchSpell()));
@@ -167,6 +172,8 @@ NecromancerClass::NecromancerClass() : IClass()
     this->description = "Undead Class, has a thing for the dead and buried.";
     this->levelup_message = "You've learned a new sorcery!";
     this->fg_color = TCODColor::darkGrey;
+
+    this->starting_attrs->mana->SetVals(35);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new CorpseBlastSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SiphonSpiritSpell()));
@@ -192,6 +199,10 @@ BrawlerClass::BrawlerClass() : IClass()
     this->levelup_message = "You've learned a new prayer!";
     this->fg_color = TCODColor::lightChartreuse;
 
+    this->starting_attrs->health->SetVals(45);
+    this->starting_attrs->armor->SetVals(3);
+    this->starting_attrs->damage->SetVals(8);
+
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceFistSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
@@ -214,6 +225,13 @@ BloodMageClass::BloodMageClass() : IClass()
     this->description = "Bloody Class, more of a sicko, than anything else.";
     this->levelup_message = "You've learned a new ritual!";
     this->fg_color = TCODColor::lighterRed;
+
+    this->starting_attrs->health->SetVals(60);
+    this->starting_attrs->health->regen_interval = 5;
+    this->starting_attrs->health->regen_rate = 2;
+
+    this->starting_attrs->mana->SetVals(15);
+    this->starting_attrs->mana->regen_interval = 10;
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceFistSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
