@@ -74,7 +74,7 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Use spell or ability in slot 5");
     vec.push_back("NO_MATCHING_BASIC_CMD");
 
-    assert(vec.size() == basic_cmds_t::NO_MATCHING_BASIC_CMD+1 && "Missing a help command for basic chars");
+    assert(vec.size() == basic_cmds_t::LAST_BASIC_ACTIVE+1 && "Missing a help command for basic chars");
 
     return vec;
 
@@ -95,7 +95,7 @@ std::vector<std::string> make_inventory_items_active_char()
     vec.push_back("Mark this item as one of your quick keys");
     vec.push_back("NO_MATCHING_ITEMS_ACTIVE");
 
-    assert(vec.size() == NO_MATCHING_ITEMS_ACTIVE+1 && "Missing a help command for inventory chars");
+    assert(vec.size() == LAST_ITEMS_ACTIVE+1 && "Missing a help command for inventory chars");
     return vec;
 };
 std::vector<std::string> Input::inventory_items_active_char = make_inventory_items_active_char();
@@ -105,7 +105,7 @@ std::vector<std::string> make_generic_menu_active_char()
     std::vector<std::string> vec;
     vec.push_back("Exit the menu");
     vec.push_back("NO_MATCHING_GENERIC_MENU_ACTIVE");
-    assert(vec.size() == NO_MATCHING_GENERIC_MENU_ACTIVE+1 && "Missing a help command for generic chars");
+    assert(vec.size() == LAST_GENERIC_MENU_ACTIVE+1 && "Missing a help command for generic chars");
     return vec;
 };
 std::vector<std::string> Input::generic_menu_active_char = make_generic_menu_active_char();
@@ -119,7 +119,7 @@ std::vector<std::string> make_spells_active_char()
     vec.push_back("Cast the spell");
     vec.push_back("Mark this spell as one of your quick keys");
     vec.push_back("NO_MATCHING_SPELLS_ACTIVE");
-    assert(vec.size() == NO_MATCHING_SPELLS_ACTIVE+1 && "Missing a help command for spell chars");
+    assert(vec.size() == LAST_SPELLS_ACTIVE+1 && "Missing a help command for spell chars");
     return vec;
 };
 std::vector<std::string> Input::spells_active_char = make_spells_active_char();
@@ -132,7 +132,7 @@ std::vector<std::string> make_classes_active_char()
     vec.push_back("DropClass"); vec.push_back("EscapeMenuClass");
     vec.push_back("CastClass");
     vec.push_back("NO_MATCHING_CLASSES_ACTIVE");
-    assert(vec.size() == NO_MATCHING_CLASSES_ACTIVE+1 && "Missing a help command for class chars");
+    assert(vec.size() == LAST_CLASSES_ACTIVE+1 && "Missing a help command for class chars");
     return vec;
 };
 std::vector<std::string> Input::classes_active_char = make_classes_active_char();
@@ -236,6 +236,7 @@ std::map<char, classes_active_t>  Input::build_char_class_select_keymap()
 
 classes_active_t Input::classes_active_pressed(TCOD_key_t key)
 {
+
     return Input::find_key(key, Input::char_class_select_keymap,
             Input::spec_class_select_keymap, classes_active_t::NO_MATCHING_CLASSES_ACTIVE);
 };
