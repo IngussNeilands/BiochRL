@@ -998,13 +998,14 @@ bool Input::process_classes_keys(TCOD_key_t request)
         IClass* iclass = (IClass*)Ui::chosen_generic;
         // new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE CLASS.");
         std::cout << iclass->name << " : " << iclass->description << std::endl;
-        //create quit dialog
-        std::vector<std::string> quit_msgs;
-        quit_msgs.push_back("You are examining the class!");
-        quit_msgs.push_back("Hit N to continue");
-        DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, TCODConsole::root);
-        quit_dialog->return_screen = Game::current_screen;
-        Ui::alerts.push_back(quit_dialog);
+
+        //create examine dialog
+        std::vector<std::string> examine_msgs;
+        examine_msgs.push_back("You are examining the class!");
+        examine_msgs.push_back("Hit N to continue");
+        DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, TCODConsole::root);
+        examine_dialog->return_screen = Game::current_screen;
+        Ui::alerts.push_back(examine_dialog);
         Game::current_screen = Screens::AlertScreenType;
         return true;
     }

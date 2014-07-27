@@ -165,7 +165,6 @@ const void DialogHelpBox::default_accept()
 const void DialogHelpBox::default_cancel()
 {
     Game::current_screen = this->return_screen;
-    // Ui::reset_generic();
 };
 
 
