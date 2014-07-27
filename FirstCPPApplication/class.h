@@ -43,10 +43,19 @@ class IClass
         virtual void LevelUpStats(int levels) = 0;
         virtual void LevelUpSkills(int levels);
 
-        void LevelUpHealth(double change);
-        void LevelUpMana(double change);
+        double health_on_lvl;
+        double mana_on_lvl;
+        double armor_on_lvl;
+        double damage_on_lvl;
+
+        void LevelUpArmor();
         void LevelUpArmor(double change);
+        void LevelUpDamage();
         void LevelUpDamage(double change);
+        void LevelUpHealth();
+        void LevelUpHealth(double change);
+        void LevelUpMana();
+        void LevelUpMana(double change);
 };
 
 class FighterClass : public IClass

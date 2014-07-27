@@ -1010,21 +1010,43 @@ bool Input::process_classes_keys(TCOD_key_t request)
         std::vector<std::string> examine_msgs = std::vector<std::string>();
         examine_msgs.insert(examine_msgs.begin(), "Description");
         examine_msgs.push_back(iclass->description);
+        examine_msgs.push_back("");
+        examine_msgs.push_back("Spell Progression");
         for (auto it = iclass->spell_map->begin(); it!= iclass->spell_map->end(); it++)
         {
             std::pair<int, Spell*> pair = *it;
             int at_level = pair.first;
             Spell* spell = pair.second;
             std::stringstream ss;
-            ss << at_level << " " << colfg(spell->get_spell_color(), spell->name);
+            ss << "L" << at_level << " " << colfg(spell->get_spell_color(), spell->name);
             examine_msgs.push_back(ss.str());
 
         }
+        examine_msgs.push_back("");
+        examine_msgs.push_back("On level up");
+        std::stringstream ss;
+        ss << "HP:  " << iclass->health_on_lvl;
+        examine_msgs.push_back(ss.str());
+        ss.str("");
+        ss.clear();
+        ss << "MAN: " << iclass->mana_on_lvl;
+        examine_msgs.push_back(ss.str());
+        ss.str("");
+        ss.clear();
+        ss << "ARM: " << iclass->armor_on_lvl;
+        examine_msgs.push_back(ss.str());
+        ss.str("");
+        ss.clear();
+        ss << "DMG: " << iclass->damage_on_lvl;
+        examine_msgs.push_back(ss.str());
+        ss.str("");
+        ss.clear();
+        examine_msgs.push_back("");
         examine_msgs.push_back("Hit N to continue");
         DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, NULL, &close_all, TCODConsole::root);
         examine_dialog->return_screen = Game::current_screen;
         examine_dialog->y = 5;
-        examine_dialog->resize_console(examine_dialog->width+10, examine_dialog->height);
+        examine_dialog->resize(examine_dialog->width+10, examine_dialog->height);
         Ui::alerts.push_back(examine_dialog);
 
         //create examine dialog

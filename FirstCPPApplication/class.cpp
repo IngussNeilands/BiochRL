@@ -34,6 +34,11 @@ IClass::IClass()
     this->starting_attrs->armor->SetVals(1);
 
     this->spell_map = new std::map<int, Spell*>();
+
+    this->health_on_lvl = 1;
+    this->mana_on_lvl = 1;
+    this->armor_on_lvl = 1;
+    this->damage_on_lvl = 1;
 };
 
 
@@ -56,6 +61,23 @@ void IClass::LevelUpDamage(double change)
 {
     this->master->attrs->damage->current_val+=change;
     this->master->attrs->damage->max_val+=change;
+};
+
+void IClass::LevelUpHealth()
+{
+    this->LevelUpHealth(this->health_on_lvl);
+};
+void IClass::LevelUpMana()
+{
+    this->LevelUpMana(this->mana_on_lvl);
+};
+void IClass::LevelUpArmor()
+{
+    this->LevelUpArmor(this->armor_on_lvl);
+};
+void IClass::LevelUpDamage()
+{
+    this->LevelUpDamage(this->damage_on_lvl);
 };
 
 void IClass::LevelUpSkills(int levels)
@@ -94,6 +116,10 @@ FighterClass::FighterClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new AutoChemHPSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new PoisonCoughSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerSanctuarySpell()));
+    this->health_on_lvl = 2;
+    this->mana_on_lvl = 2;
+    this->armor_on_lvl = 0.25;
+    this->damage_on_lvl = 0.25;
 };
 
 void FighterClass::LevelUpStats(int levels)
@@ -101,10 +127,10 @@ void FighterClass::LevelUpStats(int levels)
     int i = 0;
     while (i < levels)
     {
-        this->LevelUpHealth(2);
-        this->LevelUpMana(2);
-        this->LevelUpArmor(0.25);
-        this->LevelUpDamage(0.25);
+        this->LevelUpHealth();
+        this->LevelUpMana();
+        this->LevelUpArmor();
+        this->LevelUpDamage();
         i++;
     };
 };
@@ -124,6 +150,11 @@ StalkerClass::StalkerClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new CastShadowSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new BribeSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new SpawnShadowlingSpell()));
+
+    this->health_on_lvl = 2;
+    this->mana_on_lvl = 1.5;
+    this->armor_on_lvl = 0.25;
+    this->damage_on_lvl = 1;
 };
 
 void StalkerClass::LevelUpStats(int levels)
@@ -131,10 +162,10 @@ void StalkerClass::LevelUpStats(int levels)
     int i = 0;
     while (i < levels)
     {
-        this->LevelUpHealth(2);
-        this->LevelUpMana(1.5);
-        this->LevelUpArmor(0.25);
-        this->LevelUpDamage(1);
+        this->LevelUpHealth();
+        this->LevelUpMana();
+        this->LevelUpArmor();
+        this->LevelUpDamage();
         i++;
     };
 };
@@ -154,14 +185,19 @@ MageClass::MageClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new InnerHealingSpiritSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsTouchSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerFountainSpell()));
+
+    this->health_on_lvl = 2;
+    this->mana_on_lvl = 4;
+    this->armor_on_lvl = 0.1;
+    this->damage_on_lvl = 0.1;
 };
 
 void MageClass::LevelUpStats(int levels)
 {
-    this->LevelUpHealth(2);
-    this->LevelUpMana(4);
-    this->LevelUpArmor(0.1);
-    this->LevelUpDamage(0.1);
+    this->LevelUpHealth();
+    this->LevelUpMana();
+    this->LevelUpArmor();
+    this->LevelUpDamage();
 };
 
 
@@ -180,14 +216,18 @@ NecromancerClass::NecromancerClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new RaiseDeadSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerFireSpell()));
 
+    this->health_on_lvl = 2;
+    this->mana_on_lvl = 4;
+    this->armor_on_lvl = 0.1;
+    this->damage_on_lvl = 0.1;
 };
 
 void NecromancerClass::LevelUpStats(int levels)
 {
-    this->LevelUpHealth(2);
-    this->LevelUpMana(4);
-    this->LevelUpArmor(0.1);
-    this->LevelUpDamage(0.1);
+    this->LevelUpHealth();
+    this->LevelUpMana();
+    this->LevelUpArmor();
+    this->LevelUpDamage();
 };
 
 
@@ -207,14 +247,19 @@ BrawlerClass::BrawlerClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerStrengthSpell()));
+
+    this->health_on_lvl = 4;
+    this->mana_on_lvl = 1;
+    this->armor_on_lvl = 0.7;
+    this->damage_on_lvl = .9;
 };
 
 void BrawlerClass::LevelUpStats(int levels)
 {
-    this->LevelUpHealth(4);
-    this->LevelUpMana(1);
-    this->LevelUpArmor(0.7);
-    this->LevelUpDamage(.9);
+    this->LevelUpHealth();
+    this->LevelUpMana();
+    this->LevelUpArmor();
+    this->LevelUpDamage();
 };
 
 
@@ -237,13 +282,18 @@ BloodMageClass::BloodMageClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerStrengthSpell()));
+
+    this->health_on_lvl = 8;
+    this->mana_on_lvl = 0.1;
+    this->armor_on_lvl = 0.4;
+    this->damage_on_lvl = .9;
 };
 
 void BloodMageClass::LevelUpStats(int levels)
 {
-    this->LevelUpHealth(8);
-    this->LevelUpMana(0.1);
-    this->LevelUpArmor(0.4);
-    this->LevelUpDamage(.9);
+    this->LevelUpHealth();
+    this->LevelUpMana();
+    this->LevelUpArmor();
+    this->LevelUpDamage();
 };
 
