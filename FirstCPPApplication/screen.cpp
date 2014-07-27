@@ -27,6 +27,7 @@
 Screen<T>::Screen() 
 {
     this->title = "Untitled Screen";
+    this->empty_msg =  "There's nothing here. Try levelling up or picking up items!";
 
     this->offset = 5;
     this->key = 'a';
@@ -157,9 +158,20 @@ void Screen<T>::draw_scroll_arrows(TCODConsole* con, bool left_to_draw)
 
 }
 
+template<typename T>
+void Screen<T>::draw_empty_msg(TCODConsole* con, int i)
+{
+    con->print(this->offset, i, this->empty_msg.c_str());
+};
+
     template<typename T>
 void Screen<T>::build_screen_items(TCODConsole* con, int i)
 {
+    if (this->elements->empty())
+    {
+        this->draw_empty_msg(con, i);
+    };
+
     int item_count = 0;
 	if (this->elements->size() < Ui::offset) //TODO:: give each screen its own offset
 	{

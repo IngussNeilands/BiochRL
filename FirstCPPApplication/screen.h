@@ -14,6 +14,7 @@ class Screen
 {
     public: 
         std::string title;
+        std::string empty_msg;
 
         int offset;
         char key;
@@ -34,6 +35,7 @@ class Screen
 
         TCODConsole* create_screen();
 
+        void draw_empty_msg(TCODConsole* con, int i);
         void draw_screen_title(TCODConsole* con);
         void draw_mouse_horiz_line(TCODConsole* con);
         virtual void loop(TCODConsole* con, int i);
