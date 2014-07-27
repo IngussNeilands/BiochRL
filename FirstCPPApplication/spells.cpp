@@ -136,11 +136,11 @@ void Spell::spend_mana()
 {
     if (this->mana_type == ManaManaType)
     {
-    this->master->attrs->mana->current_val -= mana_cost;
+        this->master->attrs->mana->current_val -= mana_cost;
     }
     else if (this->mana_type == BloodManaType)
     {
-    this->master->attrs->health->current_val -= mana_cost;
+        this->master->attrs->health->current_val -= mana_cost;
     }
     else
     {
@@ -169,7 +169,7 @@ bool Spell::cast(Tile* targetted_tile)
 
     this->spend_mana();
 
-	return true;
+    return true;
 };
 
 void Spell::apply_attr_effects(Actor* target)
@@ -201,7 +201,7 @@ actor_vec_t Spell::targets_around_tile(Tile* target_tile)
         tile_vec_t* adjacent_tiles = target_tile->getAdjacentTiles(this->aoe);
         for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
         {
-			Tile* tile = *it;
+            Tile* tile = *it;
             if ((*it)->is_occupied())
             {
                 targets.push_back((*it)->occupant);
@@ -347,7 +347,7 @@ bool CorpseBlastSpell::cast(Tile* targetted_tile)
         return Spell::cast(targetted_tile);
     };
 
-	return false;
+    return false;
 };
 
 SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
@@ -395,12 +395,14 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
     auto it = items->begin();
     bool found_corpse = false;
     std::string corpse = "corpse";
+    Item* corpse_item = NULL;
     for (it; it != items->end(); it++)
     {
         std::size_t found = (*it)->name.find(corpse);
         if (found != std::string::npos)
         {
             found_corpse = true;
+            corpse_item = *it;
             break;
         }
     }
@@ -409,16 +411,18 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
     if (found_corpse)
     {
         this->raise_dead(targetted_tile);
+		targetted_tile->inventory->remove_item(corpse_item);
+		delete corpse_item;
         if (this->master == Game::player)
         {
             Game::stats->spells_cast++;
         };
         this->spend_mana();
 
-		return true;
+        return true;
     };
 
-	return false;
+    return false;
 };
 
 InnerFireSpell::InnerFireSpell() : Spell()
@@ -522,7 +526,7 @@ bool CastShadowSpell::cast(Tile* targetted_tile)
     };
     this->spend_mana();
 
-	return true;
+    return true;
 
     //
     //auto sneak?
@@ -556,13 +560,13 @@ bool SpawnShadowlingSpell::cast(Tile* targetted_tile)
     };
     this->spend_mana();
 
-	return true;
+    return true;
 };
 
 void SpawnShadowlingSpell::spawn(Tile* targetted_tile)
 {
     Skeleton* creature = Game::spawn_creature_ally<Skeleton>(targetted_tile, "Shadowling", 1000, 'l', Game::current_map);
-	creature->img_path = get_data_path()+ "img/dark_elf8x8.png";
+    creature->img_path = get_data_path()+ "img/dark_elf8x8.png";
 };
 
 
@@ -590,11 +594,11 @@ bool BribeSpell::cast(Tile* targetted_tile)
         {
             if (! this->check_resistances(tile->occupant)) { continue; };
             tile->occupant->thinker->is_ally = true;
-			this->spend_mana();
+            this->spend_mana();
         };
     };
 
-	return false;
+    return false;
 };
 
 /* misc */
@@ -624,11 +628,11 @@ bool TeleportSelfSpell::cast(Tile* targetted_tile)
         };
         this->spend_mana();
 
-		return true;
+        return true;
     }
     else
     {
-		return false;
+        return false;
         printf("Is not walkable\n");
     }
 };
@@ -702,12 +706,12 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
         };
         this->spend_mana();
 
-		return true;
+        return true;
         // Spell::cast(targetted_tile);
     }
     else
     {
-		return false;
+        return false;
     }
 
 };
@@ -720,5 +724,5 @@ IlluminationSpell::IlluminationSpell() : Spell()
 bool IlluminationSpell::cast(Tile* targetted_tile)
 {
 
-	return true;
+    return true;
 };
