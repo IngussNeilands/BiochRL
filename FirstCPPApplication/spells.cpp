@@ -628,35 +628,18 @@ Venipuncture::Venipuncture()
     this->name = "Venipuncture";
     this->element = LifeElement;
     this->mana_cost = 50;
+
+    this->attr_effect->damage_max_val = 15;
+    this->attr_effect->damage_current_val = 15;
+    this->attr_effect->duration = 50;
+
     this->max_range = 1;
     this->target_type = TargettedTargetType;
 
+    this->mana_type = BloodManaType;
     this->mana_percentage = true;
 };
 
-bool Venipuncture::cast(Tile* targetted_tile)
-{
-    this->cast_count += 1;
-    actor_vec_t targets = this->targets_around_tile(targetted_tile);
-    for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
-    {
-        Actor* target = *it;
-        if (! this->check_resistances(target)) { continue; };
-        this->apply_attr_effects(target);
-
-        Game::player->combat->last_victim = target;
-        target->combat->RememberAttacker(Game::player->combat, true);
-    };
-
-    if (this->master == Game::player)
-    {
-        Game::stats->spells_cast++;
-    };
-
-    this->spend_mana();
-
-    return true;
-};
 
 /* misc */
 

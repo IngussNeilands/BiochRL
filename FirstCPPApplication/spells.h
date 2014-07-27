@@ -122,7 +122,6 @@ class Venipuncture : public Spell
 { 
     public:
         Venipuncture();
-        bool cast(Tile* targetted_tile);
 };
 // class SacredKickSpell : public Spell {  public: SacredKickSpell(); };
 // class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
