@@ -32,6 +32,8 @@ IClass::IClass()
     this->starting_attrs->mana->SetVals(30);
     this->starting_attrs->damage->SetVals(6);
     this->starting_attrs->armor->SetVals(1);
+
+    this->spell_map = new std::map<int, Spell*>();
 };
 
 
@@ -88,7 +90,6 @@ FighterClass::FighterClass() : IClass()
     this->levelup_message = "You've learned a new technique";
     this->fg_color = TCODColor::celadon;
 
-    this->spell_map = new std::map<int, Spell*>();
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new WaterBombSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new AutoChemHPSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new PoisonCoughSpell()));
@@ -117,7 +118,6 @@ StalkerClass::StalkerClass() : IClass()
     this->levelup_message = "You've mastered a new shade!";
     this->fg_color = TCODColor::darkerSepia;
 
-    this->spell_map = new std::map<int, Spell*>();
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new ShadowRunSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new CastShadowSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new BribeSpell()));
@@ -145,7 +145,6 @@ MageClass::MageClass() : IClass()
     this->levelup_message = "You've mastered a new spell!";
     this->fg_color = TCODColor::desaturatedBlue;
 
-    this->spell_map = new std::map<int, Spell*>();
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceBoltSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new InnerHealingSpiritSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsTouchSpell()));
@@ -169,7 +168,6 @@ NecromancerClass::NecromancerClass() : IClass()
     this->levelup_message = "You've learned a new sorcery!";
     this->fg_color = TCODColor::darkGrey;
 
-    this->spell_map = new std::map<int, Spell*>();
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new CorpseBlastSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SiphonSpiritSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new RaiseDeadSpell()));
@@ -194,7 +192,6 @@ BrawlerClass::BrawlerClass() : IClass()
     this->levelup_message = "You've learned a new prayer!";
     this->fg_color = TCODColor::lightChartreuse;
 
-    this->spell_map = new std::map<int, Spell*>();
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceFistSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
@@ -218,7 +215,6 @@ BloodMageClass::BloodMageClass() : IClass()
     this->levelup_message = "You've learned a new ritual!";
     this->fg_color = TCODColor::lighterRed;
 
-    this->spell_map = new std::map<int, Spell*>();
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceFistSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
