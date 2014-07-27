@@ -35,6 +35,7 @@ class Spell
         std::string name;
         int mana_cost;
         ManaTypes mana_type;
+        bool mana_percentage;
 
         elements_t element;
 
@@ -67,6 +68,7 @@ class Spell
 
         virtual bool cast(Tile* targetted_tile);
         void spend_mana();
+        int get_mana_cost();
         virtual void apply_attr_effects(Actor* target);
         actor_vec_t targets_around_tile(Tile* target_tile);
 
@@ -113,6 +115,18 @@ class IceFistSpell : public Spell {  public: IceFistSpell(); };
 class SacredKickSpell : public Spell {  public: SacredKickSpell(); };
 class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
 class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
+
+
+//bloodmage
+class Venipuncture : public Spell 
+{ 
+    public:
+        Venipuncture();
+        bool cast(Tile* targetted_tile);
+};
+// class SacredKickSpell : public Spell {  public: SacredKickSpell(); };
+// class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
+// class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
 
 
 //misc

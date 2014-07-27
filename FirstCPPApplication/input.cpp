@@ -726,7 +726,6 @@ bool Input::user_cast_spell()
 
     assert(spell->master != NULL && "Spell's master is null, it should be done on spell creation");
     Tile* targetted_tile = Ui::targetted_tile;
-    int mana_cost = spell->mana_cost;
     int spell_range = spell->max_range;
 
     int distance = get_euclidean_distance(Game::player->x, Game::player->y, targetted_tile->tile_x, targetted_tile->tile_y);

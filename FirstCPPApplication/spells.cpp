@@ -26,6 +26,7 @@ Spell::Spell()
     this->mana_cost = 10;
 
     this->mana_type = ManaManaType;
+    this->mana_percentage = false;
 
 
     this->turn_cooldown = 1;
@@ -105,17 +106,36 @@ bool Spell::is_in_range(int distance)
     };
 };
 
+int Spell::get_mana_cost()
+{
+    if (!this->mana_percentage)
+    {
+        return this->mana_cost;
+    }
+    else 
+    {
+        int new_cost = this->master->attrs->mana->current_val / this->master->attrs->mana->max_val; 
+    }
+};
+
 bool Spell::has_enough_mana() 
 { 
-    if ( this->master->attrs->mana->current_val >= this->mana_cost)
+    if (this->mana_type == ManaManaType)
     {
-        return true;
+        if ( this->master->attrs->mana->current_val >= this->get_mana_cost())
+        {
+            return true;
+        }
     }
-    else
+    else if (this->mana_type == BloodManaType)
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "No mana for this cast!");
-        return false;
-    };
+        if ( this->master->attrs->health->current_val >= this->get_mana_cost())
+        {
+            return true;
+        }
+    }
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "No mana for this cast!");
+    return false;
 };
 
 TCODColor Spell::get_spell_color()
@@ -136,11 +156,11 @@ void Spell::spend_mana()
 {
     if (this->mana_type == ManaManaType)
     {
-        this->master->attrs->mana->current_val -= mana_cost;
+        this->master->attrs->mana->current_val -= this->get_mana_cost();
     }
     else if (this->mana_type == BloodManaType)
     {
-        this->master->attrs->health->current_val -= mana_cost;
+        this->master->attrs->health->current_val -= this->get_mana_cost();
     }
     else
     {
@@ -404,8 +424,8 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
     if (found_corpse)
     {
         this->raise_dead(targetted_tile);
-		targetted_tile->inventory->remove_item(corpse_item);
-		delete corpse_item;
+        targetted_tile->inventory->remove_item(corpse_item);
+        delete corpse_item;
 
         if (this->master == Game::player)
         {
@@ -587,6 +607,44 @@ bool BribeSpell::cast(Tile* targetted_tile)
     };
 
     return false;
+};
+
+/* bloodmage */
+
+Venipuncture::Venipuncture()
+{
+    this->required_level = 2;
+    this->name = "Venipuncture";
+    this->element = LifeElement;
+    this->mana_cost = 50;
+    this->max_range = 1;
+    this->target_type = TargettedTargetType;
+
+    this->mana_percentage = true;
+};
+
+bool Venipuncture::cast(Tile* targetted_tile)
+{
+    this->cast_count += 1;
+    actor_vec_t targets = this->targets_around_tile(targetted_tile);
+    for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
+    {
+        Actor* target = *it;
+        if (! this->check_resistances(target)) { continue; };
+        this->apply_attr_effects(target);
+
+        Game::player->combat->last_victim = target;
+        target->combat->RememberAttacker(Game::player->combat, true);
+    };
+
+    if (this->master == Game::player)
+    {
+        Game::stats->spells_cast++;
+    };
+
+    this->spend_mana();
+
+    return true;
 };
 
 /* misc */
