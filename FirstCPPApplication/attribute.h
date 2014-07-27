@@ -23,6 +23,7 @@ class Attribute
         double regen_interval; //per x turns? 
 
         Attribute();
+        Attribute(Attribute& other);
 
 
         virtual void Update();

@@ -32,6 +32,7 @@ class AttributeContainer
         HungerAttribute* hunger;
 
         AttributeContainer();
+        AttributeContainer(AttributeContainer& other);
 
         void RegenerateAll();
         void RegenerateHealth();

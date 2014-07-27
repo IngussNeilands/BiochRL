@@ -18,6 +18,17 @@ AttributeContainer::AttributeContainer()
     this->hunger = new HungerAttribute;
 };
 
+AttributeContainer::AttributeContainer(AttributeContainer& other)
+{
+    this->owner = other.owner;
+
+    this->health = new HealthAttribute(*other.health);
+    this->mana = new ManaAttribute(*other.mana);
+    this->armor = new ArmorAttribute(*other.armor);
+    this->damage = new DamageAttribute(*other.damage);
+    this->hunger = new HungerAttribute(*other.hunger);
+};
+
 void AttributeContainer::Update()
 {
     this->health->Update();

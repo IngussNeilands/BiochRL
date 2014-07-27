@@ -12,6 +12,17 @@ Attribute::Attribute()
 
 };
 
+Attribute::Attribute(Attribute& other)
+{
+    this->tick = other.tick;
+    this->is_ready = other.is_ready;
+    this->current_val = other.current_val;
+    this->max_val = other.max_val;
+    this->regen_rate = other.regen_rate;
+    this->regen_interval = other.regen_interval;
+
+};
+
 float Attribute::GetValPercentage()
 {
     float percent = (float)(this->current_val)/ ((float)this->max_val) * 100;
