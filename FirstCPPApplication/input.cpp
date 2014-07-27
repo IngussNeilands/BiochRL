@@ -1511,8 +1511,36 @@ bool Input::process_mouse_event(TCOD_mouse_t request)
     return false;
 };
 
+void show_quick_help()
+{
+    std::vector<std::string> help_msgs;
+    help_msgs.push_back("QUICK HELP");
+    help_msgs.push_back("Arrow keys or numpad (for diagonal) to move");
+    help_msgs.push_back("Move into some one to attack them, but be careful");
+    help_msgs.push_back("i for inventory, m for magic");
+    help_msgs.push_back("k or keypad 5 to cast a spell once you're targetting");
+    help_msgs.push_back("p for class reselect (can at anytime, even after level up)");
+    help_msgs.push_back("c for character sheet");
+    help_msgs.push_back("? for more help");
+    help_msgs.push_back("");
+    help_msgs.push_back("N to continue");
+    DialogHelpBox* help_dialog = new DialogHelpBox(help_msgs, Game::game_console);
+    int x = Game::camera_w/2-5, y = Game::camera_h/2-15;
+    help_dialog->x = x;
+    help_dialog->y = y;
+    help_dialog->resize(25, help_dialog->height+2);
+    Ui::alerts.push_back(help_dialog);
+
+    Game::current_screen = Screens::AlertScreenType;
+};
+
 bool Input::process_debug_event(TCOD_key_t request)
 {
+    if (request.vk == TCODK_F1)
+    {
+        show_quick_help();
+    };
+
     if (request.vk == TCODK_F2)
     {
         exit(1);

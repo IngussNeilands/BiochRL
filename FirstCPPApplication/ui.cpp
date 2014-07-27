@@ -545,9 +545,10 @@ void Ui::format_attribute(Attribute* attr, char buffer[])
     sprintf(buffer, msg_template.c_str(), (int)attr->current_val, (int)attr->max_val, (int)attr->regen_rate, (int)attr->regen_interval);
 };
 
+template<typename T>
 void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name)
 {
-    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, name.c_str());
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, colfg(T::attribute_color, name).c_str());
     i++;
     Ui::format_attribute(attr, buffer);
     con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
@@ -636,10 +637,10 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     HungerAttribute* hunger = player_attrs->hunger;
 
     char buffer [100];
-    Ui::print_attribute(con, health, buffer, offset, i, "HEALTH");
-    Ui::print_attribute(con, mana, buffer, offset, i, "MANA");
-    Ui::print_attribute(con, damage, buffer, offset, i, "DAMAGE");
-    Ui::print_attribute(con, armor, buffer, offset, i, "ARMOR");
+    Ui::print_attribute<HealthAttribute>(con, health, buffer, offset, i, "HEALTH");
+    Ui::print_attribute<ManaAttribute>(con, mana, buffer, offset, i, "MANA");
+    Ui::print_attribute<DamageAttribute>(con, damage, buffer, offset, i, "DAMAGE");
+    Ui::print_attribute<ArmorAttribute>(con, armor, buffer, offset, i, "ARMOR");
     // Ui::print_attribute(con, hunger, buffer, offset, i, "HUNGER");
 
     print_experience(con, offset,  i);

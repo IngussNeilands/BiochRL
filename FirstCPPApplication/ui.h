@@ -95,6 +95,7 @@ class Ui
         };
 
         static void format_attribute(Attribute* attr, char buffer[]);
+        template<typename T>
         static void print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name);
         static void print_experience(TCODConsole* con, int& offset, int& i);
         static void print_class(TCODConsole* con, int& offset, int& i);
