@@ -1007,9 +1007,19 @@ bool Input::process_classes_keys(TCOD_key_t request)
         std::cout << iclass->name << " : " << iclass->description << std::endl;
 
         //create examine dialog
-        std::vector<std::string> examine_msgs = iclass->starting_attrs->PrettyVectorColored();
-        examine_msgs.insert(examine_msgs.begin(), "Examining "+iclass->name);
-        examine_msgs.push_back(" ");
+        std::vector<std::string> examine_msgs = std::vector<std::string>();
+        examine_msgs.insert(examine_msgs.begin(), "Description");
+        examine_msgs.push_back(iclass->description);
+        for (auto it = iclass->spell_map->begin(); it!= iclass->spell_map->end(); it++)
+        {
+            std::pair<int, Spell*> pair = *it;
+            int at_level = pair.first;
+            Spell* spell = pair.second;
+            std::stringstream ss;
+            ss << at_level << " " << colfg(spell->get_spell_color(), spell->name);
+            examine_msgs.push_back(ss.str());
+
+        }
         examine_msgs.push_back("Hit N to continue");
         DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, NULL, &close_all, TCODConsole::root);
         examine_dialog->return_screen = Game::current_screen;
