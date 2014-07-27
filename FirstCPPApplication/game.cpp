@@ -864,7 +864,6 @@ bool menu_loop(bool incr_turn)
     };
 
     Game::draw_ui();
-    Input::process_mouse_inv_event();
 
     return incr_turn;
 };

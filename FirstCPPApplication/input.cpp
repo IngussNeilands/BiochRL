@@ -1485,14 +1485,6 @@ bool Input::is_key_class_command(TCOD_key_t request)
     return Input::classes_active_pressed(request) != classes_active_t::NO_MATCHING_CLASSES_ACTIVE;
 };
 
-void Input::process_mouse_inv_event()
-{
-    if (Game::mouse_evt.lbutton_pressed)
-    {
-
-    };
-};
-
 bool Input::process_mouse_event(TCOD_mouse_t request)
 {
 
@@ -1614,7 +1606,7 @@ bool Input::process_key_event(TCOD_key_t request)
                     }
 
                 }
-                else if (request.c == 'n')
+                else if (request.c == 'n' || request.c == 'q')
                 {
                     if (!Ui::alerts.empty())
                     {
@@ -1672,7 +1664,7 @@ bool Input::process_key_event(TCOD_key_t request)
                     }
 
                 }
-                else if (request.c == 'n')
+                else if (request.c == 'n' || request.c == 'q')
                 {
                     if (!Ui::alerts.empty())
                     {
