@@ -182,14 +182,23 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
     }
     else if (target_tile->inventory->get_count() > 0)
     {
-        help_text = target_tile->inventory->items->back()->name;
+        item_vec_t* invt = target_tile->inventory->items;
+        for (auto it = invt->begin(); it != invt->end(); it++)
+        {
+            Item* item = *it;
+            messages.push_back(item->name);
+        };
     }
     else
     {
         help_text = target_tile->get_description();
     };
 
-    messages.push_back(help_text);
+    if (help_text != "")
+    {
+        messages.push_back(help_text);
+    };
+
     if (health_text.size() != 0)
     {
         messages.push_back(health_text);

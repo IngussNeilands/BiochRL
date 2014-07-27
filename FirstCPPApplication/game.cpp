@@ -1145,6 +1145,7 @@ void Game::mainloop()
 
     new Message(Ui::msg_handler_main, NOTYPE_MSG, "Run from idols and skeletons, kill troll and jackals!");
     new Message(Ui::msg_handler_main, NOTYPE_MSG, "You're going to die a lot, be careful.");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "Press F1 for quick help, or ? for more. Move with arrow keys.");
     //
 
     //draw the map to libtconsole
