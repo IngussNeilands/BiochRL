@@ -70,6 +70,39 @@ void AttributeContainer::RegenerateDamage()
 
 };
 
+std::vector<std::string> AttributeContainer::PrettyVectorColored()
+{
+    std::string result = "";
+    std::vector<std::string> string_vec;
+
+    TCODColor health_color = HealthAttribute::attribute_color;
+    TCODColor mana_color = ManaAttribute::attribute_color;
+    TCODColor armor_color = ArmorAttribute::attribute_color;
+    TCODColor damage_color = DamageAttribute::attribute_color;
+
+    string_vec.push_back(buffer_color("HCV", this->health->current_val, health_color));
+    string_vec.push_back(buffer_color("HMV", this->health->max_val, health_color));
+    string_vec.push_back(buffer_color("HRR", this->health->regen_rate, health_color));
+    string_vec.push_back(buffer_color("HRI", this->health->regen_interval, health_color));
+
+    string_vec.push_back(buffer_color("MCV", this->mana->current_val, mana_color));
+    string_vec.push_back(buffer_color("MMV", this->mana->max_val, mana_color));
+    string_vec.push_back(buffer_color("MRR", this->mana->regen_rate, mana_color));
+    string_vec.push_back(buffer_color("MRI", this->mana->regen_interval, mana_color));
+
+    string_vec.push_back(buffer_color("ACV", this->armor->current_val, armor_color));
+    string_vec.push_back(buffer_color("AMV", this->armor->max_val, armor_color));
+    string_vec.push_back(buffer_color("ARR", this->armor->regen_rate, armor_color));
+    string_vec.push_back(buffer_color("ARI", this->armor->regen_interval, armor_color));
+
+    string_vec.push_back(buffer_color("DCV", this->damage->current_val, damage_color));
+    string_vec.push_back(buffer_color("DMV", this->damage->max_val, damage_color));
+    string_vec.push_back(buffer_color("DRR", this->damage->regen_rate, damage_color));
+    string_vec.push_back(buffer_color("DRI", this->damage->regen_interval, damage_color));
+
+    return string_vec;
+};
+
 std::vector<std::string> AttributeContainer::PrettyVector()
 {
     std::string result = "";

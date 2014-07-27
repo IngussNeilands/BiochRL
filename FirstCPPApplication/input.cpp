@@ -1000,7 +1000,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
         std::cout << iclass->name << " : " << iclass->description << std::endl;
 
         //create examine dialog
-        std::vector<std::string> examine_msgs = iclass->starting_attrs->PrettyVector();
+        std::vector<std::string> examine_msgs = iclass->starting_attrs->PrettyVectorColored();
         examine_msgs.push_back(" ");
         examine_msgs.push_back("Hit N to continue");
         DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, TCODConsole::root);
