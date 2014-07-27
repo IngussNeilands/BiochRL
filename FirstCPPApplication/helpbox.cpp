@@ -74,6 +74,14 @@ HelpBox::HelpBox(std::vector<std::string> messages, TCODConsole* target_con, Til
     this->con = new TCODConsole(this->width, this->height+this->extra_padding);
 };
 
+void HelpBox::resize_console(int width, int height)
+{
+    this->width = width;
+    this->height = height;
+    delete this->con;
+    this->con = new TCODConsole(width, height+this->extra_padding);
+};
+
 void HelpBox::set_background()
 {
     if (this->selected_tile && !selected_tile->is_known())

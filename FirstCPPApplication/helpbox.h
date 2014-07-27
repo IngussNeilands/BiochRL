@@ -36,6 +36,8 @@ class HelpBox
         virtual void draw_outline();
         virtual void draw_image();
         virtual void draw_messages();
+
+        void resize_console(int width, int height);
 };
 
 class TargetHelpBox : public HelpBox

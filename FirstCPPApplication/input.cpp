@@ -1024,6 +1024,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
         DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, NULL, &close_all, TCODConsole::root);
         examine_dialog->return_screen = Game::current_screen;
         examine_dialog->y = 5;
+        examine_dialog->resize_console(examine_dialog->width+10, examine_dialog->height);
         Ui::alerts.push_back(examine_dialog);
 
         //create examine dialog
