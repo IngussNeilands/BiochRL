@@ -28,6 +28,7 @@ std::string get_images_path();
 
 std::string get_computer_name();
 
+std::string buffer_color(std::string input, int val, TCODColor color);
 // template<class T, class T2>
 // bool isInVector<T, T2>(T vect, T2 elem);
 // class T;

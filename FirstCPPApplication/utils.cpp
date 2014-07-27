@@ -273,3 +273,16 @@ int get_euclidean_distance(int x1, int y1, int x2, int y2)
     return (int)std::sqrt((int)std::pow(x2-x1, 2.0f)+(double)(int)std::pow(y2-y1, 2.0f));
 };
 
+
+std::string buffer_color(std::string input, int val, TCODColor color)
+{
+    if (val == 0)
+    {
+        return "";
+    };
+
+    std::stringstream ss;
+    ss << input << ": " << val << " ";
+
+    return colfg(color, ss.str());
+};

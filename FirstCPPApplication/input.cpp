@@ -1000,11 +1000,12 @@ bool Input::process_classes_keys(TCOD_key_t request)
         std::cout << iclass->name << " : " << iclass->description << std::endl;
 
         //create examine dialog
-        std::vector<std::string> examine_msgs;
-        examine_msgs.push_back("You are examining the class!");
+        std::vector<std::string> examine_msgs = iclass->starting_attrs->PrettyVector();
+        examine_msgs.push_back(" ");
         examine_msgs.push_back("Hit N to continue");
         DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, TCODConsole::root);
         examine_dialog->return_screen = Game::current_screen;
+        examine_dialog->y = 10;
         Ui::alerts.push_back(examine_dialog);
         Game::current_screen = Screens::AlertScreenType;
         return true;

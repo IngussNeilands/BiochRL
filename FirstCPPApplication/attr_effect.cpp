@@ -558,18 +558,6 @@ std::string AttrEffect::small_convert(std::string prefix, int val)
 // };
 
 
-std::string buffer_color(std::string input, int val, TCODColor color)
-{
-    if (val == 0)
-    {
-        return "";
-    };
-
-    std::stringstream ss;
-    ss << input << ": " << val << " ";
-
-    return colfg(color, ss.str());
-};
 
 std::string AttrEffect::oneline_str_FIXED()
 {
@@ -577,14 +565,10 @@ std::string AttrEffect::oneline_str_FIXED()
     std::string result = "";
     std::vector<std::string> string_vec;
 
-    TCODColor health_color = TCODColor::desaturatedGreen;
-    TCODConsole::setColorControl(TCOD_COLCTRL_1, health_color, TCODColor::black);
-    TCODColor mana_color = TCODColor::desaturatedBlue;
-    TCODConsole::setColorControl(TCOD_COLCTRL_2, mana_color, TCODColor::black);
-    TCODColor armor_color = TCODColor::lightGrey;
-    TCODConsole::setColorControl(TCOD_COLCTRL_3, armor_color, TCODColor::black);
-    TCODColor damage_color = TCODColor::desaturatedRed;
-    TCODConsole::setColorControl(TCOD_COLCTRL_4, damage_color, TCODColor::black);
+    TCODColor health_color = HealthAttribute::attribute_color;
+    TCODColor mana_color = ManaAttribute::attribute_color;
+    TCODColor armor_color = ArmorAttribute::attribute_color;
+    TCODColor damage_color = DamageAttribute::attribute_color;
 
     std::stringstream ss;
 
