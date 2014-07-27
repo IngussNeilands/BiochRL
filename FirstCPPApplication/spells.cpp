@@ -265,7 +265,6 @@ InnerSanctuarySpell::InnerSanctuarySpell() : Spell()
 
 IceBoltSpell::IceBoltSpell() : Spell()
 {
-
     this->required_level = 2;
     this->name = "Ice bolt";
     this->element = WaterElement;
@@ -276,7 +275,6 @@ IceBoltSpell::IceBoltSpell() : Spell()
 
 InnerHealingSpiritSpell::InnerHealingSpiritSpell() : Spell()
 {
-
     this->required_level = 4;
     this->name = "Inner Healing Spirit";
     this->element = LifeElement;
@@ -287,7 +285,6 @@ InnerHealingSpiritSpell::InnerHealingSpiritSpell() : Spell()
 
 DeathsTouchSpell::DeathsTouchSpell() : Spell()
 {
-
     this->required_level = 6;
     this->name = "Death's Touch";
     this->element = DeathElement;
@@ -298,7 +295,6 @@ DeathsTouchSpell::DeathsTouchSpell() : Spell()
 
 InnerFountainSpell::InnerFountainSpell() : Spell()
 {
-
     this->required_level = 8;
     this->name = "Inner Fountain";
     this->element = CrystalElement;
@@ -312,7 +308,6 @@ InnerFountainSpell::InnerFountainSpell() : Spell()
 
 CorpseBlastSpell::CorpseBlastSpell() : Spell()
 {
-
     this->required_level = 2;
     this->aoe = 1;
     this->target_type = GroundTargetType;
@@ -352,7 +347,6 @@ bool CorpseBlastSpell::cast(Tile* targetted_tile)
 
 SiphonSpiritSpell::SiphonSpiritSpell() : Spell()
 {
-
     this->required_level = 4;
     this->name = "Siphon Spirit";
     this->element = DeathElement;
@@ -372,7 +366,6 @@ void SiphonSpiritSpell::apply_attr_effects(Actor* target)
 
 RaiseDeadSpell::RaiseDeadSpell() : Spell()
 {
-
     this->required_level = 6;
     this->name = "Raise the dead";
     this->element = DeathElement;
@@ -413,6 +406,7 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
         this->raise_dead(targetted_tile);
 		targetted_tile->inventory->remove_item(corpse_item);
 		delete corpse_item;
+
         if (this->master == Game::player)
         {
             Game::stats->spells_cast++;
@@ -427,7 +421,6 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
 
 InnerFireSpell::InnerFireSpell() : Spell()
 {
-
     this->required_level = 8;
     this->name = "Inner Fire";
     this->element = FireElement;
@@ -442,7 +435,6 @@ InnerFireSpell::InnerFireSpell() : Spell()
 
 IceFistSpell::IceFistSpell() : Spell()
 {
-
     this->required_level = 2;
     this->name = "Ice fist";
     this->element = WaterElement;
@@ -453,7 +445,6 @@ IceFistSpell::IceFistSpell() : Spell()
 
 SacredKickSpell::SacredKickSpell() : Spell()
 {
-
     this->required_level = 4;
     this->name = "Sacred Kick";
     this->element = LifeElement;
@@ -464,7 +455,6 @@ SacredKickSpell::SacredKickSpell() : Spell()
 
 DeathsHandSpell::DeathsHandSpell() : Spell()
 {
-
     this->required_level = 6;
     this->name = "Death's Hand";
     this->element = DeathElement;
@@ -475,7 +465,6 @@ DeathsHandSpell::DeathsHandSpell() : Spell()
 
 InnerStrengthSpell::InnerStrengthSpell() : Spell()
 {
-
     this->required_level = 8;
     this->name = "Inner Strength";
     this->element = DeathElement;
@@ -488,7 +477,6 @@ InnerStrengthSpell::InnerStrengthSpell() : Spell()
 /* Stalker */
 ShadowRunSpell::ShadowRunSpell() : TeleportSelfSpell()
 {
-
     this->required_level = 2;
     this->name = "Shadow Run";
     this->element = SpectreElement;
@@ -605,7 +593,6 @@ bool BribeSpell::cast(Tile* targetted_tile)
 
 TeleportSelfSpell::TeleportSelfSpell() : Spell()
 {
-
     this->required_level = 8;
     this->name = "Translocation";
     this->element = SpectreElement;
@@ -651,7 +638,6 @@ FireBallSpell::FireBallSpell() : Spell()
 
 LaunchOtherSpell::LaunchOtherSpell() : Spell()
 {
-
     this->required_level = 8;
     this->name = "Launch Other";
     this->element = CrystalElement;
@@ -723,6 +709,5 @@ IlluminationSpell::IlluminationSpell() : Spell()
 
 bool IlluminationSpell::cast(Tile* targetted_tile)
 {
-
     return true;
 };
