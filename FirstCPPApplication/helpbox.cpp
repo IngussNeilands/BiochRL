@@ -4,11 +4,13 @@
 #include "tile.h"
 #include "actors\actor.h"
 #include <game.h>
+#include "ui.h"
 
 void HelpBox::initialize()
 {
-    this->x = -1;
-    this->y = -1;
+    int x = Game::camera_w/2, y = Game::camera_h/2;
+    this->x = x;
+    this->y = y;
 
     this->left_pad=1;
     this->right_pad=2;
@@ -16,6 +18,8 @@ void HelpBox::initialize()
     this->bot_pad=2;
     this->con = NULL;
     this->selected_tile = NULL;
+
+    this->return_screen = NoScreenType;
 
     this->extra_padding = 20;
 };
@@ -153,14 +157,15 @@ TargetHelpBox::TargetHelpBox(std::vector<std::string> messages, TCODConsole* tar
 
 };
 
-void DialogHelpBox::default_accept()
+const void DialogHelpBox::default_accept()
 {
     std::cout << "Woo hoo, you love me!" << std::endl;
 };
 
-void DialogHelpBox::default_cancel()
+const void DialogHelpBox::default_cancel()
 {
-    Game::current_screen = Screens::NoScreenType;
+    Game::current_screen = this->return_screen;
+    // Ui::reset_generic();
 };
 
 

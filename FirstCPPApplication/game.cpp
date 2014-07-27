@@ -818,6 +818,16 @@ void Game::draw_ui()
             case Screens::ClassSelectScreenType:
                 Ui::draw_class_select_main();
                 break;
+            case Screens::AlertScreenType:
+                if (Ui::alerts.empty())
+                {
+                    Game::current_screen == Screens::NoScreenType;
+                }
+                else
+                {
+                    Game::draw_alerts();
+                };
+                break;
             default:
                 assert(false && "Unknown Screens");
                 break;

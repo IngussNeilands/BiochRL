@@ -2,7 +2,10 @@
 #ifndef HELPBOX_H
 #define HELPBOX_H
 
+#include "enums/screens.h"
+
 class Tile;
+
 
 class HelpBox 
 {
@@ -15,6 +18,8 @@ class HelpBox
         Tile* selected_tile;
         TCODConsole* con;
         TCODConsole* target_con;
+
+        Screens return_screen;
 
         HelpBox();
         ~HelpBox();
@@ -39,8 +44,9 @@ class TargetHelpBox : public HelpBox
 class DialogHelpBox : public HelpBox
 {
     public:
-        static void default_accept();
-        static void default_cancel();
+        const void default_accept();
+        const void default_cancel();
+
 
         DialogHelpBox(std::vector<std::string> messages, void (*on_accept)(), void (*on_cancel)(), TCODConsole* target_con) ;
         DialogHelpBox(std::vector<std::string> messages, TCODConsole* target_con) ;

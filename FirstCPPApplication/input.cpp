@@ -998,6 +998,14 @@ bool Input::process_classes_keys(TCOD_key_t request)
         IClass* iclass = (IClass*)Ui::chosen_generic;
         // new Message(Ui::msg_handler_main, NOTYPE_MSG, "EXAMINE CLASS.");
         std::cout << iclass->name << " : " << iclass->description << std::endl;
+        //create quit dialog
+        std::vector<std::string> quit_msgs;
+        quit_msgs.push_back("You are examining the class!");
+        quit_msgs.push_back("Hit N to continue");
+        DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, TCODConsole::root);
+        quit_dialog->return_screen = Game::current_screen;
+        Ui::alerts.push_back(quit_dialog);
+        Game::current_screen = Screens::AlertScreenType;
         return true;
     }
     else if( action == classes_active_t::DropClass )
@@ -1594,32 +1602,55 @@ bool Input::process_key_event(TCOD_key_t request)
             break;
 
         case GameStates::MenuState:
-            //handle arrow keys and enter, then go to screen specfic handlers
-            if (Game::current_screen == Screens::SpellSelectScreenType)
+            if (Game::current_screen == Screens::AlertScreenType)
             {
-                std::vector<Spell*>* spells = Game::player->spells;
-                Input::select_generic(request, spells, is_key_spell_command, Input::process_spells_keys);
+                if (request.c == 'y')
+                {
+                    if (!Ui::alerts.empty())
+                    {
+                        DialogHelpBox* alert = Ui::alerts.back();
+                        alert->accept();
+                    }
 
-            }
-            else if (Game::current_screen == Screens::ClassSelectScreenType)
-            {
-                Ui::is_targetting = false;
-                std::vector<IClass*>* classes = Actor::actor_class_choices;
-                Input::select_generic(request, classes, is_key_class_command, Input::process_classes_keys);
-            }
-
-            else if (Game::current_screen == Screens::InventoryScreenType)
-            {
-                Ui::is_targetting = false;
-                std::vector<Item*>* items = Game::player->inventory->items;
-                Input::select_generic(request, items, is_key_inventory_command, Input::process_inventory_keys);
+                }
+                else if (request.c == 'n')
+                {
+                    if (!Ui::alerts.empty())
+                    {
+                        DialogHelpBox* alert = Ui::alerts.back();
+                        alert->cancel();
+                    }
+                }
             }
             else 
             {
-                Ui::is_targetting = false;
-                std::vector<void*>* _ = new std::vector<void*>;
-                Input::select_generic(request, _, is_key_generic_menu_command, Input::process_generic_menu_keys);
-                delete _;
+                //handle arrow keys and enter, then go to screen specfic handlers
+                if (Game::current_screen == Screens::SpellSelectScreenType)
+                {
+                    std::vector<Spell*>* spells = Game::player->spells;
+                    Input::select_generic(request, spells, is_key_spell_command, Input::process_spells_keys);
+
+                }
+                else if (Game::current_screen == Screens::ClassSelectScreenType)
+                {
+                    Ui::is_targetting = false;
+                    std::vector<IClass*>* classes = Actor::actor_class_choices;
+                    Input::select_generic(request, classes, is_key_class_command, Input::process_classes_keys);
+                }
+
+                else if (Game::current_screen == Screens::InventoryScreenType)
+                {
+                    Ui::is_targetting = false;
+                    std::vector<Item*>* items = Game::player->inventory->items;
+                    Input::select_generic(request, items, is_key_inventory_command, Input::process_inventory_keys);
+                }
+                else 
+                {
+                    Ui::is_targetting = false;
+                    std::vector<void*>* _ = new std::vector<void*>;
+                    Input::select_generic(request, _, is_key_generic_menu_command, Input::process_generic_menu_keys);
+                    delete _;
+                }
             }
             break;
     }
