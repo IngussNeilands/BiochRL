@@ -30,6 +30,9 @@ class Attribute
         virtual void Tick();
         virtual bool CheckIsReady();
 
+        void SetVals(int both);
+        void SetVals(int current_val, int max_val);
+
         // bool CanRegenerate();
         void Regenerate();
         

@@ -42,6 +42,17 @@ void Attribute::Update()
 
 };
 
+void Attribute::SetVals(int both)
+{
+    this->SetVals(both, both);
+};
+
+void Attribute::SetVals(int current_val, int max_val)
+{
+    this->current_val = current_val;
+    this->max_val = max_val;
+};
+
 void Attribute::Tick()
 {
 
