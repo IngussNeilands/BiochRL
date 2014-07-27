@@ -114,7 +114,9 @@ int Spell::get_mana_cost()
     }
     else 
     {
-        int new_cost = this->master->attrs->mana->current_val / this->master->attrs->mana->max_val; 
+        int new_cost = (float)this->master->attrs->mana->current_val / (float)this->master->attrs->mana->max_val; 
+        new_cost = std::max((long double)1.0, (long double)new_cost);
+        return (int)new_cost;
     }
 };
 
