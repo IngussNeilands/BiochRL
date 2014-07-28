@@ -435,6 +435,7 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
     if (found_corpse)
     {
         this->raise_dead(targetted_tile);
+        this->cast_count++;
         targetted_tile->inventory->remove_item(corpse_item);
         delete corpse_item;
 
@@ -529,6 +530,7 @@ CastShadowSpell::CastShadowSpell() : Spell()
 
 bool CastShadowSpell::cast(Tile* targetted_tile)
 {
+    this->cast_count++;
     //get tiles within a given radius
     tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
     //
@@ -578,6 +580,7 @@ bool SpawnShadowlingSpell::cast(Tile* targetted_tile)
         };
     };
     this->spend_mana();
+    this->cast_count++;
 
     return true;
 };
@@ -614,6 +617,7 @@ bool BribeSpell::cast(Tile* targetted_tile)
             if (! this->check_resistances(tile->occupant)) { continue; };
             tile->occupant->thinker->is_ally = true;
             this->spend_mana();
+            this->cast_count++;
         };
     };
 
@@ -666,6 +670,7 @@ bool TeleportSelfSpell::cast(Tile* targetted_tile)
             Game::stats->spells_cast++;
         };
         this->spend_mana();
+        this->cast_count++;
 
         return true;
     }
@@ -746,6 +751,7 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
             Game::stats->spells_cast++;
         };
         this->spend_mana();
+        this->cast_count++;
 
         return true;
         // Spell::cast(targetted_tile);
