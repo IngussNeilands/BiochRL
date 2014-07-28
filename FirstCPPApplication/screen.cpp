@@ -49,7 +49,7 @@ int Screen<T>::get_custom_key_index(T* element)
         else if (ck == Game::custom_key3) { return 3; }
         else if (ck == Game::custom_key4) { return 4; }
         else if (ck == Game::custom_key5) { return 5; }
-		else { return -1; }
+        else { return -1; }
     };
 };
 
@@ -158,7 +158,7 @@ void Screen<T>::draw_scroll_arrows(TCODConsole* con, bool left_to_draw)
 
 }
 
-template<typename T>
+    template<typename T>
 void Screen<T>::draw_empty_msg(TCODConsole* con, int i)
 {
     con->print(this->offset, i, this->empty_msg.c_str());
@@ -173,10 +173,10 @@ void Screen<T>::build_screen_items(TCODConsole* con, int i)
     };
 
     int item_count = 0;
-	if (this->elements->size() < Ui::offset) //TODO:: give each screen its own offset
-	{
-		Ui::offset = 0;
-	}
+    if (this->elements->size() < Ui::offset) //TODO:: give each screen its own offset
+    {
+        Ui::offset = 0;
+    }
 
     std::vector<T*>::iterator it = this->elements->begin() + Ui::offset;
     for (it; it != this->elements->end() && it - this->elements->begin() != (Ui::offset + Ui::per_page); ++it) 
@@ -250,6 +250,17 @@ bool InventoryScreen<T>::is_enabled(T* element)
     return Ui::game->player->equipment->is_item_equipped(element);
 };
 
+std::string strip_tcodcolor(std::string in_string)
+{
+    if (in_string.c_str()[0] == TCOD_COLCTRL_FORE_RGB)
+    {
+        return in_string.substr(4, in_string.size()-1);
+    }
+    else
+    {
+        return in_string;
+    };
+}
 
     template<typename T>
 ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
@@ -263,7 +274,7 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     std::stringstream ss;
     std::string key = char_to_str(this->key);
     std::string letter = colfg(*element->repr->fg_color, char_to_str(element->repr->repr));
-    std::string name = colfg(foreground, element->name);
+    std::string name = colfg(foreground, strip_tcodcolor(element->name));
     std::string weight = colfg(TCODColor::lightGrey, std::string("weighs ")+std::to_string((long double)element->weight)+" stones");
     ss << key << "-" << letter << " " << name << " : " << weight;
 
@@ -315,8 +326,14 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
         background = TCODColor::darkestRed;
         if (is_chosen)
         {
-            if (is_active) { foreground = TCODColor::red+TCODColor::blue; }
-            else { foreground = TCODColor::red+TCODColor::green; }
+            if (is_active) 
+            { 
+                foreground = TCODColor::red+TCODColor::blue; 
+            }
+            else 
+            {
+                foreground = TCODColor::red+TCODColor::green; 
+            }
         }
         else { foreground = TCODColor::red;
         };
