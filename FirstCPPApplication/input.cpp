@@ -688,6 +688,7 @@ bool Input::toggle_sneaking()
     Game::player->is_sneaking = !Game::player->is_sneaking;
     if (Game::player->is_sneaking)
     {
+        Game::fov_radius-= 3;
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are now sneaking."));
         Game::player->representation->setBGColor(TCODColor::darkGrey, true, false, true);
 
@@ -709,6 +710,7 @@ bool Input::toggle_sneaking()
     }
     else
     {
+        Game::fov_radius+= 3;
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::lightBlue, "You are no longer sneaking."));
         Game::player->representation->setBGColor(Game::game_console->getDefaultBackground(), true, false, true);
     };
