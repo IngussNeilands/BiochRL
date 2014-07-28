@@ -700,8 +700,8 @@ void Game::center_camera_on(int abs_x, int abs_y)
 {
     int new_x = abs_x - (Game::game_console->getWidth()/2);
     int new_y = abs_y - (Game::game_console->getHeight()/2);
-    bool is_valid = validate_camera_pos(new_x, new_y);
-    std::cout << "is valid? " << is_valid << std::endl;
+    //bool is_valid = validate_camera_pos(new_x, new_y);
+    //std::cout << "is valid? " << is_valid << std::endl;
     Game::camera_x = new_x;
     Game::camera_y = new_y;
 };
