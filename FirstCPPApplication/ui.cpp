@@ -700,9 +700,14 @@ void Ui::draw_inventory_ui()
 void Ui::draw_spell_select_ui()
 {
     SpellScreen<Spell> spell_screen;
-    spell_screen.elements = Game::player->spells;
-    // spell_screen->msg_hdlr = Ui::msg_handler_spell_select;
+
+    //add spells from equipment
+    std::vector<Spell*>* spells = Game::player->spells;
+    std::vector<Spell*>* combined = new std::vector<Spell*>(*spells);
+    spell_screen.elements = combined;
     spell_screen.draw();
+
+    delete combined;
 };
 
 void Ui::draw_class_select_ui()

@@ -1709,7 +1709,9 @@ bool Input::process_key_event(TCOD_key_t request)
                 if (Game::current_screen == Screens::SpellSelectScreenType)
                 {
                     std::vector<Spell*>* spells = Game::player->spells;
-                    Input::select_generic(request, spells, is_key_spell_command, Input::process_spells_keys);
+                    std::vector<Spell*>* combined = new std::vector<Spell*>(*spells);
+                    Input::select_generic(request, combined, is_key_spell_command, Input::process_spells_keys);
+                    delete combined;
 
                 }
                 else if (Game::current_screen == Screens::ClassSelectScreenType)
