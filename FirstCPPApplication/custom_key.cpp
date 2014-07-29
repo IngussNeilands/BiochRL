@@ -50,7 +50,7 @@ void CustomKey::assign_item(Item* item)
     this->reset_state();
     this->is_item = true;
     this->element = item;
-    item->custom_key = this;
+    item->spell_effect->custom_key = this;
 };
     
 void CustomKey::activate()
