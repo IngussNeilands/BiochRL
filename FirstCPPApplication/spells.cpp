@@ -255,8 +255,8 @@ WaterBombSpell::WaterBombSpell() : Spell()
 {
     this->name = "Water Bomb";
     this->element = WaterElement;
-    this->attr_effect->damage->water = 7;
-    this->mana_cost = 5;
+    this->attr_effect->damage->water = 12;
+    this->mana_cost = 7;
     this->max_range = 11;
 };
 
