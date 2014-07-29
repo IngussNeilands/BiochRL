@@ -1710,6 +1710,8 @@ bool Input::process_key_event(TCOD_key_t request)
                 {
                     std::vector<Spell*>* spells = Game::player->spells;
                     std::vector<Spell*>* combined = new std::vector<Spell*>(*spells);
+                    spell_vec_t attached_spells = Game::player->equipment->get_spells_attached();
+                    combined->insert(combined->end(), attached_spells.begin(), attached_spells.end());
                     Input::select_generic(request, combined, is_key_spell_command, Input::process_spells_keys);
                     delete combined;
 

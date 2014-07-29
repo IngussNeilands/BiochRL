@@ -701,9 +701,11 @@ void Ui::draw_spell_select_ui()
 {
     SpellScreen<Spell> spell_screen;
 
-    //add spells from equipment
     std::vector<Spell*>* spells = Game::player->spells;
+    //add spells from equipment
     std::vector<Spell*>* combined = new std::vector<Spell*>(*spells);
+    spell_vec_t attached_spells = Game::player->equipment->get_spells_attached();
+    combined->insert(combined->end(), attached_spells.begin(), attached_spells.end());
     spell_screen.elements = combined;
     spell_screen.draw();
 

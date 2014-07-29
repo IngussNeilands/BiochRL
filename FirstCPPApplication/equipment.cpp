@@ -154,6 +154,7 @@ Equipment::Equipment()
 
 
 };
+
 Slot* Equipment::get_slots_for_type(slots_t slot_type)
 {
 
@@ -169,6 +170,41 @@ Slot* Equipment::get_slots_for_type(slots_t slot_type)
 	return NULL;
 
 }
+
+item_vec_t Equipment::get_items_equipped()
+{
+    item_vec_t items = item_vec_t(); 
+
+    for (auto it = this->slots->begin(); it!=this->slots->end(); it++)
+    {
+        Slot* slot = *it;
+        Item* item = slot->GetEquippedItem();
+        if (item != NULL)
+        {
+            items.push_back(item);
+        }
+    };
+
+    return items;
+};
+
+spell_vec_t Equipment::get_spells_attached()
+{
+
+    spell_vec_t spells = spell_vec_t();
+
+    auto equipment = this->get_items_equipped();
+	for (auto it = equipment.begin(); it!=equipment.end(); it++)
+	{
+		Item* item = *it;
+		if (item->spell_effect != NULL)
+		{
+			spells.push_back(item->spell_effect);
+		}
+	}
+
+    return spells;
+};
 
 void Equipment::equip_item(Item* item)
 {
@@ -287,28 +323,4 @@ Equipment::~Equipment()
 
 void Equipment::Update()
 {
-    // //apply buffs/debuffs and durability for all equipment
-    // this->head->apply_attr_effect();
-    // this->earrings->apply_attr_effect();
-    // this->necklace->apply_attr_effect();
-
-    // this->chest->apply_attr_effect();
-    // this->left_shoulder->apply_attr_effect();
-    // this->right_shoulder->apply_attr_effect();
-
-    // this->left_bracer->apply_attr_effect();
-    // this->right_bracer->apply_attr_effect();
-
-    // this->left_glove->apply_attr_effect();
-    // this->right_glove->apply_attr_effect();
-
-    // this->left_ring_ring->apply_attr_effect();
-    // this->right_ring_ring->apply_attr_effect();
-    // this->left_ring_middle->apply_attr_effect();
-    // this->right_ring_middle->apply_attr_effect();
-    // this->left_ring_index->apply_attr_effect();
-    // this->right_ring_index->apply_attr_effect();
-
-    // this->main_weapon->apply_attr_effect();
-    // this->off_weapon->apply_attr_effect();
 };

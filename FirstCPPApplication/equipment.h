@@ -49,6 +49,7 @@ class Equipment
 
         ~Equipment();
         Equipment();
+
         void Update();//apply buffs/debuffs and durability for all equipment
         bool is_item_equipped(Item* item);
         void unequip_item(Item* item);
@@ -56,7 +57,10 @@ class Equipment
 
         std::vector<Slot*>* slots;
 
-	Slot* get_slots_for_type(slots_t slot_type);
+        Slot* get_slots_for_type(slots_t slot_type);
+
+        item_vec_t get_items_equipped();
+        spell_vec_t get_spells_attached();
 
         Slot* head;
         Slot* earrings;
