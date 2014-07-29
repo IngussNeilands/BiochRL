@@ -12,11 +12,25 @@
 
 CustomKey::CustomKey()
 {
+    this->init();
+};
+
+CustomKey::CustomKey(int index)
+{ 
+    this->init();
+    this->index = index;
+};
+
+void CustomKey::init()
+{
     // this->element = NULL; //needs to happen to init to null, so that reset_state's element check won't fail
     // this->reset_state();
     this->element = NULL;
     this->is_spell = false;
     this->is_item = false;
+
+    this->index = -1;
+
 };
 
 void CustomKey::reset_state()
@@ -34,6 +48,7 @@ void CustomKey::reset_state()
     this->element = NULL;
     this->is_spell = false;
     this->is_item = false;
+
 };
 
 void CustomKey::assign_spell(Spell* spell)
@@ -43,16 +58,16 @@ void CustomKey::assign_spell(Spell* spell)
     this->element = spell;
     spell->custom_key = this;
 };
-    
+
 void CustomKey::assign_item(Item* item)
 {
-	if (item->spell_effect == NULL) { return; };
+    if (item->spell_effect == NULL) { return; };
     this->reset_state();
     this->is_item = true;
     this->element = item;
     item->spell_effect->custom_key = this;
 };
-    
+
 void CustomKey::activate()
 {
 

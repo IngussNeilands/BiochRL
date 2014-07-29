@@ -21,6 +21,7 @@
 #include "class.h"
 #include "enums\hunger_threshold.h"
 #include "screenitem.h"
+#include "custom_key.h"
 
 
     template<typename T>
@@ -288,7 +289,8 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     }
     if (element->custom_key != NULL)
     {
-        std::string index = std::to_string((long double)this->get_custom_key_index(element));
+        // std::string index = std::to_string((long double)this->get_custom_key_index(element));
+        std::string index = std::to_string((long double)element->custom_key->index);
         ss << colfg(TCODColor::green, " "+index);
     };
 
@@ -443,7 +445,8 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 
     if (element->custom_key != NULL)
     {
-        std::string index = std::to_string((long double)this->get_custom_key_index(element));
+        // std::string index = std::to_string((long double)this->get_custom_key_index(element));
+        std::string index = std::to_string((long double)element->custom_key->index);
         msg_str.append(colfg(TCODColor::green, " "+index));
     };
 

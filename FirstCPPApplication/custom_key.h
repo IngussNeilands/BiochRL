@@ -14,9 +14,12 @@ class CustomKey
 
         void* element;
 
+        int index;
 
         CustomKey();
+        CustomKey(int index);
 
+        void init();
         void activate();
 
         void reset_state();

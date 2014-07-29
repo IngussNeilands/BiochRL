@@ -80,11 +80,11 @@ int Game::targetting_index = 1;
 
 
 ckey_vec_t* Game::custom_keys;
-CustomKey* Game::custom_key1 = new CustomKey;
-CustomKey* Game::custom_key2 = new CustomKey;
-CustomKey* Game::custom_key3 = new CustomKey;
-CustomKey* Game::custom_key4 = new CustomKey;
-CustomKey* Game::custom_key5 = new CustomKey;
+CustomKey* Game::custom_key1 = new CustomKey(1);
+CustomKey* Game::custom_key2 = new CustomKey(2);
+CustomKey* Game::custom_key3 = new CustomKey(3);
+CustomKey* Game::custom_key4 = new CustomKey(4);
+CustomKey* Game::custom_key5 = new CustomKey(5);
 
 int Game::map_width = 70;
 int Game::map_height = 50;
