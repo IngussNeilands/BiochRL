@@ -460,15 +460,17 @@ bool Input::process_basic_keys(TCOD_key_t request)
         std::vector<std::string> details_msgs = std::vector<std::string>();
         details_msgs.push_back("Custom Keys");
         details_msgs.push_back(" ");
-		for (auto it = Game::custom_keys->begin(); it!=Game::custom_keys->end();it++)
-		{
-			CustomKey* ck = *it;
-			//if (ck->is_bound)
-			if (true)
-			{
-				details_msgs.push_back("");
-			}
-		}
+        for (auto it = Game::custom_keys->begin(); it!=Game::custom_keys->end();it++)
+        {
+            CustomKey* ck = *it;
+            if (ck->is_bound())
+                // if (true)
+            {
+                std::stringstream ss;
+                ss << ck->index << " -> " << ck->get_element_name();
+                details_msgs.push_back(ss.str());
+            }
+        }
         details_msgs.push_back("Hit N to continue");
         DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, Game::game_console);
         details_dialog->return_screen = Game::current_screen;

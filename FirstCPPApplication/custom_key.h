@@ -23,6 +23,8 @@ class CustomKey
         void activate();
 
         void reset_state();
+        bool is_bound();
+        std::string get_element_name();
 
         void assign_spell(Spell* spell);
         void assign_item(Item* item);

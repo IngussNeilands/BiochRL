@@ -68,6 +68,33 @@ void CustomKey::assign_item(Item* item)
     item->spell_effect->custom_key = this;
 };
 
+std::string CustomKey::get_element_name()
+{
+    if (!this->is_bound()) { return ""; };
+
+    if (this->is_spell)
+    {
+        Spell* spell = static_cast<Spell*>(this->element);
+        return spell->name;
+    }
+    else if (this->is_item)
+    {
+        Item* item = static_cast<Item*>(this->element);
+        return item->name;
+
+    }
+    else
+    {
+        return "Unknown element type";
+    };
+
+};
+
+bool CustomKey::is_bound()
+{
+    return this->element != NULL;
+};
+
 void CustomKey::activate()
 {
 

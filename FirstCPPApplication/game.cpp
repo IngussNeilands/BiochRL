@@ -631,7 +631,7 @@ void  Game::initialize_items()
     // amulet->spell_effect = new TeleportSelfSpell;
     // amulet->spell_effect = new LaunchOtherSpell;
     // amulet->spell_effect->master = player;
-    Game::custom_key1->assign_item(amulet);
+    Game::custom_key1->assign_spell(amulet->spell_effect);
 
     player->inventory->add_item(amulet);
     player->equipment->equip_item(amulet);
