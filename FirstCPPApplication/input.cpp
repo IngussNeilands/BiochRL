@@ -1141,31 +1141,12 @@ bool Input::process_spells_keys(TCOD_key_t request)
         std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;
         return true;
     }
-    else if( action == spells_active_t::DropSpell )
-    {/*
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
-        Spell* spell = Ui::chosen_item;
-        Ui::chosen_spell = NULL;
-        Ui::spell_active = false;
-
-        player->inventory->drop_spell(item);
-        return true;
-        */}
-
     else if( action == spells_active_t::CastSpell )
     {
         Ui::is_targetting = true;
         Ui::targetted_tile = Game::player->my_tile;
         Game::current_state = GameStates::GameplayState;
         std::cout << ((Spell*)Ui::chosen_generic)->name << std::endl;
-    }
-
-    else if( action == spells_active_t::EquipSpell )
-    {
-    }
-
-    else if( action == spells_active_t::UnequipSpell )
-    {
     }
     else if( action == spells_active_t::MarkSpell )
     {
@@ -1219,99 +1200,12 @@ bool Input::process_spells_keys(TCOD_key_t request)
     return false;
 };
 
-void move_camera(int dir_x, int dir_y)
-{
-    //if player moves within 5 spaces of the edge of the map, scroll the camera 
-    //so that they're no longer within 5 spaces
-
-    // camera checks player position relative to camera
-    // then checks camera position relative to world
-    // if player 5< spaces from cam limits move camera so that player has 5>
-    // spaces assuming camera has that much space
-    int cam_x2 = Game::camera_x + Game::camera_w;
-    int cam_y2 = Game::camera_y + Game::camera_h;
-
-    //relative player pos
-    int plr_x;
-    int plr_y;
-    if (!Ui::is_targetting)
-    {
-        plr_x = Game::player->x - Game::camera_x; 
-        plr_y = Game::player->y - Game::camera_y;
-    }
-    else
-    {
-        plr_x = Ui::targetted_tile->tile_x;
-        plr_y = Ui::targetted_tile->tile_y;
-    };
-
-    int border_threshold = 10;
-    //std::cout << "cam w" << Game::camera_w << std::endl;
-
-    int change = 1;
-    if (plr_x <= border_threshold || plr_x >= (Game::camera_w -border_threshold))
-    {
-        //adjust camera horizontally
-        if (plr_x <= border_threshold) 
-        {
-            if (Game::camera_x - change >= (0))
-            {
-                Game::camera_x -= 1;
-                // std::cout << "x left" << std::endl;
-            }
-            else
-            {
-                // std::cout << "x NOT left" << std::endl;
-            }
-        }
-        else 
-        {
-            if (cam_x2 + change <= (Game::map_width))
-            {
-                Game::camera_x += 1;
-                // std::cout << "x right" << std::endl;
-            }
-            else
-            {
-                // std::cout << "x NOT right" << std::endl;
-            }
-        };
-    };
-    if (plr_y <= border_threshold || plr_y >= (Game::camera_h -border_threshold))
-    {
-        //adjust camera vertically
-        if (plr_y <= border_threshold) 
-        {
-            if (Game::camera_y - change >= (0 ))
-            {
-                Game::camera_y -= 1;
-                // std::cout << "y up" << std::endl;
-            }
-            else
-            {
-                // std::cout << "y NOT up" << std::endl;
-            }
-        }
-        else 
-        {
-            if (cam_y2 + change <= (Game::map_height))
-            {
-                Game::camera_y += 1;
-                // std::cout << "y down" << std::endl;
-            }
-            else
-            {
-                // std::cout << "y NOT down" << std::endl;
-            }
-        };
-    };
-};
 
 bool Input::move_target(int x, int y)
 {
     //std::cout << "move_target" << std::endl;
     Ui::targetted_tile = Ui::targetted_tile->getTileAtRelative(x, y);
-    move_camera(x, y);
+    Game::move_camera(x, y);
     return false;
 };
 
@@ -1321,7 +1215,7 @@ bool Input::move_player_or_target(int x, int y)
     {
         if(Game::current_map->attackMovePlayer(Game::player, x, y) )
         { 
-            move_camera(x, y);
+            Game::move_camera(x, y);
             return true;
         }
     }
