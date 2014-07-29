@@ -20,6 +20,7 @@ enum basic_cmds_t {
     OpenMagic, ConfirmCast,
     OpenCharacterSheet,
     OpenHelp, OpenClassSelect,
+    ListCustomKeys,
     CenterScreenToMouse,
     NextTarget, PrevTarget,
     ToggleMusic,

@@ -63,6 +63,7 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("Open magic menu"); vec.push_back("Cast the currently selected spell");
     vec.push_back("Open your character sheet");
     vec.push_back("Open this help screen"); vec.push_back("Select your class");
+    vec.push_back("Show bound custom keys");
     vec.push_back("Center the screen on the mouse");
     vec.push_back("Target Mode: Cycle forwards through the targets"); vec.push_back("Target Mode: Cycle backwards through the targets");
     vec.push_back("Toggle Music");
@@ -170,6 +171,7 @@ std::map<char, basic_cmds_t> Input::build_char_main_keymap()
     char_movemap['m'] = basic_cmds_t::OpenMagic;
     char_movemap['k'] = basic_cmds_t::ConfirmCast;
     char_movemap['p'] = basic_cmds_t::OpenClassSelect;
+    char_movemap['`'] = basic_cmds_t::ListCustomKeys;
 
     return char_movemap;
 };
@@ -451,6 +453,29 @@ bool Input::process_basic_keys(TCOD_key_t request)
     {
         Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::HelpScreenType;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::ListCustomKeys )
+    {
+        std::vector<std::string> details_msgs = std::vector<std::string>();
+        details_msgs.push_back("Custom Keys");
+        details_msgs.push_back(" ");
+		for (auto it = Game::custom_keys->begin(); it!=Game::custom_keys->end();it++)
+		{
+			CustomKey* ck = *it;
+			//if (ck->is_bound)
+			if (true)
+			{
+				details_msgs.push_back("");
+			}
+		}
+        details_msgs.push_back("Hit N to continue");
+        DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, Game::game_console);
+        details_dialog->return_screen = Game::current_screen;
+        details_dialog->y = 5;
+        details_dialog->x = 5;
+        Ui::alerts.push_back(details_dialog);
+        Game::current_screen = Screens::AlertScreenType;
     }
 
     else if ( basic_cmd == basic_cmds_t::ActivateDoor )
