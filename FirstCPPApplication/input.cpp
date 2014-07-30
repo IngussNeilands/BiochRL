@@ -1460,7 +1460,11 @@ bool Input::process_debug_event(TCOD_key_t request)
 {
     if (request.vk == TCODK_F1)
     {
-        show_quick_help();
+        //dont want to create more than one dialog
+        if (Game::current_screen != Screens::AlertScreenType)
+        {
+            show_quick_help();
+        };
     };
 
     if (request.vk == TCODK_F2)
