@@ -298,7 +298,7 @@ void Thinker::try_attacking_player()
 {
     if (this->is_ally && this->target == Game::player)
     {
-        if (this->master->combat->GetLastAttacker() == Game::player->combat)
+        if (this->master->combat->get_last_attacker() == Game::player->combat)
         {
             // printf("im sorry but you hit me\n");
             new Message(Ui::msg_handler_main, HELP_MSG, "Your allie cries 'Forgive me for this, master.'");
@@ -318,7 +318,7 @@ void Thinker::try_attacking_player()
         // std::cout << "adjacent" << std::endl;
         Damage* dmg = new Damage();
         dmg->normal = master->attrs->damage->current_val;
-        ((Person*)master)->combat->Attack(assailant, dmg);
+        ((Person*)master)->combat->attack(assailant, dmg);
     };
 
     //calm the combat down

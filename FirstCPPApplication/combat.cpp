@@ -74,8 +74,8 @@ void Combat::update()
         //cout << "I (a Combat), " << name << ", was attacked, ouch!" << endl;
 
         // //retaliate
-        // Combat* assailant = GetLastAttacker();
-        // Attack(assailant, 1);
+        // Combat* assailant = get_last_attacker();
+        // attack(assailant, 1);
 
 
         // //calm the Combat down
@@ -83,7 +83,7 @@ void Combat::update()
     };
 };
 
-void Combat::LevelUp(int levels)
+void Combat::level_up(int levels)
 {
     //reset, accounting for left over exp
     int i = 0;
@@ -109,8 +109,8 @@ void Combat::LevelUp(int levels)
         this->master->xp_required_to_lvlup = std::floor(result);
         this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required_to_lvlup; 
 
-        this->LevelUpStats(1);
-        this->LevelUpSkills(1);
+        this->level_up_stats(1);
+        this->level_up_skills(1);
         i++;
     }
 
@@ -124,7 +124,7 @@ void Combat::LevelUp(int levels)
     // std::cout << "just exploded with color for a frame" << std::endl;
 };
 
-void Combat::LevelUpSkills(int levels)
+void Combat::level_up_skills(int levels)
 {
     if (this->master->actor_class == NULL)
     {
@@ -135,7 +135,7 @@ void Combat::LevelUpSkills(int levels)
     }
 };
 
-void Combat::LevelUpStats(int levels)
+void Combat::level_up_stats(int levels)
 {
     if (this->master->actor_class == NULL)
     {
@@ -149,18 +149,18 @@ void Combat::LevelUpStats(int levels)
     }
 };
 
-void Combat::GiveExp(int exp_to_gain)
+void Combat::give_exp(int exp_to_gain)
 {
     this->master->xp += exp_to_gain;
     this->master->xp_this_level += exp_to_gain;
     // calc if level up
     if (this->master->xp_this_level >= this->master->xp_required_to_lvlup)
     {
-        this->LevelUp();
+        this->level_up();
     };
 };
 
-void Combat::Attack(Combat* combat_target, Damage* dmg)
+void Combat::attack(Combat* combat_target, Damage* dmg)
 {
     //cout << "About to attack " << (*combat_target).name << endl;
 
@@ -171,20 +171,20 @@ void Combat::Attack(Combat* combat_target, Damage* dmg)
     }
 
     new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "%s attacks %s for %d damage.", this->master->name.c_str(), combat_target->master->name.c_str(), dmg->get_raw_total());
-    combat_target->TakeDamage(this, dmg);
+    combat_target->take_damage(this, dmg);
     this->last_victim = combat_target->master;
 
-    bool is_target_dead = combat_target->CheckDeath();
+    bool is_target_dead = combat_target->check_death();
     if (is_target_dead)
     {
         //get opponents exp value
         int exp_to_gain = combat_target->master->xp_value;
         //add it to the master's exp
-        this->GiveExp(exp_to_gain);
+        this->give_exp(exp_to_gain);
     };
 };
 
-void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
+void Combat::remember_attacker(Combat* combat_attacker, bool mark_the_attk=true)
 {
     if (mark_the_attk == true) 
     {
@@ -207,7 +207,7 @@ void Combat::RememberAttacker(Combat* combat_attacker, bool mark_the_attk=true)
 
 };
 
-void Combat::Die()
+void Combat::die()
 {
     printf("I've died!\n");
     //make position unblocked
@@ -222,7 +222,7 @@ void Combat::Die()
 
 };
 
-Combat* Combat::GetLastAttacker()
+Combat* Combat::get_last_attacker()
 {
     // std::cout << "*** Retaliation ***" << std::endl;
     Combat * assailant;
@@ -233,11 +233,11 @@ Combat* Combat::GetLastAttacker()
     return assailant;
 };
 
-void Combat::TryToDie()
+void Combat::try_to_die()
 {
-    if (this->CheckDeath())
+    if (this->check_death())
     {
-        this->Die();
+        this->die();
     };
 }
 
@@ -256,7 +256,7 @@ int Combat::adjust_damage_to_armor(Damage* dmg)
     return total_damage;
 };
 
-void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
+void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
 {
     if (dmg >= 0 ) 
     {
@@ -279,11 +279,11 @@ void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
         std::cout << std::endl;
 
         //save attacker in history
-        this->RememberAttacker(combat_attacker);
+        this->remember_attacker(combat_attacker);
 
         if (dmg != 0)
         {
-            this->TryToDie();
+            this->try_to_die();
         }
     }
     else
@@ -297,7 +297,7 @@ void Combat::TakeDamage(Combat* combat_attacker, Damage* dmg)
     };
 };
 
-bool Combat::CheckDeath()
+bool Combat::check_death()
 {
     if (this->master->attrs->health->current_val <= 0  && !is_dead)
     {

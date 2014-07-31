@@ -194,7 +194,7 @@ void Person::update()
 
     if (this->combat != NULL)
     {
-        this->combat->TryToDie();
+        this->combat->try_to_die();
     };
 };
 
@@ -207,7 +207,7 @@ void Person::attack(Actor * target)
     {
         dmg->normal = dmg->normal*1.5;
     };
-    combat->Attack(((Person*)target)->combat, dmg); 
+    combat->attack(((Person*)target)->combat, dmg); 
     delete dmg;
 };
 

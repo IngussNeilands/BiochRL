@@ -1500,11 +1500,11 @@ bool Input::process_debug_event(TCOD_key_t request)
         //this'll level the player up
         if (request.shift == true)
         {
-            Game::player->combat->LevelUp(10);
+            Game::player->combat->level_up(10);
         }
         else if (request.shift == false) 
         {
-            Game::player->combat->LevelUp(1);
+            Game::player->combat->level_up(1);
         };
     }
 

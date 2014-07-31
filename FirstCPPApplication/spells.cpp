@@ -190,7 +190,7 @@ bool Spell::cast(Tile* targetted_tile)
         this->apply_attr_effects(target);
 
         Game::player->combat->last_victim = target;
-        target->combat->RememberAttacker(Game::player->combat, true);
+        target->combat->remember_attacker(Game::player->combat, true);
     };
 
     if (this->master == Game::player)
@@ -208,7 +208,7 @@ void Spell::apply_attr_effects(Actor* target)
     this->attr_effect->ApplyAllEffects(target);
     if (target->combat != NULL)
     {
-        this->master->combat->Attack(target->combat, this->attr_effect->damage);
+        this->master->combat->attack(target->combat, this->attr_effect->damage);
     };
 
     if (this->attr_effect->duration > 0)

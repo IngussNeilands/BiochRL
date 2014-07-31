@@ -401,7 +401,7 @@ void AttrEffect::ApplyAllEffects(Actor* actor)
     this->ApplyDamageEffects(actor);
     this->ApplyHungerEffects(actor);
     if (actor->combat!= NULL)
-        actor->combat->TryToDie();
+        actor->combat->try_to_die();
     else
         std::cout << "this thing has no combat... why are you a dick?" << std::endl;
 };
