@@ -63,7 +63,7 @@ Item* spawnWeapon()
     rwm.add_item(WhipSpawn, 30);
     rwm.add_item(SwordSpawn, 25);
     rwm.add_item(TomahawkSpawn, 20);
-    rwm.add_item(BroadswordSpawn, 20);
+    rwm.add_item(BroadswordSpawn, 15);
     rwm.add_item(TridentSpawn, 10);
     rwm.add_item(GreatAxeSpawn, 5);
     rwm.add_item(KatanaSpawn, 2);
