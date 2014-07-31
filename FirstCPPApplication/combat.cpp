@@ -262,6 +262,15 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
     {
         // if (this->master->thinker != NULL && this->master->thinker->is_ally) { return; }; //ally invincible
 
+        TCODRandom* rng = Game::stat_rolls_rng;
+        int dodge_chance = 15;
+        int dodge_result = rng->get(0, 100);
+
+        if (dodge_result < dodge_chance) 
+        {
+            new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, this->master->name+" dodged the attack!.");
+        };
+
         if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
         if (this->master == Game::player) { Game::stats->damage_taken += dmg->normal; };
 
@@ -271,11 +280,11 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
             adjusted_dmg *= 1.6;
         };
 
-        (this->master->attrs->health->current_val)-= std::max(adjusted_dmg, 1);
+        this->master->attrs->health->current_val -= std::max(adjusted_dmg, 1);
 
         std::cout << this->master->name;
         std::cout << " took " << adjusted_dmg << " damage! ";
-        std::cout << "with " << this->master->attrs->health->current_val << "hp left.";
+        std::cout << "leaving " << this->master->attrs->health->current_val << "hp left.";
         std::cout << std::endl;
 
         //save attacker in history
