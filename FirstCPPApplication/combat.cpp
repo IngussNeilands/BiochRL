@@ -269,6 +269,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
         if (dodge_result < dodge_chance) 
         {
             new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, this->master->name+" dodged the attack!.");
+            return;
         };
 
         if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
