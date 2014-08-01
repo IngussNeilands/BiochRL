@@ -272,7 +272,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
             return;
         };
 
-        if (combat_attacker->master == Game::player) { Game::stats->damage_dealt+= dmg->normal; };
+        if (combat_attacker->master == Game::player) { Game::stats->damage_dealt += dmg->normal; };
         if (this->master == Game::player) { Game::stats->damage_taken += dmg->normal; };
 
         int adjusted_dmg = this->adjust_damage_to_armor(dmg);
