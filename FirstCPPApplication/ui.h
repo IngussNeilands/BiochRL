@@ -19,7 +19,6 @@ class Message;
 class HelpBox;
 class DialogHelpBox;
 
-void one_line_helper(TCODConsole* ui_inv_con,int& offset, int& i, std::string msg_str, std::vector<TCOD_colctrl_t> color_vector);
 
 class Ui
 {

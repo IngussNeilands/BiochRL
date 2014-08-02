@@ -471,6 +471,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 details_msgs.push_back(ss.str());
             }
         }
+        details_msgs.push_back(" ");
         details_msgs.push_back("Hit N to continue");
         DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, Game::game_console);
         details_dialog->return_screen = Game::current_screen;
