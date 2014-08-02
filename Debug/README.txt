@@ -1,43 +1,7 @@
-#_FirstCPPApplication_
+Run BiochRL++.exe
 
-This is a Roguelike made with Libtcod.
-
-###Latest Build
- The direct link to the latest is always available at www.biochrl.com.  Run `BiochRL++.exe` from the main folder there. Press `Delete` from the main game screen to pause the music.
- 
-###Things you can do
-
-* Kill monsters including champions and a final boss.
-* Open and close doors.
-* Pick up and drop items.
-* Eat corpses for better health regeneration.
-* You're also able to cast a few different spells.
-* Level up and gain stat attributes.
-* Drink potions.
-* Go down floors.
-* Talk to villagers.
-* Use your mouse in your inventory screen.
-* 3 items of all slot types
-* about 20 monster types ~~with their own drop rates~~
-* a random dungeon generation with at least 2 room types, square and round
-* levelling and experience
-* add a close range spell, a healing spell, and a buff spell
-* spell selection screen, character viewing screen
-* different environments.
-
-### Some goals:
-
-* Choosing more information on game load.
-* Selling inventory.
-* Going back up floors.
-* Some sort of over the top stat tracking.
-* Throwing items.
-* Enemies who can throw/cast.
-
-
-![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/screenshots/Screenshot_18Jun2014.png)
-
-
+Arrow keys or Numpad to move, you can move diagonally with the keypad keys: 7 9 1 3
+In game, you can press F1 for quick help, or ? for more control
 
 ###Instructions
 So the game is *hyper* unfinished, but it is beatable, by killing the Bad Mother on floor 5 or later. You can hit `?`for an auto generated list of commands, but the general set of commands is keypad or arrows to move around and attack people. I really recommend attacking one or two enemies at once, any more than that, before you get any items will kill you. Oh, `,` (comma) to pick up an item, and `.` to pick one one and equip or use it, depending on the type.
@@ -56,4 +20,5 @@ After pressing `i` to open your inventory from the game screen, select and activ
 
 After pressing `m` from the gamescreen, you'll be shown all your spells (none at level 1). Once you've selected and activated a spell (`aa`, `bb`, `cc` etc), you can press `c` to start casting. You can use the arrow keys to move around the casting reticule over an enemy to cast a spell with `k`.
 
-Spells are automatically assigned to keys 1 through 5 for convenience as you level up. You can press backtick, "\`", to see the ones currently bound.
+Spells are automatically assigned to keys 1 through 5 for convenience as you level up. You can press backtick, "`", to see the ones currently bound.
+
