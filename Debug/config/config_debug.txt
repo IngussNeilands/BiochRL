@@ -2,6 +2,7 @@ general {
 	enable_music=false
     music_volume=0.9
     preferred_class_type=2
+    font_path="data/terminal.png"
 }
 
 //0 for random each time

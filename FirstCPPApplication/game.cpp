@@ -1154,7 +1154,9 @@ void Game::start_game()
 
 void Game::init_engine()
 {
-    TCODConsole::setCustomFont("data/terminal.png");
+    Parser parser = Parser();
+    std::string font_path =  parser.get_font_path().c_str();
+    TCODConsole::setCustomFont(font_path.c_str());
     TCODConsole::initRoot(screen_w, screen_h, std::string(Game::main_name.begin(), Game::main_name.end()).c_str(), false);
 
     Game::fps_limit = 60;

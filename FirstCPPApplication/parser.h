@@ -14,6 +14,7 @@ class Parser
         bool get_enable_music();
         float get_music_volume();
         ClassType get_preferred_class_type();
+        std::string get_font_path();
 
         int get_spawning_rng_seed();
         int get_spawning_ratio_rng_seed();

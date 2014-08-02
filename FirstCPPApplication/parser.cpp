@@ -19,6 +19,7 @@ TCODParser* Parser::init_parser()
     generalSettingsStruct->addProperty("enable_music", TCOD_TYPE_BOOL, true);
     generalSettingsStruct->addProperty("music_volume", TCOD_TYPE_FLOAT, true);
     generalSettingsStruct->addProperty("preferred_class_type", TCOD_TYPE_INT, true);
+    generalSettingsStruct->addProperty("font_path", TCOD_TYPE_STRING, true);
 
     TCODParserStruct* rngseedsSettingsStruct = parser->newStructure("rng_seeds");
     rngseedsSettingsStruct->addProperty("spawning", TCOD_TYPE_INT, false);
@@ -59,6 +60,16 @@ ClassType Parser::get_preferred_class_type()
 {
     int type = this->tcod_parser->getIntProperty("general.preferred_class_type");
     return (ClassType)type;
+};
+
+std::string Parser::get_font_path()
+{
+    const char* font_path = this->tcod_parser->getStringProperty("general.font_path");
+	if (font_path == NULL)
+	{
+		return "data/terminal.png";
+	}
+    return std::string(font_path);
 };
 
 int Parser::get_spawning_rng_seed()

@@ -2,6 +2,7 @@ general {
 	enable_music=true
     music_volume=1.0 //from 0.0 to 1.0
     preferred_class_type=1 //same order as on the class select screen
+    font_path="data/terminal.png" //path to the font file, relative to exe. Change to "data/terminal_SMALL.png" for half size resolution. Press F11 to full screen
 }
 
 //0 for random each time
