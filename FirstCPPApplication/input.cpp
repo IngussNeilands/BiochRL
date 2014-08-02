@@ -1240,7 +1240,7 @@ bool Input::move_player_or_target(int x, int y)
 {
     if (! Ui::is_targetting)
     {
-        if(Game::current_map->attackMovePlayer(Game::player, x, y) )
+        if (Game::current_map->attackMovePlayer(Game::player, x, y))
         { 
             Game::move_camera(x, y);
             return true;

@@ -792,6 +792,7 @@ bool Map::pos_in_map(int x, int y)
 bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 {
     // std::cout << "trying to move player" << std::endl;
+    assert(thePerson->combat != NULL);
 
     int new_x, new_y; // where the player is intending to go
     new_x = thePerson->x+x2;
@@ -801,13 +802,13 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     // if(new_x >= width || new_x < 0 || new_y >= height || new_y < 0)
     if (!this->pos_in_map(new_x, new_y))
     {
-        std::cout << "This was an invalid move kind stranger." << std::endl;
+        std::cout << "This was an invalid move outside the map." << std::endl;
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Leave the outer limits alone");
         return false;
     }
 
-    Tile *player_tile; // the current player position
-    player_tile = getTileAt(thePerson->x, thePerson->y);
+    Tile *person_tile; // the current player position
+    person_tile = getTileAt(thePerson->x, thePerson->y);
 
     Tile *target_tile; // the tile of the new position
     target_tile = getTileAt(new_x, new_y);
@@ -818,32 +819,35 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
         StairsDownTileTypeType,
         StairsUpTileTypeType };
     std::vector<int> vec_ints(walkable_tile_types, walkable_tile_types+4);
-    bool is_walkable = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id) != vec_ints.end();
+    bool is_walkable_tile = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id) != vec_ints.end();
 
-    if (this->pos_in_map(new_x, new_y) && is_walkable && !target_tile->is_occupied())
+    if (this->pos_in_map(new_x, new_y) && is_walkable_tile)
     {
-        thePerson->has_attacked = false;
-        thePerson->combat->last_victim = NULL;
-        thePerson->put_person(target_tile, new_x, new_y);
-        return true;
-    }
-
-    //fight if the tile is occupied
-    else if (target_tile->is_occupied())
-    {
-        bool is_fighter = target_tile->occupant->is_fighter;
-        if (is_fighter)
-        {
-            thePerson->has_attacked = true;
-            thePerson->attack(target_tile->occupant);
-            return false;
-        }
-        else 
+        if (!target_tile->is_occupied())
         {
             thePerson->has_attacked = false;
-            thePerson->talk_to(target_tile->occupant);
+            thePerson->combat->last_victim = NULL;
+            thePerson->put_person(target_tile, new_x, new_y);
             return true;
-        };
+        }
+
+        //fight if the tile is occupied
+        else if (target_tile->is_occupied())
+        {
+            bool is_fighter = target_tile->occupant->is_fighter;
+            if (is_fighter)
+            {
+                thePerson->has_attacked = true;
+                thePerson->attack(target_tile->occupant);
+                return false;
+            }
+            else 
+            {
+                thePerson->has_attacked = false;
+                thePerson->talk_to(target_tile->occupant);
+                return true;
+            };
+        }
     }
 
     //doors
