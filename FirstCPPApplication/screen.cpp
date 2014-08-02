@@ -267,6 +267,7 @@ std::string strip_tcodcolor(std::string in_string)
 ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     ScreenItem result;
+    result.key = this->key;
     TCODColor foreground, background;
     std::vector<TCODColor> colors = this->get_enabled_colors(con,  element);
     foreground = colors.at(0);
@@ -389,6 +390,7 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
 ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     ScreenItem result;
+    result.key = this->key;
 
     char buffer[512];
 
@@ -480,6 +482,7 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     ScreenItem result;
+    result.key = this->key;
 
     bool has_duration;
     bool is_chosen = this->is_chosen(element);
@@ -547,6 +550,7 @@ void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 ScreenItem MainMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
     ScreenItem result;
+    result.key = this->key;
 
     bool has_duration;
     bool is_chosen = this->is_chosen(element);

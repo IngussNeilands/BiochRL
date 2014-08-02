@@ -2,11 +2,14 @@
 #include "screenitem.h"
 #include <game.h>
 #include <ui.h>
+#include "input.h"
 
 ScreenItem::ScreenItem()
 {
     this->min_y = NULL;
     this->max_y = NULL;
+
+    this->key = NULL;
 
     this->foreground = TCODColor::white;
     this->background = TCODColor::black;
@@ -31,6 +34,7 @@ void ScreenItem::handle_mouse(int& i)
             {
                 Ui::chosen_generic = (this->element);
                 Ui::generic_active = false;
+                Input::generic_index = this->key;
             }
             else if ( (this->element) == Ui::chosen_generic)
             {

@@ -7,6 +7,8 @@ class ScreenItem
     public:
         int min_y, max_y; //mouse boundaries
 
+        char key;
+
         TCODColor foreground;
         TCODColor background;
         std::string msg_str;
