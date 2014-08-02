@@ -812,13 +812,15 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     Tile *target_tile; // the tile of the new position
     target_tile = getTileAt(new_x, new_y);
 
-    int vec[] = {FloorTileTypeType, WarpTileTypeType, StairsDownTileTypeType, StairsUpTileTypeType}; //walkable types of tiles
-    std::vector<int> vec_ints(vec, vec+4);
-    bool in_types = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id)!=vec_ints.end();
+    int walkable_tile_types[] = { //walkable types of tiles
+        FloorTileTypeType,
+        WarpTileTypeType,
+        StairsDownTileTypeType,
+        StairsUpTileTypeType };
+    std::vector<int> vec_ints(walkable_tile_types, walkable_tile_types+4);
+    bool is_walkable = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id) != vec_ints.end();
 
-    if (this->pos_in_map(new_x, new_y) && in_types && !target_tile->is_occupied())
-        // if (new_x < width && new_x > -1 && new_y < height && new_y > -1 &&
-        // in_types && !target_tile->is_occupied())
+    if (this->pos_in_map(new_x, new_y) && is_walkable && !target_tile->is_occupied())
     {
         thePerson->has_attacked = false;
         thePerson->combat->last_victim = NULL;
