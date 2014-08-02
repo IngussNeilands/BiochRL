@@ -153,6 +153,9 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
         Actor* occupant = target_tile->occupant;
         help_text = occupant->name;
         float health_percent = occupant->attrs->health->GetValPercentage();
+        // std::stringstream ss;
+        // ss << health_percent;
+        // messages.push_back(ss.str());
         if (health_percent > 75.0f) { health_text = "It's healthy."; }
         else if  (health_percent > 50.0f ) { health_text = "It's hurt."; }
         else if  (health_percent > 25.0f ) { health_text = "It's very hurt."; }
@@ -554,7 +557,7 @@ void Ui::format_attribute(Attribute* attr, char buffer[])
     sprintf(buffer, msg_template.c_str(), (int)attr->current_val, (int)attr->max_val, (int)attr->regen_rate, (int)attr->regen_interval);
 };
 
-template<typename T>
+    template<typename T>
 void Ui::print_attribute(TCODConsole* con, Attribute* attr, char buffer[], int& offset, int& i, std::string name)
 {
     con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, colfg(T::attribute_color, name).c_str());

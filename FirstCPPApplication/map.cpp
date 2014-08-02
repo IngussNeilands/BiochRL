@@ -863,7 +863,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
             int range = 2;
             for (int i=1; i<=range; i++)
             {
-                Tile* tile = person_tile->getTileAtRelative(x2*i, y2*i);
+                Tile* tile = person_tile->getTileAtRelative(x2, y2, i);
                 tiles_in_range.push_back(tile);
                 if (tile->is_occupied())
                 {

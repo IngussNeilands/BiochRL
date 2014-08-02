@@ -321,11 +321,11 @@ void Tile::updateTileType(int type )
 
 };
 
-Tile* Tile::getTileAtRelative(int x, int y)
+Tile* Tile::getTileAtRelative(int x, int y, int scale)
 {
     //if tile is in map get tile, otherwise fail nicely
-    int new_x = this->tile_x + x;
-    int new_y = this->tile_y + y;
+    int new_x = this->tile_x + (x*scale);
+    int new_y = this->tile_y + (y*scale);
 
     return this->map->getTileAt(new_x, new_y);
 };

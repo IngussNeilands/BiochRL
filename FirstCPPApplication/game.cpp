@@ -683,8 +683,8 @@ void give_player_god_mode()
     player->attrs->mana->regen_rate=100;
     player->attrs->mana->regen_interval=500;
 
-    player->attrs->damage->current_val=500;
-    player->attrs->damage->max_val=500;
+    // player->attrs->damage->current_val=500;
+    // player->attrs->damage->max_val=500;
 
     player->attrs->armor->current_val=0;
     player->attrs->armor->max_val=0;

@@ -165,7 +165,7 @@ class Tile : public Object
         void makeOccupied(Actor* the_actor);
         void makeUnoccupied(Actor* the_actor);
 
-        Tile* getTileAtRelative(int x, int y);
+        Tile* getTileAtRelative(int x, int y, int scale=1);
         tile_vec_t* getAdjacentTiles(int scale = 1);
         tile_vec_t* getVacantAdjacentTiles();
 
