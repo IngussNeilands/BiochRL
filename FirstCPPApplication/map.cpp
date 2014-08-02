@@ -821,33 +821,82 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     std::vector<int> vec_ints(walkable_tile_types, walkable_tile_types+4);
     bool is_walkable_tile = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id) != vec_ints.end();
 
+	// std::cout << "shift is pressed? " << BoolToString(Game::key_evt.shift) << std::endl;
+
     if (this->pos_in_map(new_x, new_y) && is_walkable_tile)
     {
-        if (!target_tile->is_occupied())
+        if (Game::key_evt.shift == 0)
         {
-            thePerson->has_attacked = false;
-            thePerson->combat->last_victim = NULL;
-            thePerson->put_person(target_tile, new_x, new_y);
-            return true;
-        }
-
-        //fight if the tile is occupied
-        else if (target_tile->is_occupied())
-        {
-            bool is_fighter = target_tile->occupant->is_fighter;
-            if (is_fighter)
-            {
-                thePerson->has_attacked = true;
-                thePerson->attack(target_tile->occupant);
-                return false;
-            }
-            else 
+            if (!target_tile->is_occupied())
             {
                 thePerson->has_attacked = false;
-                thePerson->talk_to(target_tile->occupant);
+                thePerson->combat->last_victim = NULL;
+                thePerson->put_person(target_tile, new_x, new_y);
                 return true;
-            };
+            }
+
+            //fight if the tile is occupied
+            else if (target_tile->is_occupied())
+            {
+                bool is_fighter = target_tile->occupant->is_fighter;
+                if (is_fighter)
+                {
+                    thePerson->has_attacked = true;
+                    thePerson->attack(target_tile->occupant);
+                    return false;
+                }
+                else 
+                {
+                    thePerson->has_attacked = false;
+                    thePerson->talk_to(target_tile->occupant);
+                    return true;
+                };
+            }
         }
+        else //attack in that direction
+        {
+            thePerson->has_attacked = true;
+
+            //for tile in range of weapon, attack the first one that comes up
+            tile_vec_t tiles_in_range = tile_vec_t();
+            actor_vec_t targets_in_range = actor_vec_t();
+            int range = 2;
+            for (int i=1; i<=range; i++)
+            {
+                Tile* tile = person_tile->getTileAtRelative(x2*i, y2*i);
+                tiles_in_range.push_back(tile);
+                if (tile->is_occupied())
+                {
+                    targets_in_range.push_back(tile->occupant);
+                };
+            };
+
+            if (targets_in_range.empty())
+            {
+                new Message(Ui::msg_handler_main, DAMAGE_GIVEN_MSG, "You swing at the air, wasting your time.");
+            };
+
+            //try to attack each tile in range
+            for (auto it = tiles_in_range.begin(); it!=tiles_in_range.end(); it++)
+            {
+                Tile* tile_in_range = *it;
+                if (tile_in_range->is_occupied())
+                {
+                    bool is_fighter = tile_in_range->occupant->is_fighter;
+                    if (is_fighter)
+                    {
+                        thePerson->attack(tile_in_range->occupant);
+                    }
+                    // else  //no talking in forced attack mode
+                    // {
+                    //     thePerson->has_attacked = false;
+                    //     thePerson->talk_to(tile_in_range->occupant);
+                    //     return true;
+                    // };
+                }
+            };
+            return false;
+        };
     }
 
     //doors

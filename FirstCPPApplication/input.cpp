@@ -1599,7 +1599,16 @@ bool Input::process_key_event(TCOD_key_t request)
                 }
                 else
                 {
-                    std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                    auto vk_map = Input::get_tcodkey_to_string_map();
+                    if (request.c == 0 && vk_map.find(request.vk) != vk_map.end())
+                    {
+                        std::cout << std::endl << "command not found: " << vk_map.at(request.vk) << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                    };
+                    // std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
                     std::cout << "nswe or numpad to move, i to open inventory, ESC to quit, o to open doors" << std::endl;
                     std::cout << "c to open character sheet, m and k to cast spells, ? for help, > to go down" << std::endl;
                 }
