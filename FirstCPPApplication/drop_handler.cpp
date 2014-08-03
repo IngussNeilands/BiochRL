@@ -472,8 +472,7 @@ Item* spawnSpecial()
         int mana = rng->getInt(1, 5, 2);
         dropped_item->attr_effect->armor_current_val = armor;
         dropped_item->attr_effect->armor_max_val = armor;
-        dropped_item->attr_effect->damage_current_val = damage;
-        dropped_item->attr_effect->damage_max_val = damage;
+        dropped_item->attr_effect->damage->normal = damage;
         dropped_item->attr_effect->mana_regen_rate = mana;
         dropped_item->attr_effect->mana_regen_interval = mana;
 
@@ -506,8 +505,7 @@ Item* spawnSpecial()
         //dagger damage
         // int armor = rng->getInt(1, 5, 2);
         int damage = rng->getInt(10, 50, 20);
-        dropped_item->attr_effect->damage_current_val = damage;
-        dropped_item->attr_effect->damage_max_val = damage;
+        dropped_item->attr_effect->damage->normal = damage;
         dropped_item->attr_effect->duration = 15;
 
 

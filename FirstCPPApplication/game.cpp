@@ -496,8 +496,7 @@ void give_player_debug_items(Actor* player)
         item2->attr_effect->health_current_val = 1;
         item2->attr_effect->mana_current_val = 1;
         item2->attr_effect->armor_current_val = 1;
-        item2->attr_effect->damage_current_val = 900;
-        item2->attr_effect->damage_max_val = 900;
+        item2->attr_effect->damage->normal = 900;
         item2->attr_effect->duration= 4;
         item2->usable = true;
         item2->description = "You can hold this item";
@@ -608,8 +607,7 @@ void  Game::initialize_items()
     dagger->repr->repr = '/';
     dagger->description = "You hid this in your clothes";
     dagger->attr_effect->set_all_vals_to(0);
-    dagger->attr_effect->damage_current_val = 1;
-    dagger->attr_effect->damage_max_val = 1;
+    dagger->attr_effect->damage->normal =  1;
     dagger->slot_type= MainHand;
     dagger->equippable = true;
     player->inventory->add_item(dagger);

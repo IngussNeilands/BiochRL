@@ -73,13 +73,13 @@ class AttrEffect
         int mana_regen_rate;
         int mana_regen_interval; 
 
+        Armor* armor;
         int armor_current_val;
         int armor_max_val;
         int armor_regen_rate;
         int armor_regen_interval; 
 
-        int damage_current_val;
-        int damage_max_val;
+        Damage* damage;
         int damage_regen_rate;
         int damage_regen_interval; 
 
@@ -88,8 +88,6 @@ class AttrEffect
         int hunger_regen_rate;
         int hunger_regen_interval; 
 
-        Damage* damage;
-        Armor* armor;
 
 
         applied_to_s  applied_to;

@@ -500,7 +500,7 @@ InnerStrengthSpell::InnerStrengthSpell() : Spell()
     this->required_level = 8;
     this->name = "Inner Strength";
     this->element = DeathElement;
-    this->attr_effect->damage_current_val = 15;
+    this->attr_effect->damage->normal = 15;
     this->mana_cost = 20;
     this->max_range = 1;
     this->attr_effect->duration = 23;
@@ -633,8 +633,7 @@ Venipuncture::Venipuncture()
     this->element = LifeElement;
     this->mana_cost = 50;
 
-    this->attr_effect->damage_max_val = 15;
-    this->attr_effect->damage_current_val = 15;
+    this->attr_effect->damage->normal = 15;
     this->attr_effect->duration = 50;
 
     this->max_range = 1;
