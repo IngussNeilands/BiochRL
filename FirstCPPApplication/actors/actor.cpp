@@ -62,7 +62,7 @@ Actor::Actor()
     this->inventory->master = this;
     this->attrs = new AttributeContainer;
     this->attrs->owner = this;
-    this->spells = new std::vector<Spell*>;
+    this->spells = new spell_vec_t;
 
     this->actors_in_sight = new actor_vec_t;
 
@@ -76,6 +76,7 @@ Actor::Actor()
     this->is_moving_up = false;
     this->is_moving_down = false;
     this->is_sneaking = false;
+    this->is_defending = false;
 
     this->l_path = NULL;
     this->has_attacked = false;

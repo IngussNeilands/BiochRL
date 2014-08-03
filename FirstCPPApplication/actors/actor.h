@@ -73,12 +73,14 @@ class Actor : public Object
         bool is_moving_right;
         bool is_moving_up;
         bool is_moving_down;
-        bool is_sneaking;
+
         void resetIsMoving();
         int* get_direction_heading();
 
         actor_vec_t * actors_in_sight;
 
+        bool is_sneaking;
+        bool is_defending;
         bool is_fighter;
         Combat * combat;
         bool has_live_combat;

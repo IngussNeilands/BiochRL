@@ -1239,8 +1239,9 @@ bool Input::move_target(int x, int y)
 
 bool Input::move_player_or_target(int x, int y)
 {
-    if (! Ui::is_targetting)
+    if (!Ui::is_targetting)
     {
+        Game::player->is_defending = false;
         if (Game::current_map->attackMovePlayer(Game::player, x, y))
         { 
             Game::move_camera(x, y);
@@ -1298,22 +1299,11 @@ bool Input::process_movement_keys(TCOD_key_t request)
         Game::player->is_moving_down = true;
         Game::player->is_moving_right = true;
         has_moved = Input::move_player_or_target(1, 1);
-        // if(Game::current_map->attackMovePlayer(Game::player, 1, 1) )
-        // {
-        //     move_camera(1, 1);
-        //     return true;
-        // }
     }
     else if( direction == directions_t::E)
     {
         Game::player->is_moving_right = true;
         has_moved = Input::move_player_or_target(1, 0);
-        // if(Game::current_map->attackMovePlayer(Game::player, 1, 0) )
-        // {
-        //     move_camera(1, 0);
-
-        //     return true;
-        // }
     }
     else if( direction == directions_t::SW)
     {
@@ -1327,23 +1317,11 @@ bool Input::process_movement_keys(TCOD_key_t request)
         Game::player->is_moving_left = true;
         Game::player->is_moving_up = true;
         has_moved = Input::move_player_or_target(-1, -1);
-        // if(Game::current_map->attackMovePlayer(Game::player, -1, -1) )
-        // { 
-        //     move_camera(-1, -1);
-
-        //     return true;
-        // }
     }
     else if( direction == directions_t::W)
     {
         Game::player->is_moving_left = true;
         has_moved = Input::move_player_or_target(-1, 0);
-        // if(Game::current_map->attackMovePlayer(Game::player, -1, 0) )
-        // { 
-        //     move_camera(-1, 0);
-
-        //     return true;
-        // }
     }
     else if( direction == directions_t::X)
     {
@@ -1353,7 +1331,8 @@ bool Input::process_movement_keys(TCOD_key_t request)
         }
         else
         {
-            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Waiting in place.");
+            Game::player->is_defending = true;
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Standing your ground.");
             return true;
         }
     };

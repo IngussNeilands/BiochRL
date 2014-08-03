@@ -632,8 +632,8 @@ void  Game::initialize_items()
     chest_armor->repr->repr = '&';
     chest_armor->description = "This is all you were allowed to wear";
     chest_armor->attr_effect->set_all_vals_to(0);
-    chest_armor->attr_effect->armor_current_val = 2;
-    chest_armor->attr_effect->armor_max_val = 2;
+    chest_armor->attr_effect->armor_current_val = 1;
+    chest_armor->attr_effect->armor_max_val = 1;
     chest_armor->slot_type = Chest;
     chest_armor->equippable = true;
     player->inventory->add_item(chest_armor);
