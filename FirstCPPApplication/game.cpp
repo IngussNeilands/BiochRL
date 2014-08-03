@@ -595,13 +595,6 @@ void Game::move_camera(int dir_x, int dir_y)
 void  Game::initialize_items()
 {
 
-    //put it on the map somewhere
-    // Tile * next_tile = current_map->getTileAt(1,1);
-
-    // Item* item = new Item();
-    // next_tile->place_item_down(item);
-    // items.push_back(item);
-
     Item* dagger = new Item();
     dagger->name = "Prisoner's Shank";
     dagger->repr->repr = '/';
@@ -639,8 +632,8 @@ void  Game::initialize_items()
     chest_armor->repr->repr = '&';
     chest_armor->description = "This is all you were allowed to wear";
     chest_armor->attr_effect->set_all_vals_to(0);
-    chest_armor->attr_effect->armor_current_val = 1;
-    chest_armor->attr_effect->armor_max_val = 1;
+    chest_armor->attr_effect->armor_current_val = 2;
+    chest_armor->attr_effect->armor_max_val = 2;
     chest_armor->slot_type = Chest;
     chest_armor->equippable = true;
     player->inventory->add_item(chest_armor);
