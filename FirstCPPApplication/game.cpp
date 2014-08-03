@@ -104,6 +104,9 @@ bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
 TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_height);
 
+std::priority_queue<Actor*>* Game::game_queue = new std::priority_queue<Actor*>();
+unsigned int Game::queue_ticks = 0;
+
 std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
@@ -316,6 +319,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* w
         };
 
         world->enemies.push_back(the_creature);
+        Game::game_queue->push(the_creature);
     }
     return NULL;
 };
@@ -732,12 +736,15 @@ Person*  Game::initialize_player()
     int y = room->center_y;
     Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
     //player->put_person(next_tile, player->x, player->y);
+
     Game::initialize_items();
 
     // give_player_god_mode();
     // give_player_teleport(player);
 
     Game::center_camera_on_player();
+
+    Game::game_queue->push(player);
 
     return player;
 
@@ -1261,20 +1268,10 @@ void Game::mainloop()
                 break;
         }
 
-        //draw the root console to screen to screen
-        // std::stringstream ss;
-        // std::string msg_str;
-        // msg_str = "%c%c%c%cred test%c%c%c%c%cgreen text now%c";
-        // char buffer[999];
-        // sprintf(buffer, msg_str.c_str(),  TCOD_COLCTRL_FORE_RGB, 255, 1, 1, TCOD_COLCTRL_STOP, TCOD_COLCTRL_FORE_RGB, 255, 255, 1, TCOD_COLCTRL_STOP);
-        // ss << buffer;
-        // TCODConsole::root->print(0, 0, ss.str().c_str());
-        // TCODConsole::root->print(0, 0, buffer);
 
         TCODConsole::flush();
         TCODConsole::root->clear();
 
-        // assert(Game::tick_count!= -1);
         Game::tick_count++;
 
         //when the game is moved, the screen goes black for some reason. This

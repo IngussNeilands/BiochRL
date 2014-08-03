@@ -54,6 +54,8 @@ class Actor : public Object
         int level;
         int xp_value;
 
+        int speed; //required action points required to take an action
+
         std::string img_path;
         TCODImage* get_image();
 

@@ -3,9 +3,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <Vector>
-// #include "input.h"
-// #include "libtcod_cpp_hpp\libtcod.hpp"
 #include "libtcod_cpp_hpp\mouse_types.h"
 #include "libtcod_cpp_hpp\console_types.h"
 
@@ -13,6 +10,9 @@
 #include <enums\screens.h>
 #include <enums\spawntypes_t.h>
 #include <statistics.h>
+
+#include <vector>
+#include <queue>
 
 
 class Map;
@@ -62,6 +62,9 @@ class Game
         static CustomKey* custom_key5;
         static void init_custom_keys();
         static CustomKey* get_free_custom_key();
+
+        static std::priority_queue<Actor*>* game_queue;
+        static unsigned int queue_ticks;
 
         static int fov_radius;
         static std::vector<Actor*> enemies;  

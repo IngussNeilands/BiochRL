@@ -44,6 +44,8 @@ Actor::Actor()
 
     this->img_path = get_data_path()+"img/Troll_Icon_01.png";
 
+    this->speed = 100; 
+
     this->xp = 0;
     this->xp_this_level = 0;
     this->xp_required_to_lvlup = 100;
