@@ -817,34 +817,51 @@ void Game::center_camera_on_player()
 void Game::update()
 {
     //update player
+    if (Game::game_queue->top() == Game::player)
+    {
+        Game::game_queue->pop();
+    }
+    else
+    {
+        std::cout << "not player on top of queue..." << std::endl;
+    };
     Game::player->update();
 
-    //update actors in this floor
-    int enemies_size = Game::current_map->enemies.size();
-    for (actor_vec_t::size_type i = 0; i != enemies_size; i++) 
+    //go through queue and do (or pop) actions for before the players next turn
+    //while queue top is not player -> do actions and then reque them
+    while (Game::game_queue->top() != Game::player)
     {
-        Actor* enemy = Game::current_map->enemies.at(i);
-        // cout << "\t" << enemy->name << "is updating" << endl;
-        if (enemy->is_active && enemy->thinker != NULL)
-        {
-            enemy->update();
-            // printf("updating ai\n");
-        };
-        // printf("updating\n");
-    }
-    //update actors in this floor
-    int allies_size = Game::current_map->allies.size();
-    for (actor_vec_t::size_type i = 0; i != allies_size; i++) 
-    {
-        Actor* ally = Game::current_map->allies.at(i);
-        // cout << "\t" << ally->name << "is updating" << endl;
-        if (ally->is_active && ally->thinker != NULL)
-        {
-            ally->update();
-            // printf("updating ai\n");
-        };
-        // printf("updating\n");
-    }
+        Actor* actor = Game::game_queue->top();
+        Game::queue_ticks = actor->target_queue_tick;
+        Game::add_to_queue(actor);
+    };
+
+    // //update actors in this floor
+    // int enemies_size = Game::current_map->enemies.size();
+    // for (actor_vec_t::size_type i = 0; i != enemies_size; i++) 
+    // {
+    //     Actor* enemy = Game::current_map->enemies.at(i);
+    //     // cout << "\t" << enemy->name << "is updating" << endl;
+    //     if (enemy->is_active && enemy->thinker != NULL)
+    //     {
+    //         enemy->update();
+    //         // printf("updating ai\n");
+    //     };
+    //     // printf("updating\n");
+    // }
+    // //update actors in this floor
+    // int allies_size = Game::current_map->allies.size();
+    // for (actor_vec_t::size_type i = 0; i != allies_size; i++) 
+    // {
+    //     Actor* ally = Game::current_map->allies.at(i);
+    //     // cout << "\t" << ally->name << "is updating" << endl;
+    //     if (ally->is_active && ally->thinker != NULL)
+    //     {
+    //         ally->update();
+    //         // printf("updating ai\n");
+    //     };
+    //     // printf("updating\n");
+    // }
 
     Game::current_map->update();
     // cout << "\t" << "done updating" << endl;
@@ -979,8 +996,7 @@ bool gameplay_loop(bool incr_turn)
     if ((Game::key_evt.vk != NULL || Game::key_evt.c != NULL) && Game::key_evt.pressed == 1 ){
         incr_turn = Input::process_key_event(Game::key_evt);
 
-        //go through queue and do (or pop) actions for before the players next turn
-        //while queue top is not player -> do actions and then reque them
+
     }
 
     if (Game::key_evt.pressed == 1)
