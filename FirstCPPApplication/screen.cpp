@@ -278,7 +278,13 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     std::string letter = colfg(*element->repr->fg_color, char_to_str(element->repr->repr));
     std::string name = colfg(foreground, strip_tcodcolor(element->name));
     std::string weight = colfg(TCODColor::lightGrey, std::string("weighs ")+std::to_string((long double)element->weight)+" stones");
-    ss << key << "-" << letter << " " << name << " : " << weight;
+    std::string range = "";
+    if (element->range != 1)
+    {
+        range = colfg(TCODColor::lightGrey, ", reach of ")+colfg(TCODColor::lightGrey, element->range);
+    }
+
+    ss << key << "-" << letter << " " << name << " : " << weight << range;
 
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
@@ -374,11 +380,8 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
     i++;
 
     //print the item effects
-    // std::string msg = ((T*)si.element)->attr_effect->oneline_str();
-    // std::vector<TCOD_colctrl_t> colctrl_vec = ((T*)si.element)->attr_effect->oneline_str_colours();
     con->print(this->offset, i, ((T*)si.element)->attr_effect->oneline_str_FIXED().c_str());
     si.max_y = i;
-    // printf("setting min %d max %d\n", si.min_y, si.max_y);
     i++;
     i++;
 };
