@@ -792,6 +792,9 @@ bool Map::pos_in_map(int x, int y)
 
 bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
 {
+    //TODO move all of this to input.cpp or something
+
+
     // std::cout << "trying to move player" << std::endl;
     assert(thePerson->combat != NULL);
 
@@ -822,7 +825,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     std::vector<int> vec_ints(walkable_tile_types, walkable_tile_types+4);
     bool is_walkable_tile = std::find(vec_ints.begin(), vec_ints.end(), target_tile->type_id) != vec_ints.end();
 
-	// std::cout << "shift is pressed? " << BoolToString(Game::key_evt.shift) << std::endl;
+    // std::cout << "shift is pressed? " << BoolToString(Game::key_evt.shift) << std::endl;
 
     if (this->pos_in_map(new_x, new_y) && is_walkable_tile)
     {

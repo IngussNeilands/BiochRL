@@ -593,10 +593,29 @@ void Ui::print_class(TCODConsole* con, int& offset, int& i)
     con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "%s", player->actor_class->name.c_str());
     i++;
     i++;
+};
 
-    //std::string msg_template = "%i out of %i XP to next level, with %i total.";
-    //sprintf(buffer, msg_template.c_str(), player->xp_this_level, player->xp_required_to_lvlup, player->xp);
-    //con->printEx(3, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, buffer);
+void Ui::print_weapon_data(TCODConsole* con, int& offset, int& i)
+{
+    // char buffer[100];
+    Person* player = Game::player;
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "MAIN WEAPON");
+    i++;
+    Equipment* equipment = player->equipment;
+    std::stringstream ss;
+    Item* main_weap = equipment->main_weapon->equipped_item;
+    if (main_weap == NULL)
+    {
+        ss << "No main weapon selected";
+    }
+    else
+    {
+        ss << main_weap->name << " dealing " << colfg(DamageAttribute::attribute_color, main_weap->attr_effect->damage->get_raw_total()) << " extra damage at " << main_weap->range << " range.";
+    }
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
+    i++;
+    i++;
+
 };
 
     template<typename T1, typename T2>
@@ -657,6 +676,8 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 
     print_experience(con, offset,  i);
     print_class(con, offset,  i);
+    i++;
+    print_weapon_data(con, offset,  i);
 
 };
 
