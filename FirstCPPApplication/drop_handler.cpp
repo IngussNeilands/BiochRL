@@ -193,7 +193,7 @@ Item* spawnArmor()
     {
         std::string description = "It looks like it's made up of leather hide.";
         dropped_item = spawnEquippable("Leather Chestpiece", description, '#', slots_t::Chest, 10);
-        dropped_item->repr->setFGColor(TCODColor::darkestRed, true, false, true);
+        dropped_item->repr->setFGColor(TCODColor::darkerRed, true, false, true);
         dropped_item->set_and_name_for_arm("Some", "Leather Chestpiece", rng, 2, 6, 2);
     }
     else if (result == ShieldSpawn)
