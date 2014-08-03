@@ -104,7 +104,7 @@ bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
 TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_height);
 
-std::priority_queue<Actor*>* Game::game_queue = new std::priority_queue<Actor*>();
+std::priority_queue<Actor*, std::vector<Actor*>, CompareQueueTicks>* Game::game_queue = new std::priority_queue<Actor*, std::vector<Actor*>, CompareQueueTicks>();
 unsigned int Game::queue_ticks = 0;
 
 std::string Game::last_cmd = "not set";
@@ -138,6 +138,13 @@ TCODRandom* Game::stat_rolls_rng = new TCODRandom();
 TCODRandom* Game::dungeon_builder_rng = new TCODRandom();
 
 Statistics* Game::stats = new Statistics();
+
+bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
+        {
+            if (left->speed < right->speed) { return true; }
+			if (left->speed == right->speed) { return false; }
+            if (left->speed > right->speed) { return false; }
+        };
 
 
 std::string Game::get_version()
@@ -714,7 +721,6 @@ Person*  Game::initialize_player()
     player->attrs->hunger->current_val=210;
     player->attrs->hunger->regen_interval=5;
 
-    //LPWSTR name = "asdasd";
     ClassType chosen_type = Parser().get_preferred_class_type();
     std::vector<IClass*>* choices = Actor::actor_class_choices;
     for (std::vector<IClass*>::iterator it = choices->begin(); it != choices->end(); it++)
@@ -724,18 +730,15 @@ Person*  Game::initialize_player()
             player->actor_class = cls;
     };
     player->representation->setFGColor(player->actor_class->fg_color, true, true, true);
-    // player->actor_class = new FighterClass;
     player->actor_class->master = player;
 
     delete player->thinker;
     player->thinker = NULL;
 
-    //Tile* next_tile = Game::current_map->getTileAt(player->x, player->y);
     Room* room = Game::current_map->roomVector->front();
     int x = room->center_x;
     int y = room->center_y;
     Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
-    //player->put_person(next_tile, player->x, player->y);
 
     Game::initialize_items();
 
@@ -744,6 +747,7 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
+    player->speed = 150;
     Game::game_queue->push(player);
 
     return player;
@@ -955,6 +959,7 @@ bool menu_loop(bool incr_turn)
 
 bool gameplay_loop(bool incr_turn)
 {
+	// std::cout << Game::game_queue->top()->name << std::endl;
     if (incr_turn)
     {
 
@@ -964,6 +969,10 @@ bool gameplay_loop(bool incr_turn)
         printf("\n-------------[ TURN: %d ]-------------\n", Game::turn_count);
         incr_turn = false;
     }
+
+    //go through queue and do (or pop) actions
+    //requeue unqueued people
+    //take player input once he's got a turn
 
     if ((Game::key_evt.vk != NULL || Game::key_evt.c != NULL) && Game::key_evt.pressed == 1 ){
         incr_turn = Input::process_key_event(Game::key_evt);

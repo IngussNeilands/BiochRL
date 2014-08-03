@@ -37,6 +37,12 @@ class TCODConsole;
 class TCODRandom;
 class CustomKey;
 
+class CompareQueueTicks
+{
+    public:
+        bool operator () (Actor* left, Actor* right) const;
+};
+
 class Game
 {
     public:
@@ -63,7 +69,7 @@ class Game
         static void init_custom_keys();
         static CustomKey* get_free_custom_key();
 
-        static std::priority_queue<Actor*>* game_queue;
+        static std::priority_queue<Actor*, std::vector<Actor*>, CompareQueueTicks>* game_queue;
         static unsigned int queue_ticks;
 
         static int fov_radius;
