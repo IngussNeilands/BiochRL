@@ -1402,7 +1402,8 @@ bool Input::process_mouse_event(TCOD_mouse_t request)
 
     if (request.lbutton_pressed && !Ui::is_targetting)
     {
-        Game::center_camera_on(Game::get_mouse_tile());
+        Tile* mouse_tile = Game::get_mouse_tile();
+        Game::center_camera_on(mouse_tile);
     }
 
     if (request.lbutton_pressed && Ui::is_targetting)

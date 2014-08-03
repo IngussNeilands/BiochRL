@@ -643,6 +643,44 @@ Venipuncture::Venipuncture()
     this->mana_percentage = true;
 };
 
+Bonewall::Bonewall()
+{
+    this->required_level = 4;
+    this->name = "Bonewall";
+    this->element = DeathElement;
+    this->mana_cost = 5;
+
+    // this->attr_effect->damage->normal = 15;
+    // this->attr_effect->duration = 50;
+
+    this->max_range = 6;
+    this->target_type = GroundTargetType;
+
+    this->mana_type = BloodManaType;
+    this->mana_percentage = false;
+};
+
+bool Bonewall::cast(Tile* targetted_tile)
+{
+    if (targetted_tile->is_occupied())
+    {
+        return false;
+    };
+
+    targetted_tile->updateTileType(WallTileTypeType);
+
+    this->cast_count += 1;
+    this->spend_mana();
+
+    if (this->master == Game::player)
+    {
+        Game::stats->spells_cast++;
+    };
+
+
+    return true;
+};
+
 
 /* misc */
 

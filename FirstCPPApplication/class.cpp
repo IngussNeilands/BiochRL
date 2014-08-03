@@ -279,7 +279,7 @@ BloodMageClass::BloodMageClass() : IClass()
     this->starting_attrs->mana->regen_interval = 10;
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new Venipuncture()));
-    this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
+    this->spell_map->insert(std::make_pair<int, Spell*>(4, new Bonewall()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new DeathsHandSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerStrengthSpell()));
 
