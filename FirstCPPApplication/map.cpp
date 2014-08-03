@@ -27,6 +27,7 @@
 #include "attribute.h"
 #include "attribute_container.h"
 #include "thinker.h"
+#include <equipment.h>
 
 Map::Map()
 {
@@ -860,7 +861,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
             //for tile in range of weapon, attack the first one that comes up
             tile_vec_t tiles_in_range = tile_vec_t();
             actor_vec_t targets_in_range = actor_vec_t();
-            int range = 2;
+            int range = thePerson->equipment != NULL ? thePerson->equipment->get_primary_range() : Equipment::default_primary_range;
             for (int i=1; i<=range; i++)
             {
                 Tile* tile = person_tile->getTileAtRelative(x2, y2, i);

@@ -55,6 +55,9 @@ class Equipment
         void unequip_item(Item* item);
         void equip_item(Item* item);
 
+        static const int default_primary_range = 1;
+        int get_primary_range();
+
         std::vector<Slot*>* slots;
 
         Slot* get_slots_for_type(slots_t slot_type);

@@ -27,6 +27,8 @@ class Item
         int uses;
         bool equippable;
 
+        int range;
+
         Spell* spell_effect;
 
         AttrEffect* attr_effect;

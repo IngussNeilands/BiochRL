@@ -155,6 +155,17 @@ Equipment::Equipment()
 
 };
 
+int Equipment::get_primary_range()
+{
+    int result = Equipment::default_primary_range;
+    if (this->main_weapon->equipped_item != NULL)
+    {
+        result = this->main_weapon->equipped_item->range;
+    }
+
+    return result;
+};
+
 Slot* Equipment::get_slots_for_type(slots_t slot_type)
 {
 

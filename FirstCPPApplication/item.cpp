@@ -17,6 +17,8 @@ Item::Item()
     this->attr_effect = new AttrEffect;
     this->weight = 1;
 
+    this->range = 1;
+
     this->name = "A Nameless Item";
     this->description = "A Descriptionless Item.";
 
