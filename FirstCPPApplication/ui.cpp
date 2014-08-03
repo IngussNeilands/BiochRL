@@ -264,7 +264,18 @@ void Ui::draw_ui_sidebar()
     std::string class_msg = Game::player->actor_class->name.c_str();
     if (Game::player->is_sneaking)
     { 
-        class_msg.append(colfg(TCODColor::lightGrey, " Sneaking"));
+        if (Game::player->is_defending)
+        {
+            class_msg.append(colfg(TCODColor::lightGrey, " Dfnd/Snk"));
+        }
+        else
+        {
+            class_msg.append(colfg(TCODColor::lightGrey, " Sneaking"));
+        };
+    }
+    else if (Game::player->is_defending)
+    {
+        class_msg.append(colfg(TCODColor::lightGrey, " Defending"));
     };
     ui_sidebar_con->print(0, first_y, class_msg.c_str());
     first_y++;
