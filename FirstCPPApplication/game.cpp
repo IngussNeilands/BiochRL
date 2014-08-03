@@ -1277,6 +1277,7 @@ void Game::mainloop()
         // ss << buffer;
         // TCODConsole::root->print(0, 0, ss.str().c_str());
         // TCODConsole::root->print(0, 0, buffer);
+
         TCODConsole::flush();
         TCODConsole::root->clear();
 

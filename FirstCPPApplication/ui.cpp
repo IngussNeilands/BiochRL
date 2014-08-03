@@ -456,9 +456,19 @@ void Ui::draw_misc()
             int x = Game::player->x, y = Game::player->y;
             Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
         }
-
-
     }
+
+    //draw attack range
+    if (Game::key_evt.shift == 1)
+    {
+        tile_vec_t* tiles_in_range = Game::player->my_tile->getAdjacentTiles(Game::player->equipment->get_primary_range());
+        for (auto it = tiles_in_range->begin(); it!=tiles_in_range->end(); it++)
+        {
+            Tile* tile = *it;
+            Game::game_console->setCharBackground(tile->tile_x, tile->tile_y, TCODColor::darkestGrey);
+        }
+        delete tiles_in_range;
+    };
 }
 
 void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
