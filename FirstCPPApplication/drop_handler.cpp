@@ -27,14 +27,14 @@
 
 Item* spawnItemBase(std::string name, std::string description, char repr, slots_t slot, int weight)
 {
-        Item* dropped_item = new Item;
-        dropped_item->repr->repr = repr;
-        dropped_item->name = colfg(TCODColor::lightestGreen, name);
-        dropped_item->description = description;
-        dropped_item->slot_type = slot;
-        dropped_item->weight = weight;
-        dropped_item->attr_effect->set_all_vals_to(0);
-        return dropped_item;
+    Item* dropped_item = new Item;
+    dropped_item->repr->repr = repr;
+    dropped_item->name = colfg(TCODColor::lightestGreen, name);
+    dropped_item->description = description;
+    dropped_item->slot_type = slot;
+    dropped_item->weight = weight;
+    dropped_item->attr_effect->set_all_vals_to(0);
+    return dropped_item;
 };
 
 Item* spawnEquippable(std::string name, std::string description, char repr, slots_t slot, int weight)
@@ -209,7 +209,7 @@ Item* spawnArmor()
         dropped_item = spawnEquippable("A target shield", description, ']', slots_t::OffHand, 6);
         dropped_item->repr->setFGColor(TCODColor::lightestGrey, true, false, true);
         dropped_item->set_and_name_for_arm("A", "target shield", rng, 3, 7, 3);
-        
+
     }
     else if (result == KiteShieldSpawn)
     {

@@ -42,7 +42,7 @@ class AttributeContainer
 
         void Update();
         std::string PrettyPrint();
-		std::vector<std::string> PrettyVector();
+        std::vector<std::string> PrettyVector();
         std::vector<std::string> PrettyVectorColored();
 
 };

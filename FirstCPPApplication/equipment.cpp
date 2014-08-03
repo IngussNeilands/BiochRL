@@ -178,7 +178,7 @@ Slot* Equipment::get_slots_for_type(slots_t slot_type)
         }
     }
 
-	return NULL;
+    return NULL;
 
 }
 
@@ -205,14 +205,14 @@ spell_vec_t Equipment::get_spells_attached()
     spell_vec_t spells = spell_vec_t();
 
     auto equipment = this->get_items_equipped();
-	for (auto it = equipment.begin(); it!=equipment.end(); it++)
-	{
-		Item* item = *it;
-		if (item->spell_effect != NULL)
-		{
-			spells.push_back(item->spell_effect);
-		}
-	}
+    for (auto it = equipment.begin(); it!=equipment.end(); it++)
+    {
+        Item* item = *it;
+        if (item->spell_effect != NULL)
+        {
+            spells.push_back(item->spell_effect);
+        }
+    }
 
     return spells;
 };

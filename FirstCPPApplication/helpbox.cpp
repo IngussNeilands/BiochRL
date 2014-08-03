@@ -206,7 +206,7 @@ DialogHelpBox::~DialogHelpBox()
     this->messages.clear();
 
     //remove from vectors if its in any
-	auto that = this;
+    auto that = this;
     Ui::alerts.erase(
             std::remove_if(
                 Ui::alerts.begin(),

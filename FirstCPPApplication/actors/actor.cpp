@@ -113,7 +113,7 @@ Actor::~Actor()
     delete this->timed_spell_effects;
 
     delete this->actors_in_sight;
-	//std::cout << "DELETE ACTOR: " << this->inventory << std::endl;
+    //std::cout << "DELETE ACTOR: " << this->inventory << std::endl;
     delete this->inventory;
     delete this->representation;
     delete this->attrs;
@@ -336,7 +336,7 @@ void Actor::die()
     {
         Combat* last_attacker = this->combat->get_last_attacker();
         if (last_attacker != NULL && last_attacker->master == Game::player) //TODO why was this commented out?
-        //if (last_attacker->master == Game::player)
+            //if (last_attacker->master == Game::player)
         {
             Game::stats->monsters_killed++;
         };

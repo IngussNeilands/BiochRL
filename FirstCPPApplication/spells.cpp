@@ -114,15 +114,15 @@ int Spell::get_mana_cost()
     }
     else 
     {
-		Attribute* attr;
-		if (this->mana_type == ManaManaType)
-		{
-			attr = this->master->attrs->mana;
-		}
-		else if (this->mana_type == BloodManaType)
-		{
-			attr = this->master->attrs->health;
-		}
+        Attribute* attr;
+        if (this->mana_type == ManaManaType)
+        {
+            attr = this->master->attrs->mana;
+        }
+        else if (this->mana_type == BloodManaType)
+        {
+            attr = this->master->attrs->health;
+        }
         int new_cost = ((float)this->mana_cost / 100) * (float)attr->max_val; 
         new_cost = std::max((long double)1.0, (long double)new_cost);
         return (int)new_cost;

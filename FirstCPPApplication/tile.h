@@ -104,10 +104,11 @@ class Tile : public Object
         bool _is_known;
         bool is_deleted;
 
+
+    public:
         BaseTileType* custom_tile;
         BaseTileType* tile;
 
-    public:
         static BaseTileType* BaseType; //all tile types must inherit this
         static WarpTileType* WarpType;
         static WallTileType* WallType;

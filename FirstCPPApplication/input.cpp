@@ -571,7 +571,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
             //std::cout << "there's a stair down here, its gon go down" << std::endl;
             new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair up here, its gon go down to the next floor.");
-            ((StairsUpTileType*)stair_tile)->GoUp();
+            ((StairsUpTileType*)stair_tile->tile)->GoUp();
         }
         else
         {

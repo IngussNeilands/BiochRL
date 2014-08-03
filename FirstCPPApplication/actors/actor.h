@@ -56,7 +56,7 @@ class Actor : public Object
 
         std::string img_path;
         TCODImage* get_image();
-        
+
         bool is_champion;
         bool is_hero;
         static int champ_chance;

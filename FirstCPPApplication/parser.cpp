@@ -65,10 +65,10 @@ ClassType Parser::get_preferred_class_type()
 std::string Parser::get_font_path()
 {
     const char* font_path = this->tcod_parser->getStringProperty("general.font_path");
-	if (font_path == NULL)
-	{
-		return "data/terminal.png";
-	}
+    if (font_path == NULL)
+    {
+        return "data/terminal.png";
+    }
     return std::string(font_path);
 };
 

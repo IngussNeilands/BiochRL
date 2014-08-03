@@ -22,7 +22,7 @@ using namespace std;
 
 std::string random_msg()
 {
-	static const std::string msg_array[] = {
+    static const std::string msg_array[] = {
         "Nhthfg Oheaf Erq vf zhfvp",
         "Fyrrcvat va gur Genva Lneq vf n terng fbat",
         "Vs lbhe tnzr unf tencuvpf, punaprf ner vg'f abg n ebthryvxr",
@@ -42,7 +42,7 @@ std::string random_msg()
         "Purpx lbhe cevivyrtr"
 
 
-        "Cercner gb qvr!"
+            "Cercner gb qvr!"
     };
     // std::vector<std::string> msg_vector;
     TCODRandom *rng=TCODRandom::getInstance();
@@ -52,18 +52,18 @@ std::string random_msg()
 
 std::string ROT13(std::string source)
 {
-	std::string transformed;
-	for (size_t i = 0; i < source.size(); ++i) {
-		if (isalpha(source[i])) {
-			if ((tolower(source[i]) - 'a') < 13)
-				transformed.append(1, source[i] + 13);
-			else
-				transformed.append(1, source[i] - 13);
-		} else {
-			transformed.append(1, source[i]);
-		}
-	}
-	return transformed;
+    std::string transformed;
+    for (size_t i = 0; i < source.size(); ++i) {
+        if (isalpha(source[i])) {
+            if ((tolower(source[i]) - 'a') < 13)
+                transformed.append(1, source[i] + 13);
+            else
+                transformed.append(1, source[i] - 13);
+        } else {
+            transformed.append(1, source[i]);
+        }
+    }
+    return transformed;
 }
 
 void WelcomeMessage(){

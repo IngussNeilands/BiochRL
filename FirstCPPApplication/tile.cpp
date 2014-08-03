@@ -47,7 +47,7 @@ Tile::Tile()
     this->inventory = new Inventory();
 
     this->is_open = false;
-    
+
     this->tile_x = -1;
     this->tile_y = -1;
 
@@ -92,11 +92,11 @@ Tile::~Tile()
     // delete this->occupants;
 
 
-	//if (this->inventory != NULL)
-	//{
+    //if (this->inventory != NULL)
+    //{
     delete this->inventory; //TODO impl delete inventory
-	this->inventory = NULL;
-	//};
+    this->inventory = NULL;
+    //};
     if (this->is_custom_tile)
     {
         delete this->custom_tile;
@@ -562,12 +562,12 @@ void StairsUpTileType::GoUp()
     auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_up);
     if (it != Game::atlas->end())
     {
-        Game::current_map = *it;
         // Room* room = Game::current_map->roomVector->front();
         int x = this->to_x;
         int y = this->to_y;
         // int x = room->center_x;
         // int y = room->center_y;
+        Game::current_map = *it;
         Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
     };
 
@@ -597,8 +597,9 @@ void StairsDownTileType::GoDown()
     //this->stair_x = x;
     //this->stair_y = y;
     stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
-    //(StairsUpTileType*)(stair_tile->tile)->to_x = x;
-    //(StairsUpTileType*)(stair_tile-tile)->to_y = y;
+    StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tile);
+    cast_tile->to_x = x;
+    cast_tile->to_y = y;
     Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
 
