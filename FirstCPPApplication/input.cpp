@@ -472,7 +472,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
             }
         }
         details_msgs.push_back(" ");
-        details_msgs.push_back("Hit N to continue");
+        details_msgs.push_back("Hit N/Q to continue");
         DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, Game::game_console);
         details_dialog->return_screen = Game::current_screen;
         details_dialog->y = 5;
@@ -1072,7 +1072,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
         ss.str("");
         ss.clear();
         examine_msgs.push_back("");
-        examine_msgs.push_back("Hit N to continue");
+        examine_msgs.push_back("Hit N/Q to continue");
         DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, NULL, &close_all, TCODConsole::root);
         examine_dialog->return_screen = Game::current_screen;
         examine_dialog->y = 5;
@@ -1083,7 +1083,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
         std::vector<std::string> details_msgs = iclass->starting_attrs->PrettyVectorColored();
         details_msgs.insert(details_msgs.begin(), "Examining "+iclass->name);
         details_msgs.push_back(" ");
-        details_msgs.push_back("Hit N to continue");
+        details_msgs.push_back("Hit N/Q to continue");
         DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, NULL, &close_all, TCODConsole::root);
         details_dialog->return_screen = Game::current_screen;
         details_dialog->y = 5;

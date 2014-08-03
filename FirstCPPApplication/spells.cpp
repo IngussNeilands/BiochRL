@@ -18,6 +18,7 @@
 #include "enemies\skeleton.h"
 #include "map.h"
 #include <thinker.h>
+#include <helpbox.h>
 
 
 Spell::Spell()
@@ -145,6 +146,22 @@ bool Spell::has_enough_mana()
             return true;
         }
     }
+    
+    std::vector<std::string> alert_msgs = std::vector<std::string>();
+    alert_msgs.push_back("No mana for this cast!");
+    alert_msgs.push_back("Drink a potion or stand your ground for a while.");
+    alert_msgs.push_back(" ");
+    alert_msgs.push_back("Hit N/Q to continue");
+
+    DialogHelpBox* mana_alert = new DialogHelpBox(alert_msgs, Game::game_console);
+    mana_alert->return_screen = Game::current_screen;
+    mana_alert->y = 15;
+    mana_alert->x = 20;
+	mana_alert->resize(25, mana_alert->height);
+
+    Ui::alerts.push_back(mana_alert);
+    Game::current_screen = Screens::AlertScreenType;
+
     new Message(Ui::msg_handler_main, NOTYPE_MSG, "No mana for this cast!");
     return false;
 };
