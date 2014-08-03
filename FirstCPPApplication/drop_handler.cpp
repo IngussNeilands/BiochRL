@@ -97,6 +97,7 @@ Item* spawnWeapon()
         dropped_item = spawnEquippable("A trident", description, '/', slots_t::MainHand, 14);
         dropped_item->repr->setFGColor(TCODColor::desaturatedBlue, true, false, true);
         dropped_item->set_and_name_for_dmg("A", "trident", rng, 4, 20, 10);
+        dropped_item->range=2;
     }
     else if (result == WhipSpawn)
     {
@@ -104,6 +105,7 @@ Item* spawnWeapon()
         dropped_item = spawnEquippable("A whip", description, '&', slots_t::MainHand, 5);
         dropped_item->repr->setFGColor(TCODColor::darkerOrange, true, false, true);
         dropped_item->set_and_name_for_dmg("A", "whip", rng, 5, 10, 6);
+        dropped_item->range=5;
     }
     else if (result == KatanaSpawn)
     {
@@ -132,6 +134,7 @@ Item* spawnWeapon()
         dropped_item = spawnEquippable("A greataxe", description, '(', slots_t::MainHand, 20);
         dropped_item->repr->setFGColor(TCODColor::darkerGrey, true, false, true);
         dropped_item->set_and_name_for_dmg("A", "greataxe", rng, 15, 30, 13);
+        dropped_item->range=2;
     }
     else if (result == HatchetSpawn)
     {
