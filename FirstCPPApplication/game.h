@@ -70,6 +70,7 @@ class Game
         static CustomKey* get_free_custom_key();
 
         static std::priority_queue<Actor*, std::vector<Actor*>, CompareQueueTicks>* game_queue;
+        static void add_to_queue(Actor* actor);
         static unsigned int queue_ticks;
 
         static int fov_radius;

@@ -141,10 +141,16 @@ Statistics* Game::stats = new Statistics();
 
 bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
         {
-            if (left->speed < right->speed) { return true; }
-			if (left->speed == right->speed) { return false; }
-            if (left->speed > right->speed) { return false; }
+            if (left->target_queue_tick > right->target_queue_tick) { return true; }
+			if (left->target_queue_tick == right->target_queue_tick) { return false; }
+            if (left->target_queue_tick < right->target_queue_tick) { return false; }
         };
+
+void Game::add_to_queue(Actor* actor)
+{
+    actor->target_queue_tick = Game::queue_ticks+actor->speed;
+    Game::game_queue->push(actor);
+};
 
 
 std::string Game::get_version()
@@ -326,7 +332,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* w
         };
 
         world->enemies.push_back(the_creature);
-        Game::game_queue->push(the_creature);
+        Game::add_to_queue(the_creature);
     }
     return NULL;
 };
@@ -334,9 +340,6 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* w
     template<class T>
 T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, Map* world)
 {
-    // int enemy_count = Game::spawning_rng->getInt(1, T::pack_size, T::preferred_pack_size);
-    // for (int i = 0; i <= enemy_count; i++)
-    // {
     int creature_x, creature_y;
     creature_x = tile->tile_x;
     creature_y = tile->tile_y;
@@ -747,8 +750,9 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
-    player->speed = 150;
-    Game::game_queue->push(player);
+    player->speed = 50;
+    // Game::game_queue->push(player);
+    Game::add_to_queue(player);
 
     return player;
 
@@ -959,7 +963,7 @@ bool menu_loop(bool incr_turn)
 
 bool gameplay_loop(bool incr_turn)
 {
-	// std::cout << Game::game_queue->top()->name << std::endl;
+	std::cout << Game::game_queue->top()->name << std::endl;
     if (incr_turn)
     {
 
@@ -970,12 +974,13 @@ bool gameplay_loop(bool incr_turn)
         incr_turn = false;
     }
 
-    //go through queue and do (or pop) actions
-    //requeue unqueued people
-    //take player input once he's got a turn
 
+    //take player input once he's got a turn
     if ((Game::key_evt.vk != NULL || Game::key_evt.c != NULL) && Game::key_evt.pressed == 1 ){
         incr_turn = Input::process_key_event(Game::key_evt);
+
+        //go through queue and do (or pop) actions for before the players next turn
+        //while queue top is not player -> do actions and then reque them
     }
 
     if (Game::key_evt.pressed == 1)
