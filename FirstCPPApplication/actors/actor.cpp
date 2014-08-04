@@ -85,6 +85,58 @@ Actor::Actor()
     this->has_attacked = false;
 };
 
+Actor::Actor(Actor& other)
+{
+    this->cls_name = other.cls_name;
+
+    this->name = "Unset Actor name";
+    this->actor_class = other.actor_class;
+
+    this->img_path = other.img_path;
+
+    this->speed = other.speed;
+    this->target_queue_tick = other.target_queue_tick;
+
+    this->xp = other.xp;
+    this->xp_this_level = other.xp_this_level;
+    this->xp_required_to_lvlup = other.xp_required_to_lvlup;
+    this->xp_value = other.xp_value;
+    this->level = other.level;
+
+    this->is_champion = other.is_champion;
+    this->is_hero = other.is_hero;
+    this->timed_attr_effects = new std::vector<TimedEffect*>(other.timed_attr_effects->begin(), other.timed_attr_effects->end());
+    this->timed_spell_effects = new std::vector<TimedEffect*>(other.timed_spell_effects->begin(), other.timed_spell_effects->end());
+
+    this->my_tile = other.my_tile;
+
+    this->representation = new Representation(*other.representation);
+    this->inventory = new Inventory(*other.inventory);
+    this->inventory->master = other.inventory->master;
+    this->attrs = new AttributeContainer(*other.attrs);
+    this->attrs->owner = this;
+    this->spells = new spell_vec_t(other.spells->begin(), other.spells->end());
+
+    this->actors_in_sight = new actor_vec_t(other.actors_in_sight->begin(), other.actors_in_sight->end());
+
+    this->thinker = new Thinker(*other.thinker);
+    this->thinker->master = this;
+
+    this->is_active = other.is_active;
+
+    this->is_moving_left = other.is_moving_left;
+    this->is_moving_right = other.is_moving_right;
+    this->is_moving_up = other.is_moving_up;
+    this->is_moving_down = other.is_moving_down;
+    this->is_sneaking = other.is_sneaking;
+    this->is_defending = other.is_defending;
+
+    this->l_path = new TCODPath(*other.l_path);
+    this->has_attacked = other.has_attacked;
+
+
+};
+
 TCODImage* Actor::get_image()
 {
     TCODImage* img = new TCODImage(this->img_path.c_str());

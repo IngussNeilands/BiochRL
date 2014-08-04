@@ -93,6 +93,7 @@ class Actor : public Object
 
         Actor();
         virtual ~Actor();
+        Actor(Actor& other);
         std::string get_name();
         const char* get_name_c();
 

@@ -18,8 +18,6 @@ class Inventory
         void remove_item(Item*);
         int get_count();
 
-		std::string test;
-
         Inventory();
         ~Inventory();
 

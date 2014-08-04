@@ -45,6 +45,31 @@ Thinker::Thinker()
     this->_is_aware = false;
 };
 
+Thinker::Thinker(Thinker& other)
+{
+    this->master = other.master;
+    this->civilian = other.civilian;
+
+    this->consecutive_fails = other.consecutive_fails;
+    this->fail_threshold = other.fail_threshold;
+    this->path_possible = other.path_possible;
+    this->skipped_tries = other.skipped_tries;
+    this->consecutive_skips = other.consecutive_skips;
+    this->skip_threshold = other.skip_threshold;
+
+    this->is_dumb = other.is_dumb;
+    this->is_civ = other.is_civ;
+    this->is_shopkeep = other.is_shopkeep;
+
+    this->turn_last_seen_by_player = other.turn_last_seen_by_player;
+    this->tracking_memory = other.tracking_memory;
+
+    this->is_ally = other.is_ally;
+    this->target = other.target;
+
+    this->_is_aware = other._is_aware;
+};
+
 bool Thinker::is_aware(Actor* actor)
 {
     //if player not sneaking > is aware

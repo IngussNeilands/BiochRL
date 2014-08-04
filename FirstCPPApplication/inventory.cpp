@@ -13,7 +13,6 @@ Inventory::Inventory()
 {
     this->items = new std::vector<Item*>();
     this->master = NULL;
-    this->test = "ASDADS";
 };
 
 Inventory::~Inventory()

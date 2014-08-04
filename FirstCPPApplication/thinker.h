@@ -49,6 +49,7 @@ class Thinker
         void dumb_update();
         Thinker();
         ~Thinker();
+        Thinker(Thinker& other);
         void walk_towards_target();
         void walk_dumbly();
         void try_attacking_player();

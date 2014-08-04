@@ -140,16 +140,24 @@ TCODRandom* Game::dungeon_builder_rng = new TCODRandom();
 Statistics* Game::stats = new Statistics();
 
 bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
-        {
-            if (left->target_queue_tick > right->target_queue_tick) { return true; }
-			if (left->target_queue_tick == right->target_queue_tick) { return false; }
-            if (left->target_queue_tick < right->target_queue_tick) { return false; }
-        };
+{
+    bool result;
+    // assert(left!=NULL);
+    // assert(right!=NULL);
+    if (left->target_queue_tick > right->target_queue_tick) { result = true; }
+    if (left->target_queue_tick == right->target_queue_tick) { result = false; }
+    if (left->target_queue_tick < right->target_queue_tick) { result = false; }
+    return result;
+};
 
 void Game::add_to_queue(Actor* actor)
 {
+    printf("am adding to queue...");
     actor->target_queue_tick = Game::queue_ticks+actor->speed;
     Game::game_queue->push(actor);
+    printf("DONE\n");
+    // std::make_heap((Game::game_queue->top()), (Game::game_queue->top()) + Game::game_queue->size(), 
+    //         CompareQueueTicks());
 };
 
 
@@ -356,7 +364,7 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, M
     the_creature->thinker->is_ally = true;
     return the_creature;
     // }
-};
+    };
 template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr, Map* world);
 
 bool Game::validate_town(Map* town)
@@ -826,6 +834,7 @@ void Game::update()
         std::cout << "not player on top of queue..." << std::endl;
     };
     Game::player->update();
+	Game::add_to_queue(Game::player);
 
     //go through queue and do (or pop) actions for before the players next turn
     //while queue top is not player -> do actions and then reque them
@@ -980,7 +989,7 @@ bool menu_loop(bool incr_turn)
 
 bool gameplay_loop(bool incr_turn)
 {
-	std::cout << Game::game_queue->top()->name << std::endl;
+    std::cout << Game::game_queue->top()->name << std::endl;
     if (incr_turn)
     {
 
