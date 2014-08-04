@@ -44,7 +44,7 @@ Actor::Actor()
 
     this->img_path = get_data_path()+"img/Troll_Icon_01.png";
 
-    this->speed = 100; 
+    this->speed = 1000; 
     this->target_queue_tick = 0;
 
     this->xp = 0;

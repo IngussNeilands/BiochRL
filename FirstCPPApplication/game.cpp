@@ -758,7 +758,7 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
-    player->speed = 100;
+    //player->speed = 1000;
     // Game::game_queue->push(player);
     // Game::add_to_queue(player);
 
