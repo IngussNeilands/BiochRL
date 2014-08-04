@@ -758,7 +758,7 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
-    //player->speed = 1000;
+    player->speed = 900;
     // Game::game_queue->push(player);
     // Game::add_to_queue(player);
 
@@ -825,14 +825,14 @@ void Game::center_camera_on_player()
 void Game::update()
 {
     //update player
-    if (Game::game_queue->top() == Game::player)
-    {
-        Game::game_queue->pop();
-    }
-    else
-    {
-        std::cout << "not player on top of queue..." << std::endl;
-    };
+    //if (Game::game_queue->top() == Game::player)
+    //{
+    //    Game::game_queue->pop();
+    //}
+    //else
+    //{
+    //    std::cout << "not player on top of queue..." << std::endl;
+    //};
     Game::player->update();
     Game::queue_ticks = Game::player->target_queue_tick;
     // Game::add_to_queue(Game::player);
