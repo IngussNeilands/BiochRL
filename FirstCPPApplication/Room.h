@@ -31,7 +31,7 @@ class Room
         int _door_index_limit;
         int _current_door_index;
 
-        
+
 };
 
 #endif

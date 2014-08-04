@@ -1467,7 +1467,23 @@ bool Input::process_debug_event(TCOD_key_t request)
     if (request.vk == TCODK_F5)
     {
         //this'll redraw the entire screen incase shit goes black
-        TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        // TCODConsole::root->setDirty(0, 0, 1000, 1000);
+        std::vector<std::string> quit_msgs;
+        std::stringstream ss;
+        ss << "game queue ticks " << Game::queue_ticks;
+        quit_msgs.push_back(ss.str());
+        ss.clear();
+        ss << "player target queue ticks " << Game::player->target_queue_tick;
+        quit_msgs.push_back(ss.str());
+        ss.clear();
+        quit_msgs.push_back("Y/N");
+        DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, Game::game_console);
+        int x = Game::camera_w/2, y = Game::camera_h/2;
+        quit_dialog->x = x;
+        quit_dialog->y = y;
+        Ui::alerts.push_back(quit_dialog);
+
+        Game::current_screen = Screens::AlertScreenType;
     }
 
     if (request.vk == TCODK_F6)

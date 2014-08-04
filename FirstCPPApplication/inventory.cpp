@@ -21,7 +21,7 @@ Inventory::~Inventory()
     if (this->items != NULL)
     {
         for (auto it = this->items->begin(); it != this->items->end(); it++)
-       { 
+        { 
             std::cout << this->items->size() << std::endl;
             delete *it;
             *it = NULL;

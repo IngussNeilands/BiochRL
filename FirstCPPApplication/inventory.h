@@ -9,7 +9,7 @@ class Object;
 class Inventory
 {
     public:
-    
+
         Actor* master;
 
         std::vector<Item*>* items;

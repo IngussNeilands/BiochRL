@@ -20,6 +20,7 @@ Jackal::Jackal(std::string name, int age, int x, int y, char repr) : Person(name
 {
     this->xp_value = 7;
     this->cls_name = "Jackal";
+    // this->speed = 150;
     // this->name = name;
     // this->age = age;
     // this->x = x;

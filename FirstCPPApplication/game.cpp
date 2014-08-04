@@ -758,7 +758,7 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
-    player->speed = 50;
+    player->speed = 100;
     // Game::game_queue->push(player);
     // Game::add_to_queue(player);
 
@@ -834,14 +834,17 @@ void Game::update()
         std::cout << "not player on top of queue..." << std::endl;
     };
     Game::player->update();
-	Game::add_to_queue(Game::player);
+    Game::queue_ticks = Game::player->target_queue_tick;
+    // Game::add_to_queue(Game::player);
+    Game::player->target_queue_tick = Game::queue_ticks+Game::player->speed;
 
     //go through queue and do (or pop) actions for before the players next turn
     //while queue top is not player -> do actions and then reque them
-    while (Game::game_queue->top() != Game::player)
+    while (Game::game_queue->top()->target_queue_tick <= Game::player->target_queue_tick)
     {
         Actor* actor = Game::game_queue->top();
-		Game::game_queue->pop();
+        Game::queue_ticks = actor->target_queue_tick; //increment the game queue ticks artificially 
+        Game::game_queue->pop();
         // std::cout << actor->name << " is doing its thing" << std::endl;
         // Actor* actor = Game::current_map->enemies.at(i);
         // cout << "\t" << actor->name << "is updating" << endl;

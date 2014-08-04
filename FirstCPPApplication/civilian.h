@@ -13,7 +13,7 @@ class Civilian
         int disposition;
         Actor* master;
         std::vector<std::string>* chat_lines;
-        
+
         Civilian();
         ~Civilian();
         std::string talk_general_topic();

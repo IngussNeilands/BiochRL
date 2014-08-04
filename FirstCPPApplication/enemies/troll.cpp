@@ -23,7 +23,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr) : Person(name, 
 {
     this->xp_value = 10;
     this->cls_name = "Troll";
-    this->speed = 49;
+    // this->speed = 100;
     // this->name = name;
     // this->age = age;
     // this->x = x;
