@@ -114,6 +114,47 @@ std::vector<std::string> AttributeContainer::PrettyVectorColored()
     return string_vec;
 };
 
+template<typename AttrClass>
+std::string format_verbose(AttrClass* attr)
+{
+    std::stringstream ss;
+    // ss << attr->current_val << "/" << attr->max_val;
+    ss << attr->max_val << "pts";
+    std::string temp = ss.str();
+    ss.str("");
+    ss << colfg(AttrClass::attribute_color, temp) << " regen " << attr->regen_rate << "pts/" << attr->regen_interval << "turns";
+    return ss.str();
+};
+
+std::vector<std::string> AttributeContainer::VerboseVector()
+{
+    std::string result = "";
+    std::vector<std::string> string_vec;
+
+    TCODColor health_color = HealthAttribute::attribute_color;
+    TCODColor mana_color = ManaAttribute::attribute_color;
+    TCODColor armor_color = ArmorAttribute::attribute_color;
+    TCODColor damage_color = DamageAttribute::attribute_color;
+    TCODColor speed_color = SpeedAttribute::attribute_color;
+
+    string_vec.push_back(colfg(health_color, "HEALTH"));
+    string_vec.push_back(format_verbose<HealthAttribute>(this->health));
+
+    string_vec.push_back(colfg(mana_color, "MANA"));
+    string_vec.push_back(format_verbose<ManaAttribute>(this->mana));
+
+    string_vec.push_back(colfg(armor_color, "ARMOR"));
+    string_vec.push_back(format_verbose<ArmorAttribute>(this->armor));
+
+    string_vec.push_back(colfg(damage_color, "DAMAGE"));
+    string_vec.push_back(format_verbose<DamageAttribute>(this->damage));
+
+    string_vec.push_back(colfg(speed_color, "SPEED"));
+    string_vec.push_back(format_verbose<SpeedAttribute>(this->speed));
+
+    return string_vec;
+};
+
 std::vector<std::string> AttributeContainer::PrettyVector()
 {
     std::string result = "";

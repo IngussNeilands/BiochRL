@@ -48,6 +48,7 @@ class AttributeContainer
         std::string PrettyPrint();
         std::vector<std::string> PrettyVector();
         std::vector<std::string> PrettyVectorColored();
+        std::vector<std::string> VerboseVector();
 
 };
 

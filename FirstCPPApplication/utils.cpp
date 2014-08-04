@@ -286,3 +286,4 @@ std::string buffer_color(std::string input, int val, TCODColor color)
 
     return colfg(color, ss.str());
 };
+
