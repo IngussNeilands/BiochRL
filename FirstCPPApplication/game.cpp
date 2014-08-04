@@ -152,10 +152,10 @@ bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 
 void Game::add_to_queue(Actor* actor)
 {
-    printf("am adding to queue...");
+    // printf("am adding to queue...");
     actor->target_queue_tick = Game::queue_ticks+actor->speed;
     Game::game_queue->push(actor);
-    printf("DONE\n");
+    // printf("DONE\n");
     // std::make_heap((Game::game_queue->top()), (Game::game_queue->top()) + Game::game_queue->size(), 
     //         CompareQueueTicks());
 };
@@ -760,7 +760,7 @@ Person*  Game::initialize_player()
 
     player->speed = 50;
     // Game::game_queue->push(player);
-    Game::add_to_queue(player);
+    // Game::add_to_queue(player);
 
     return player;
 
@@ -841,6 +841,8 @@ void Game::update()
     while (Game::game_queue->top() != Game::player)
     {
         Actor* actor = Game::game_queue->top();
+		Game::game_queue->pop();
+        // std::cout << actor->name << " is doing its thing" << std::endl;
         Game::queue_ticks = actor->target_queue_tick;
         Game::add_to_queue(actor);
     };
@@ -989,7 +991,7 @@ bool menu_loop(bool incr_turn)
 
 bool gameplay_loop(bool incr_turn)
 {
-    std::cout << Game::game_queue->top()->name << std::endl;
+    // std::cout << Game::game_queue->top()->name << std::endl;
     if (incr_turn)
     {
 
