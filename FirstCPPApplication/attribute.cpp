@@ -60,6 +60,17 @@ void Attribute::SetVals(int current_val, int max_val)
     this->max_val = max_val;
 };
 
+void Attribute::AlterVals(int both)
+{
+    this->AlterVals(both, both);
+};
+
+void Attribute::AlterVals(int diff_current, int diff_max)
+{
+    this->current_val += diff_current;
+    this->max_val += diff_max;
+};
+
 void Attribute::Tick()
 {
 

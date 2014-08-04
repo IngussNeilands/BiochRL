@@ -145,6 +145,7 @@ StalkerClass::StalkerClass() : IClass()
     this->fg_color = TCODColor::darkerSepia;
 
     this->starting_attrs->health->SetVals(25);
+    this->starting_attrs->speed->AlterVals(-75);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new ShadowRunSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new CastShadowSpell()));
@@ -180,6 +181,7 @@ MageClass::MageClass() : IClass()
 
     this->starting_attrs->mana->SetVals(50);
     this->starting_attrs->mana->regen_rate = 2;
+    this->starting_attrs->speed->AlterVals(100);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceBoltSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new InnerHealingSpiritSpell()));
@@ -210,6 +212,7 @@ NecromancerClass::NecromancerClass() : IClass()
     this->fg_color = TCODColor::darkGrey;
 
     this->starting_attrs->mana->SetVals(35);
+    this->starting_attrs->speed->AlterVals(80);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new CorpseBlastSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SiphonSpiritSpell()));
@@ -242,6 +245,7 @@ BrawlerClass::BrawlerClass() : IClass()
     this->starting_attrs->health->SetVals(45);
     this->starting_attrs->armor->SetVals(3);
     this->starting_attrs->damage->SetVals(8);
+    this->starting_attrs->speed->AlterVals(100);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new IceFistSpell()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new SacredKickSpell()));
@@ -277,6 +281,8 @@ BloodMageClass::BloodMageClass() : IClass()
 
     this->starting_attrs->mana->SetVals(15);
     this->starting_attrs->mana->regen_interval = 10;
+
+    this->starting_attrs->speed->AlterVals(75);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new Venipuncture()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new Bonewall()));

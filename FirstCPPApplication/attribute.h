@@ -34,6 +34,8 @@ class Attribute
 
         void SetVals(int both);
         void SetVals(int current_val, int max_val);
+        void AlterVals(int both);
+        void AlterVals(int diff_current, int diff_max);
 
         // bool CanRegenerate();
         void Regenerate();
