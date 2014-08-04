@@ -6,6 +6,7 @@ const TCODColor ManaAttribute::attribute_color = TCODColor::desaturatedBlue;
 const TCODColor ArmorAttribute::attribute_color = TCODColor::lightGrey;
 const TCODColor DamageAttribute::attribute_color = TCODColor::desaturatedRed;
 const TCODColor HungerAttribute::attribute_color = TCODColor::desaturatedMagenta;
+const TCODColor SpeedAttribute::attribute_color = TCODColor::desaturatedViolet;
 
 Attribute::Attribute()
 {
@@ -227,11 +228,22 @@ DamageAttribute::DamageAttribute() : Attribute()
     this->regen_rate = 0;
 
 };
+
 HungerAttribute::HungerAttribute() : Attribute()
 {
     this->max_val = 999999;
     this->current_val = 0;
 
     this->regen_rate = 2;
+
+};
+
+SpeedAttribute::SpeedAttribute() : Attribute()
+{
+    this->max_val = 1000;
+    this->current_val = 1000;
+
+    this->regen_rate = 2;
+    this->regen_interval = 3;
 
 };

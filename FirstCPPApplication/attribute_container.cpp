@@ -16,6 +16,7 @@ AttributeContainer::AttributeContainer()
     this->armor = new ArmorAttribute;
     this->damage = new DamageAttribute;
     this->hunger = new HungerAttribute;
+    this->speed = new SpeedAttribute;
 };
 
 AttributeContainer::AttributeContainer(AttributeContainer& other)
@@ -27,6 +28,7 @@ AttributeContainer::AttributeContainer(AttributeContainer& other)
     this->armor = new ArmorAttribute(*other.armor);
     this->damage = new DamageAttribute(*other.damage);
     this->hunger = new HungerAttribute(*other.hunger);
+    this->speed = new SpeedAttribute(*other.speed);
 };
 
 void AttributeContainer::Update()
@@ -36,6 +38,7 @@ void AttributeContainer::Update()
     this->armor->Update();
     this->damage->Update();
     this->hunger->Update();
+    this->speed->Update();
 };
 
 void AttributeContainer::RegenerateAll()
@@ -44,30 +47,32 @@ void AttributeContainer::RegenerateAll()
     this->RegenerateMana();
     this->RegenerateArmor();
     this->RegenerateDamage();
+    this->RegenerateSpeed();
 };
 
 void AttributeContainer::RegenerateHealth()
 {
     this->health->Regenerate();
-
 };
 
 void AttributeContainer::RegenerateMana()
 {
     this->mana->Regenerate();
-
 };
 
 void AttributeContainer::RegenerateArmor()
 {
     this->armor->Regenerate();
-
 };
 
 void AttributeContainer::RegenerateDamage()
 {
     this->damage->Regenerate();
+};
 
+void AttributeContainer::RegenerateSpeed()
+{
+    this->speed->Regenerate();
 };
 
 std::vector<std::string> AttributeContainer::PrettyVectorColored()
@@ -79,6 +84,7 @@ std::vector<std::string> AttributeContainer::PrettyVectorColored()
     TCODColor mana_color = ManaAttribute::attribute_color;
     TCODColor armor_color = ArmorAttribute::attribute_color;
     TCODColor damage_color = DamageAttribute::attribute_color;
+    TCODColor speed_color = SpeedAttribute::attribute_color;
 
     string_vec.push_back(buffer_color("HCV", this->health->current_val, health_color));
     string_vec.push_back(buffer_color("HMV", this->health->max_val, health_color));
@@ -99,6 +105,11 @@ std::vector<std::string> AttributeContainer::PrettyVectorColored()
     string_vec.push_back(buffer_color("DMV", this->damage->max_val, damage_color));
     string_vec.push_back(buffer_color("DRR", this->damage->regen_rate, damage_color));
     string_vec.push_back(buffer_color("DRI", this->damage->regen_interval, damage_color));
+
+    string_vec.push_back(buffer_color("SCV", this->speed->current_val, speed_color));
+    string_vec.push_back(buffer_color("SMV", this->speed->max_val, speed_color));
+    string_vec.push_back(buffer_color("SRR", this->speed->regen_rate, speed_color));
+    string_vec.push_back(buffer_color("SRI", this->speed->regen_interval, speed_color));
 
     return string_vec;
 };
@@ -127,6 +138,11 @@ std::vector<std::string> AttributeContainer::PrettyVector()
     string_vec.push_back("DMV: "+std::to_string((long double)(int)this->damage->max_val));
     string_vec.push_back("DRR: "+std::to_string((long double)(int)this->damage->regen_rate));
     string_vec.push_back("DRI: "+std::to_string((long double)(int)this->damage->regen_interval));
+
+    string_vec.push_back("SCV: "+std::to_string((long double)(int)this->speed->current_val));
+    string_vec.push_back("SMV: "+std::to_string((long double)(int)this->speed->max_val));
+    string_vec.push_back("SRR: "+std::to_string((long double)(int)this->speed->regen_rate));
+    string_vec.push_back("SRI: "+std::to_string((long double)(int)this->speed->regen_interval));
 
     return string_vec;
 };

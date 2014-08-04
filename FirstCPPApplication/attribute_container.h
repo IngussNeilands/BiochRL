@@ -18,6 +18,8 @@ class ManaAttribute;
 class ArmorAttribute;
 class DamageAttribute;
 class HungerAttribute;
+class SpeedAttribute;
+
 class Actor;
 
 class AttributeContainer
@@ -30,6 +32,7 @@ class AttributeContainer
         ArmorAttribute* armor;
         DamageAttribute* damage;
         HungerAttribute* hunger;
+        SpeedAttribute* speed;
 
         AttributeContainer();
         AttributeContainer(AttributeContainer& other);
@@ -39,6 +42,7 @@ class AttributeContainer
         void RegenerateMana();
         void RegenerateArmor();
         void RegenerateDamage();
+        void RegenerateSpeed();
 
         void Update();
         std::string PrettyPrint();

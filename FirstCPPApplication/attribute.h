@@ -88,4 +88,11 @@ class HungerAttribute : public Attribute
         HungerAttribute();
 };
 
+class SpeedAttribute : public Attribute
+{
+    public:
+        static const TCODColor attribute_color;
+        SpeedAttribute();
+};
+
 #endif

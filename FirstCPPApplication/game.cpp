@@ -759,8 +759,6 @@ Person*  Game::initialize_player()
     Game::center_camera_on_player();
 
     player->speed = 900;
-    // Game::game_queue->push(player);
-    // Game::add_to_queue(player);
 
     return player;
 
@@ -1017,8 +1015,6 @@ bool gameplay_loop(bool incr_turn)
     //take player input once he's got a turn
     if ((Game::key_evt.vk != NULL || Game::key_evt.c != NULL) && Game::key_evt.pressed == 1 ){
         incr_turn = Input::process_key_event(Game::key_evt);
-
-
     }
 
     if (Game::key_evt.pressed == 1)
