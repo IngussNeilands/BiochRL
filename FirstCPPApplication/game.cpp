@@ -153,7 +153,7 @@ bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 void Game::add_to_queue(Actor* actor)
 {
     // printf("am adding to queue...");
-    actor->target_queue_tick = Game::queue_ticks+actor->speed;
+    actor->target_queue_tick = Game::queue_ticks+actor->attrs->speed->current_val;
     Game::game_queue->push(actor);
     // printf("DONE\n");
     // std::make_heap((Game::game_queue->top()), (Game::game_queue->top()) + Game::game_queue->size(), 
@@ -758,7 +758,7 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
-    player->speed = 900;
+    player->attrs->speed->SetVals(900);
 
     return player;
 
@@ -834,7 +834,7 @@ void Game::update()
     Game::player->update();
     Game::queue_ticks = Game::player->target_queue_tick;
     // Game::add_to_queue(Game::player);
-    Game::player->target_queue_tick = Game::queue_ticks+Game::player->speed;
+    Game::player->target_queue_tick = Game::queue_ticks+Game::player->attrs->speed->current_val;
 
     //go through queue and do (or pop) actions for before the players next turn
     //while queue top is not player -> do actions and then reque them

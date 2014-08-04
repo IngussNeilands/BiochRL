@@ -44,7 +44,6 @@ Actor::Actor()
 
     this->img_path = get_data_path()+"img/Troll_Icon_01.png";
 
-    this->speed = 1000; 
     this->target_queue_tick = 0;
 
     this->xp = 0;
@@ -94,7 +93,6 @@ Actor::Actor(Actor& other)
 
     this->img_path = other.img_path;
 
-    this->speed = other.speed;
     this->target_queue_tick = other.target_queue_tick;
 
     this->xp = other.xp;
