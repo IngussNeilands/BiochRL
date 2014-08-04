@@ -843,6 +843,14 @@ void Game::update()
         Actor* actor = Game::game_queue->top();
 		Game::game_queue->pop();
         // std::cout << actor->name << " is doing its thing" << std::endl;
+        // Actor* actor = Game::current_map->enemies.at(i);
+        // cout << "\t" << actor->name << "is updating" << endl;
+        if (actor->is_active && actor->thinker != NULL)
+        {
+            actor->update();
+            // printf("updating ai\n");
+        };
+        // printf("updating\n");
         Game::queue_ticks = actor->target_queue_tick;
         Game::add_to_queue(actor);
     };
