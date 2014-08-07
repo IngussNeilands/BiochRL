@@ -83,7 +83,7 @@ class ClassScreen : public Screen<T>
 {
     public:
 
-        ClassScreen<T>() : Screen() { this->title="Class Screen"; };
+        ClassScreen<T>() : Screen() { this->title="Choose your class"; };
         ClassScreen::~ClassScreen(){};
 
         virtual bool is_enabled(T* element);
