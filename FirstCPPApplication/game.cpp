@@ -1037,7 +1037,6 @@ bool gameplay_loop(bool incr_turn)
     //draw the map to libtconsole
     Game::current_map->draw();
 
-    //draw the UI
     Game::draw_ui();
 
     //draw the game_console to root, taking from where the camera is looking at
@@ -1045,13 +1044,13 @@ bool gameplay_loop(bool incr_turn)
             Game::camera_w, Game::camera_h, TCODConsole::root, 0, 0);
     Game::game_console->clear();
 
-
     return incr_turn;
 };
 
 void set_icon()
 {
 
+    //set terminal icon
     SetConsoleTitle(Game::term_name.c_str());
     HWND hwnd2 = FindWindow(NULL, Game::term_name.c_str());
     std::string s2 = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
@@ -1060,6 +1059,7 @@ void set_icon()
     HANDLE icon2 = LoadImage(NULL, sw2, IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
     SendMessage(hwnd2, (UINT)WM_SETICON, ICON_BIG, (LPARAM)icon2);
 
+    //set game window icon
     HWND hwnd = FindWindow(NULL, Game::main_name.c_str());
     std::string s = std::string(get_data_path()+std::string("img\\favicon.ico")).c_str();
     std::wstring stemp = std::wstring(s.begin(), s.end());
@@ -1150,8 +1150,7 @@ void Game::init_rng()
 
 void Game::specify_player()
 {
-    //choose stuff like race, class, sex background
-
+    // TODO choose stuff like race, class, sex background
     std::string* first = new std::string("first choice");
     std::string* second = new std::string("second choice");
     Game::menu_choices->push_back(first);
@@ -1184,11 +1183,12 @@ void Game::start_game()
     std::cout << "ending world gen" << std::endl;
     Game::current_map = new_map;
 
-    Game::initialize_player(); //created the Person player
+    Game::initialize_player(); 
 
     Game::specify_player();
 
     WelcomeMessage();
+
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
 
