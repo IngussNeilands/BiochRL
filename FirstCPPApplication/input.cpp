@@ -807,14 +807,8 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
 
     if( action == generic_menu_active_t::EscapeGenericMenu )
     {
-        // Ui::generic_active = false;
-        // Ui::chosen_generic = false;
-        //Ui::reset_generic();
-        std::cout << "Back to the game." << std::endl;
-        // Ui::reset_generic();
-        // Input::generic_index = 'a';
-        Game::current_state = GameStates::GameplayState;
-        // new Message(Ui::msg_handler_main, NOTYPE_MSG, "Escape back to regular inventory mode.");
+        Ui::generic_active = false;
+        Ui::chosen_generic = false;
         return true;
     }
 
@@ -1658,6 +1652,13 @@ bool Input::process_key_event(TCOD_key_t request)
                     Ui::is_targetting = false;
                     std::vector<Item*>* items = Game::player->inventory->items;
                     Input::select_generic(request, items, is_key_inventory_command, Input::process_inventory_keys);
+                }
+
+                else if (Game::current_screen == Screens::MainMenuScreenType)
+                {
+                    Ui::is_targetting = false;
+                    str_vec_t* items = Game::menu_choices;
+                    Input::select_generic(request, items, is_key_generic_menu_command, Input::process_generic_menu_keys);
                 }
                 else 
                 {
