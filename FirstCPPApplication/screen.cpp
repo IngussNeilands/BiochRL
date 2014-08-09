@@ -337,7 +337,8 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
         {
             if (is_active) 
             { 
-                foreground = TCODColor::red+TCODColor::blue; 
+                // foreground = TCODColor::red+TCODColor::blue; 
+				foreground = TCODColor::lerp(TCODColor::red, TCODColor::blue, 0.5f);
             }
             else 
             {
@@ -352,8 +353,15 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
         background = con->getDefaultBackground();
         if (is_chosen)
         {
-            if (is_active) { foreground = TCODColor::red+TCODColor::yellow; }
-            else { foreground = TCODColor::red+TCODColor::green; }
+            if (is_active) 
+            {
+                // foreground = TCODColor::red-TCODColor::yellow; 
+				foreground = TCODColor::lerp(TCODColor::red, TCODColor::yellow, 0.5f);
+            }
+            else 
+            {
+                foreground = TCODColor::red+TCODColor::green; 
+            }
         }
         else
         {
