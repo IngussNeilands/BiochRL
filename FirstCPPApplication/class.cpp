@@ -282,6 +282,10 @@ BloodMageClass::BloodMageClass() : IClass()
     this->starting_attrs->mana->set_vals(15);
     this->starting_attrs->mana->regen_interval = 10;
 
+    this->starting_attrs->damage->set_vals(3);
+
+    this->starting_attrs->armor->set_vals(2);
+
     this->starting_attrs->speed->alter_vals(75);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new Venipuncture()));
@@ -291,8 +295,8 @@ BloodMageClass::BloodMageClass() : IClass()
 
     this->health_on_lvl = 8;
     this->mana_on_lvl = 0.1;
-    this->armor_on_lvl = 0.4;
-    this->damage_on_lvl = .9;
+    this->armor_on_lvl = 0.6;
+    this->damage_on_lvl = .2;
 };
 
 void BloodMageClass::LevelUpStats(int levels)
