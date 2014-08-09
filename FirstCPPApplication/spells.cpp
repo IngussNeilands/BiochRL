@@ -707,9 +707,20 @@ bool Bonewall::cast(Tile* targetted_tile)
 
 LimbBreaker::LimbBreaker()
 {
-    this->name = "LimbBreaker";
+    this->name = "Limb Breaker";
     this->element = DeathElement;
-    this->attr_effect->speed_current_val = -100;
+    this->attr_effect->speed_current_val = 500;
+    this->attr_effect->speed_max_val = 500;
+
+    this->max_range = 7;
+    this->target_type = TargettedTargetType;
+
+    this->mana_cost = 20;
+    this->mana_type = BloodManaType;
+
+    this->attr_effect->duration = 50;
+
+    this->required_level = 6;
 };
 
 
