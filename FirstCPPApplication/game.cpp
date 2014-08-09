@@ -334,7 +334,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* w
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {continue;};
 
         T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, world);
-        if (linear_rng->getInt(1, 100) < 10) 
+        if (linear_rng->getInt(1, 100) < 7) 
         {
             the_creature->championize();
         };
@@ -1244,7 +1244,6 @@ void play_music()
         std::cout << "Could not load 1.wav\n";
         std::cout << Mix_GetError();
     }
-
 
     std::cout << std::endl;
     std::cout << Mix_GetError();
