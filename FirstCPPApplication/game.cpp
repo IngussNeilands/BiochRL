@@ -62,7 +62,7 @@
 
 int Game::__version_major = 0;
 int Game::__version_minor = 13;
-int Game::__version_mini = 0;
+int Game::__version_mini = 1;
 
 std::vector<std::string*>* Game::menu_choices = new std::vector<std::string*>();
 
