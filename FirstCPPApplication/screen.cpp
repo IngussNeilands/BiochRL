@@ -164,7 +164,6 @@ void Screen<T>::draw_empty_msg(TCODConsole* con, int i)
 {
     con->print(this->offset, i, this->empty_msg.c_str());
 };
-
     template<typename T>
 void Screen<T>::build_screen_items(TCODConsole* con, int i)
 {
@@ -608,6 +607,79 @@ bool MainMenuScreen<T>::is_enabled(T* element)
 // 
     template<typename T>
 void MainMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+{
+    //print the item name and selection
+    const char *msg_char = si.msg_str.c_str();
+    si.min_y = i;
+    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+            TCOD_alignment_t::TCOD_LEFT, msg_char);
+    i++;
+
+    char buffer[512];
+    std::string msg_str = "%c%s%c";
+    sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
+            ((T*)si.element)->c_str(), TCOD_COLCTRL_STOP);
+    msg_str = buffer;
+    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
+            TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    si.max_y = i;
+
+    i++;
+    i++;
+};
+
+/* MAIN MENU SCREEN */
+    template<typename T>
+ScreenItem SimpleMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+{
+    ScreenItem result;
+    result.key = this->key;
+
+    bool has_duration;
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
+
+    TCODColor foreground, background;
+    std::vector<TCODColor> colors = this->get_enabled_colors(con, element);
+    foreground = colors.at(0);
+    background = colors.at(1);
+
+    TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_2, TCODColor::lightGrey+TCODColor::yellow, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
+    TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
+
+    //key, element, name
+    std::stringstream ss;
+    ss << this->key << "-" << colfg(foreground, *element);
+
+    if (is_chosen)
+    {
+        ss << " <-";
+    }
+
+    result.foreground = foreground;
+    result.background = background;
+    result.msg_str = ss.str();
+    result.element = element;
+
+    return result;
+};
+
+    template<typename T>
+bool SimpleMenuScreen<T>::is_enabled(T* element)
+{
+    return false;
+}
+
+//     template<typename T>
+// bool SimpleMenuScreen<T>::is_active(T* element)
+// {
+//     return false;
+// }
+// 
+    template<typename T>
+void SimpleMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     const char *msg_char = si.msg_str.c_str();

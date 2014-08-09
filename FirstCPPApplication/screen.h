@@ -42,6 +42,7 @@ class Screen
         void Screen<T>::draw_scroll_arrows(TCODConsole* con, bool left_to_draw);
 
         void build_screen_items(TCODConsole* con, int i);
+        std::string get_screen_item_main_text(TCODColor& foreground, TCODColor& background, T* element);
         virtual std::vector<TCODColor> get_colors(TCODConsole* con, T* element);
         virtual std::vector<TCODColor> get_enabled_colors(TCODConsole* con, T* element);
         virtual ScreenItem build_screen_item(TCODConsole* con, int i, T* element) = 0;
@@ -98,6 +99,21 @@ class MainMenuScreen : public Screen<T>
 
         MainMenuScreen<T>() : Screen() { this->title="Main Menu!"; };
         MainMenuScreen::~MainMenuScreen(){};
+
+        virtual bool is_enabled(T* element);
+        // virtual bool is_active(T* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+};
+
+
+template<typename T>
+class SimpleMenuScreen : public Screen<T>
+{
+    public:
+
+        SimpleMenuScreen<T>() : Screen() { this->title="Simple Menu!"; };
+        SimpleMenuScreen::~SimpleMenuScreen(){};
 
         virtual bool is_enabled(T* element);
         // virtual bool is_active(T* element);
