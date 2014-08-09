@@ -130,6 +130,13 @@ int Spell::get_mana_cost()
     }
 };
 
+void reset_generic_wrapper(DialogHelpBox* dialog)
+{
+    Ui::reset_generic();
+    Ui::is_targetting = false;
+    dialog->default_cancel();
+};
+
 bool Spell::has_enough_mana() 
 { 
     if (this->mana_type == ManaManaType)
@@ -153,7 +160,7 @@ bool Spell::has_enough_mana()
     alert_msgs.push_back(" ");
     alert_msgs.push_back("Hit N/Q to continue");
 
-    DialogHelpBox* mana_alert = new DialogHelpBox(alert_msgs, Game::game_console);
+    DialogHelpBox* mana_alert = new DialogHelpBox(alert_msgs, NULL, &reset_generic_wrapper, Game::game_console);
     mana_alert->return_screen = Game::current_screen;
     mana_alert->y = 15;
     mana_alert->x = 20;
