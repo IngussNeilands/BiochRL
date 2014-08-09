@@ -33,12 +33,12 @@ AttributeContainer::AttributeContainer(AttributeContainer& other)
 
 void AttributeContainer::Update()
 {
-    this->health->Update();
-    this->mana->Update();
-    this->armor->Update();
-    this->damage->Update();
-    this->hunger->Update();
-    this->speed->Update();
+    this->health->update();
+    this->mana->update();
+    this->armor->update();
+    this->damage->update();
+    this->hunger->update();
+    this->speed->update();
 };
 
 void AttributeContainer::RegenerateAll()
@@ -52,27 +52,27 @@ void AttributeContainer::RegenerateAll()
 
 void AttributeContainer::RegenerateHealth()
 {
-    this->health->Regenerate();
+    this->health->regenerate();
 };
 
 void AttributeContainer::RegenerateMana()
 {
-    this->mana->Regenerate();
+    this->mana->regenerate();
 };
 
 void AttributeContainer::RegenerateArmor()
 {
-    this->armor->Regenerate();
+    this->armor->regenerate();
 };
 
 void AttributeContainer::RegenerateDamage()
 {
-    this->damage->Regenerate();
+    this->damage->regenerate();
 };
 
 void AttributeContainer::RegenerateSpeed()
 {
-    this->speed->Regenerate();
+    this->speed->regenerate();
 };
 
 std::vector<std::string> AttributeContainer::PrettyVectorColored()

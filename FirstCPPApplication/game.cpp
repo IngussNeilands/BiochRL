@@ -338,7 +338,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* w
         {
             the_creature->championize();
         };
-        the_creature->attrs->speed->AlterVals(-25, 25);
+        the_creature->attrs->speed->alter_vals(-25, 25);
 
         world->enemies.push_back(the_creature);
         Game::add_to_queue(the_creature);
@@ -759,7 +759,7 @@ Person*  Game::initialize_player()
 
     Game::center_camera_on_player();
 
-    player->attrs->speed->SetVals(900);
+    player->attrs->speed->set_vals(900);
 
     return player;
 

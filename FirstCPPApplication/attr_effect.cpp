@@ -406,10 +406,10 @@ void AttrEffect::ApplyHealthEffects(Actor* actor)
 {
     if (! this->already_applied_health(actor))
     {
-        actor->attrs->health->AddToMaxVal(this->health_max_val);
-        actor->attrs->health->AddToCurrentVal(this->health_current_val);
-        actor->attrs->health->AddToRegenRate(this->health_regen_rate);
-        actor->attrs->health->AddToRegenInterval(this->health_regen_interval);
+        actor->attrs->health->add_to_max_val(this->health_max_val);
+        actor->attrs->health->add_to_current_val(this->health_current_val);
+        actor->attrs->health->add_to_regen_rate(this->health_regen_rate);
+        actor->attrs->health->add_to_regen_interval(this->health_regen_interval);
         this->mark_applied_health(actor);
     }
 };
@@ -418,10 +418,10 @@ void AttrEffect::ApplyManaEffects(Actor* actor)
 {
     if (! this->already_applied_mana(actor))
     {
-        actor->attrs->mana->AddToMaxVal(this->mana_max_val);
-        actor->attrs->mana->AddToCurrentVal(this->mana_current_val);
-        actor->attrs->mana->AddToRegenRate(this->mana_regen_rate);
-        actor->attrs->mana->AddToRegenInterval(this->mana_regen_interval);
+        actor->attrs->mana->add_to_max_val(this->mana_max_val);
+        actor->attrs->mana->add_to_current_val(this->mana_current_val);
+        actor->attrs->mana->add_to_regen_rate(this->mana_regen_rate);
+        actor->attrs->mana->add_to_regen_interval(this->mana_regen_interval);
         this->mark_applied_mana(actor);
     }
 };
@@ -430,10 +430,10 @@ void AttrEffect::ApplyArmorEffects(Actor* actor)
 {
     if (! this->already_applied_armor(actor))
     {
-        actor->attrs->armor->AddToMaxVal(this->armor_max_val);
-        actor->attrs->armor->AddToCurrentVal(this->armor_current_val);
-        actor->attrs->armor->AddToRegenRate(this->armor_regen_rate);
-        actor->attrs->armor->AddToRegenInterval(this->armor_regen_interval);
+        actor->attrs->armor->add_to_max_val(this->armor_max_val);
+        actor->attrs->armor->add_to_current_val(this->armor_current_val);
+        actor->attrs->armor->add_to_regen_rate(this->armor_regen_rate);
+        actor->attrs->armor->add_to_regen_interval(this->armor_regen_interval);
         this->mark_applied_armor(actor);
     }
 };
@@ -442,10 +442,10 @@ void AttrEffect::ApplyDamageEffects(Actor* actor)
 {
     if (! this->already_applied_damage(actor))
     {
-        actor->attrs->damage->AddToMaxVal(this->damage->normal);
-        actor->attrs->damage->AddToCurrentVal(this->damage->normal);
-        actor->attrs->damage->AddToRegenRate(this->damage_regen_rate);
-        actor->attrs->damage->AddToRegenInterval(this->damage_regen_interval);
+        actor->attrs->damage->add_to_max_val(this->damage->normal);
+        actor->attrs->damage->add_to_current_val(this->damage->normal);
+        actor->attrs->damage->add_to_regen_rate(this->damage_regen_rate);
+        actor->attrs->damage->add_to_regen_interval(this->damage_regen_interval);
         this->mark_applied_damage(actor);
     }
 };
@@ -454,10 +454,10 @@ void AttrEffect::ApplyHungerEffects(Actor* actor)
 {
     if (! this->already_applied_hunger(actor))
     {
-        actor->attrs->hunger->AddToMaxVal(this->hunger_max_val);
-        actor->attrs->hunger->AddToCurrentVal(this->hunger_current_val);
-        actor->attrs->hunger->AddToRegenRate(this->hunger_regen_rate);
-        actor->attrs->hunger->AddToRegenInterval(this->hunger_regen_interval);
+        actor->attrs->hunger->add_to_max_val(this->hunger_max_val);
+        actor->attrs->hunger->add_to_current_val(this->hunger_current_val);
+        actor->attrs->hunger->add_to_regen_rate(this->hunger_regen_rate);
+        actor->attrs->hunger->add_to_regen_interval(this->hunger_regen_interval);
         this->mark_applied_hunger(actor);
     }
 };
@@ -472,34 +472,34 @@ void AttrEffect::RemoveAllEffects(Actor* actor)
 
 void AttrEffect::RemoveHealthEffects(Actor* actor)
 {
-    actor->attrs->health->RemoveFromCurrentVal(this->health_current_val);
-    actor->attrs->health->RemoveFromMaxVal(this->health_max_val);
-    actor->attrs->health->RemoveFromRegenRate(this->health_regen_rate);
-    actor->attrs->health->RemoveFromRegenInterval(this->health_regen_interval);
+    actor->attrs->health->remove_from_current_val(this->health_current_val);
+    actor->attrs->health->remove_from_max_val(this->health_max_val);
+    actor->attrs->health->remove_from_regen_rate(this->health_regen_rate);
+    actor->attrs->health->remove_from_regen_interval(this->health_regen_interval);
 };
 
 void AttrEffect::RemoveManaEffects(Actor* actor)
 {
-    actor->attrs->mana->RemoveFromCurrentVal(this->mana_current_val);
-    actor->attrs->mana->RemoveFromMaxVal(this->mana_max_val);
-    actor->attrs->mana->RemoveFromRegenRate(this->mana_regen_rate);
-    actor->attrs->mana->RemoveFromRegenInterval(this->mana_regen_interval);
+    actor->attrs->mana->remove_from_current_val(this->mana_current_val);
+    actor->attrs->mana->remove_from_max_val(this->mana_max_val);
+    actor->attrs->mana->remove_from_regen_rate(this->mana_regen_rate);
+    actor->attrs->mana->remove_from_regen_interval(this->mana_regen_interval);
 };
 
 void AttrEffect::RemoveArmorEffects(Actor* actor)
 {
-    actor->attrs->armor->RemoveFromCurrentVal(this->armor_current_val);
-    actor->attrs->armor->RemoveFromMaxVal(this->armor_max_val);
-    actor->attrs->armor->RemoveFromRegenRate(this->armor_regen_rate);
-    actor->attrs->armor->RemoveFromRegenInterval(this->armor_regen_interval);
+    actor->attrs->armor->remove_from_current_val(this->armor_current_val);
+    actor->attrs->armor->remove_from_max_val(this->armor_max_val);
+    actor->attrs->armor->remove_from_regen_rate(this->armor_regen_rate);
+    actor->attrs->armor->remove_from_regen_interval(this->armor_regen_interval);
 };
 
 void AttrEffect::RemoveDamageEffects(Actor* actor)
 {
-    actor->attrs->damage->RemoveFromCurrentVal(this->damage->normal);
-    actor->attrs->damage->RemoveFromMaxVal(this->damage->normal);
-    actor->attrs->damage->RemoveFromRegenRate(this->damage_regen_rate);
-    actor->attrs->damage->RemoveFromRegenInterval(this->damage_regen_interval);
+    actor->attrs->damage->remove_from_current_val(this->damage->normal);
+    actor->attrs->damage->remove_from_max_val(this->damage->normal);
+    actor->attrs->damage->remove_from_regen_rate(this->damage_regen_rate);
+    actor->attrs->damage->remove_from_regen_interval(this->damage_regen_interval);
 };
 
 

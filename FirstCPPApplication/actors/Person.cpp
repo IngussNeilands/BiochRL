@@ -116,27 +116,27 @@ void Person::update()
 
     //update hunger
     Attribute* hunger = this->attrs->hunger;
-    if (hunger->GetValPercentage() > WastingAwayHunger)
+    if (hunger->get_val_percentage() > WastingAwayHunger)
     {
         this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.25;
     }
-    else if (hunger->GetValPercentage() > NearDeathHunger)
+    else if (hunger->get_val_percentage() > NearDeathHunger)
     {
         this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.1;
     }
-    else if (hunger->GetValPercentage() > FamishedHunger)
+    else if (hunger->get_val_percentage() > FamishedHunger)
     {
         this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.05;
     }
-    else if (hunger->GetValPercentage() > StarvingHunger)
+    else if (hunger->get_val_percentage() > StarvingHunger)
     {
         this->attrs->health->regen_rate = -(float)this->attrs->health->max_val*0.025;
     }
-    // else if (hunger->GetValPercentage() > VeryHunger)
+    // else if (hunger->get_val_percentage() > VeryHunger)
     // {
     //     this->attrs->health->regen_rate -= (float)this->attrs->health->max_val*0.25;
     // }
-    // else if (hunger->GetValPercentage() > DefaultHunger)
+    // else if (hunger->get_val_percentage() > DefaultHunger)
     // {
     //     this->attrs->health->regen_rate -= (float)this->attrs->health->max_val*0.05;
     // }

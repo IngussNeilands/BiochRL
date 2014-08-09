@@ -28,29 +28,29 @@ class Attribute
         static const TCODColor attribute_color;
 
 
-        virtual void Update();
-        virtual void Tick();
-        virtual bool CheckIsReady();
+        virtual void update();
+        virtual void do_tick();
+        virtual bool check_is_ready();
 
-        void SetVals(int both);
-        void SetVals(int current_val, int max_val);
-        void AlterVals(int both);
-        void AlterVals(int diff_current, int diff_max);
+        void set_vals(int both);
+        void set_vals(int current_val, int max_val);
+        void alter_vals(int both);
+        void alter_vals(int diff_current, int diff_max);
 
         // bool CanRegenerate();
-        void Regenerate();
+        void regenerate();
         
-        float GetValPercentage();
+        float get_val_percentage();
 
-        virtual void AddToCurrentVal(int difference);
-        virtual void AddToMaxVal(int difference);
-        virtual void AddToRegenRate(int difference);
-        virtual void AddToRegenInterval(int difference);
+        virtual void add_to_current_val(int difference);
+        virtual void add_to_max_val(int difference);
+        virtual void add_to_regen_rate(int difference);
+        virtual void add_to_regen_interval(int difference);
 
-        virtual void RemoveFromCurrentVal(int difference);
-        virtual void RemoveFromMaxVal(int difference);
-        virtual void RemoveFromRegenRate(int difference);
-        virtual void RemoveFromRegenInterval(int difference);
+        virtual void remove_from_current_val(int difference);
+        virtual void remove_from_max_val(int difference);
+        virtual void remove_from_regen_rate(int difference);
+        virtual void remove_from_regen_interval(int difference);
 
 };
 
@@ -59,7 +59,7 @@ class HealthAttribute : public Attribute
     public:
         static const TCODColor attribute_color;
         HealthAttribute();
-	//void Regenerate();
+	//void regenerate();
 };
 
 class ManaAttribute : public Attribute

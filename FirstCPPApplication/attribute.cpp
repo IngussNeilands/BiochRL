@@ -30,48 +30,48 @@ Attribute::Attribute(Attribute& other)
 
 };
 
-float Attribute::GetValPercentage()
+float Attribute::get_val_percentage()
 {
     float percent = (float)(this->current_val)/ ((float)this->max_val) * 100;
     return percent;
 
 };
 
-void Attribute::Update()
+void Attribute::update()
 {
-    this->Tick();
+    this->do_tick();
 
-    if (this->CheckIsReady())
+    if (this->check_is_ready())
     {
-        this->Regenerate();
-        // this->AddToCurrentVal(this->regen_rate);
+        this->regenerate();
+        // this->add_to_current_val(this->regen_rate);
     };
 
 };
 
-void Attribute::SetVals(int both)
+void Attribute::set_vals(int both)
 {
-    this->SetVals(both, both);
+    this->set_vals(both, both);
 };
 
-void Attribute::SetVals(int current_val, int max_val)
+void Attribute::set_vals(int current_val, int max_val)
 {
     this->current_val = current_val;
     this->max_val = max_val;
 };
 
-void Attribute::AlterVals(int both)
+void Attribute::alter_vals(int both)
 {
-    this->AlterVals(both, both);
+    this->alter_vals(both, both);
 };
 
-void Attribute::AlterVals(int diff_current, int diff_max)
+void Attribute::alter_vals(int diff_current, int diff_max)
 {
     this->current_val += diff_current;
     this->max_val += diff_max;
 };
 
-void Attribute::Tick()
+void Attribute::do_tick()
 {
 
     //if there's no regen rate, freeze and reset regen
@@ -95,7 +95,7 @@ void Attribute::Tick()
 
 };
 
-void Attribute::AddToCurrentVal(int difference)
+void Attribute::add_to_current_val(int difference)
 {
     if (difference != 0)
     {
@@ -108,7 +108,7 @@ void Attribute::AddToCurrentVal(int difference)
 
 };
 
-void Attribute::AddToMaxVal(int difference)
+void Attribute::add_to_max_val(int difference)
 {
     if (difference != 0)
     {
@@ -117,7 +117,7 @@ void Attribute::AddToMaxVal(int difference)
 
 };
 
-void Attribute::AddToRegenRate(int difference)
+void Attribute::add_to_regen_rate(int difference)
 {
     if (difference != 0)
     {
@@ -126,7 +126,7 @@ void Attribute::AddToRegenRate(int difference)
 
 };
 
-void Attribute::AddToRegenInterval(int difference)
+void Attribute::add_to_regen_interval(int difference)
 {
     if (difference != 0)
     {
@@ -135,7 +135,7 @@ void Attribute::AddToRegenInterval(int difference)
 
 };
 
-void Attribute::RemoveFromCurrentVal(int difference)
+void Attribute::remove_from_current_val(int difference)
 {
     if (difference != 0)
     {
@@ -144,7 +144,7 @@ void Attribute::RemoveFromCurrentVal(int difference)
 
 };
 
-void Attribute::RemoveFromMaxVal(int difference)
+void Attribute::remove_from_max_val(int difference)
 {
     if (difference != 0)
     {
@@ -153,7 +153,7 @@ void Attribute::RemoveFromMaxVal(int difference)
 
 };
 
-void Attribute::RemoveFromRegenRate(int difference)
+void Attribute::remove_from_regen_rate(int difference)
 {
     if (difference != 0)
     {
@@ -162,7 +162,7 @@ void Attribute::RemoveFromRegenRate(int difference)
 
 };
 
-void Attribute::RemoveFromRegenInterval(int difference)
+void Attribute::remove_from_regen_interval(int difference)
 {
     if (difference != 0)
     {
@@ -177,9 +177,9 @@ void Attribute::RemoveFromRegenInterval(int difference)
 //     return true;
 // };
 
-void Attribute::Regenerate()
+void Attribute::regenerate()
 {
-    if (this->CheckIsReady())
+    if (this->check_is_ready())
     {
         this->current_val += this->regen_rate;
         if (this->current_val > this->max_val)
@@ -190,14 +190,14 @@ void Attribute::Regenerate()
 
 };
 
-bool Attribute::CheckIsReady()
+bool Attribute::check_is_ready()
 {
     return this->is_ready;
 };
 
-//void HealthAttribute::Regenerate()
+//void HealthAttribute::regenerate()
 //{
-//	Attribute::Regenerate();
+//	Attribute::regenerate();
 //
 //};
 

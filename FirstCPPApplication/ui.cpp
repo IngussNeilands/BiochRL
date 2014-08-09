@@ -152,7 +152,7 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
         // help_text_height = 5;
         Actor* occupant = target_tile->occupant;
         help_text = occupant->name;
-        float health_percent = occupant->attrs->health->GetValPercentage();
+        float health_percent = occupant->attrs->health->get_val_percentage();
         // std::stringstream ss;
         // ss << health_percent;
         // messages.push_back(ss.str());
