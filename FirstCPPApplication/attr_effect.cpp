@@ -40,6 +40,11 @@ AttrEffect::AttrEffect()
     this->hunger_regen_rate = 0;
     this->hunger_regen_interval = 0; 
 
+    this->speed_current_val = 0;
+    this->speed_max_val = 0;
+    this->speed_regen_rate = 0;
+    this->speed_regen_interval = 0; 
+
 
     this->duration = -1;
 
@@ -65,6 +70,7 @@ void AttrEffect::set_all_vals_to(int new_val)
     this->set_armor_vals_to(new_val);
     this->set_damage_vals_to(new_val);
     this->set_hunger_vals_to(new_val);
+    this->set_speed_vals_to(new_val);
 };
 
 void AttrEffect::set_rng_health(TCODRandom* rng, int min, int max, int med)
@@ -95,6 +101,23 @@ int AttrEffect::set_rng_damage(TCODRandom* rng, int min, int max, int med)
     this->damage->normal = val;
     return val;
 };
+
+int AttrEffect::set_rng_hunger(TCODRandom* rng, int min, int max, int med)
+{
+    int val = rng->getInt(min, max, med);
+    this->hunger_current_val = val;
+    this->hunger_max_val = val;
+    return val;
+};
+
+int AttrEffect::set_rng_speed(TCODRandom* rng, int min, int max, int med)
+{
+    int val = rng->getInt(min, max, med);
+    this->speed_current_val = val;
+    this->speed_max_val = val;
+    return val;
+};
+
 
 void AttrEffect::set_health_vals_to(int new_val)
 {
@@ -133,6 +156,14 @@ void AttrEffect::set_hunger_vals_to(int new_val)
     this->hunger_max_val = new_val;
     this->hunger_regen_rate = new_val;
     this->hunger_regen_interval = new_val; 
+};
+
+void AttrEffect::set_speed_vals_to(int new_val)
+{
+    this->speed_current_val = new_val;
+    this->speed_max_val = new_val;
+    this->speed_regen_rate = new_val;
+    this->speed_regen_interval = new_val; 
 };
 
 bool AttrEffect::already_applied_health(Actor* actor)
@@ -220,6 +251,23 @@ bool AttrEffect::already_applied_hunger(Actor* actor)
     return false;
 };
 
+bool AttrEffect::already_applied_speed(Actor* actor)
+{
+
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            return ((*it)->speed.all);
+        };
+
+    };
+    return false;
+};
+
 void AttrEffect::unmark_applied_all(Actor* actor)
 {
 
@@ -234,6 +282,8 @@ void AttrEffect::unmark_applied_all(Actor* actor)
             (*it)->mana.all = false;
             (*it)->armor.all  = false;
             (*it)->damage.all = false;
+            (*it)->hunger.all = false;
+            (*it)->speed.all = false;
         };
 
     };
@@ -248,7 +298,7 @@ bool AttrEffect::already_applied_all(Actor* actor)
     {
         if ((*it)->actor == actor)
         {
-            return ((*it)->health.all && (*it)->mana.all && (*it)->armor.all  && (*it)->damage.all );
+            return ((*it)->health.all && (*it)->mana.all && (*it)->armor.all  && (*it)->damage.all && (*it)->hunger.all && (*it)->speed.all );
         };
 
     };
@@ -344,6 +394,21 @@ void AttrEffect::mark_applied_hunger(Actor* actor)
     };
 };
 
+void AttrEffect::mark_applied_speed(Actor* actor)
+{
+    //loop through the actors_applied_to vector and find one with the actor
+    //passed in
+    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
+    for (it; it != this->actors_applied_to->end(); ++it)
+    {
+        if ((*it)->actor == actor)
+        {
+            ((*it)->speed.all = true);
+        };
+
+    };
+};
+
 void AttrEffect::mark_applied_all(Actor* actor)
 {
     //loop through the actors_applied_to vector and find one with the actor
@@ -357,37 +422,12 @@ void AttrEffect::mark_applied_all(Actor* actor)
             ((*it)->mana.all = true);
             ((*it)->armor.all = true);
             ((*it)->damage.all = true);
+            (*it)->hunger.all = true;
         };
 
     };
 };
 
-
-//void ItemEffect::mark_applied_all(Actor* actor)
-//{
-//    //loop through the actors_applied_to vector and find one with the actor
-//    //passed in
-//    std::vector<applied_to_s*>::iterator it = this->actors_applied_to->begin();
-//    for (it; it != this->actors_applied_to->end(); ++it)
-//    {
-//        if ((*it)->actor == actor)
-//        {
-//           ((*it)->all = true);
-//        };
-//
-//    };
-
-// auto it = std::find(this->actors_applied_to->begin(), this->actors_applied_to->end(), actor);
-
-// if ( it != this->actors_applied_to->end() )
-// {
-//     //do nothing because it already exists in the vector
-// }
-// else
-// {
-//     this->actors_applied_to->push_back(actor);
-// };
-//};
 
 void AttrEffect::ApplyAllEffects(Actor* actor)
 {
@@ -396,6 +436,7 @@ void AttrEffect::ApplyAllEffects(Actor* actor)
     this->ApplyArmorEffects(actor);
     this->ApplyDamageEffects(actor);
     this->ApplyHungerEffects(actor);
+    this->ApplySpeedEffects(actor);
     if (actor->combat!= NULL)
         actor->combat->try_to_die();
     else
@@ -462,12 +503,26 @@ void AttrEffect::ApplyHungerEffects(Actor* actor)
     }
 };
 
+void AttrEffect::ApplySpeedEffects(Actor* actor)
+{
+    if (! this->already_applied_speed(actor))
+    {
+        actor->attrs->speed->add_to_max_val(this->speed_max_val);
+        actor->attrs->speed->add_to_current_val(this->speed_current_val);
+        actor->attrs->speed->add_to_regen_rate(this->speed_regen_rate);
+        actor->attrs->speed->add_to_regen_interval(this->speed_regen_interval);
+        this->mark_applied_speed(actor);
+    }
+};
+
 void AttrEffect::RemoveAllEffects(Actor* actor)
 {
     this->RemoveHealthEffects(actor);
     this->RemoveManaEffects(actor);
     this->RemoveArmorEffects(actor);
     this->RemoveDamageEffects(actor);
+    this->RemoveHungerEffects(actor);
+    this->RemoveSpeedEffects(actor);
 };
 
 void AttrEffect::RemoveHealthEffects(Actor* actor)
@@ -502,6 +557,22 @@ void AttrEffect::RemoveDamageEffects(Actor* actor)
     actor->attrs->damage->remove_from_regen_interval(this->damage_regen_interval);
 };
 
+void AttrEffect::RemoveHungerEffects(Actor* actor)
+{
+    actor->attrs->hunger->remove_from_current_val(this->hunger_current_val);
+    actor->attrs->hunger->remove_from_max_val(this->hunger_max_val);
+    actor->attrs->hunger->remove_from_regen_rate(this->hunger_regen_rate);
+    actor->attrs->hunger->remove_from_regen_interval(this->hunger_regen_interval);
+};
+
+void AttrEffect::RemoveSpeedEffects(Actor* actor)
+{
+    actor->attrs->speed->remove_from_current_val(this->speed_current_val);
+    actor->attrs->speed->remove_from_max_val(this->speed_max_val);
+    actor->attrs->speed->remove_from_regen_rate(this->speed_regen_rate);
+    actor->attrs->speed->remove_from_regen_interval(this->speed_regen_interval);
+};
+
 
 std::string AttrEffect::full_str()
 {
@@ -528,6 +599,17 @@ std::string AttrEffect::full_str()
     string_vec.push_back("DMV: "+std::to_string((long double)this->damage->normal));
     string_vec.push_back("DRR: "+std::to_string((long double)this->damage_regen_rate));
     string_vec.push_back("DRI: "+std::to_string((long double)this->damage_regen_interval));
+
+    string_vec.push_back("FCV: "+std::to_string((long double)this->hunger_current_val));
+    string_vec.push_back("FMV: "+std::to_string((long double)this->hunger_max_val));
+    string_vec.push_back("FRR: "+std::to_string((long double)this->hunger_regen_rate));
+    string_vec.push_back("FRI: "+std::to_string((long double)this->hunger_regen_interval));
+
+    string_vec.push_back("SCV: "+std::to_string((long double)this->speed_current_val));
+    string_vec.push_back("SMV: "+std::to_string((long double)this->speed_max_val));
+    string_vec.push_back("SRR: "+std::to_string((long double)this->speed_regen_rate));
+    string_vec.push_back("SRI: "+std::to_string((long double)this->speed_regen_interval));
+
 
     if (string_vec.size() != 0)
         string_vec.push_back("%c");
@@ -565,6 +647,8 @@ std::string AttrEffect::oneline_str_FIXED()
     TCODColor mana_color = ManaAttribute::attribute_color;
     TCODColor armor_color = ArmorAttribute::attribute_color;
     TCODColor damage_color = DamageAttribute::attribute_color;
+    TCODColor hunger_color = HungerAttribute::attribute_color;
+    TCODColor speed_color = SpeedAttribute::attribute_color;
 
     std::stringstream ss;
 
@@ -595,6 +679,17 @@ std::string AttrEffect::oneline_str_FIXED()
     ss << buffer_color("DTH", this->damage->death, TCODColor::darkestGrey);
     ss << buffer_color("CTL", this->damage->crystal, TCODColor::darkPurple);
     ss << buffer_color("SPR", this->damage->spectre, TCODColor::magenta);
+
+    ss << buffer_color("FCV", this->hunger_current_val, hunger_color);
+    ss << buffer_color("FMV", this->hunger_max_val, hunger_color);
+    ss << buffer_color("FRR", this->hunger_regen_rate, hunger_color);
+    ss << buffer_color("FRI", this->hunger_regen_interval, hunger_color);
+
+    ss << buffer_color("SCV", this->speed_current_val, speed_color);
+    ss << buffer_color("SMV", this->speed_max_val, speed_color);
+    ss << buffer_color("SRR", this->speed_regen_rate, speed_color);
+    ss << buffer_color("SRI", this->speed_regen_interval, speed_color);
+
 
     return ss.str();
     return StringJoin(string_vec, ' ', true);

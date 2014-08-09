@@ -41,6 +41,7 @@ struct applied_to_s
     type_applied_s armor;
     type_applied_s damage;
     type_applied_s hunger;
+    type_applied_s speed;
     Actor* actor;
 };
 
@@ -88,7 +89,10 @@ class AttrEffect
         int hunger_regen_rate;
         int hunger_regen_interval; 
 
-
+        int speed_current_val;
+        int speed_max_val;
+        int speed_regen_rate;
+        int speed_regen_interval; 
 
         applied_to_s  applied_to;
         std::vector<applied_to_s*>* actors_applied_to;
@@ -102,6 +106,7 @@ class AttrEffect
         void ApplyArmorEffects(Actor* actor);
         void ApplyDamageEffects(Actor* actor);
         void ApplyHungerEffects(Actor* actor);
+        void ApplySpeedEffects(Actor* actor);
 
         void RemoveAllEffects(Actor* actor);
         void RemoveHealthEffects(Actor* actor);
@@ -109,6 +114,7 @@ class AttrEffect
         void RemoveArmorEffects(Actor* actor);
         void RemoveDamageEffects(Actor* actor);
         void RemoveHungerEffects(Actor* actor);
+        void RemoveSpeedEffects(Actor* actor);
 
         bool already_applied_all(Actor* actor);
         bool already_applied_health(Actor* actor);
@@ -116,6 +122,7 @@ class AttrEffect
         bool already_applied_armor(Actor* actor);
         bool already_applied_damage(Actor* actor);
         bool already_applied_hunger(Actor* actor);
+        bool already_applied_speed(Actor* actor);
 
         void mark_applied_all(Actor* actor);
         void mark_applied_health(Actor* actor);
@@ -123,12 +130,14 @@ class AttrEffect
         void mark_applied_armor(Actor* actor);
         void mark_applied_damage(Actor* actor);
         void mark_applied_hunger(Actor* actor);
+        void mark_applied_speed(Actor* actor);
 
         void set_rng_health(TCODRandom* rng, int min, int max, int med);
         void set_rng_mana(TCODRandom* rng, int min, int max, int med);
         int set_rng_armor(TCODRandom* rng, int min, int max, int med);
         int set_rng_damage(TCODRandom* rng, int min, int max, int med);
-        void set_rng_hunger(TCODRandom* rng, int min, int max, int med);
+        int set_rng_hunger(TCODRandom* rng, int min, int max, int med);
+        int set_rng_speed(TCODRandom* rng, int min, int max, int med);
 
         void unmark_applied_all(Actor* actor);
 
@@ -146,6 +155,7 @@ class AttrEffect
         void set_armor_vals_to(int new_val);
         void set_damage_vals_to(int new_val);
         void set_hunger_vals_to(int new_val);
+        void set_speed_vals_to(int new_val);
 };
 
 #endif

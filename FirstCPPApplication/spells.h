@@ -130,8 +130,7 @@ class Bonewall : public Spell
         Bonewall();
         bool cast(Tile* targetted_tile);
 };
-// class SacredKickSpell : public Spell {  public: SacredKickSpell(); };
-// class DeathsHandSpell : public Spell {  public: DeathsHandSpell(); };
+class LimbBreaker : public Spell {  public: LimbBreaker(); };
 // class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
 
 

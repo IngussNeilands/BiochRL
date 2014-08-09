@@ -705,6 +705,13 @@ bool Bonewall::cast(Tile* targetted_tile)
     return true;
 };
 
+LimbBreaker::LimbBreaker()
+{
+    this->name = "LimbBreaker";
+    this->element = DeathElement;
+    this->attr_effect->speed_current_val = -100;
+};
+
 
 /* misc */
 
