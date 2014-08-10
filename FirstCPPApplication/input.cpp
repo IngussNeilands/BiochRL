@@ -105,6 +105,7 @@ std::vector<std::string> make_generic_menu_active_char()
 {
     std::vector<std::string> vec;
     vec.push_back("Exit the menu");
+    vec.push_back("Confirm the menu item");
     vec.push_back("NO_MATCHING_GENERIC_MENU_ACTIVE");
     assert(vec.size() == LAST_GENERIC_MENU_ACTIVE+1 && "Missing a help command for generic chars");
     return vec;
@@ -781,8 +782,7 @@ std::map<int, generic_menu_active_t>  Input::build_spec_generic_menu_keymap()
 {
 
     std::map<int, generic_menu_active_t> spec_genmenactivemap; 
-    // 
-    // spec_genmenactivemap[TCODK_ESCAPE] = generic_menu_active_t::EscapeGenericMenu;
+    spec_genmenactivemap[TCODK_ENTER] = generic_menu_active_t::ActivateGenericMenuItem;
     return spec_genmenactivemap;
 }; 
 
@@ -808,9 +808,14 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
     if( action == generic_menu_active_t::EscapeGenericMenu )
     {
         Ui::generic_active = false;
-        Ui::chosen_generic = false;
+        Ui::chosen_generic = NULL;
         return true;
     }
+    else if (action == generic_menu_active_t::ActivateGenericMenuItem)
+    {
+		std::string* menu_item = static_cast<std::string*>(Ui::chosen_generic);
+        std::cout << "You have chosen:" << *menu_item << "!" << std::endl;
+    };
 
     return false;
 };

@@ -402,13 +402,10 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
 {
     ScreenItem result;
     result.key = this->key;
-
-    char buffer[512];
-
-    bool has_duration;
+    
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
-    has_duration = element->attr_effect->duration != -1;
+    bool has_duration = element->attr_effect->duration != -1;
 
     TCODColor foreground, background;
     std::vector<TCODColor> colors = this->get_colors(con, element);
@@ -445,11 +442,6 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
         ss << ", " << element->aoe << "aoe";
     };
 
-    if (is_chosen)
-    {
-        ss << " <-";
-    }
-
     if (element->custom_key != NULL)
     {
         // std::string index = std::to_string((long double)this->get_custom_key_index(element));
@@ -458,6 +450,11 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
         std::string msg_str = std::string(colfg(TCODColor::green, " "+index));
         ss << msg_str;
     };
+
+    if (is_chosen)
+    {
+        ss << " <-";
+    }
 
     result.foreground = foreground;
     result.background = background;
@@ -492,9 +489,6 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     ScreenItem result;
     result.key = this->key;
 
-    bool has_duration;
-    bool is_chosen = this->is_chosen(element);
-    bool is_active = this->is_active(element);
 
     TCODColor foreground, background;
     std::vector<TCODColor> colors = this->get_enabled_colors(con, element);
@@ -510,7 +504,7 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     std::stringstream ss;
     ss << this->key << "-" << colfg(foreground, element->name);
 
-    if (is_chosen)
+    if (this->is_chosen(element))
     {
         ss << " <-";
     }
@@ -560,7 +554,6 @@ ScreenItem MainMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* elem
     ScreenItem result;
     result.key = this->key;
 
-    bool has_duration;
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
 
