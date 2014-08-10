@@ -265,6 +265,11 @@ std::string strip_tcodcolor(std::string in_string)
     template<typename T>
 ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
 {
+
+    bool is_chosen = this->is_chosen(element);
+    bool is_active = this->is_active(element);
+    bool is_enabled = this->is_enabled(element);
+
     ScreenItem result;
     result.key = this->key;
     TCODColor foreground, background;
@@ -284,10 +289,6 @@ ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* ele
     }
 
     ss << key << "-" << letter << " " << name << " : " << weight << range;
-
-    bool is_chosen = this->is_chosen(element);
-    bool is_active = this->is_active(element);
-    bool is_enabled = this->is_enabled(element);
 
     if (is_chosen)
     {
@@ -414,56 +415,53 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     foreground = colors.at(0);
     background = colors.at(1);
 
-    TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
-    TCODConsole::setColorControl(TCOD_COLCTRL_2, element->get_spell_color(), con->getDefaultBackground());
     TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
     TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
 
+    std::stringstream ss;
+    std::string key = char_to_str(this->key);
+    std::string name = colfg(foreground, strip_tcodcolor(element->name));
+    std::string letter = colfg(element->get_spell_color(), "s");
+	std::stringstream mana_cost_str;
+	mana_cost_str << element->mana_cost;
+    std::string mana_cost = colfg(TCODColor::lightCyan, mana_cost_str.str());
+    std::string range = colfg(TCODColor::white, element->max_range);
+
     //key, element, name
     std::string base_msg_str = "%c-%c%c%c %c%s%c : ";
-    sprintf(buffer, base_msg_str.c_str(), this->key, TCOD_COLCTRL_2, 's',
-            TCOD_COLCTRL_STOP, TCOD_COLCTRL_1, element->name.c_str(),
-            TCOD_COLCTRL_STOP);
-
+    ss << key << "-" << letter << " " << name << " : ";
     //mana, range
-    std::string msg_str = buffer;
-    msg_str.append("%c%d mana%c, %c%drng%c");
-    sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_3,
-            element->mana_cost, TCOD_COLCTRL_STOP, TCOD_COLCTRL_4,
-            element->max_range, TCOD_COLCTRL_STOP);
-    msg_str = buffer;
+    ss << mana_cost << " mana, " << range << "rng";
 
     //duration
     if (has_duration)
     {
-        msg_str.append(", %ddur");
-        sprintf(buffer, msg_str.c_str(), element->attr_effect->duration);
-        msg_str = buffer;
+        ss << ", " << element->attr_effect->duration << "dur";
     };
 
     //aoe
     if (element->aoe > 0)
     {
-        std::stringstream ss;
-        ss << msg_str << ", " << element->aoe << "aoe";
-        msg_str = ss.str();
+        ss << ", " << element->aoe << "aoe";
     };
 
     if (is_chosen)
     {
-        msg_str.append(" <-");
+        ss << " <-";
     }
 
     if (element->custom_key != NULL)
     {
         // std::string index = std::to_string((long double)this->get_custom_key_index(element));
+
         std::string index = std::to_string((long double)element->custom_key->index);
-        msg_str.append(colfg(TCODColor::green, " "+index));
+        std::string msg_str = std::string(colfg(TCODColor::green, " "+index));
+        ss << msg_str;
     };
 
     result.foreground = foreground;
     result.background = background;
-    result.msg_str = msg_str;
+    result.msg_str = ss.str();
     result.element = element;
 
     return result;
