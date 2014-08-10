@@ -68,15 +68,14 @@ class InventoryScreen : public Screen<T>
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
-template<typename T>
-class SpellScreen : public Screen<T>
+class SpellScreen : public Screen<Spell>
 {
     public:
 
-        SpellScreen<T>() : Screen() { this->title="Spell Screen"; };
+        SpellScreen() : Screen() { this->title="Spell Screen"; };
         SpellScreen::~SpellScreen(){};
 
-        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, Spell* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 

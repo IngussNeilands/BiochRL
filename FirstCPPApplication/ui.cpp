@@ -746,7 +746,7 @@ void Ui::draw_inventory_ui()
 
 void Ui::draw_spell_select_ui()
 {
-    SpellScreen<Spell> spell_screen;
+    SpellScreen spell_screen;
 
     std::vector<Spell*>* spells = Game::player->spells;
     //add spells from equipment

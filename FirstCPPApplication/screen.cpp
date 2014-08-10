@@ -397,8 +397,7 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
 
 
 /* SPELL SCREEN */
-    template<typename T>
-ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+ScreenItem SpellScreen::build_screen_item(TCODConsole* con, int i, Spell* element)
 {
     ScreenItem result;
     result.key = this->key;
@@ -464,8 +463,7 @@ ScreenItem SpellScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     return result;
 };
 
-    template<typename T>
-void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+void SpellScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     const char *msg_char = si.msg_str.c_str();
@@ -475,7 +473,7 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 
     //print the item effects
-    con->print(this->offset, i, ((T*)si.element)->attr_effect->oneline_str_FIXED().c_str());
+    con->print(this->offset, i, ((Spell*)si.element)->attr_effect->oneline_str_FIXED().c_str());
     si.max_y = i;
 
     i++;
@@ -719,8 +717,8 @@ template bool Screen<Spell>::is_active(Spell* element);
 template void Screen<Spell>::draw();
 template void Screen<Spell>::build_screen_items(TCODConsole* con, int i);
 template void Screen<Spell>::loop(TCODConsole* con, int i);
-template ScreenItem SpellScreen<Spell>::build_screen_item(TCODConsole* con, int i, Spell* element);
-template void SpellScreen<Spell>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+template ScreenItem Screen<Spell>::build_screen_item(TCODConsole* con, int i, Spell* element);
+template void Screen<Spell>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 
 template Screen<IClass>::Screen();
