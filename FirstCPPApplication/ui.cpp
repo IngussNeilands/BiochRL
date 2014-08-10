@@ -761,7 +761,7 @@ void Ui::draw_spell_select_ui()
 
 void Ui::draw_class_select_ui()
 {
-    ClassScreen<IClass> class_screen;
+    ClassScreen class_screen;
     class_screen.elements = Game::player->actor_class_choices;
     class_screen.draw();
 };

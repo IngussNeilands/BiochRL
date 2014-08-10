@@ -8,6 +8,7 @@ class InventoryScreenItem;
 class Representation;
 class AttrEffect;
 class MessageHandler;
+class IClass;
 
 template< typename T>
 class Screen 
@@ -79,16 +80,16 @@ class SpellScreen : public Screen<T>
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
-template<typename T>
-class ClassScreen : public Screen<T>
+// template<typename T>
+class ClassScreen : public Screen<IClass>
 {
     public:
 
-        ClassScreen<T>() : Screen() { this->title="Choose your class"; };
+        ClassScreen() : Screen() { this->title="Choose your class"; };
         ClassScreen::~ClassScreen(){};
 
-        virtual bool is_enabled(T* element);
-        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        virtual bool is_enabled(IClass* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, IClass* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
@@ -120,6 +121,4 @@ class SimpleMenuScreen : public Screen<T>
         ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
-
-
 #endif

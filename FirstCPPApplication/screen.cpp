@@ -483,8 +483,7 @@ void SpellScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 };
 
 /* SPELL SCREEN */
-    template<typename T>
-ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+ScreenItem ClassScreen::build_screen_item(TCODConsole* con, int i, IClass* element)
 {
     ScreenItem result;
     result.key = this->key;
@@ -517,15 +516,13 @@ ScreenItem ClassScreen<T>::build_screen_item(TCODConsole* con, int i, T* element
     return result;
 };
 
-    template<typename T>
-bool ClassScreen<T>::is_enabled(T* element)
+bool ClassScreen::is_enabled(IClass* element)
 {
     return Ui::game->player->actor_class->type == element->type;
 };
 
 
-    template<typename T>
-void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+void ClassScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     const char *msg_char = si.msg_str.c_str();
@@ -537,7 +534,7 @@ void ClassScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     char buffer[512];
     std::string msg_str = "%c%s%c";
     sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
-            ((T*)si.element)->description.c_str(), TCOD_COLCTRL_STOP);
+            ((IClass*)si.element)->description.c_str(), TCOD_COLCTRL_STOP);
     msg_str = buffer;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
             TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
@@ -721,16 +718,6 @@ template ScreenItem MainMenuScreen<std::string>::build_screen_item(TCODConsole* 
 template std::vector<TCODColor> Screen<std::string>::get_enabled_colors(TCODConsole* con, std::string* element);
 template void MainMenuScreen<std::string>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
-template Screen<IClass>::Screen();
-template bool Screen<IClass>::is_chosen(IClass* element);
-template bool Screen<IClass>::is_active(IClass* element);
-template void Screen<IClass>::draw();
-template void Screen<IClass>::build_screen_items(TCODConsole* con, int i);
-template void Screen<IClass>::loop(TCODConsole* con, int i);
-template std::vector<TCODColor> Screen<IClass>::get_enabled_colors(TCODConsole* con, IClass* element);
-template ScreenItem ClassScreen<IClass>::build_screen_item(TCODConsole* con, int i, IClass* element);
-template void ClassScreen<IClass>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
-template bool ClassScreen<IClass>::is_enabled(IClass* element);
 
 template Screen<Spell>::Screen();
 template bool Screen<Spell>::is_chosen(Spell* element);
@@ -740,3 +727,15 @@ template void Screen<Spell>::build_screen_items(TCODConsole* con, int i);
 template void Screen<Spell>::loop(TCODConsole* con, int i);
 template ScreenItem SpellScreen<Spell>::build_screen_item(TCODConsole* con, int i, Spell* element);
 template void SpellScreen<Spell>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+
+
+template Screen<IClass>::Screen();
+template bool Screen<IClass>::is_chosen(IClass* element);
+template bool Screen<IClass>::is_active(IClass* element);
+template void Screen<IClass>::draw();
+template void Screen<IClass>::build_screen_items(TCODConsole* con, int i);
+template void Screen<IClass>::loop(TCODConsole* con, int i);
+template std::vector<TCODColor> Screen<IClass>::get_enabled_colors(TCODConsole* con, IClass* element);
+template ScreenItem Screen<IClass>::build_screen_item(TCODConsole* con, int i, IClass* element);
+template void Screen<IClass>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+template bool Screen<IClass>::is_enabled(IClass* element);
