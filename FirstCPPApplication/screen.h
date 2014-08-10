@@ -115,4 +115,6 @@ class SimpleMenuScreen : public Screen<std::string>
         ScreenItem build_screen_item(TCODConsole* con, int i, std::string* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
+
+
 #endif

@@ -386,6 +386,9 @@
     <ClInclude Include="vector_helper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="menu_item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -545,6 +548,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu_item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
