@@ -244,8 +244,7 @@ std::vector<TCODColor> Screen<T>::get_colors(TCODConsole* con, T* element)
 
 };
 
-    template<typename T>
-bool InventoryScreen<T>::is_enabled(T* element)
+bool InventoryScreen::is_enabled(Item* element)
 {
     return Ui::game->player->equipment->is_item_equipped(element);
 };
@@ -262,8 +261,7 @@ std::string strip_tcodcolor(std::string in_string)
     };
 }
 
-    template<typename T>
-ScreenItem InventoryScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+ScreenItem InventoryScreen::build_screen_item(TCODConsole* con, int i, Item* element)
 {
 
     bool is_chosen = this->is_chosen(element);
@@ -375,8 +373,7 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
     return result;
 };
 
-    template<typename T>
-void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+void InventoryScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     TCODConsole::setColorControl(TCOD_COLCTRL_1, si.foreground, si.background);
@@ -388,7 +385,7 @@ void InventoryScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& 
     i++;
 
     //print the item effects
-    con->print(this->offset, i, ((T*)si.element)->attr_effect->oneline_str_FIXED().c_str());
+    con->print(this->offset, i, ((Item*)si.element)->attr_effect->oneline_str_FIXED().c_str());
     si.max_y = i;
     i++;
     i++;
@@ -691,10 +688,10 @@ template TCODConsole* Screen<Item>::create_screen();
 template void Screen<Item>::draw();
 template void Screen<Item>::build_screen_items(TCODConsole* con, int i);
 template void Screen<Item>::loop(TCODConsole* con, int i);
-template bool InventoryScreen<Item>::is_enabled(Item* element);
-template ScreenItem InventoryScreen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
+template bool Screen<Item>::is_enabled(Item* element);
+template ScreenItem Screen<Item>::build_screen_item(TCODConsole* con, int i, Item* element);
 template std::vector<TCODColor> Screen<Item>::get_enabled_colors(TCODConsole* con, Item* element);
-template void InventoryScreen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+template void Screen<Item>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 template Screen<std::string>::Screen();
 template bool Screen<std::string>::is_chosen(std::string* element);

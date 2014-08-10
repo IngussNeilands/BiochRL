@@ -55,16 +55,15 @@ class Screen
 
 };
 
-template<typename T>
-class InventoryScreen : public Screen<T>
+class InventoryScreen : public Screen<Item>
 {
     public:
 
-        InventoryScreen<T>() : Screen() { this->title="Inventory Screen"; };
+        InventoryScreen() : Screen() { this->title="Inventory Screen"; };
         InventoryScreen::~InventoryScreen(){};
-        virtual bool is_enabled(T* element);
+        virtual bool is_enabled(Item* element);
 
-        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, Item* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 

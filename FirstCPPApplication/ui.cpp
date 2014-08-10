@@ -738,7 +738,7 @@ void Ui::draw_screen(std::string title, void (*loop_through_lines)(TCODConsole*,
 
 void Ui::draw_inventory_ui()
 {
-    InventoryScreen<Item> inv_screen;
+    InventoryScreen inv_screen;
     inv_screen.elements = Game::player->inventory->items;
     // inv_screen->msg_hdlr = Ui::msg_handler_inv;
     inv_screen.draw();
