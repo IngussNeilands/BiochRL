@@ -37,3 +37,14 @@ int MenuItem::get_windows_num()
     return result;
 
 };
+
+void MenuItem::activate()
+{
+    std::cout << "menu item activated" << std::endl;
+};
+
+void MenuItem::examine()
+{
+    
+    std::cout << "menu item examined" << std::endl;
+};

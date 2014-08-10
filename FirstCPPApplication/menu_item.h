@@ -7,6 +7,7 @@ class Game;
 class Actor;
 class ScreenItem;
 class Ui;
+class BackgroundInfo;
 
 
 /*
