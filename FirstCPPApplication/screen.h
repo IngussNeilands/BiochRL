@@ -80,7 +80,6 @@ class SpellScreen : public Screen<T>
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
-// template<typename T>
 class ClassScreen : public Screen<IClass>
 {
     public:
@@ -93,32 +92,29 @@ class ClassScreen : public Screen<IClass>
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
-template<typename T>
-class MainMenuScreen : public Screen<T>
+class MainMenuScreen : public Screen<std::string>
 {
     public:
 
-        MainMenuScreen<T>() : Screen() { this->title="Main Menu!"; };
+        MainMenuScreen() : Screen() { this->title="Main Menu!"; };
         MainMenuScreen::~MainMenuScreen(){};
 
-        virtual bool is_enabled(T* element);
-        // virtual bool is_active(T* element);
-        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        virtual bool is_enabled(std::string* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, std::string* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 
 
-template<typename T>
-class SimpleMenuScreen : public Screen<T>
+class SimpleMenuScreen : public Screen<std::string>
 {
     public:
 
-        SimpleMenuScreen<T>() : Screen() { this->title="Simple Menu!"; };
+        SimpleMenuScreen() : Screen() { this->title="Simple Menu!"; };
         SimpleMenuScreen::~SimpleMenuScreen(){};
 
-        virtual bool is_enabled(T* element);
-        // virtual bool is_active(T* element);
-        ScreenItem build_screen_item(TCODConsole* con, int i, T* element);
+        virtual bool is_enabled(std::string* element);
+        // virtual bool is_active(std::string* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, std::string* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 #endif

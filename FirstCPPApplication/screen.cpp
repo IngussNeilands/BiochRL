@@ -545,8 +545,7 @@ void ClassScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 };
 
 /* MAIN MENU SCREEN */
-    template<typename T>
-ScreenItem MainMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+ScreenItem MainMenuScreen::build_screen_item(TCODConsole* con, int i, std::string* element)
 {
     ScreenItem result;
     result.key = this->key;
@@ -581,8 +580,7 @@ ScreenItem MainMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* elem
     return result;
 };
 
-    template<typename T>
-bool MainMenuScreen<T>::is_enabled(T* element)
+bool MainMenuScreen::is_enabled(std::string* element)
 {
     return false;
 }
@@ -593,8 +591,7 @@ bool MainMenuScreen<T>::is_enabled(T* element)
 //     return false;
 // }
 // 
-    template<typename T>
-void MainMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+void MainMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     const char *msg_char = si.msg_str.c_str();
@@ -606,7 +603,7 @@ void MainMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& s
     char buffer[512];
     std::string msg_str = "%c%s%c";
     sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
-            ((T*)si.element)->c_str(), TCOD_COLCTRL_STOP);
+            ((std::string*)si.element)->c_str(), TCOD_COLCTRL_STOP);
     msg_str = buffer;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
             TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
@@ -617,8 +614,7 @@ void MainMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& s
 };
 
 /* MAIN MENU SCREEN */
-    template<typename T>
-ScreenItem SimpleMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* element)
+ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, std::string* element)
 {
     ScreenItem result;
     result.key = this->key;
@@ -654,8 +650,7 @@ ScreenItem SimpleMenuScreen<T>::build_screen_item(TCODConsole* con, int i, T* el
     return result;
 };
 
-    template<typename T>
-bool SimpleMenuScreen<T>::is_enabled(T* element)
+bool SimpleMenuScreen::is_enabled(std::string* element)
 {
     return false;
 }
@@ -666,8 +661,7 @@ bool SimpleMenuScreen<T>::is_enabled(T* element)
 //     return false;
 // }
 // 
-    template<typename T>
-void SimpleMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
+void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     const char *msg_char = si.msg_str.c_str();
@@ -679,7 +673,7 @@ void SimpleMenuScreen<T>::draw_screen_item(TCODConsole* con, int& i, ScreenItem&
     char buffer[512];
     std::string msg_str = "%c%s%c";
     sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
-            ((T*)si.element)->c_str(), TCOD_COLCTRL_STOP);
+            ((std::string*)si.element)->c_str(), TCOD_COLCTRL_STOP);
     msg_str = buffer;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
             TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
@@ -712,11 +706,11 @@ template TCODConsole* Screen<std::string>::create_screen();
 template void Screen<std::string>::draw();
 template void Screen<std::string>::build_screen_items(TCODConsole* con, int i);
 template void Screen<std::string>::loop(TCODConsole* con, int i);
-template bool MainMenuScreen<std::string>::is_enabled(std::string* element);
+template bool Screen<std::string>::is_enabled(std::string* element);
 template bool Screen<std::string>::is_active(std::string* element);
-template ScreenItem MainMenuScreen<std::string>::build_screen_item(TCODConsole* con, int i, std::string* element);
+template ScreenItem Screen<std::string>::build_screen_item(TCODConsole* con, int i, std::string* element);
 template std::vector<TCODColor> Screen<std::string>::get_enabled_colors(TCODConsole* con, std::string* element);
-template void MainMenuScreen<std::string>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+template void Screen<std::string>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 
 template Screen<Spell>::Screen();
