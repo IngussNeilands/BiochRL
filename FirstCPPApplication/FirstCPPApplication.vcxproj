@@ -154,6 +154,7 @@
     <ClInclude Include="attribute.h" />
     <ClInclude Include="attribute_container.h" />
     <ClInclude Include="attr_effect.h" />
+    <ClInclude Include="background_info.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="civilian.h" />
     <ClInclude Include="class.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="attribute.cpp" />
     <ClCompile Include="attribute_container.cpp" />
     <ClCompile Include="attr_effect.cpp" />
+    <ClCompile Include="background_info.cpp" />
     <ClCompile Include="build.cpp" />
     <ClCompile Include="civilian.cpp" />
     <ClCompile Include="class.cpp" />

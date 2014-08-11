@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "menu_item.h"
+#include "background_info.h"
 
 MenuItem::MenuItem()
 {
@@ -10,41 +11,22 @@ void MenuItem::init()
 {
     this->title = "Untitled";
     this->description = "No description";
-
-    this->left_box_text = NULL;
-    this->mid_box_text = NULL;
-    this->right_box_text = NULL;
-
-};
-
-int MenuItem::get_windows_num()
-{
-    int result;
-
-    if (this->left_box_text != NULL)
-    {
-        result++;
-    };
-    if (this->mid_box_text != NULL)
-    {
-        result++;
-    };
-    if (this->right_box_text != NULL)
-    {
-        result++;
-    };
-
-    return result;
-
+    this->info = NULL;
 };
 
 void MenuItem::activate()
 {
+    this->info->activate();
     std::cout << "menu item activated" << std::endl;
 };
 
 void MenuItem::examine()
 {
-    
+	if (this->info == NULL)
+	{
+		std::cout << "no matching background info found" << std::endl;
+		return;
+	}
+    this->info->examine();
     std::cout << "menu item examined" << std::endl;
 };

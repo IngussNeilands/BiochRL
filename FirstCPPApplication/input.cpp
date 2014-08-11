@@ -1101,27 +1101,6 @@ bool Input::process_classes_keys(TCOD_key_t request)
         Game::current_screen = Screens::AlertScreenType;
         return true;
     }
-    else if( action == classes_active_t::DropClass )
-    {/*
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
-        Class* spell = Ui::chosen_item;
-        Ui::chosen_spell = NULL;
-        Ui::spell_active = false;
-
-        player->inventory->drop_spell(item);
-        return true;
-        */}
-
-    else if( action == classes_active_t::CastClass )
-    {
-        // Ui::toggle_targetting();
-        // Game::current_state = GameStates::GameplayState;
-        // std::cout << Ui::chosen_spell->name << std::endl;
-        // Game::current_screen = Screens::Game
-        //new Message(Ui::msg_handler_main, NOTYPE_MSG, "Using spell.");
-        //Ui::chosen_spell->use(Game::player);
-        //return true;
-    }
 
     else if( action == classes_active_t::ChangeToClass )
     {

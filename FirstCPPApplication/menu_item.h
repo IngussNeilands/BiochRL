@@ -22,14 +22,10 @@ class MenuItem
         std::string title;
         std::string description;
 
-        str_vec_t* left_box_text;
-        str_vec_t* mid_box_text;
-        str_vec_t* right_box_text;
+        BackgroundInfo* info; //has the activate/examine logic inside
 
         void activate(); //applies to player or whatever action is appropriate
-
         void examine(); //shows the alert pages, like class info or whatever
-        int get_windows_num(); //returns amount of alert windows to show on examine
 
 };
 
