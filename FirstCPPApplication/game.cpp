@@ -1172,7 +1172,10 @@ void Game::specify_player()
     male_info->left_box_text = new std::vector<std::string>();
     male_info->left_box_text->push_back("Male");
     male_info->left_box_text->push_back("");
-    male_info->left_box_text->push_back("is a male box");
+    male_info->left_box_text->push_back("You're male. You're a bit stronger, but also a bit less smart.");
+    male_info->left_box_text->push_back("You often yell to yourself, hoping that they won't hear you.");
+    male_info->left_box_text->push_back("You know that one day, you'll realize what's going on.");
+    male_info->left_box_text->push_back("");
     male_mi->info = male_info;
 
     MenuItem* female_mi = new MenuItem();
@@ -1183,7 +1186,9 @@ void Game::specify_player()
     female_info->left_box_text = new std::vector<std::string>();
     female_info->left_box_text->push_back("Female");
     female_info->left_box_text->push_back("");
-    female_info->left_box_text->push_back("I am a proud lioness, hear me roar.");
+    female_info->left_box_text->push_back("You are more intelligent but more feeble");
+    female_info->left_box_text->push_back("You often hum absentmindely as you cleave your enemies.");
+    female_info->left_box_text->push_back("You know that one day, you'll wake up.");
     female_mi->info = female_info;
 
     Game::menuitem_choices->push_back(male_mi);
