@@ -59,6 +59,8 @@
 #include "parser.h"
 #include "helpbox.h"
 #include <menu_item.h>
+#include <enums/background_types.h>
+#include <background_info.h>
 
 
 int Game::__version_major = 0;
@@ -1165,10 +1167,24 @@ void Game::specify_player()
     MenuItem* male_mi = new MenuItem();
     male_mi->title = "Male MI";
     male_mi->description = "Male is masculine, usually.";
+    BackgroundInfo* male_info = new BackgroundInfo();
+    male_info->type = background_types_t::GenderBackgroundType;
+    male_info->left_box_text = new std::vector<std::string>();
+    male_info->left_box_text->push_back("Male");
+    male_info->left_box_text->push_back("");
+    male_info->left_box_text->push_back("is a male box");
+    male_mi->info = male_info;
 
     MenuItem* female_mi = new MenuItem();
     female_mi->title = "Female MI";
     female_mi->description = "Female is feminine, usually.";
+    BackgroundInfo* female_info = new BackgroundInfo();
+    female_info->type = background_types_t::GenderBackgroundType;
+    female_info->left_box_text = new std::vector<std::string>();
+    female_info->left_box_text->push_back("Female");
+    female_info->left_box_text->push_back("");
+    female_info->left_box_text->push_back("I am a proud lioness, hear me roar.");
+    female_mi->info = female_info;
 
     Game::menuitem_choices->push_back(male_mi);
     Game::menuitem_choices->push_back(female_mi);

@@ -63,7 +63,8 @@ void BackgroundInfo::position_1_alerts(std::vector<DialogHelpBox*>* alerts)
     DialogHelpBox* left_dialog = alerts->at(0);
     left_dialog->return_screen = Game::current_screen;
     left_dialog->y = 5;
-    left_dialog->x = 5;
+    //centered
+    left_dialog->x = Game::screen_w/2 - (left_dialog->width/2) - left_dialog->left_pad-left_dialog->right_pad;
     left_dialog->resize(left_dialog->width+10, left_dialog->height);
 };
 
