@@ -619,14 +619,14 @@ ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, MenuItem
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
 
-    TCODColor foreground, background;
-    std::vector<TCODColor> colors = this->get_enabled_colors(con, element);
-    foreground = colors.at(0);
-    background = colors.at(1);
+    std::stringstream ss;
+    ss << element->title;
+    if (is_chosen) { ss << " <-"; };
 
-    result.foreground = foreground;
-    result.background = background;
-    result.msg_str = element->title;
+    std::vector<TCODColor> colors = this->get_enabled_colors(con, element);
+    result.foreground = colors.at(0);
+    result.background = colors.at(1);
+    result.msg_str = ss.str();
     result.element = element;
 
     return result;
@@ -640,9 +640,9 @@ bool SimpleMenuScreen::is_enabled(MenuItem* element)
 void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
-    const char *msg_char = si.msg_str.c_str();
+    std::string msg_char = si.msg_str;
     si.min_y = i;
-    con->print(this->offset, i, msg_char);
+    con->print(this->offset, i, colfg(si.foreground, msg_char).c_str());
     i++;
 
 	MenuItem* menu_item = static_cast<MenuItem*>(si.element);
