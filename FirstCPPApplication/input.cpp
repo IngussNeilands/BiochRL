@@ -33,6 +33,7 @@
 #include <thinker.h>
 #include "draw_utils.h"
 #include "helpbox.h"
+#include <menu_item.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -106,6 +107,7 @@ std::vector<std::string> make_generic_menu_active_char()
     std::vector<std::string> vec;
     vec.push_back("Exit the menu");
     vec.push_back("Confirm the menu item");
+    vec.push_back("Examine the menu item");
     vec.push_back("NO_MATCHING_GENERIC_MENU_ACTIVE");
     assert(vec.size() == LAST_GENERIC_MENU_ACTIVE+1 && "Missing a help command for generic chars");
     return vec;
@@ -791,6 +793,9 @@ std::map<char, generic_menu_active_t> Input::build_char_generic_menu_keymap()
 
     std::map<char, generic_menu_active_t> char_genmenactivemap; 
     char_genmenactivemap['q'] = generic_menu_active_t::EscapeGenericMenu;
+    char_genmenactivemap['a'] = generic_menu_active_t::ActivateGenericMenuItem;
+    char_genmenactivemap['x'] = generic_menu_active_t::ExamineGenericMenuItem;
+    char_genmenactivemap['?'] = generic_menu_active_t::ExamineGenericMenuItem;
     return char_genmenactivemap;
 }; 
 
@@ -813,8 +818,13 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
     }
     else if (action == generic_menu_active_t::ActivateGenericMenuItem)
     {
-		std::string* menu_item = static_cast<std::string*>(Ui::chosen_generic);
-        std::cout << "You have chosen:" << *menu_item << "!" << std::endl;
+		MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
+		menu_item->activate();
+    }
+    else if (action == generic_menu_active_t::ExamineGenericMenuItem)
+    {
+		MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
+		menu_item->examine();
     };
 
     return false;

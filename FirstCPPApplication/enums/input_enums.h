@@ -53,6 +53,7 @@ enum generic_menu_active_t {
     NO_MATCHING_GENERIC_MENU_ACTIVE= -1,
     EscapeGenericMenu,
     ActivateGenericMenuItem,
+    ExamineGenericMenuItem,
     LAST_GENERIC_MENU_ACTIVE
 };
 
