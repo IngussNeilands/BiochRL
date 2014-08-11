@@ -1046,11 +1046,24 @@ bool Input::process_classes_keys(TCOD_key_t request)
         std::cout << iclass->name << " : " << iclass->description << std::endl;
 
         //create examine dialog
-        std::vector<std::string> examine_msgs = std::vector<std::string>();
-        examine_msgs.insert(examine_msgs.begin(), "Description");
-        examine_msgs.push_back(iclass->description);
-        examine_msgs.push_back("");
-        examine_msgs.push_back("Spell Progression");
+        std::vector<std::string> left_msgs = iclass->starting_attrs->VerboseVector();
+        left_msgs.insert(left_msgs.begin(), "Examining "+iclass->name);
+        left_msgs.insert(left_msgs.begin()+1, "Starting Attributes");
+        left_msgs.push_back(" ");
+        left_msgs.push_back("Hit N/Q to continue");
+        DialogHelpBox* left_dialog = new DialogHelpBox(left_msgs, NULL, &close_all, TCODConsole::root);
+        left_dialog->return_screen = Game::current_screen;
+        left_dialog->y = 5;
+        left_dialog->x = 5;
+        left_dialog->resize(left_dialog->width+10, left_dialog->height);
+        Ui::alerts.push_back(left_dialog);
+
+        //create examine dialog
+        std::vector<std::string> right_msgs = std::vector<std::string>();
+        right_msgs.insert(right_msgs.begin(), "Description");
+        right_msgs.push_back(iclass->description);
+        right_msgs.push_back("");
+        right_msgs.push_back("Spell Progression");
         for (auto it = iclass->spell_map->begin(); it!= iclass->spell_map->end(); it++)
         {
             std::pair<int, Spell*> pair = *it;
@@ -1058,45 +1071,33 @@ bool Input::process_classes_keys(TCOD_key_t request)
             Spell* spell = pair.second;
             std::stringstream ss;
             ss << "L" << at_level << " " << colfg(spell->get_spell_color(), spell->name);
-            examine_msgs.push_back(ss.str());
+            right_msgs.push_back(ss.str());
 
         }
-        examine_msgs.push_back("");
-        examine_msgs.push_back("On level up");
+        right_msgs.push_back("");
+        right_msgs.push_back("On level up");
         std::stringstream ss;
         ss << "HP:  " << iclass->health_on_lvl;
-        examine_msgs.push_back(ss.str());
+        right_msgs.push_back(ss.str());
         ss.str("");
         ss << "MAN: " << iclass->mana_on_lvl;
-        examine_msgs.push_back(ss.str());
+        right_msgs.push_back(ss.str());
         ss.str("");
         ss << "ARM: " << iclass->armor_on_lvl;
-        examine_msgs.push_back(ss.str());
+        right_msgs.push_back(ss.str());
         ss.str("");
         ss << "DMG: " << iclass->damage_on_lvl;
-        examine_msgs.push_back(ss.str());
+        right_msgs.push_back(ss.str());
         ss.str("");
-        examine_msgs.push_back("");
-        examine_msgs.push_back("Hit N/Q to continue");
-        DialogHelpBox* examine_dialog = new DialogHelpBox(examine_msgs, NULL, &close_all, TCODConsole::root);
-        examine_dialog->return_screen = Game::current_screen;
-        examine_dialog->x = 45;
-        examine_dialog->y = 5;
-        examine_dialog->resize(examine_dialog->width+10, examine_dialog->height-1);
-        Ui::alerts.push_back(examine_dialog);
+        right_msgs.push_back("");
+        right_msgs.push_back("Hit N/Q to continue");
+        DialogHelpBox* right_dialog = new DialogHelpBox(right_msgs, NULL, &close_all, TCODConsole::root);
+        right_dialog->return_screen = Game::current_screen;
+        right_dialog->x = 45;
+        right_dialog->y = 5;
+        right_dialog->resize(right_dialog->width+10, right_dialog->height-1);
+        Ui::alerts.push_back(right_dialog);
 
-        //create examine dialog
-        std::vector<std::string> details_msgs = iclass->starting_attrs->VerboseVector();
-        details_msgs.insert(details_msgs.begin(), "Examining "+iclass->name);
-        details_msgs.insert(details_msgs.begin()+1, "Starting Attributes");
-        details_msgs.push_back(" ");
-        details_msgs.push_back("Hit N/Q to continue");
-        DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, NULL, &close_all, TCODConsole::root);
-        details_dialog->return_screen = Game::current_screen;
-        details_dialog->y = 5;
-        details_dialog->x = 5;
-        details_dialog->resize(details_dialog->width+10, details_dialog->height);
-        Ui::alerts.push_back(details_dialog);
         Game::current_screen = Screens::AlertScreenType;
         return true;
     }
