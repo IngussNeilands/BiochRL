@@ -1164,6 +1164,8 @@ void Game::specify_player()
     Game::menu_choices->push_back(male_item);
     Game::menu_choices->push_back(female_item);
 
+
+    //gender
     MenuItem* male_mi = new MenuItem();
     male_mi->title = "Male MI";
     male_mi->description = "Male is masculine, usually.";
@@ -1194,6 +1196,12 @@ void Game::specify_player()
     Game::menuitem_choices->push_back(male_mi);
     Game::menuitem_choices->push_back(female_mi);
 
+
+    //race TODO
+    
+    //talents TODO
+
+    //TODO activate them on the player
 };
 
 void Game::start_game()
