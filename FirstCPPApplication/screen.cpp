@@ -624,23 +624,9 @@ ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, MenuItem
     foreground = colors.at(0);
     background = colors.at(1);
 
-    TCODConsole::setColorControl(TCOD_COLCTRL_1, foreground, background);
-    TCODConsole::setColorControl(TCOD_COLCTRL_2, TCODColor::lightGrey+TCODColor::yellow, background);
-    TCODConsole::setColorControl(TCOD_COLCTRL_3, TCODColor::lightCyan, background);
-    TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
-
-    //key, element, name
-    std::stringstream ss;
-    ss << this->key << "-" << colfg(foreground, element->title);
-
-    if (is_chosen)
-    {
-        ss << " <-";
-    }
-
     result.foreground = foreground;
     result.background = background;
-    result.msg_str = ss.str();
+    result.msg_str = element->title;
     result.element = element;
 
     return result;
@@ -651,29 +637,16 @@ bool SimpleMenuScreen::is_enabled(MenuItem* element)
     return false;
 }
 
-//     template<typename T>
-// bool SimpleMenuScreen<T>::is_active(T* element)
-// {
-//     return false;
-// }
-// 
 void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 {
     //print the item name and selection
     const char *msg_char = si.msg_str.c_str();
     si.min_y = i;
-    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-            TCOD_alignment_t::TCOD_LEFT, msg_char);
+    con->print(this->offset, i, msg_char);
     i++;
 
-    char buffer[512];
 	MenuItem* menu_item = static_cast<MenuItem*>(si.element);
-    std::string msg_str = "%c%s%c";
-    sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
-            menu_item->title.c_str(), TCOD_COLCTRL_STOP);
-    msg_str = buffer;
-    con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
-            TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
+    con->print(this->offset, i, menu_item->description.c_str());
     si.max_y = i;
 
     i++;
