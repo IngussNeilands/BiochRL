@@ -2,7 +2,6 @@
 #ifndef MENU_ITEM_H
 #define MENU_ITEM_H
 
-class Screen;
 class Game;
 class Actor;
 class ScreenItem;

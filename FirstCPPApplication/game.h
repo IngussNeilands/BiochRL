@@ -36,6 +36,7 @@ class Ui;
 class TCODConsole;
 class TCODRandom;
 class CustomKey;
+class MenuItem;
 
 class CompareQueueTicks
 {
@@ -50,6 +51,7 @@ class Game
         static std::wstring term_name;
 
         static std::vector<std::string*>* menu_choices;
+        static std::vector<MenuItem*>* menuitem_choices;
 
         static Person* player;     //the PC
         //static Ui* ui;

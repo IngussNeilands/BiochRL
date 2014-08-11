@@ -103,16 +103,15 @@ class MainMenuScreen : public Screen<std::string>
 };
 
 
-class SimpleMenuScreen : public Screen<std::string>
+class SimpleMenuScreen : public Screen<MenuItem>
 {
     public:
 
         SimpleMenuScreen() : Screen() { this->title="Simple Menu!"; };
         SimpleMenuScreen::~SimpleMenuScreen(){};
 
-        virtual bool is_enabled(std::string* element);
-        // virtual bool is_active(std::string* element);
-        ScreenItem build_screen_item(TCODConsole* con, int i, std::string* element);
+        virtual bool is_enabled(MenuItem* element);
+        ScreenItem build_screen_item(TCODConsole* con, int i, MenuItem* element);
         void draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 };
 

@@ -774,6 +774,14 @@ void Ui::draw_main_menu_ui()
     main_menu_screen.draw();
 };
 
+void Ui::draw_simple_menu_ui()
+{
+    SimpleMenuScreen simple_menu_screen;
+    // std::vector<std::string*>* menu_choices = new std::vector<std::string*>();
+    simple_menu_screen.elements = Game::menuitem_choices;
+    simple_menu_screen.draw();
+};
+
 void Ui::draw_char_sheet_ui()
 {
     Ui::draw_screen("Character Sheet", &Ui::character_sheet_ui_loop);

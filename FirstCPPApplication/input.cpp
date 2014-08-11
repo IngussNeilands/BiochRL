@@ -1512,7 +1512,8 @@ bool Input::process_debug_event(TCOD_key_t request)
     if (request.vk == TCODK_F9)
     {
         Game::current_state = GameStates::MenuState;
-        Game::current_screen = Screens::MainMenuScreenType;
+        Game::current_screen = Screens::SimpleMenuScreenType;
+        // Game::current_screen = Screens::MainMenuScreenType;
     }
 
     if (request.vk == TCODK_F11)

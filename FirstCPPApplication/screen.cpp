@@ -22,6 +22,7 @@
 #include "enums\hunger_threshold.h"
 #include "screenitem.h"
 #include "custom_key.h"
+#include "menu_item.h"
 
 
     template<typename T>
@@ -609,7 +610,7 @@ void MainMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
 };
 
 /* MAIN MENU SCREEN */
-ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, std::string* element)
+ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, MenuItem* element)
 {
     ScreenItem result;
     result.key = this->key;
@@ -630,7 +631,7 @@ ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, std::str
 
     //key, element, name
     std::stringstream ss;
-    ss << this->key << "-" << colfg(foreground, *element);
+    ss << this->key << "-" << colfg(foreground, element->title);
 
     if (is_chosen)
     {
@@ -645,7 +646,7 @@ ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, std::str
     return result;
 };
 
-bool SimpleMenuScreen::is_enabled(std::string* element)
+bool SimpleMenuScreen::is_enabled(MenuItem* element)
 {
     return false;
 }
@@ -666,9 +667,10 @@ void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si
     i++;
 
     char buffer[512];
+	MenuItem* menu_item = static_cast<MenuItem*>(si.element);
     std::string msg_str = "%c%s%c";
     sprintf(buffer, msg_str.c_str(), TCOD_COLCTRL_2,
-            ((std::string*)si.element)->c_str(), TCOD_COLCTRL_STOP);
+            menu_item->title.c_str(), TCOD_COLCTRL_STOP);
     msg_str = buffer;
     con->printEx(this->offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET,
             TCOD_alignment_t::TCOD_LEFT, msg_str.c_str());
@@ -706,6 +708,20 @@ template bool Screen<std::string>::is_active(std::string* element);
 template ScreenItem Screen<std::string>::build_screen_item(TCODConsole* con, int i, std::string* element);
 template std::vector<TCODColor> Screen<std::string>::get_enabled_colors(TCODConsole* con, std::string* element);
 template void Screen<std::string>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
+
+template Screen<MenuItem>::Screen();
+template bool Screen<MenuItem>::is_chosen(MenuItem* element);
+template bool Screen<MenuItem>::is_active(MenuItem* element);
+template void Screen<MenuItem>::draw_mouse_horiz_line(TCODConsole* con);
+template TCODConsole* Screen<MenuItem>::create_screen();
+template void Screen<MenuItem>::draw();
+template void Screen<MenuItem>::build_screen_items(TCODConsole* con, int i);
+template void Screen<MenuItem>::loop(TCODConsole* con, int i);
+template bool Screen<MenuItem>::is_enabled(MenuItem* element);
+template bool Screen<MenuItem>::is_active(MenuItem* element);
+template ScreenItem Screen<MenuItem>::build_screen_item(TCODConsole* con, int i, MenuItem* element);
+template std::vector<TCODColor> Screen<MenuItem>::get_enabled_colors(TCODConsole* con, MenuItem* element);
+template void Screen<MenuItem>::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si);
 
 
 template Screen<Spell>::Screen();

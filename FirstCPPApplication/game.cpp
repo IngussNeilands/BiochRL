@@ -58,6 +58,7 @@
 #include "custom_key.h"
 #include "parser.h"
 #include "helpbox.h"
+#include <menu_item.h>
 
 
 int Game::__version_major = 0;
@@ -65,6 +66,7 @@ int Game::__version_minor = 13;
 int Game::__version_mini = 1;
 
 std::vector<std::string*>* Game::menu_choices = new std::vector<std::string*>();
+menuitem_vec_t* Game::menuitem_choices = new menuitem_vec_t();
 
 
 // Game initialization
@@ -937,6 +939,9 @@ void Game::draw_ui()
             case Screens::MainMenuScreenType:
                 Ui::draw_main_menu_ui();
                 break;
+            case Screens::SimpleMenuScreenType:
+                Ui::draw_simple_menu_ui();
+                break;
             case Screens::CharacterSheetScreenType:
                 Ui::draw_char_sheet_ui();
                 break;
@@ -1156,6 +1161,18 @@ void Game::specify_player()
     std::string* female_item = new std::string("Female");
     Game::menu_choices->push_back(male_item);
     Game::menu_choices->push_back(female_item);
+
+    MenuItem* male_mi = new MenuItem();
+    male_mi->title = "Male MI";
+    male_mi->description = "Male is masculine, usually.";
+
+    MenuItem* female_mi = new MenuItem();
+    female_mi->title = "Female MI";
+    female_mi->description = "Female is feminine, usually.";
+
+    Game::menuitem_choices->push_back(male_mi);
+    Game::menuitem_choices->push_back(female_mi);
+
 };
 
 void Game::start_game()

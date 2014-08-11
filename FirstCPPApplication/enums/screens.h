@@ -6,6 +6,7 @@ enum Screens {
     InventoryScreenType,
     CharacterSheetScreenType,
     MainMenuScreenType,
+    SimpleMenuScreenType,
     HelpScreenType,
     SpellSelectScreenType,
     ClassSelectScreenType,

@@ -34,6 +34,7 @@ class Item;
 class CustomKey;
 class Spell;
 class Attribute;
+class MenuItem;
 
 typedef std::vector<Actor*> actor_vec_t;
 typedef std::vector<Actor*>::iterator actor_vec_t_it;
@@ -55,6 +56,9 @@ typedef std::vector<CustomKey*>::iterator ckey_vec_t_it;
 
 typedef std::vector<std::string*> str_vec_t;
 typedef std::vector<std::string*>::iterator str_vec_t_it;
+
+typedef std::vector<MenuItem*> menuitem_vec_t;
+typedef std::vector<MenuItem*>::iterator menuitem_vec_t_it;
 
 //[assembly:AssemblyKeyFileAttribute("keyPair.snk")];
 //debugging the heap that didn't work
