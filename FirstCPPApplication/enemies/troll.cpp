@@ -52,6 +52,7 @@ Troll::Troll(std::string name, int age, int x, int y, char repr) : Person(name, 
 
     // my_tile = NULL;
     // this->pack_size = 10;
+    this->preferred_pack_size = 5;
 
     this->attrs->health->max_val = 30;
     this->attrs->health->current_val = 30;
