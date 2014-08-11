@@ -646,7 +646,8 @@ void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si
     i++;
 
 	MenuItem* menu_item = static_cast<MenuItem*>(si.element);
-    con->print(this->offset, i, menu_item->description.c_str());
+    std::string description_line = colfg(TCODColor::lightGrey+TCODColor::yellow, menu_item->description);
+    con->print(this->offset, i, description_line.c_str());
     si.max_y = i;
 
     i++;

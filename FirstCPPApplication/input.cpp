@@ -1666,6 +1666,12 @@ bool Input::process_key_event(TCOD_key_t request)
                     str_vec_t* items = Game::menu_choices;
                     Input::select_generic(request, items, is_key_generic_menu_command, Input::process_generic_menu_keys);
                 }
+                else if (Game::current_screen == Screens::SimpleMenuScreenType)
+                {
+                    Ui::is_targetting = false;
+                    menuitem_vec_t* items = Game::menuitem_choices;
+                    Input::select_generic(request, items, is_key_generic_menu_command, Input::process_generic_menu_keys);
+                }
                 else 
                 {
                     Ui::is_targetting = false;
