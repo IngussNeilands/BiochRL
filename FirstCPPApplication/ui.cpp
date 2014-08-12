@@ -660,6 +660,35 @@ void Ui::print_background_info(TCODConsole* con, int& offset, int& i)
     con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
     i++;
     i++;
+    ss.str("");
+
+    BackgroundInfo* race = background->race;
+    if (race == NULL)
+    {
+        ss << "No race selected";
+    }
+    else
+    {
+        ss << race->title;
+    }
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
+    i++;
+    i++;
+    ss.str("");
+
+    BackgroundInfo* hometown = background->hometown;
+    if (hometown == NULL)
+    {
+        ss << "No hometown selected";
+    }
+    else
+    {
+        ss << hometown->title;
+    }
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
+    i++;
+    i++;
+    ss.str("");
 
 };
 
@@ -723,7 +752,6 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
 
     print_experience(con, offset,  i);
     print_class(con, offset,  i);
-    i++;
     print_weapon_data(con, offset,  i);
     print_background_info(con, offset, i);
 
