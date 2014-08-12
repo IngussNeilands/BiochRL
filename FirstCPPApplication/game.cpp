@@ -115,6 +115,7 @@ std::string Game::last_cmd = "not set";
 
 GameStates Game::current_state = GameStates::GameplayState;
 Screens Game::current_screen = Screens::InventoryScreenType;
+background_types_t Game::current_background_type = background_types_t::GenderBackgroundType;
 
 Person* Game::player = NULL;     //the PC
 

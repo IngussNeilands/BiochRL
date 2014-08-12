@@ -1503,6 +1503,7 @@ bool Input::process_debug_event(TCOD_key_t request)
     {
         Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::SimpleMenuScreenType;
+        Game::current_background_type = background_types_t::GenderBackgroundType;
         // Game::current_screen = Screens::MainMenuScreenType;
     }
 
@@ -1659,7 +1660,7 @@ bool Input::process_key_event(TCOD_key_t request)
                 else if (Game::current_screen == Screens::SimpleMenuScreenType)
                 {
                     Ui::is_targetting = false;
-                    menuitem_vec_t* items = (*Game::menuitem_choices)[background_types_t::GenderBackgroundType];
+                    menuitem_vec_t* items = (*Game::menuitem_choices)[Game::current_background_type];
                     Input::select_generic(request, items, is_key_generic_menu_command, Input::process_generic_menu_keys);
                 }
                 else 

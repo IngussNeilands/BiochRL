@@ -59,6 +59,7 @@ class Game
         //static Ui* ui;
         static GameStates current_state;
         static Screens current_screen;
+        static background_types_t current_background_type;
         static DebugOptions* debug_opts;
 
         static TCOD_key_t key_evt;
