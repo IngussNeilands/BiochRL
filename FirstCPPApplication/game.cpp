@@ -1157,15 +1157,9 @@ void Game::init_rng()
     Game::dungeon_builder_rng->setDistribution(TCOD_DISTRIBUTION_LINEAR);
 };
 
-void Game::specify_player()
+
+void set_up_gender_choices()
 {
-    // TODO choose stuff like race, class, sex background
-    std::string* male_item = new std::string("Male");
-    std::string* female_item = new std::string("Female");
-    Game::menu_choices->push_back(male_item);
-    Game::menu_choices->push_back(female_item);
-
-
     //gender
     MenuItem* male_mi = new MenuItem();
     male_mi->title = "Male";
@@ -1199,8 +1193,56 @@ void Game::specify_player()
     (*Game::menuitem_choices)[background_types_t::GenderBackgroundType]->push_back(male_mi);
     (*Game::menuitem_choices)[background_types_t::GenderBackgroundType]->push_back(female_mi);
 
+};
 
-    //race TODO
+void set_up_racial_choices()
+{
+    //gender
+    MenuItem* human_mi = new MenuItem();
+    human_mi->title = "Human";
+    human_mi->description = "Run of the mill, jack of the trades.";
+    BackgroundInfo* human_info = new BackgroundInfo();
+    human_info->type = background_types_t::RaceBackgroundType;
+    human_info->left_box_text = new std::vector<std::string>();
+    human_info->left_box_text->push_back("Human");
+    human_info->left_box_text->push_back("");
+    human_info->left_box_text->push_back("You're a standard creature, I don't know what you want to hear.");
+    human_info->left_box_text->push_back("That gets a little hard to bear sometimes");
+    human_info->left_box_text->push_back("At least you can make sausages");
+    human_info->left_box_text->push_back("");
+    human_info->left_box_text->push_back("");
+    human_mi->info = human_info;
+
+    MenuItem* wanderer_mi = new MenuItem();
+    wanderer_mi->title = "Wanderer";
+    wanderer_mi->description = "A dark and gloomy race.";
+    BackgroundInfo* wanderer_info = new BackgroundInfo();
+    wanderer_info->type = background_types_t::RaceBackgroundType;
+    wanderer_info->left_box_text = new std::vector<std::string>();
+    wanderer_info->left_box_text->push_back("Wanderer");
+    wanderer_info->left_box_text->push_back("");
+    wanderer_info->left_box_text->push_back("Sticking to the annals of every town you come to.");
+    wanderer_info->left_box_text->push_back("Not much fun at parties, but you wouldn't know it");
+    wanderer_info->left_box_text->push_back("Believes in a god, once in a while.");
+    wanderer_mi->info = wanderer_info;
+
+    (*Game::menuitem_choices)[background_types_t::RaceBackgroundType] = new menuitem_vec_t();
+    (*Game::menuitem_choices)[background_types_t::RaceBackgroundType]->push_back(human_mi);
+    (*Game::menuitem_choices)[background_types_t::RaceBackgroundType]->push_back(wanderer_mi);
+
+};
+
+void Game::specify_player()
+{
+    // TODO choose stuff like race, class, sex background
+    std::string* male_item = new std::string("Male");
+    std::string* female_item = new std::string("Female");
+    Game::menu_choices->push_back(male_item);
+    Game::menu_choices->push_back(female_item);
+
+    set_up_gender_choices();
+    set_up_racial_choices();
+
 
     //talents TODO
 
