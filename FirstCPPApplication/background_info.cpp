@@ -1,11 +1,17 @@
 #include "stdafx.h"
+#include <assert.h>
 #include "background_info.h"
 #include <game.h>
 #include "ui.h"
 #include <helpbox.h>
+#include "game.h"
+#include "actors/Person.h"
 
 BackgroundInfo::BackgroundInfo()
 {
+    this->title = "Unset title";
+    this->description = "No description";
+
     this->left_box_text = NULL;
     this->mid_box_text = NULL;
     this->right_box_text = NULL;
@@ -13,6 +19,27 @@ BackgroundInfo::BackgroundInfo()
 
 void BackgroundInfo::activate()
 {
+	if (Game::player->background == NULL)
+	{
+		std::cout << "player background is null, this is wrong" << std::endl;
+		return;
+	}
+    if (this->type == GenderBackgroundType)
+    {
+        Game::player->background->gender = this;
+    }
+    else if (this->type == RaceBackgroundType)
+    {
+        Game::player->background->race = this;
+    }
+    else if (this->type == HometownBackgroundType)
+    {
+        Game::player->background->hometown = this;
+    }
+    else
+    {
+        assert(false && "type doesn't match");
+    };
     std::cout << "background info activated" << std::endl;
 };
 

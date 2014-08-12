@@ -27,6 +27,7 @@
 #include "helpbox.h"
 #include "thinker.h"
 #include "helpbox.h"
+#include <background_info.h>
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -639,6 +640,29 @@ void Ui::print_weapon_data(TCODConsole* con, int& offset, int& i)
 
 };
 
+void Ui::print_background_info(TCODConsole* con, int& offset, int& i)
+{
+    // char buffer[100];
+    Person* player = Game::player;
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "BACKGROUND INFORMATION");
+    i++;
+    Background* background = player->background;
+    std::stringstream ss;
+    BackgroundInfo* gender = background->gender;
+    if (gender == NULL)
+    {
+        ss << "No gender selected";
+    }
+    else
+    {
+        ss << gender->title;
+    }
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
+    i++;
+    i++;
+
+};
+
     template<typename T1, typename T2>
 void print_keys_for(TCODConsole* con, int offset, int& i, std::map<char, T1> char_map,std::map<int, T2> spec_map, std::vector<std::string> string_map, std::string title)
 {
@@ -701,6 +725,7 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     print_class(con, offset,  i);
     i++;
     print_weapon_data(con, offset,  i);
+    print_background_info(con, offset, i);
 
 };
 

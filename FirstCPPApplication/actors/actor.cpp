@@ -60,8 +60,10 @@ Actor::Actor()
     this->my_tile = NULL;
 
     this->representation = new Representation;
+    this->background = NULL;
     this->inventory = new Inventory();
     this->inventory->master = this;
+
     this->attrs = new AttributeContainer;
     this->attrs->owner = this;
     this->spells = new spell_vec_t;

@@ -16,6 +16,7 @@ class Equipment;
 class Item;
 class AttributeContainer;
 class Combat;
+class Background;
 
 class TCODPath;
 class Townsmen;
@@ -37,6 +38,7 @@ class Actor : public Object
         Equipment* equipment;
         std::vector<Spell*>* spells;
 
+        Background* background;
         AttributeContainer* attrs;
         bool has_attributes();
         bool is_active;

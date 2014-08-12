@@ -717,6 +717,7 @@ void give_player_god_mode()
 Person*  Game::initialize_player()
 {
     player = new Person("Player", 23, 0, 0, '@');
+    player->background = new Background();
 
     // player->attrs->health->current_val=200;
     // player->attrs->health->max_val=200;
@@ -1165,6 +1166,8 @@ void set_up_gender_choices()
     male_mi->title = "Male";
     male_mi->description = "Stronger, slower.";
     BackgroundInfo* male_info = new BackgroundInfo();
+    male_info->title = male_mi->title;
+    male_info->description = male_mi->description;
     male_info->type = background_types_t::GenderBackgroundType;
     male_info->left_box_text = new std::vector<std::string>();
     male_info->left_box_text->push_back("Male");
@@ -1180,6 +1183,8 @@ void set_up_gender_choices()
     female_mi->title = "Female";
     female_mi->description = "Female is feminine, usually.";
     BackgroundInfo* female_info = new BackgroundInfo();
+    female_info->title = female_mi->title;
+    female_info->description = female_mi->description;
     female_info->type = background_types_t::GenderBackgroundType;
     female_info->left_box_text = new std::vector<std::string>();
     female_info->left_box_text->push_back("Female");
