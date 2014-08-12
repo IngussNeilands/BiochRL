@@ -1233,6 +1233,43 @@ void set_up_racial_choices()
 
 };
 
+void set_up_hometown_choices()
+{
+    //gender
+    MenuItem* arlington_mi = new MenuItem();
+    BackgroundInfo* arlington_info = new BackgroundInfo();
+    arlington_info->title = "Arlington";
+    arlington_info->description = "A small tradetown";
+    arlington_info->type = background_types_t::HometownBackgroundType;
+    arlington_info->left_box_text = new std::vector<std::string>();
+    arlington_info->left_box_text->push_back("Arlington");
+    arlington_info->left_box_text->push_back("");
+    arlington_info->left_box_text->push_back("You come from a small town, mainly known for its traders");
+    arlington_info->left_box_text->push_back("No invasions recorded in the last few years");
+    arlington_info->left_box_text->push_back("You're thinking of going back soon.");
+    arlington_info->left_box_text->push_back("");
+    arlington_info->left_box_text->push_back("");
+    arlington_mi->info = arlington_info;
+
+    MenuItem* vagrer_mi = new MenuItem();
+    BackgroundInfo* vagrer_info = new BackgroundInfo();
+    vagrer_info->title = "Vagrer";
+    vagrer_info->description = "A dark and gloomy town.";
+    vagrer_info->type = background_types_t::HometownBackgroundType;
+    vagrer_info->left_box_text = new std::vector<std::string>();
+    vagrer_info->left_box_text->push_back("Vagrer");
+    vagrer_info->left_box_text->push_back("");
+    vagrer_info->left_box_text->push_back("Dark tunnels, dark skies, dark people");
+    vagrer_info->left_box_text->push_back("Walking alone at night would be dangerous for even the most wild wildlings");
+    vagrer_info->left_box_text->push_back("A small humming can be heard late at night.");
+    vagrer_mi->info = vagrer_info;
+
+    (*Game::menuitem_choices)[background_types_t::HometownBackgroundType] = new menuitem_vec_t();
+    (*Game::menuitem_choices)[background_types_t::HometownBackgroundType]->push_back(arlington_mi);
+    (*Game::menuitem_choices)[background_types_t::HometownBackgroundType]->push_back(vagrer_mi);
+
+};
+
 void Game::specify_player()
 {
     // TODO choose stuff like race, class, sex background
@@ -1243,6 +1280,7 @@ void Game::specify_player()
 
     set_up_gender_choices();
     set_up_racial_choices();
+    set_up_hometown_choices();
 
 
     //talents TODO
