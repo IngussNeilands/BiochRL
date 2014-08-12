@@ -1167,8 +1167,8 @@ void Game::specify_player()
 
     //gender
     MenuItem* male_mi = new MenuItem();
-    male_mi->title = "Male MI";
-    male_mi->description = "Male is masculine, usually.";
+    male_mi->title = "Male";
+    male_mi->description = "Stronger, slower.";
     BackgroundInfo* male_info = new BackgroundInfo();
     male_info->type = background_types_t::GenderBackgroundType;
     male_info->left_box_text = new std::vector<std::string>();
@@ -1178,10 +1178,11 @@ void Game::specify_player()
     male_info->left_box_text->push_back("You often yell to yourself, hoping that they won't hear you.");
     male_info->left_box_text->push_back("You know that one day, you'll realize what's going on.");
     male_info->left_box_text->push_back("");
+    male_info->left_box_text->push_back("");
     male_mi->info = male_info;
 
     MenuItem* female_mi = new MenuItem();
-    female_mi->title = "Female MI";
+    female_mi->title = "Female";
     female_mi->description = "Female is feminine, usually.";
     BackgroundInfo* female_info = new BackgroundInfo();
     female_info->type = background_types_t::GenderBackgroundType;
