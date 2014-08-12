@@ -1163,11 +1163,9 @@ void set_up_gender_choices()
 {
     //gender
     MenuItem* male_mi = new MenuItem();
-    male_mi->title = "Male";
-    male_mi->description = "Stronger, slower.";
     BackgroundInfo* male_info = new BackgroundInfo();
-    male_info->title = male_mi->title;
-    male_info->description = male_mi->description;
+    male_info->title = "Male";
+    male_info->description = "Stronger, slower.";
     male_info->type = background_types_t::GenderBackgroundType;
     male_info->left_box_text = new std::vector<std::string>();
     male_info->left_box_text->push_back("Male");
@@ -1180,11 +1178,9 @@ void set_up_gender_choices()
     male_mi->info = male_info;
 
     MenuItem* female_mi = new MenuItem();
-    female_mi->title = "Female";
-    female_mi->description = "Female is feminine, usually.";
     BackgroundInfo* female_info = new BackgroundInfo();
-    female_info->title = female_mi->title;
-    female_info->description = female_mi->description;
+    female_info->title = "Female";
+    female_info->description = "Female is feminine, usually.";
     female_info->type = background_types_t::GenderBackgroundType;
     female_info->left_box_text = new std::vector<std::string>();
     female_info->left_box_text->push_back("Female");
@@ -1204,9 +1200,9 @@ void set_up_racial_choices()
 {
     //gender
     MenuItem* human_mi = new MenuItem();
-    human_mi->title = "Human";
-    human_mi->description = "Run of the mill, jack of the trades.";
     BackgroundInfo* human_info = new BackgroundInfo();
+    human_info->title = "Human";
+    human_info->description = "Run of the mill, jack of the trades.";
     human_info->type = background_types_t::RaceBackgroundType;
     human_info->left_box_text = new std::vector<std::string>();
     human_info->left_box_text->push_back("Human");
@@ -1219,9 +1215,9 @@ void set_up_racial_choices()
     human_mi->info = human_info;
 
     MenuItem* wanderer_mi = new MenuItem();
-    wanderer_mi->title = "Wanderer";
-    wanderer_mi->description = "A dark and gloomy race.";
     BackgroundInfo* wanderer_info = new BackgroundInfo();
+    wanderer_info->title = "Wanderer";
+    wanderer_info->description = "A dark and gloomy race.";
     wanderer_info->type = background_types_t::RaceBackgroundType;
     wanderer_info->left_box_text = new std::vector<std::string>();
     wanderer_info->left_box_text->push_back("Wanderer");

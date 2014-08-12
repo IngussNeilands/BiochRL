@@ -620,7 +620,7 @@ ScreenItem SimpleMenuScreen::build_screen_item(TCODConsole* con, int i, MenuItem
     bool is_active = this->is_active(element);
 
     std::stringstream ss;
-    ss << element->title;
+    ss << element->get_title();
     if (is_chosen) { ss << " <-"; };
 
     std::vector<TCODColor> colors = this->get_enabled_colors(con, element);
@@ -646,7 +646,7 @@ void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si
     i++;
 
     MenuItem* menu_item = static_cast<MenuItem*>(si.element);
-    std::string description_line = colfg(TCODColor::lightGrey+TCODColor::yellow, menu_item->description);
+    std::string description_line = colfg(TCODColor::lightGrey+TCODColor::yellow, menu_item->get_description());
     con->print(this->offset, i, description_line.c_str());
     si.max_y = i;
 

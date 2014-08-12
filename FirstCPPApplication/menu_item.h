@@ -19,8 +19,8 @@ class MenuItem
         MenuItem();
         void init();
 
-        std::string title;
-        std::string description;
+        std::string get_title();
+        std::string get_description();
 
         BackgroundInfo* info; //has the activate/examine logic inside
 
