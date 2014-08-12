@@ -22,11 +22,11 @@ void MenuItem::activate()
 
 void MenuItem::examine()
 {
-	if (this->info == NULL)
-	{
-		std::cout << "no matching background info found" << std::endl;
-		return;
-	}
+    if (this->info == NULL)
+    {
+        std::cout << "no matching background info found" << std::endl;
+        return;
+    }
     this->info->examine();
     std::cout << "menu item examined" << std::endl;
 };

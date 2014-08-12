@@ -13,6 +13,8 @@
 
 #include <vector>
 #include <queue>
+#include <map>
+#include <enums/background_types.h>
 
 
 class Map;
@@ -51,7 +53,7 @@ class Game
         static std::wstring term_name;
 
         static std::vector<std::string*>* menu_choices;
-        static std::vector<MenuItem*>* menuitem_choices;
+        static std::map<background_types_t, std::vector<MenuItem*>* >* menuitem_choices;
 
         static Person* player;     //the PC
         //static Ui* ui;

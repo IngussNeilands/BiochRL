@@ -818,13 +818,13 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
     }
     else if (action == generic_menu_active_t::ActivateGenericMenuItem)
     {
-		MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
-		menu_item->activate();
+        MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
+        menu_item->activate();
     }
     else if (action == generic_menu_active_t::ExamineGenericMenuItem)
     {
-		MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
-		menu_item->examine();
+        MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
+        menu_item->examine();
     };
 
     return false;
@@ -1659,7 +1659,7 @@ bool Input::process_key_event(TCOD_key_t request)
                 else if (Game::current_screen == Screens::SimpleMenuScreenType)
                 {
                     Ui::is_targetting = false;
-                    menuitem_vec_t* items = Game::menuitem_choices;
+                    menuitem_vec_t* items = (*Game::menuitem_choices)[background_types_t::GenderBackgroundType];
                     Input::select_generic(request, items, is_key_generic_menu_command, Input::process_generic_menu_keys);
                 }
                 else 

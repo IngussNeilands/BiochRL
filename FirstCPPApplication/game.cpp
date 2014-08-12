@@ -68,7 +68,7 @@ int Game::__version_minor = 13;
 int Game::__version_mini = 2;
 
 std::vector<std::string*>* Game::menu_choices = new std::vector<std::string*>();
-menuitem_vec_t* Game::menuitem_choices = new menuitem_vec_t();
+std::map<background_types_t, menuitem_vec_t*>* Game::menuitem_choices = new std::map<background_types_t, menuitem_vec_t*>();
 
 
 // Game initialization
@@ -1194,12 +1194,13 @@ void Game::specify_player()
     female_info->left_box_text->push_back("You know that one day, you'll wake up.");
     female_mi->info = female_info;
 
-    Game::menuitem_choices->push_back(male_mi);
-    Game::menuitem_choices->push_back(female_mi);
+    (*Game::menuitem_choices)[background_types_t::GenderBackgroundType] = new menuitem_vec_t();
+    (*Game::menuitem_choices)[background_types_t::GenderBackgroundType]->push_back(male_mi);
+    (*Game::menuitem_choices)[background_types_t::GenderBackgroundType]->push_back(female_mi);
 
 
     //race TODO
-    
+
     //talents TODO
 
     //TODO activate them on the player

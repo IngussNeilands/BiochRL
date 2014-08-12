@@ -778,7 +778,8 @@ void Ui::draw_simple_menu_ui()
 {
     SimpleMenuScreen simple_menu_screen;
     // std::vector<std::string*>* menu_choices = new std::vector<std::string*>();
-    simple_menu_screen.elements = Game::menuitem_choices;
+    std::vector<MenuItem*>* elements = (*Game::menuitem_choices)[background_types_t::GenderBackgroundType];
+    simple_menu_screen.elements = elements;
     simple_menu_screen.draw();
 };
 

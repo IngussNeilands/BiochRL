@@ -337,7 +337,7 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
             if (is_active) 
             { 
                 // foreground = TCODColor::red+TCODColor::blue; 
-				foreground = TCODColor::lerp(TCODColor::red, TCODColor::blue, 0.5f);
+                foreground = TCODColor::lerp(TCODColor::red, TCODColor::blue, 0.5f);
             }
             else 
             {
@@ -355,7 +355,7 @@ std::vector<TCODColor> Screen<T>::get_enabled_colors(TCODConsole* con, T* elemen
             if (is_active) 
             {
                 // foreground = TCODColor::red-TCODColor::yellow; 
-				foreground = TCODColor::lerp(TCODColor::red, TCODColor::yellow, 0.5f);
+                foreground = TCODColor::lerp(TCODColor::red, TCODColor::yellow, 0.5f);
             }
             else 
             {
@@ -399,7 +399,7 @@ ScreenItem SpellScreen::build_screen_item(TCODConsole* con, int i, Spell* elemen
 {
     ScreenItem result;
     result.key = this->key;
-    
+
     bool is_chosen = this->is_chosen(element);
     bool is_active = this->is_active(element);
     bool has_duration = element->attr_effect->duration != -1;
@@ -416,8 +416,8 @@ ScreenItem SpellScreen::build_screen_item(TCODConsole* con, int i, Spell* elemen
     std::string key = char_to_str(this->key);
     std::string name = colfg(foreground, strip_tcodcolor(element->name));
     std::string letter = colfg(element->get_spell_color(), "s");
-	std::stringstream mana_cost_str;
-	mana_cost_str << element->mana_cost;
+    std::stringstream mana_cost_str;
+    mana_cost_str << element->mana_cost;
     std::string mana_cost = colfg(TCODColor::lightCyan, mana_cost_str.str());
     std::string range = colfg(TCODColor::white, element->max_range);
 
@@ -645,7 +645,7 @@ void SimpleMenuScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si
     con->print(this->offset, i, colfg(si.foreground, msg_char).c_str());
     i++;
 
-	MenuItem* menu_item = static_cast<MenuItem*>(si.element);
+    MenuItem* menu_item = static_cast<MenuItem*>(si.element);
     std::string description_line = colfg(TCODColor::lightGrey+TCODColor::yellow, menu_item->description);
     con->print(this->offset, i, description_line.c_str());
     si.max_y = i;

@@ -25,7 +25,7 @@ class BackgroundInfo
         void position_1_alerts(std::vector<DialogHelpBox*>* alerts);
 
 
-        
+
 };
 
 #endif

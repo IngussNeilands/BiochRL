@@ -12,7 +12,7 @@ class BackgroundInfo;
 /*
    for simple selection menu items, like yes or no, or race, gender etc
    for picking things, basically without much special logic
- */
+   */
 class MenuItem
 {
     public:
