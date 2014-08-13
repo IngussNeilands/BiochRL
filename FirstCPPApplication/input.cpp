@@ -189,6 +189,7 @@ std::map<int, spells_active_t>  Input::build_spec_spell_select_keymap()
     std::map<int, spells_active_t> spec_spellactivemap; 
     // 
     spec_spellactivemap[TCODK_ESCAPE] = spells_active_t::EscapeMenuSpell;
+    spec_spellactivemap[TCODK_ENTER] = spells_active_t::CastSpell;
     return spec_spellactivemap;
 }; 
 
@@ -219,6 +220,7 @@ std::map<int, classes_active_t>  Input::build_spec_class_select_keymap()
     std::map<int, classes_active_t> spec_classactivemap; 
     // 
     spec_classactivemap[TCODK_ESCAPE] = classes_active_t::EscapeMenuClass;
+    spec_classactivemap[TCODK_ENTER] = classes_active_t::ChangeToClass;
 
     return spec_classactivemap;
 
@@ -275,6 +277,7 @@ std::map<int, inventory_items_active_t>  Input::build_spec_inventory_keymap()
 
     std::map<int, inventory_items_active_t> spec_invitemactivemap; 
     spec_invitemactivemap[TCODK_ESCAPE] = inventory_items_active_t::EscapeMenuItem;
+    spec_invitemactivemap[TCODK_ENTER] = inventory_items_active_t::EquipItem;
     return spec_invitemactivemap;
 }; 
 
