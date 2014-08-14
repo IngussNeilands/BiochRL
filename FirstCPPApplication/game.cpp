@@ -1431,6 +1431,10 @@ void Game::mainloop()
     {
 
         TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
+        if (key_evt.vk != NULL | key_evt.c != NULL)
+        {
+            std::cout << "c:" << key_evt.c << " vk:" << key_evt.c << " ls: " << key_evt.shift << " p:" << key_evt.pressed << std::endl;
+        };
         switch(Game::current_state)
         {
             case GameStates::GameplayState: 
