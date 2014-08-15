@@ -62,6 +62,7 @@ class Game
         static background_types_t current_background_type;
         static DebugOptions* debug_opts;
 
+        static void debug_key_input();
         static TCOD_key_t key_evt;
         static TCOD_mouse_t mouse_evt;
 

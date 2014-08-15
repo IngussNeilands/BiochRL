@@ -1395,6 +1395,24 @@ void play_music()
     delete parser;
 };
 
+void Game::debug_key_input()
+{
+    auto vk_map = Input::get_tcodkey_to_string_map();
+    if (key_evt.vk != NULL | key_evt.c != NULL)
+    {
+        std::cout << "ls: " << BoolToString(key_evt.shift) << " p:" << BoolToString(key_evt.pressed);
+        if (key_evt.c == NULL && vk_map.find(key_evt.vk) != vk_map.end())
+        {
+            std::cout << " vk: " << vk_map.at(key_evt.vk) << std::endl;
+        }
+        else
+        {
+            std::cout << " c:" << char_to_str(key_evt.c) << std::endl;
+        };
+    };
+
+};
+
 void Game::mainloop()
 {
     bool incr_turn  = false;
@@ -1431,19 +1449,6 @@ void Game::mainloop()
     {
 
         TCODSystem::checkForEvent(TCOD_EVENT_ANY, &key_evt, &mouse_evt);
-        auto vk_map = Input::get_tcodkey_to_string_map();
-        if (key_evt.vk != NULL | key_evt.c != NULL)
-        {
-            std::cout << " ls: " << BoolToString(key_evt.shift) << " p:" << BoolToString(key_evt.pressed);
-            if (key_evt.c == NULL && vk_map.find(key_evt.vk) != vk_map.end())
-            {
-                std::cout << " vk: " << vk_map.at(key_evt.vk) << std::endl;
-            }
-            else
-            {
-                std::cout << " c:" << char_to_str(key_evt.c) << std::endl;
-            };
-        };
         switch(Game::current_state)
         {
             case GameStates::GameplayState: 
