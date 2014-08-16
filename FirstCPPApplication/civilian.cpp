@@ -27,6 +27,9 @@ Civilian::Civilian()
     this->chat_lines->push_back("Pray to the God you think is above, the one who will save you and show you his love. But now you are mine, dismembered and rotten, dug in your grave"); //RF, sorta
     this->chat_lines->push_back("Older things are always better."); //RF, sorta
     this->chat_lines->push_back("Consume not the orb, respect not your responsibilities; trust in your instincts and the candies.");
+    this->chat_lines->push_back("Who is to say we haven't seen the truth already?");
+    this->chat_lines->push_back("Won't you be my bride?");
+    this->chat_lines->push_back("Are you dead yet?");
 }
 
 Civilian::~Civilian()

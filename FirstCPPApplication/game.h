@@ -43,7 +43,7 @@ class MenuItem;
 class CompareQueueTicks
 {
     public:
-        bool operator () (Actor* left, Actor* right) const;
+        bool operator() (Actor* left, Actor* right) const;
 };
 
 class Game
