@@ -1372,27 +1372,28 @@ void play_music()
     music = Mix_LoadMUS(std::string(get_data_path()+"lvl1.wav").c_str());
 
     if (music == NULL) {
-        std::cout << "Could not load 1.wav\n";
+        std::cout << "Could not load lvl1.wav, not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
         std::cout << Mix_GetError();
+        SDL_ClearError();
+
+        //parser to read file settings. currently only music
+        Parser* parser = new Parser();
+
+        bool should_enable = parser->get_enable_music();
+        if (should_enable)
+        {
+            Mix_FadeInMusic(music, -1, 1000);
+            float percent = parser->get_music_volume();
+            float volume = MIX_MAX_VOLUME*percent;
+            Mix_VolumeMusic(volume);
+        }
+        delete parser;
     }
 
     std::cout << std::endl;
     std::cout << Mix_GetError();
     std::cout << std::endl;
 
-    //parser to read file settings. currently only music
-    Parser* parser = new Parser();
-
-    bool should_enable = parser->get_enable_music();
-    if (should_enable)
-    {
-        Mix_FadeInMusic(music, -1, 1000);
-        float percent = parser->get_music_volume();
-        float volume = MIX_MAX_VOLUME*percent;
-        Mix_VolumeMusic(volume);
-    }
-
-    delete parser;
 };
 
 void Game::debug_key_input()
