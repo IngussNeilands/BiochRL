@@ -1343,6 +1343,36 @@ void Game::init_engine()
     set_icon();
 };
 
+void load_music_random()
+{
+    TCODRandom* rng = TCODRandom::getInstance();
+    int result = rng->getInt(1, 2);
+    std::stringstream ss;
+    ss << "lvl" << result << ".wav";
+    std::cout << ss.str() << std::endl;
+    std::string path = std::string(get_data_path()+ss.str());
+
+    Mix_Music *music = Mix_LoadMUS(path.c_str());
+    if (music == NULL) 
+    {
+        std::cout << "Could not load lvl" << result << ".wav, not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
+        std::cout << Mix_GetError();
+        SDL_ClearError();
+        std::cout << "stopping music playback" << std::endl;
+    }
+    else if (music != NULL) 
+    {
+        // parser to read file settings. 
+        Parser* parser = new Parser();
+        float percent = parser->get_music_volume();
+        float volume = MIX_MAX_VOLUME*percent;
+        Mix_VolumeMusic(volume);
+        delete parser;
+
+        Mix_HookMusicFinished(load_music_random);
+    };
+};
+
 void play_music()
 {
     /* straight copied from
@@ -1355,7 +1385,7 @@ void play_music()
     SDL_Init(SDL_INIT_AUDIO);
 
     int audio_rate = 48000;
-    Uint16 audio_format = AUDIO_S32SYS; /* 16-bit stereo */
+    Uint16 audio_format = AUDIO_S32SYS; 
     int audio_channels = 1;
     int audio_buffers = 4096;
 
@@ -1364,18 +1394,17 @@ void play_music()
         exit(1);
     }
 
-    // if(Mix_Init(MIX_INIT_MOD) != MIX_INIT_MOD)
-    //     std::cout << "MIX_INIT_MOD isn't the same";
-
-    // Mix_Volume(-1, MIX_MAX_VOLUME);
-
+    // load_music_random();
     music = Mix_LoadMUS(std::string(get_data_path()+"lvl1.wav").c_str());
-
-    if (music == NULL) {
+    if (music == NULL) 
+    {
         std::cout << "Could not load lvl1.wav, not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
         std::cout << Mix_GetError();
         SDL_ClearError();
-
+        std::cout << "stopping music playback" << std::endl;
+    }
+    else if (music != NULL) 
+    {
         //parser to read file settings. currently only music
         Parser* parser = new Parser();
 
@@ -1388,7 +1417,9 @@ void play_music()
             Mix_VolumeMusic(volume);
         }
         delete parser;
-    }
+        Mix_HookMusicFinished(load_music_random);
+    };
+
 
     std::cout << std::endl;
     std::cout << Mix_GetError();
