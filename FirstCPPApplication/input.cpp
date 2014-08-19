@@ -218,7 +218,7 @@ spells_active_t Input::spells_active_pressed(TCOD_key_t key)
 std::map<int, classes_active_t>  Input::build_spec_class_select_keymap()
 {
     std::map<int, classes_active_t> spec_classactivemap; 
-    // 
+
     spec_classactivemap[TCODK_ESCAPE] = classes_active_t::EscapeMenuClass;
     spec_classactivemap[TCODK_ENTER] = classes_active_t::ChangeToClass;
 
@@ -228,14 +228,10 @@ std::map<int, classes_active_t>  Input::build_spec_class_select_keymap()
 std::map<char, classes_active_t>  Input::build_char_class_select_keymap()
 {
     std::map<char, classes_active_t> char_classactivemap; 
-    // 
-    //     spec_classactivemap['\''] = classes_active_t::N;
 
     char_classactivemap['x'] = classes_active_t::ExamineClass;
-    // char_classactivemap['d'] = classes_active_t::Dropclass;
     char_classactivemap['c'] = classes_active_t::CastClass;
     char_classactivemap['e'] = classes_active_t::ChangeToClass;
-    // char_classactivemap['y'] = classes_active_t::Unequipclass;
     char_classactivemap['q'] = classes_active_t::EscapeMenuClass;
 
     return char_classactivemap;
