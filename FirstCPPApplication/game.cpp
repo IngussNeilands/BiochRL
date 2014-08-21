@@ -1299,6 +1299,12 @@ void Game::start_game()
     Game::initialize_player(); 
 
     Game::specify_player();
+
+    Game::turn_count = 1;
+
+    Game::current_state = MenuState;
+    Game::current_screen = ClassSelectScreenType;
+
 };
 
 void Game::init_game()
@@ -1320,7 +1326,6 @@ void Game::init_game()
 
     Game::init_rng();
 
-
     Game::start_game();
 
     WelcomeMessage();
@@ -1328,6 +1333,27 @@ void Game::init_game()
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
 
+    // auto renderer = TCODSystem::getRenderer();
+    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky
+    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_GLSL); // really fast if you can man it
+    TCODConsole::setKeyboardRepeat(250, 10);
+
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "Run from idols and skeletons, kill trolls and jackals!");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "You're going to die a lot, be careful.");
+    new Message(Ui::msg_handler_main, NOTYPE_MSG, "Press F1 for quick help, or ? for more. Move with arrow keys.");
+
+
+    //draw the map to libtconsole
+    current_map->draw();
+
+    //draw the UI
+    Game::draw_ui();
+
+    //draw libtcon to screen
+    TCODConsole::flush();
+
+    //music
+    play_music();
 
     Game::mainloop();
 
@@ -1378,7 +1404,7 @@ void load_music_random()
     };
 };
 
-void play_music()
+void Game::play_music()
 {
     /* straight copied from
      * http://stackoverflow.com/questions/17472514/no-sound-with-sdl-mixer
@@ -1453,33 +1479,6 @@ void Game::debug_key_input()
 void Game::mainloop()
 {
     bool incr_turn  = false;
-    Game::turn_count = 1;
-
-
-    // current_map->draw();
-    //TCODConsole::setFullscreen(true);
-    // auto renderer = TCODSystem::getRenderer();
-    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky
-    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_GLSL); // really fast if you can man it
-    TCODConsole::setKeyboardRepeat(250, 10);
-
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "Run from idols and skeletons, kill trolls and jackals!");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "You're going to die a lot, be careful.");
-    new Message(Ui::msg_handler_main, NOTYPE_MSG, "Press F1 for quick help, or ? for more. Move with arrow keys.");
-    //
-
-    //draw the map to libtconsole
-    current_map->draw();
-    //draw the UI
-    Game::draw_ui();
-    Game::current_state = MenuState;
-    Game::current_screen = ClassSelectScreenType;
-
-    //draw libtcon to screen
-    TCODConsole::flush();
-
-    //music
-    play_music();
 
     assert(Game::current_map != NULL);
     while ( !TCODConsole::isWindowClosed() ) 

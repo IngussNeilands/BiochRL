@@ -435,12 +435,14 @@ void Actor::die()
                 printf("YOU'RE DEAD GIVE UP\n");
             };
         }
+        TCODConsole::setFade(255, TCODColor::red);
 
         std::cout << "Death log is being prepared..." << std::endl;
         this->printout_score();
 
         TCODSystem::setFps(Game::fps_limit);
-        exit(1);
+        Game::start_game();
+        // exit(1);
 
     };
 
