@@ -6,7 +6,7 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    Game::start_game();
+    Game::init_game();
     return 0;
 }
 
