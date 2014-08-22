@@ -1333,8 +1333,21 @@ void Game::init_game()
     //move main window over a bit so that the console isn't blocked
     move_window(600, 100);
 
-    // auto renderer = TCODSystem::getRenderer();
-    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky
+    TCOD_renderer_t renderer = TCODSystem::getRenderer();
+    if (renderer == TCOD_renderer_t::TCOD_RENDERER_GLSL)
+    {
+        printf("Using GLSL renderer");
+    }
+    else if (renderer == TCOD_renderer_t::TCOD_RENDERER_OPENGL)
+    {
+        printf("Using OpenGL renderer");
+    }
+    else if (renderer == TCOD_renderer_t::TCOD_RENDERER_SDL)
+    {
+        printf("Using SDL renderer");
+    }
+    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_SDL); //default
+    // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky, could be really fast or really slow
     // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_GLSL); // really fast if you can man it
     TCODConsole::setKeyboardRepeat(250, 10);
 
@@ -1356,7 +1369,6 @@ void Game::init_game()
     play_music();
 
     Game::mainloop();
-
 
 };
 
