@@ -149,14 +149,22 @@ void Screen<T>::draw_scroll_arrows(TCODConsole* con, bool left_to_draw)
     if (Ui::offset != 0) { top_char = '^'; }
     con->putChar(x, 10, top_char);
 
-    for (int i = 0; i < line_height; i++)
+    for (int i = 0; i < line_height/2; i++)
     {
         con->putChar(x, i+offset, '.');
     };
 
+    con->print(x, offset+(line_height/2), "%i", Ui::offset/10+1);
+
+    for (int i = 0; i < line_height/2; i++)
+    {
+        con->putChar(x, 1+i+offset+(line_height/2), '.');
+    };
+
     char bot_char = ' ';
     if ( left_to_draw ) { bot_char = 'v'; }
-    con->putChar(x, 25, bot_char);
+    else  { bot_char = '-'; }
+    con->putChar(x, 26, bot_char);
 
 }
 
