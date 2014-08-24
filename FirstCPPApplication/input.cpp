@@ -1702,18 +1702,20 @@ void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*
     if (it != generic_map.end())
     {
         Input::generic_index = letter;
-        if ((T*)Ui::chosen_generic == generic_vector->at(it->second))
-        {
+
+        T* chosen_element = (T*)Ui::chosen_generic;
+        // if (chosen_element == generic_vector->at(it->second))
+        // {
             if (allow_activate)
             {
                 Ui::generic_active = true;
             };
             Input::generic_index = letter;
-        }
-        else
-        {
-            Ui::generic_active = false;
-        };
+        // }
+        // else
+        // {
+        //     Ui::generic_active = false;
+        // };
         Ui::chosen_generic = generic_vector->at(it->second);
     };
 };
@@ -1725,7 +1727,6 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
     bool successful_action = true;
 
     generic_keypair_t key_map = Input::build_keypairs(size, Ui::offset);
-    generic_keypair_t::iterator it = key_map.find(request.c);
 
     if (Ui::generic_active == false)
     {
