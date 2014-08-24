@@ -1767,7 +1767,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
             std::vector<T*>::iterator it = elements->begin()+Ui::offset;
             int selection_index = Input::generic_index-97;
             it+=selection_index;
-            if (it+1 != elements->end())
+            if (selection_index < elements->size() && it+1 != elements->end())
             {
                 Input::generic_index++;
             };
