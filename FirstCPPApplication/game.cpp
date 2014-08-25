@@ -1331,7 +1331,10 @@ void Game::init_game()
     WelcomeMessage();
 
     //move main window over a bit so that the console isn't blocked
-    move_window(600, 100);
+    if (get_computer_name() == "ADMIN-PC") //hack to make it load the debug one on my PC
+    {
+        move_window(600, 100);
+    }
 
     TCOD_renderer_t renderer = TCODSystem::getRenderer();
     if (renderer == TCOD_renderer_t::TCOD_RENDERER_GLSL)
