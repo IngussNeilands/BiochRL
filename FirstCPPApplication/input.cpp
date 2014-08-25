@@ -145,9 +145,11 @@ std::map<int, basic_cmds_t> Input::build_spec_main_keymap()
 {
     std::map<int, basic_cmds_t> spec_movemap; 
     spec_movemap[TCODK_SPACE] = basic_cmds_t::CenterScreenToMouse;
+
     spec_movemap[TCODK_PAGEUP] = basic_cmds_t::NextTarget;
     spec_movemap[TCODK_PAGEDOWN] = basic_cmds_t::PrevTarget;
     spec_movemap[TCODK_DELETE] = basic_cmds_t::ToggleMusic;
+    spec_movemap[TCODK_ENTER] = basic_cmds_t::ConfirmCast;
 
     spec_movemap[TCODK_1] = basic_cmds_t::CustomKey1;
     spec_movemap[TCODK_2] = basic_cmds_t::CustomKey2;
