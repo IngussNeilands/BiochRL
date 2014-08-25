@@ -852,8 +852,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
                 else 
                 {
                     thePerson->has_attacked = false;
-                    thePerson->talk_to(target_tile->occupant);
-                    return true;
+                    return thePerson->talk_to(target_tile->occupant);
                 };
             }
         }

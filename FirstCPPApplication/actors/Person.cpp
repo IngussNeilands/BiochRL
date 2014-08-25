@@ -222,11 +222,16 @@ std::string Person::talk_wrap(Actor* target, std::string text)
     return "He says, \""+text+"\"";
 };
 
-void Person::talk_to(Actor* target)
+//incr turn
+bool Person::talk_to(Actor* target)
 {
     if (target->thinker->civilian != NULL)
     {
         std::string text = this->talk_wrap(target, target->thinker->civilian->talk_general_topic());
         new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));
+
+        return true;
     }
+
+    return false;
 };
