@@ -1034,6 +1034,8 @@ void Map::spawn_hero()
         new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ROSSIGNOL ADVANCES"));
     }
 
+    Game::add_to_queue(hero);
+
     // Game::center_camera_on(hero->my_tile);
     hero->my_tile->setKnown(true);
     tile_vec_t* adjacent_tiles = hero->my_tile->getAdjacentTiles(3);
