@@ -36,6 +36,7 @@ class Input
         static bool user_cast_spell();
         static bool toggle_sneaking();
         static bool process_key_event(TCOD_key_t request);
+        static bool print_bad_key(TCOD_key_t request);
 
         static directions_t direction_pressed(TCOD_key_t key);
         static bool is_key_move_command(TCOD_key_t request);

@@ -1528,6 +1528,23 @@ void quit_game_dialog(DialogHelpBox* dialog)
     Game::quit_game();
 };
 
+bool Input::print_bad_key(TCOD_key_t request)
+{
+    //returns should print message
+    auto vk_map = Input::get_tcodkey_to_string_map();
+    if (request.c == 0 && vk_map.find(request.vk) != vk_map.end())
+    {
+        if (request.vk == TCODK_SHIFT) { return false; };
+        std::cout << std::endl << "command not found: " << vk_map.at(request.vk) << std::endl;
+    }
+    else
+    {
+        std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+    };
+
+    return true;
+};
+
 bool Input::process_key_event(TCOD_key_t request)
 {
 
@@ -1589,18 +1606,11 @@ bool Input::process_key_event(TCOD_key_t request)
                 }
                 else
                 {
-                    auto vk_map = Input::get_tcodkey_to_string_map();
-                    if (request.c == 0 && vk_map.find(request.vk) != vk_map.end())
+                    if (Input::print_bad_key(request))
                     {
-                        std::cout << std::endl << "command not found: " << vk_map.at(request.vk) << std::endl;
+                        std::cout << "nswe or numpad to move, i to open inventory, ESC to quit, o to open doors" << std::endl;
+                        std::cout << "c to open character sheet, m and k to cast spells, ? for help, > to go down" << std::endl;
                     }
-                    else
-                    {
-                        std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                    };
-                    // std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
-                    std::cout << "nswe or numpad to move, i to open inventory, ESC to quit, o to open doors" << std::endl;
-                    std::cout << "c to open character sheet, m and k to cast spells, ? for help, > to go down" << std::endl;
                 }
 
             }
@@ -1708,11 +1718,11 @@ void Input::match_key(char letter, generic_keypair_t generic_map, std::vector<T*
         T* chosen_element = (T*)Ui::chosen_generic;
         // if (chosen_element == generic_vector->at(it->second))
         // {
-            if (allow_activate)
-            {
-                Ui::generic_active = true;
-            };
-            Input::generic_index = letter;
+        if (allow_activate)
+        {
+            Ui::generic_active = true;
+        };
+        Input::generic_index = letter;
         // }
         // else
         // {
@@ -1829,21 +1839,14 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
         }
         else 
         {
-            auto vk_map = Input::get_tcodkey_to_string_map();
-            if (request.c == 0 && vk_map.find(request.vk) != vk_map.end())
+            if (Input::print_bad_key(request)) 
             {
-                std::cout << std::endl << "command not found: " << vk_map.at(request.vk) << std::endl;
-            }
-            else
-            {
-                std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;
+                std::cout << "q to return to gameplay, a b c to choose the first, second, third element etc." << std::endl;
+                std::cout << "press again to select. once it's activated, press u to use items" << std::endl;
+                std::cout << "e to equip classes or items, y to unequip items, d to drop items" << std::endl;
+                std::cout << "c to choose the spell to cast, z to zap the item" << std::endl;
+                std::cout << "x to examine the spell, item or class" << std::endl;
             };
-
-            std::cout << "q to return to gameplay, a b c to choose the first, second, third element etc." << std::endl;
-            std::cout << "press again to select. once it's activated, press u to use items" << std::endl;
-            std::cout << "e to equip classes or items, y to unequip items, d to drop items" << std::endl;
-            std::cout << "c to choose the spell to cast, z to zap the item" << std::endl;
-            std::cout << "x to examine the spell, item or class" << std::endl;
         }
     }
 
