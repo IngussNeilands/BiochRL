@@ -592,6 +592,7 @@ void StairsDownTileType::GoDown()
     int x = room->center_x;
     int y = room->center_y;
     Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
+    Game::center_camera_on_player();
 
     Tile* stair_tile = Game::current_map->getTileAt(x, y);
     //this->stair_x = x;

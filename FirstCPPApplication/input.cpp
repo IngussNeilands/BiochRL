@@ -1451,6 +1451,7 @@ bool Input::process_debug_event(TCOD_key_t request)
     {
         auto map = Game::build_world(Game::current_map->depth+1);
         Game::current_map = map;
+        Game::center_camera_on_player();
     }
 
     if (request.vk == TCODK_F5)
