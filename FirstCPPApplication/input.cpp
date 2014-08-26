@@ -1462,10 +1462,10 @@ bool Input::process_debug_event(TCOD_key_t request)
         std::stringstream ss;
         ss << "game queue ticks " << Game::queue_ticks;
         quit_msgs.push_back(ss.str());
-        ss.clear();
+        ss.str("");
         ss << "player target queue ticks " << Game::player->target_queue_tick;
         quit_msgs.push_back(ss.str());
-        ss.clear();
+        ss.str("");
         quit_msgs.push_back("Y/N");
         DialogHelpBox* quit_dialog = new DialogHelpBox(quit_msgs, Game::game_console);
         int x = Game::camera_w/2, y = Game::camera_h/2;
@@ -1780,7 +1780,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
             std::vector<T*>::iterator it = elements->begin()+Ui::offset;
             int selection_index = Input::generic_index-97;
             it+=selection_index;
-            if (selection_index < elements->size() && it+1 != elements->end())
+            if (selection_index+Ui::offset < elements->size() && it+1 != elements->end())
             {
                 Input::generic_index++;
             };

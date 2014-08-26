@@ -1309,6 +1309,7 @@ void Game::start_game()
 
 void Game::init_game()
 {
+    Game::queue_ticks = 0;
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
     Game::init_engine();
