@@ -1009,10 +1009,14 @@ bool Input::process_inventory_keys(TCOD_key_t request)
         ckey_vec_t_it it = Game::custom_keys->begin();
         for (it; it != Game::custom_keys->end(); it++)
         {
-            if ((*it)->element == item)
+			if ((*it)->is_item)
             {
-                (*it)->reset_state();
-            };
+                Item* element = static_cast<Item*>((*it)->element);
+                if (element == item)
+                {
+                    (*it)->reset_state();
+                };
+            }
         }
         new Message(Ui::msg_handler_main, NOTYPE_MSG, "Unequipping item.");
         return true;
