@@ -441,6 +441,7 @@ void Actor::die()
         this->printout_score();
 
         TCODSystem::setFps(Game::fps_limit);
+        std::cout << std::string(50, '\n');
         Game::start_game();
         // exit(1);
 
