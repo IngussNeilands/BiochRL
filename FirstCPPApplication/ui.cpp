@@ -526,15 +526,26 @@ void Ui::draw_help_bar(TCODConsole* ui_help_con)
     TCODColor text_color = TCODColor::darkerGrey;
     ui_help_con->setDefaultForeground(text_color);
 
-    std::string inventory_msg = colfg(key_color, "i") + "nventory ";
-    std::string character_msg = colfg(key_color, "c") + "haracter ";
-    std::string magic_msg = colfg(key_color, "m") + "agic ";
-    std::string class_msg = colfg(key_color, "p") + "layer class ";
-    std::string help_msg = colfg(key_color, "F1") + " help ";
-    std::string quickhelp_msg = colfg(key_color, "`") + " hotbar";
-
     std::stringstream ss;
-    ss << inventory_msg << character_msg << magic_msg << class_msg << help_msg << quickhelp_msg;
+    if (!Ui::is_targetting)
+    {
+        std::string inventory_msg = colfg(key_color, "i") + "nventory ";
+        std::string character_msg = colfg(key_color, "c") + "haracter ";
+        std::string magic_msg = colfg(key_color, "m") + "agic ";
+        std::string class_msg = colfg(key_color, "p") + "layer class ";
+        std::string help_msg = colfg(key_color, "F1") + " help ";
+        std::string quickhelp_msg = colfg(key_color, "`") + " hotbar";
+
+        ss << inventory_msg << character_msg << magic_msg << class_msg << help_msg << quickhelp_msg;
+    }
+    else
+    {
+        std::string key_cast_msg = colfg(key_color, "k") + " cast ";
+        std::string keypad_cast_msg = colfg(key_color, "KP5") + " cast ";
+        std::string mouse_cast_msg = colfg(key_color, "LeftClick") + " cast ";
+        std::string cancel_cast_msg = colfg(key_color, "q") + " cancel ";
+        ss << key_cast_msg << keypad_cast_msg << mouse_cast_msg << cancel_cast_msg;
+    };
 
     ui_help_con->print(0, 0, ss.str().c_str());
 };

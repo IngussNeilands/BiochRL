@@ -693,8 +693,6 @@ std::string AttrEffect::oneline_str()
 
 
     return ss.str();
-    return StringJoin(string_vec, ' ', true);
-
 };
 
 std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours()
