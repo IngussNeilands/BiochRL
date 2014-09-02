@@ -667,10 +667,10 @@ std::string AttrEffect::oneline_str()
     ss << buffer_color("ARR", this->armor_regen_rate, armor_color);
     ss << buffer_color("ARI", this->armor_regen_interval, armor_color);
 
-    ss << buffer_color("DCV", this->damage->normal, damage_color);
-    ss << buffer_color("DMV", this->damage->normal, damage_color);
-    ss << buffer_color("DRR", this->damage_regen_rate, damage_color);
-    ss << buffer_color("DRI", this->damage_regen_interval, damage_color);
+    // ss << buffer_color("DCV", this->damage->normal, damage_color);
+    // ss << buffer_color("DMV", this->damage->normal, damage_color);
+    // ss << buffer_color("DRR", this->damage_regen_rate, damage_color);
+    // ss << buffer_color("DRI", this->damage_regen_interval, damage_color);
 
     ss << buffer_color("NRM", this->damage->normal, damage_color);
     ss << buffer_color("FIR", this->damage->fire, TCODColor::desaturatedRed);
