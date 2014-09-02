@@ -520,22 +520,45 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
 
 };
 
+void Ui::draw_help_bar(TCODConsole* ui_help_con)
+{
+    TCODColor key_color = TCODColor::red;
+    TCODColor text_color = TCODColor::grey;
+
+    std::string inventory_msg = colfg(key_color, "i") + "nventory ";
+    std::string character_msg = colfg(key_color, "c") + "haracter ";
+    std::string magic_msg = colfg(key_color, "m") + "agic ";
+    std::string class_msg = colfg(key_color, "c") + "lass ";
+
+    std::stringstream ss;
+    ss << inventory_msg << character_msg << magic_msg << class_msg;
+
+    ui_help_con->print(0, 0, ss.str().c_str());
+};
+
 void Ui::draw_ui_msg()
 {
     ui_msg_w = Ui::game->screen_w;
     ui_msg_h = 10;
+    int ui_help_h = 1;
+
     TCODConsole *ui_msg_con = new TCODConsole(ui_msg_w, ui_msg_h);
+    TCODConsole *ui_help_con = new TCODConsole(ui_msg_w, ui_help_h);
 
     //reset ui console to default
     TCODColor ui_msg_color(12,12,12);
     ui_msg_con->setDefaultBackground(ui_msg_color);
     ui_msg_con->clear();
 
+    //draw the one line helpbar
+    Ui::draw_help_bar(ui_help_con);
+
     //draw the message text
     Ui::msg_handler_main->draw(ui_msg_con);
 
     //draw ui console to root
-    TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h);
+    TCODConsole::blit(ui_help_con, 0, 0, ui_msg_w, 1, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h);
+    TCODConsole::blit(ui_msg_con, 0, ui_help_h, ui_msg_w, ui_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h+ui_help_h);
     delete ui_msg_con;
 };
 
