@@ -522,16 +522,19 @@ void Ui::draw_xp(int& y, TCODConsole* ui_sidebar_con, TCODColor ui_sidebar_fore)
 
 void Ui::draw_help_bar(TCODConsole* ui_help_con)
 {
-    TCODColor key_color = TCODColor::red;
-    TCODColor text_color = TCODColor::grey;
+    TCODColor key_color = TCODColor::darkerCrimson;
+    TCODColor text_color = TCODColor::darkerGrey;
+    ui_help_con->setDefaultForeground(text_color);
 
     std::string inventory_msg = colfg(key_color, "i") + "nventory ";
     std::string character_msg = colfg(key_color, "c") + "haracter ";
     std::string magic_msg = colfg(key_color, "m") + "agic ";
-    std::string class_msg = colfg(key_color, "c") + "lass ";
+    std::string class_msg = colfg(key_color, "p") + "layer class ";
+    std::string help_msg = colfg(key_color, "F1") + " help ";
+    std::string quickhelp_msg = colfg(key_color, "`") + " hotbar";
 
     std::stringstream ss;
-    ss << inventory_msg << character_msg << magic_msg << class_msg;
+    ss << inventory_msg << character_msg << magic_msg << class_msg << help_msg << quickhelp_msg;
 
     ui_help_con->print(0, 0, ss.str().c_str());
 };
