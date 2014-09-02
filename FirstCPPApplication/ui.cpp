@@ -557,9 +557,11 @@ void Ui::draw_ui_msg()
     Ui::msg_handler_main->draw(ui_msg_con);
 
     //draw ui console to root
-    TCODConsole::blit(ui_help_con, 0, 0, ui_msg_w, 1, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h);
-    TCODConsole::blit(ui_msg_con, 0, ui_help_h, ui_msg_w, ui_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h+ui_help_h);
+    TCODConsole::blit(ui_msg_con, 0, 0, ui_msg_w, ui_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h+1);
+    TCODConsole::blit(ui_help_con, 0, 0, ui_msg_w, ui_help_h, TCODConsole::root, 0, Ui::game->screen_h-ui_msg_h);
+
     delete ui_msg_con;
+    delete ui_help_con;
 };
 
 void Ui::draw_inventory_main()
