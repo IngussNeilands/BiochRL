@@ -153,7 +153,7 @@ bool Spell::has_enough_mana()
             return true;
         }
     }
-    
+
     std::vector<std::string> alert_msgs = std::vector<std::string>();
     alert_msgs.push_back("No mana for this cast!");
     alert_msgs.push_back("Drink a potion or stand your ground for a while.");
@@ -164,7 +164,7 @@ bool Spell::has_enough_mana()
     mana_alert->return_screen = Game::current_screen;
     mana_alert->y = 15;
     mana_alert->x = 20;
-	mana_alert->resize(25, mana_alert->height);
+    mana_alert->resize(25, mana_alert->height);
 
     Ui::alerts.push_back(mana_alert);
     Game::current_screen = Screens::AlertScreenType;
@@ -213,8 +213,11 @@ bool Spell::cast(Tile* targetted_tile)
         if (! this->check_resistances(target)) { continue; };
         this->apply_attr_effects(target);
 
-        Game::player->combat->last_victim = target;
-        target->combat->remember_attacker(Game::player->combat, true);
+        if (target->combat != NULL)
+        {
+            Game::player->combat->last_victim = target;
+            target->combat->remember_attacker(Game::player->combat, true);
+        };
     };
 
     if (this->master == Game::player)

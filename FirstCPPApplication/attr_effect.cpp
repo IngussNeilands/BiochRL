@@ -440,7 +440,7 @@ void AttrEffect::ApplyAllEffects(Actor* actor)
     if (actor->combat!= NULL)
         actor->combat->try_to_die();
     else
-        std::cout << "this thing has no combat... why are you a dick?" << std::endl;
+        std::cout << "this thing has no way to fight back... why are you a dick?" << std::endl;
 };
 
 void AttrEffect::ApplyHealthEffects(Actor* actor)

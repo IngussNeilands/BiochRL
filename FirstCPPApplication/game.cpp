@@ -902,9 +902,6 @@ void Game::update_ui()
         case GameStates::GameplayState: 
             Ui::update_ui();
             break;
-            // case GameStates::MenuState:
-            //     Ui::update_inventory_ui();
-            //     break;
     };
 }
 
