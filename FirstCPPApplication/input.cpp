@@ -774,6 +774,10 @@ bool Input::user_cast_spell()
                 return true;
             }
         }
+        else
+        {
+            new Message(Ui::msg_handler_main, NOTYPE_MSG, "Out of range. Max is %i, you're at %i.", spell->max_range, distance);
+        };
     }
 
     return false;
@@ -1009,7 +1013,7 @@ bool Input::process_inventory_keys(TCOD_key_t request)
         ckey_vec_t_it it = Game::custom_keys->begin();
         for (it; it != Game::custom_keys->end(); it++)
         {
-			if ((*it)->is_item)
+            if ((*it)->is_item)
             {
                 Item* element = static_cast<Item*>((*it)->element);
                 if (element == item)

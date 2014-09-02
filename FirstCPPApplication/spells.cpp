@@ -96,13 +96,12 @@ bool Spell::is_valid_target(Tile* targetted_tile)
 
 bool Spell::is_in_range(int distance) 
 {
-    if (distance < this->max_range)
+    if (distance <= this->max_range)
     {
         return true;
     }
     else
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "Out of range. Max is %i, you're at %i.", this->max_range, distance);
         return false;
     };
 };

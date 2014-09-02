@@ -420,7 +420,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
     {
         Actor* actor = *it;
-        if (distance < spell->max_range && Game::current_map->l_map->isInFov(actor->x, actor->y))
+        if (spell->is_in_range(distance) && Game::current_map->l_map->isInFov(actor->x, actor->y))
         {
             Game::game_console->setChar(actor->x, actor->y, 'X');
             line_color = TCODColor::darkGreen;
@@ -431,7 +431,6 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     int count = 0;
     TCODLine::init(sx, sy, dx, dy);
     do {
-        count++;
         if (count > spell->max_range)
         {
             line_color = TCODColor::darkRed;
@@ -442,6 +441,7 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
             to_draw = to_draw * TCODColor::darkestGrey;
         }
         Game::game_console->setCharBackground(sx, sy, to_draw);
+        count++;
     } while (!TCODLine::step(&sx,&sy));
 
 
