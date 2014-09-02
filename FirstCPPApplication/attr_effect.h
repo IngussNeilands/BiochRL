@@ -143,7 +143,6 @@ class AttrEffect
 
         std::string AttrEffect::small_convert(std::string prefix, int val);
         std::string full_str();
-        std::string oneline_str_FIXED();
         std::string oneline_str();
         std::string oneline_str_colorless();
         // std::vector<TCODColor> oneline_str_colours();

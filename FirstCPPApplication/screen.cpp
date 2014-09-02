@@ -394,7 +394,7 @@ void InventoryScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 
     //print the item effects
-    con->print(this->offset, i, ((Item*)si.element)->attr_effect->oneline_str_FIXED().c_str());
+    con->print(this->offset, i, ((Item*)si.element)->attr_effect->oneline_str().c_str());
     si.max_y = i;
     i++;
     i++;
@@ -479,7 +479,7 @@ void SpellScreen::draw_screen_item(TCODConsole* con, int& i, ScreenItem& si)
     i++;
 
     //print the item effects
-    con->print(this->offset, i, ((Spell*)si.element)->attr_effect->oneline_str_FIXED().c_str());
+    con->print(this->offset, i, ((Spell*)si.element)->attr_effect->oneline_str().c_str());
     si.max_y = i;
 
     i++;

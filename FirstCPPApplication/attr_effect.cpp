@@ -637,7 +637,7 @@ std::string AttrEffect::small_convert(std::string prefix, int val)
 
 
 
-std::string AttrEffect::oneline_str_FIXED()
+std::string AttrEffect::oneline_str()
 {
 
     std::string result = "";
@@ -745,35 +745,6 @@ std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours()
 
     //color_vector.push_back(TCOD_COLCTRL_STOP);
     return color_vector;
-
-};
-
-std::string AttrEffect::oneline_str()
-{
-
-    std::string result = "";
-    std::vector<std::string> string_vec;
-
-    string_vec.push_back(this->small_convert("%cHCV: ", (int)this->health_current_val));
-    string_vec.push_back(this->small_convert("%cHMV: ", (int)this->health_max_val));
-    string_vec.push_back(this->small_convert("%cHRR: ", (int)this->health_regen_rate));
-    string_vec.push_back(this->small_convert("%cHRI: ", (int)this->health_regen_interval));
-
-    string_vec.push_back(this->small_convert("%cMCV: ", (int)this->mana_current_val));
-    string_vec.push_back(this->small_convert("%cMMV: ", (int)this->mana_max_val));
-    string_vec.push_back(this->small_convert("%cMRR: ", (int)this->mana_regen_rate));
-    string_vec.push_back(this->small_convert("%cMRI: ", (int)this->mana_regen_interval));
-
-    string_vec.push_back(this->small_convert("%cACV: ", (int)this->armor_current_val));
-    string_vec.push_back(this->small_convert("%cAMV: ", (int)this->armor_max_val));
-    string_vec.push_back(this->small_convert("%cARR: ", (int)this->armor_regen_rate));
-    string_vec.push_back(this->small_convert("%cARI: ", (int)this->armor_regen_interval));
-
-    string_vec.push_back(this->small_convert("%cDCV: ", (int)this->damage->normal));
-    string_vec.push_back(this->small_convert("%cDRR: ", (int)this->damage_regen_rate));
-    string_vec.push_back(this->small_convert("%cDRI: ", (int)this->damage_regen_interval));
-
-    return StringJoin(string_vec, ' ', true);
 
 };
 
