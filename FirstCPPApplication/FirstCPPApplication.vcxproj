@@ -294,6 +294,7 @@
     <ClCompile Include="enemies\sludge.cpp" />
     <ClCompile Include="enemies\troll.cpp" />
     <ClCompile Include="enemies\wildling.cpp" />
+    <ClCompile Include="enums\elements_t.cpp" />
     <ClCompile Include="equipment.cpp" />
     <ClCompile Include="event.cpp" />
     <ClCompile Include="FirstCPPApplication.cpp" />

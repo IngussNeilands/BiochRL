@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "libtcod.hpp"
 #include "combat.h"
+#include <enums/elements_t.h>
 
 bool TimedEffect::is_expired(long double turn_count)
 {
@@ -673,12 +674,12 @@ std::string AttrEffect::oneline_str()
     // ss << buffer_color("DRI", this->damage_regen_interval, damage_color);
 
     ss << buffer_color("NRM", this->damage->normal, damage_color);
-    ss << buffer_color("FIR", this->damage->fire, TCODColor::desaturatedRed);
-    ss << buffer_color("WTR", this->damage->water, TCODColor::desaturatedBlue);
-    ss << buffer_color("LIF", this->damage->life, TCODColor::lightGreen);
-    ss << buffer_color("DTH", this->damage->death, TCODColor::darkestGrey);
-    ss << buffer_color("CTL", this->damage->crystal, TCODColor::darkPurple);
-    ss << buffer_color("SPR", this->damage->spectre, TCODColor::magenta);
+    ss << buffer_color("FIR", this->damage->fire, get_element_color(FireElement));
+    ss << buffer_color("WTR", this->damage->water, get_element_color(WaterElement));
+    ss << buffer_color("LIF", this->damage->life, get_element_color(LifeElement));
+    ss << buffer_color("DTH", this->damage->death, get_element_color(DeathElement));
+    ss << buffer_color("CTL", this->damage->crystal, get_element_color(CrystalElement));
+    ss << buffer_color("SPR", this->damage->spectre, get_element_color(SpectreElement));
 
     ss << buffer_color("FCV", this->hunger_current_val, hunger_color);
     ss << buffer_color("FMV", this->hunger_max_val, hunger_color);

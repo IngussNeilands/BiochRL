@@ -559,6 +559,9 @@
     <ClCompile Include="background_info.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="enums\elements_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FirstCPPApplication.rc">

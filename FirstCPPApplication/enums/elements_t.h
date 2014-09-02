@@ -11,4 +11,6 @@ enum elements_t {
     SpectreElement
 };
 
+TCODColor get_element_color(elements_t element);
+
 #endif

@@ -175,16 +175,7 @@ bool Spell::has_enough_mana()
 
 TCODColor Spell::get_spell_color()
 {
-    std::unordered_map<elements_t, TCODColor> spell_color = std::unordered_map<elements_t, TCODColor>();
-
-    spell_color.insert(std::make_pair<elements_t, TCODColor>(FireElement, TCODColor::red));
-    spell_color.insert(std::make_pair<elements_t, TCODColor>(WaterElement, TCODColor::blue));
-    spell_color.insert(std::make_pair<elements_t, TCODColor>(LifeElement, TCODColor::lightGreen));
-    spell_color.insert(std::make_pair<elements_t, TCODColor>(DeathElement, TCODColor::darkerGrey));
-    spell_color.insert(std::make_pair<elements_t, TCODColor>(SpectreElement, TCODColor::darkPurple));
-    spell_color.insert(std::make_pair<elements_t, TCODColor>(CrystalElement, TCODColor::magenta));
-
-    return spell_color.at(this->element);
+    return get_element_color(this->element);
 };
 
 void Spell::spend_mana()
