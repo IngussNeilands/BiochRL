@@ -49,6 +49,7 @@ void MessageHandler::new_msg(Message* message)
     if (same_msg && this->msg_list.size() != 0)
     {
         last_msg->count += 1;
+        last_msg->turn = message->turn;
         //std::cout << "msg already existed, incrementing count" << std::endl;
     }
     else
@@ -162,8 +163,6 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 
     std::map<double, std::vector<std::string>> turn_msgs;
 
-
-    // for (std::vector<Message*>::reverse_iterator it = this->msg_list.rbegin(); it != this->msg_list.rend(); ++it) {
     last_turn = limited_messages.front()->turn;
     std::string cur_msg;
     std::stringstream ss;
