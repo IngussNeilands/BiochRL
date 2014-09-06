@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#include "assert.h"
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
 
@@ -580,6 +581,7 @@ void StairsUpTileType::GoUp()
     Map* map;
     if (this->target_map == NULL)
     {
+        assert(false && "this means there's no stairs downwards above this");
         auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_up);
         if (it != Game::atlas->end())
         {
@@ -607,18 +609,19 @@ void StairsUpTileType::GoUp()
 
 void StairsDownTileType::GoDown()
 {
-    auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_down);
+    Map* original_map = Game::current_map;
     Map* map;
     if (this->target_map == NULL)
     {
-        if (it == Game::atlas->end())
-        {
+        // auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_down);
+        // if (it == Game::atlas->end())
+        // {
             map = Game::build_world(Game::current_map->depth+1);
-        }
-        else
-        {
-            map = *it;
-        };
+        // }
+        // else
+        // {
+        //     map = *it;
+        // };
 
         this->target_map = map;
     }
@@ -652,9 +655,10 @@ void StairsDownTileType::GoDown()
         stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
 
         //set coords and light
-        StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
-        cast_tile->to_x = this->tile_obj->tile_x;
-        cast_tile->to_y = this->tile_obj->tile_y;
+        StairsUpTileType* cast_stair_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
+        cast_stair_tile->to_x = this->tile_obj->tile_x;
+        cast_stair_tile->to_y = this->tile_obj->tile_y;
+        cast_stair_tile->target_map = original_map;
         Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
         this->has_matched_upstair = true;
