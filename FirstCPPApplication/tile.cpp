@@ -568,6 +568,7 @@ void StairsUpTileType::GoUp()
         // int x = room->center_x;
         // int y = room->center_y;
         Game::current_map = *it;
+        Game::set_tile_colors((*it)->depth);
         Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
     };
 

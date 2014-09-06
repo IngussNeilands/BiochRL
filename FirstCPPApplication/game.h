@@ -177,6 +177,7 @@ class Game
         static void give_player_teleport(Actor* player);
         static void give_player_god_mode();
 
+        static void Game::set_tile_colors(int floor_num);
 
         static int __version_major;
         static int __version_minor;
