@@ -630,25 +630,45 @@ void StairsDownTileType::GoDown()
     Game::current_map = map;
     Game::set_tile_colors(map->depth);
 
-    Room* room = Game::current_map->roomVector->front();
-    int x = room->center_x;
-    int y = room->center_y;
-    Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
-    Game::center_camera_on_player();
 
-    Tile* stair_tile = Game::current_map->getTileAt(x, y);
     //this->stair_x = x;
     //this->stair_y = y;
+    int x, y;
+    Tile* stair_tile;
+
     if (this->has_matched_upstair == false)
     {
+        printf("has not matched upstair\n");
+
+        //pick a room to make a stair in
+        int room_count = map->roomVector->size();
+        int room_index = Game::dungeon_builder_rng->getInt(1, room_count);
+        Room* room = Game::current_map->roomVector->at(room_index);
+        x = room->center_x;
+        y = room->center_y;
+
+        //get the tile, convert to stair
+        stair_tile = map->getTileAt(x, y);
         stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
+
+        //set coords and light
         StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
         cast_tile->to_x = this->tile_obj->tile_x;
         cast_tile->to_y = this->tile_obj->tile_y;
         Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
         this->has_matched_upstair = true;
+    }
+    else
+    {
+        x = this->to_x;
+        y = this->to_y;
+        stair_tile = map->getTileAt(x, y);
     };
+
+
+    Game::player->put_person(stair_tile, x, y);
+    Game::center_camera_on_player();
 
 
 };

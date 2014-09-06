@@ -491,8 +491,11 @@ int Map::build_dungeon_from_random(int seed, int floor)
     //std::cout << "" << BspListener::output.str() << std::endl;
     Room* room = v->at(6);
     Tile* stair_tile = this->getTileAt(room->x+1, room->y+1);
-    this->stair_x = stair_tile->tile_x;
-    this->stair_y = stair_tile->tile_y;
+    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+    this->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+
+    room = v->at(3);
+    stair_tile = this->getTileAt(room->x+1, room->y+1);
     stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
     this->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
