@@ -56,7 +56,10 @@ class Map : public Object
         std::vector< std::vector<Tile> > *tileVector;
         std::vector<Room*>* roomVector;
         std::vector<Vec2i>* inside_tiles;
-        Tile * getTileAt(int x, int y, bool is_original_pos=true, int ox=-1, int oy=-1);
+        Tile* getTileAt(int x, int y, bool is_original_pos=true, int ox=-1, int oy=-1);
+
+        std::vector<Map*>* floors_above;
+        std::vector<Map*>* floors_below;
 
         TCODMap* l_map;
 };

@@ -41,6 +41,9 @@ Map::Map()
     this->height = NULL;
     this->depth = 1;
 
+    this->floors_above = new std::vector<Map*>();
+    this->floors_below = new std::vector<Map*>();
+
 }
 
 Map::~Map()
@@ -81,6 +84,9 @@ Map::~Map()
     this->tileVector->clear();
     assert(this->tileVector->size() == 0);
     delete this->tileVector;
+
+    delete this->floors_above;
+    delete this->floors_below;
 }
 
 Tile * Map::getTileAt(int x, int y, bool is_original_pos, int ox, int oy)
