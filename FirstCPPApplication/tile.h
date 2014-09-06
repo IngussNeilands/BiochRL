@@ -76,23 +76,32 @@ class DoorTileType : public BaseTileType
         // void ToggleDoor();
 };
 
-class StairsDownTileType : public BaseTileType
-{
-    public: 
-        StairsDownTileType();
-        void GoDown();
-};
-
 class FloorTileType : public BaseTileType
 {
     public: 
         FloorTileType();
 };
 
-class StairsUpTileType : public BaseTileType
+class StairsTileType : public BaseTileType
+{
+    public:
+        Map* target_map;
+        int to_x, to_y;
+
+        StairsTileType();
+        ~StairsTileType();
+};
+
+class StairsDownTileType : public StairsTileType
 {
     public: 
-        int to_x, to_y;
+        StairsDownTileType();
+        void GoDown();
+};
+
+class StairsUpTileType : public StairsTileType
+{
+    public: 
         StairsUpTileType();
         void GoUp();
 };

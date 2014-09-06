@@ -304,12 +304,12 @@ void Tile::updateTileType(int type )
     else if (type == 5) 
     {
         // tile = new StairsDownTileType; 
-        tiletype_obj = Tile::StairsDownType;
+        tiletype_obj = new StairsDownTileType(*Tile::StairsDownType);
     }
     else if (type == 6) 
     {
         // tile = new StairsUpTileType; 
-        tiletype_obj = Tile::StairsUpType;
+        tiletype_obj = new StairsUpTileType(*Tile::StairsUpType);
     }
     else 
     {
@@ -540,7 +540,20 @@ void Tile::OpenDoor()
     this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
 };
 
-StairsDownTileType::StairsDownTileType() : BaseTileType() 
+StairsTileType::StairsTileType()
+{
+    this->to_x = -1;
+    this->to_y = -1;
+    
+    this->target_map = NULL;
+};
+
+StairsTileType::~StairsTileType()
+{
+    this->target_map = NULL;
+};
+
+StairsDownTileType::StairsDownTileType() : StairsTileType() 
 {
     this->description = "Stairs leading downwards.";
     type_id = TileTypes::StairsDownTileTypeType;
@@ -561,18 +574,30 @@ void StairsUpTileType::GoUp()
 {
     // auto map = Game::build_world(Game::current_map->depth+1);
     // find the map with the depth of one less than the current
-    auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_up);
-    if (it != Game::atlas->end())
+    Map* map;
+    if (this->target_map == NULL)
     {
-        // Room* room = Game::current_map->roomVector->front();
-        int x = this->to_x;
-        int y = this->to_y;
-        // int x = room->center_x;
-        // int y = room->center_y;
-        Game::current_map = *it;
-        Game::set_tile_colors((*it)->depth);
-        Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
+        auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_up);
+        if (it != Game::atlas->end())
+        {
+            // Room* room = Game::current_map->roomVector->front();
+            map = *it;
+        };
+        this->target_map = map;
+    }
+    else
+    {
+        map = this->target_map;
     };
+
+    int x = this->to_x;
+    int y = this->to_y;
+    // int x = room->center_x;
+    // int y = room->center_y;
+
+    Game::current_map = map;
+    Game::set_tile_colors(map->depth);
+    Game::player->put_person(Game::current_map->getTileAt(x, y), x, y);
 
 
 };
@@ -581,14 +606,24 @@ void StairsDownTileType::GoDown()
 {
     auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_down);
     Map* map;
-    if (it == Game::atlas->end())
+    if (this->target_map == NULL)
     {
-        map = Game::build_world(Game::current_map->depth+1);
+        if (it == Game::atlas->end())
+        {
+            map = Game::build_world(Game::current_map->depth+1);
+        }
+        else
+        {
+            map = *it;
+        };
+
+        this->target_map = map;
     }
     else
     {
-        map = *it;
+        map = target_map;
     };
+
     Game::current_map = map;
     Game::set_tile_colors(map->depth);
 
@@ -610,7 +645,7 @@ void StairsDownTileType::GoDown()
 
 };
 
-StairsUpTileType::StairsUpTileType() : BaseTileType() 
+StairsUpTileType::StairsUpTileType() : StairsTileType() 
 {
     this->description = "Stairs leading upwards";
     type_id = TileTypes::StairsUpTileTypeType;
