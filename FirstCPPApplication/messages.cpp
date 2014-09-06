@@ -161,9 +161,10 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
             limited_messages.end(),
             sorting_by_type);
 
-    std::map<double, std::vector<std::string>> turn_msgs;
-
     last_turn = limited_messages.front()->turn;
+
+    //build list of raw message objects to render later
+    std::map<double, std::vector<std::string>> turn_msgs;
     std::string cur_msg;
     std::stringstream ss;
     for (std::vector<Message*>::iterator it = limited_messages.begin(); it != limited_messages.end(); ++it) 
@@ -193,6 +194,7 @@ std::vector<std::string> MessageHandler::PrerenderMessages(int turn_limit)
 
     }
 
+    //render the message contents to draw
     typedef std::map<double, std::vector<std::string>>::reverse_iterator it_type;
     for(it_type iterator = turn_msgs.rbegin(); iterator != turn_msgs.rend(); iterator++) 
     {

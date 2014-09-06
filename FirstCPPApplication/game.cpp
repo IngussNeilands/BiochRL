@@ -680,7 +680,7 @@ void  Game::initialize_items()
 //     //Game::current_map->enemies.push_back(Game::create_skeleton("Third", 33, 14, 9, 's', Game::current_map, "Third, Skeleton"));
 // };
 
-void give_player_teleport(Actor* player)
+void Game::give_player_teleport(Actor* player)
 {
     TeleportSelfSpell* teleport = new TeleportSelfSpell();
     teleport->master = player;
@@ -692,7 +692,7 @@ void give_player_teleport(Actor* player)
 
 };
 
-void give_player_god_mode()
+void Game::give_player_god_mode()
 {
     Person* player = Game::player;
     player->attrs->health->current_val=3000;

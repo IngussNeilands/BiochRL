@@ -174,6 +174,9 @@ class Game
         static void mainloop();
         static void init_engine();
 
+        static void give_player_teleport(Actor* player);
+        static void give_player_god_mode();
+
 
         static int __version_major;
         static int __version_minor;

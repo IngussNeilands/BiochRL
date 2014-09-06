@@ -1524,6 +1524,12 @@ bool Input::process_debug_event(TCOD_key_t request)
         // Game::current_screen = Screens::MainMenuScreenType;
     }
 
+    if (request.vk == TCODK_F10)
+    {
+        Game::give_player_teleport(Game::player);
+        Game::give_player_god_mode();
+    }
+
     if (request.vk == TCODK_F11)
     {
         //toggle fullscreen
