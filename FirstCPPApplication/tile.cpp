@@ -558,6 +558,9 @@ StairsDownTileType::StairsDownTileType() : StairsTileType()
     this->description = "Stairs leading downwards.";
     type_id = TileTypes::StairsDownTileTypeType;
     representation = new StairsDownRepresentation; 
+
+    this->has_matched_upstair = false;
+
 };
 
 bool one_floor_up(Map* world)
@@ -636,11 +639,16 @@ void StairsDownTileType::GoDown()
     Tile* stair_tile = Game::current_map->getTileAt(x, y);
     //this->stair_x = x;
     //this->stair_y = y;
-    stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
-    StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
-    cast_tile->to_x = this->tile_obj->tile_x;
-    cast_tile->to_y = this->tile_obj->tile_y;
-    Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+    if (this->has_matched_upstair == false)
+    {
+        stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
+        StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
+        cast_tile->to_x = this->tile_obj->tile_x;
+        cast_tile->to_y = this->tile_obj->tile_y;
+        Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
+
+        this->has_matched_upstair = true;
+    };
 
 
 };

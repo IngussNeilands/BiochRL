@@ -95,6 +95,9 @@ class StairsTileType : public BaseTileType
 class StairsDownTileType : public StairsTileType
 {
     public: 
+
+        bool has_matched_upstair;
+
         StairsDownTileType();
         void GoDown();
 };
