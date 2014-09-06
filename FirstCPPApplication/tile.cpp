@@ -32,7 +32,7 @@ FloorTileType* Tile::FloorType = new FloorTileType;
 
 Tile::Tile()
 {
-    this->tile = new BaseTileType;
+    this->tiletype_obj = new BaseTileType;
     this->is_deleted = false;
     this->type_id = TileTypes::BaseTileTypeType;
     this->_is_occupied = false;
@@ -60,7 +60,7 @@ Tile::Tile(const Tile& other)
 {
     //TODO doesnt copy occupants, inventory, custom tile
     this->is_deleted = other.is_deleted;
-    this->tile = new BaseTileType;
+    this->tiletype_obj = new BaseTileType;
     this->type_id = other.type_id;
 
     this->_is_occupied = other._is_occupied;
@@ -108,7 +108,7 @@ BaseTileType* Tile::get_tile_type()
 {
     if (! this->is_custom_tile)
     {
-        return this->tile;
+        return this->tiletype_obj;
     }
     else
     {
@@ -120,7 +120,7 @@ std::string Tile::get_description()
 {
     if (! this->is_custom_tile)
     {
-        return this->tile->description;
+        return this->tiletype_obj->description;
     }
     else
     {
@@ -141,7 +141,7 @@ Representation* Tile::get_representation()
 {
     if (!this->is_custom_tile)
     {
-        return this->tile->representation;
+        return this->tiletype_obj->representation;
     }
     else
     {
@@ -265,7 +265,7 @@ void Tile::updateCustomTileType(int type )
         cout << type << endl;
         cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
-    this->tile->tile=this;
+    this->tiletype_obj->tile_obj=this;
     this->is_deleted = false;
 
     this->is_custom_tile = true;
@@ -279,37 +279,37 @@ void Tile::updateTileType(int type )
     this->is_custom_tile = false;
 
     if (type == 0) {
-        tile = Tile::BaseType; 
+        tiletype_obj = Tile::BaseType; 
     }
     else if (type == 1) { 
         // tile = new WallTileType;
-        tile = Tile::WallType;
+        tiletype_obj = Tile::WallType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
     }
 
     else if (type == 2) {
         // tile = new WarpTileType; 
-        tile = Tile::WarpType;
+        tiletype_obj = Tile::WarpType;
     }
     else if (type == 3) {
         // tile = new FloorTileType;
-        tile = Tile::FloorType;
+        tiletype_obj = Tile::FloorType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
     }
     else if (type == 4) {
         // tile = new DoorTileType; 
-        tile = Tile::DoorType;
+        tiletype_obj = Tile::DoorType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
     }
     else if (type == 5) 
     {
         // tile = new StairsDownTileType; 
-        tile = Tile::StairsDownType;
+        tiletype_obj = Tile::StairsDownType;
     }
     else if (type == 6) 
     {
         // tile = new StairsUpTileType; 
-        tile = Tile::StairsUpType;
+        tiletype_obj = Tile::StairsUpType;
     }
     else 
     {
@@ -476,6 +476,8 @@ BaseTileType::BaseTileType()
     this->description = "Another descriptionless tile.";
     this->type_id = TileTypes::BaseTileTypeType;
     this->representation = new BaseRepresentation; 
+
+    this->tile_obj = NULL;
 };
 
 BaseTileType::~BaseTileType() 
@@ -588,6 +590,7 @@ void StairsDownTileType::GoDown()
         map = *it;
     };
     Game::current_map = map;
+    Game::set_tile_colors(map->depth);
 
     Room* room = Game::current_map->roomVector->front();
     int x = room->center_x;
@@ -599,9 +602,9 @@ void StairsDownTileType::GoDown()
     //this->stair_x = x;
     //this->stair_y = y;
     stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
-    StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tile);
-    cast_tile->to_x = x;
-    cast_tile->to_y = y;
+    StairsUpTileType* cast_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
+    cast_tile->to_x = this->tile_obj->tile_x;
+    cast_tile->to_y = this->tile_obj->tile_y;
     Game::current_map->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
 

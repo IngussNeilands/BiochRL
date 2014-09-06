@@ -575,7 +575,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
             //std::cout << "there's a stair down here, its gon go down" << std::endl;
             new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair up here, its gon go down to the next floor.");
-            ((StairsUpTileType*)stair_tile->tile)->GoUp();
+            ((StairsUpTileType*)stair_tile->tiletype_obj)->GoUp();
         }
         else
         {
@@ -591,7 +591,12 @@ bool Input::process_basic_keys(TCOD_key_t request)
         {
             //std::cout << "there's a stair down here, its gon go down" << std::endl;
             new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair down here, its gon go down to the next floor.");
-            ((StairsDownTileType*)stair_tile)->GoDown();
+            StairsDownTileType* down_stairs_tiletype = static_cast<StairsDownTileType*>(stair_tile->tiletype_obj);
+            if (down_stairs_tiletype->tile_obj == NULL)
+            {
+                down_stairs_tiletype->tile_obj = stair_tile;
+            };
+            down_stairs_tiletype->GoDown();
         }
         else
         {

@@ -39,7 +39,7 @@ class BaseTileType //all tile types must inherit this
         std::string description;      // the description of the tile
         int type_id;
         TCODColor* color;
-        Tile* tile;
+        Tile* tile_obj;
 
         BaseTileType();
         ~BaseTileType();
@@ -107,7 +107,7 @@ class Tile : public Object
 
     public:
         BaseTileType* custom_tile;
-        BaseTileType* tile;
+        BaseTileType* tiletype_obj;
 
         static BaseTileType* BaseType; //all tile types must inherit this
         static WarpTileType* WarpType;
