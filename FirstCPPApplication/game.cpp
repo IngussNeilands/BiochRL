@@ -410,14 +410,14 @@ Map* Game::build_town()
     Game::fill_town(world);
 
     std::cout << "going in " << std::endl;
-    while (!validate_town(world))
-    {
-        std::cout << "\t\tlooping " << std::endl;
-        delete world;
-        world = new Map;
-        world->build_town_from_random(0);
-        Game::fill_town(world);
-    };
+    // while (!validate_town(world))
+    // {
+    //     std::cout << "\t\tlooping " << std::endl;
+    //     delete world;
+    //     world = new Map;
+    //     world->build_town_from_random(0);
+    //     Game::fill_town(world);
+    // };
     return world;
 }
 
@@ -851,7 +851,7 @@ void Game::update()
 
     //go through queue and do (or pop) actions for before the players next turn
     //while queue top is not player -> do actions and then reque them
-    while (Game::game_queue->top()->target_queue_tick <= Game::player->target_queue_tick)
+    while (Game::game_queue->empty() == false && Game::game_queue->top()->target_queue_tick <= Game::player->target_queue_tick)
     {
         Actor* actor = Game::game_queue->top();
         Game::queue_ticks = actor->target_queue_tick; //increment the game queue ticks artificially 
@@ -1297,8 +1297,8 @@ void Game::start_game()
     Game::queue_ticks = 0;
 
     std::cout << "starting world gen" << std::endl;
-    Map* new_map = Game::build_world(1);
-    // Map* new_map = Game::build_town();
+    // Map* new_map = Game::build_world(1);
+    Map* new_map = Game::build_town();
     std::cout << "ending world gen" << std::endl;
     Game::current_map = new_map;
 
