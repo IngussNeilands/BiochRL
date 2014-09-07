@@ -7,8 +7,11 @@
 
 Civilian::Civilian()
 {
-    this->disposition = 50;
     this->master = NULL;
+
+    this->disposition = 50;
+    this->is_shopkeep = false;
+
     this->chat_lines = new std::vector<std::string>();
     this->chat_lines->push_back("Nice day outside, isn't it? I wouldn't actually know.");
     this->chat_lines->push_back("I smell peanut butter.");

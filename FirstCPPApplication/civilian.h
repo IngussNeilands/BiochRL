@@ -11,6 +11,8 @@ class Civilian
 {
     public:
         int disposition;
+        bool is_shopkeep;
+
         Actor* master;
         std::vector<std::string>* chat_lines;
 

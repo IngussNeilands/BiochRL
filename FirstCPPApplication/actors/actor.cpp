@@ -52,6 +52,8 @@ Actor::Actor()
     this->xp_value = 10;
     this->level = 1;
 
+    this->total_gold = 0;
+
     this->is_champion = false;
     this->is_hero = false;
     this->timed_attr_effects = new std::vector<TimedEffect*>;

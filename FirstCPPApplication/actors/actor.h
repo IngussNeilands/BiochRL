@@ -43,6 +43,8 @@ class Actor : public Object
         bool has_attributes();
         bool is_active;
 
+        unsigned long long total_gold;
+
         TCODPath* l_path;
 
         int x,y;

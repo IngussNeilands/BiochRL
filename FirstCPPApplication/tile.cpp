@@ -23,7 +23,7 @@
 
 using namespace std;
 
-BaseTileType* Tile::BaseType = new BaseTileType; //all tile types must inherit this
+BaseTileType* Tile::BaseType = new BaseTileType;
 WarpTileType* Tile::WarpType = new WarpTileType;
 WallTileType* Tile::WallType = new WallTileType;
 DoorTileType* Tile::DoorType = new DoorTileType;

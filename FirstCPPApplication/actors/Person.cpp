@@ -230,6 +230,42 @@ bool Person::talk_to(Actor* target)
         std::string text = this->talk_wrap(target, target->thinker->civilian->talk_general_topic());
         new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));
 
+        if (target->thinker->civilian->is_shopkeep)
+        {
+            //get surrounding items
+            tile_vec_t* adj_tiles = target->my_tile->getAdjacentTiles(1);
+			item_vec_t* items = new item_vec_t;
+            for (tile_vec_t::iterator it = adj_tiles->begin(); it!=adj_tiles->end(); it++)
+            {
+				Tile* tile = *it;
+				auto on_floor = new item_vec_t(*tile->inventory->items);
+				if (on_floor->empty()) { continue; }
+				for (auto item = on_floor->begin(); item != on_floor->end(); item++)
+				{
+					tile->inventory->remove_item(*item);
+				}
+				items->insert(items->end(), on_floor->begin(), on_floor->end());
+
+                delete on_floor;
+			};
+			delete adj_tiles;
+
+			std::cout << "items on floor: " << items->size() << std::endl;
+
+            //remove them
+            //replace them with money
+            int total_gold = 0;
+            for (auto it = items->begin(); it != items->end(); it++)
+            {
+                delete *it;
+                total_gold += 10;
+            };
+
+            this->total_gold += total_gold;
+			std::cout << "you just earned: " << total_gold << std::endl;
+			std::cout << "you now have: " << this->total_gold << std::endl;
+        };
+
         return true;
     }
 
