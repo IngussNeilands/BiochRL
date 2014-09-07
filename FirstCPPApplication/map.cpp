@@ -244,8 +244,8 @@ class TownListener : public ITCODBspCallback
                 // dig a room
                 TCODRandom *rng = Game::dungeon_builder_rng;
 
-                room_w = rng->getInt(room_min_size, node->w-2);
-                room_h = rng->getInt(room_min_size, node->h-2);
+                room_w = rng->getInt(room_min_size, node->w-3);
+                room_h = rng->getInt(room_min_size, node->h-3);
                 room_x = rng->getInt(node->x+1, node->x+node->w-(room_w-1));
                 room_y = rng->getInt(node->y+1, node->y+node->h-(room_h-1));
 
