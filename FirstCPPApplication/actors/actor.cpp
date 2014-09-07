@@ -439,6 +439,11 @@ void Actor::die()
         }
         TCODConsole::setFade(255, TCODColor::red);
 
+        Ui::msg_handler_main->msg_list.clear();
+		Message* msg = new Message;
+		msg->content = "Care to try again?";
+        msg->turn = 1;
+        Ui::msg_handler_main->msg_list.push_back(msg);
         std::cout << "Death log is being prepared..." << std::endl;
         this->printout_score();
 
