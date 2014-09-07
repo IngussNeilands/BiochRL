@@ -679,6 +679,22 @@ void Ui::print_weapon_data(TCODConsole* con, int& offset, int& i)
 
 };
 
+void Ui::print_gold(TCODConsole* con, int& offset, int& i)
+{
+    // char buffer[100];
+    Person* player = Game::player;
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "BANKING INFORMATION");
+    i++;
+    std::stringstream ss;
+    unsigned long long total_gold = Game::player->total_gold;
+    ss << "You have " << total_gold << " pieces of gold to your name.";
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
+    i++;
+    i++;
+    ss.str("");
+
+};
+
 void Ui::print_background_info(TCODConsole* con, int& offset, int& i)
 {
     // char buffer[100];
@@ -793,6 +809,7 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     print_class(con, offset,  i);
     print_weapon_data(con, offset,  i);
     print_background_info(con, offset, i);
+    print_gold(con, offset, i);
 
 };
 
