@@ -20,5 +20,7 @@ class Civilian
         ~Civilian();
         std::string talk_general_topic();
         void start_combat(){}; //once its fought create a combat for this->master
+
+        unsigned long long sell_from_floor(Actor* client);
 };
 #endif

@@ -497,6 +497,7 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 
     new_pers->thinker->is_dumb = true;
     new_pers->thinker->civilian = new Civilian;
+    new_pers->thinker->civilian->master = new_pers;
     new_pers->thinker->civilian->is_shopkeep = true;
 
 

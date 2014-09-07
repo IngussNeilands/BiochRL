@@ -1,8 +1,11 @@
 #include "stdafx.h"
 #include "civilian.h"
+#include "actors\actor.h"
 
 
 #include "libtcod_cpp_hpp\libtcod.hpp"
+#include <tile.h>
+#include <inventory.h>
 
 
 Civilian::Civilian()
@@ -44,4 +47,39 @@ std::string Civilian::talk_general_topic()
 {
     int index = TCODRandom::getInstance()->getInt(0, this->chat_lines->size()-1);
     return this->chat_lines->at(index);
+};
+
+unsigned long long Civilian::sell_from_floor(Actor* client)
+{
+    //get surrounding items
+    tile_vec_t* adj_tiles = this->master->my_tile->getAdjacentTiles(1);
+    item_vec_t* items = new item_vec_t;
+    for (tile_vec_t::iterator it = adj_tiles->begin(); it!=adj_tiles->end(); it++)
+    {
+        Tile* tile = *it;
+        auto on_floor = new item_vec_t(*tile->inventory->items);
+        if (on_floor->empty()) { continue; }
+        for (auto item = on_floor->begin(); item != on_floor->end(); item++)
+        {
+            tile->inventory->remove_item(*item);
+        }
+        items->insert(items->end(), on_floor->begin(), on_floor->end());
+
+        delete on_floor;
+    };
+    delete adj_tiles;
+
+    // std::cout << "items on floor: " << items->size() << std::endl;
+
+    //remove them
+    //replace them with money
+    int total_gold = 0;
+    for (auto it = items->begin(); it != items->end(); it++)
+    {
+        delete *it;
+        total_gold += 10;
+    };
+
+    return total_gold;
+
 };
