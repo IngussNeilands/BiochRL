@@ -18,7 +18,7 @@
 #include <Room.h>
 #include <actors\Person.h>
 #include <map.h>
-
+#include <randsys.h>
 
 
 using namespace std;
@@ -545,7 +545,7 @@ StairsTileType::StairsTileType()
 {
     this->to_x = -1;
     this->to_y = -1;
-    
+
     this->target_map = NULL;
 };
 
@@ -614,14 +614,24 @@ void StairsDownTileType::GoDown()
     if (this->target_map == NULL)
     {
         // auto it = std::find_if(Game::atlas->begin(), Game::atlas->end(), one_floor_down);
-        // if (it == Game::atlas->end())
-        // {
+        enum floortypes  {
+            Dungeon,
+            Town
+        };
+        RandomWeightMap<floortypes> rwm;
+        rwm.add_item(Dungeon, 96);
+        rwm.add_item(Town, 4);
+        floortypes result = rwm.get_item(Game::dungeon_builder_rng);
+
+        if (result == Dungeon)
+        {
             map = Game::build_world(Game::current_map->depth+1);
-        // }
-        // else
-        // {
-        //     map = *it;
-        // };
+        }
+        else if (result == Town)
+        {
+            map = Game::build_town();
+            map->depth = original_map->depth-1;
+        };
 
         this->target_map = map;
     }
@@ -649,6 +659,9 @@ void StairsDownTileType::GoDown()
         Room* room = Game::current_map->roomVector->at(room_index);
         x = room->center_x;
         y = room->center_y;
+
+        this->to_x = x;
+        this->to_y = y;
 
         //get the tile, convert to stair
         stair_tile = map->getTileAt(x, y);
