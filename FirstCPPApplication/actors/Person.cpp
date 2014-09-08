@@ -240,6 +240,18 @@ bool Person::talk_to(Actor* target)
                 std::cout << "you just earned: " << total_gold << std::endl;
                 std::cout << "you now have: " << Game::player->total_gold << std::endl;
             }
+        }
+        else if (target->thinker->civilian->is_weaponsmith)
+        {
+            int upgrade_cost = 200;
+
+            if (Game::player->total_gold > upgrade_cost)
+            {
+                target->thinker->civilian->upgrade_primary_weapon(Game::player);
+                Game::player->total_gold -= upgrade_cost;
+                std::cout << "you just spent: " << upgrade_cost << std::endl;
+                // std::cout << "you now have: " << Game::player->total_gold << std::endl;
+            }
         };
 
         return true;

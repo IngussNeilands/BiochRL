@@ -12,6 +12,7 @@ class Civilian
     public:
         int disposition;
         bool is_shopkeep;
+        bool is_weaponsmith;
 
         Actor* master;
         std::vector<std::string>* chat_lines;
@@ -22,5 +23,6 @@ class Civilian
         void start_combat(){}; //once its fought create a combat for this->master
 
         unsigned long long sell_from_floor(Actor* client);
+        void upgrade_primary_weapon(Actor* client);
 };
 #endif

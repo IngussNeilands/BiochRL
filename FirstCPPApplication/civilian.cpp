@@ -6,6 +6,10 @@
 #include "libtcod_cpp_hpp\libtcod.hpp"
 #include <tile.h>
 #include <inventory.h>
+#include "equipment.h"
+#include "item.h"
+#include "attr_effect.h"
+#include <combat.h>
 
 
 Civilian::Civilian()
@@ -14,6 +18,7 @@ Civilian::Civilian()
 
     this->disposition = 50;
     this->is_shopkeep = false;
+    this->is_weaponsmith = false;
 
     this->chat_lines = new std::vector<std::string>();
     this->chat_lines->push_back("Nice day outside, isn't it? I wouldn't actually know.");
@@ -82,4 +87,15 @@ unsigned long long Civilian::sell_from_floor(Actor* client)
 
     return total_gold;
 
+};
+
+void Civilian::upgrade_primary_weapon(Actor* client)
+{
+    //check for primary weapon
+	if (client->equipment->main_weapon->equipped_item != NULL)
+	{
+		Item* item = client->equipment->main_weapon->equipped_item;
+		item->attr_effect->damage->normal += 10;
+	};
+    //upgrade physical damage
 };

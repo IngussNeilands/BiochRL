@@ -432,7 +432,7 @@ void Actor::die()
         for (int fade=255*multiplier; fade >= 0; fade --) {
             if (fade % multiplier == 0)
             {
-                TCODConsole::setFade(fade/multiplier,TCODColor::red);
+                TCODConsole::setFade(fade/multiplier, TCODColor::red);
                 TCODConsole::flush();
                 printf("YOU'RE DEAD GIVE UP\n");
             };
@@ -444,6 +444,7 @@ void Actor::die()
 		msg->content = "Care to try again?";
         msg->turn = 1;
         Ui::msg_handler_main->msg_list.push_back(msg);
+
         std::cout << "Death log is being prepared..." << std::endl;
         this->printout_score();
 

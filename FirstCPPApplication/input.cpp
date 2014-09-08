@@ -1533,6 +1533,7 @@ bool Input::process_debug_event(TCOD_key_t request)
     {
         Game::give_player_teleport(Game::player);
         Game::give_player_god_mode();
+        Game::give_player_rich();
     }
 
     if (request.vk == TCODK_F11)

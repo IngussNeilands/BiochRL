@@ -498,7 +498,26 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
     new_pers->thinker->is_dumb = true;
     new_pers->thinker->civilian = new Civilian;
     new_pers->thinker->civilian->master = new_pers;
-    new_pers->thinker->civilian->is_shopkeep = true;
+
+    enum civ_types {
+        Shopkeeper,
+        Weaponsmith
+    };
+    RandomWeightMap<civ_types> rwm = RandomWeightMap<civ_types>();
+    rwm.add_item(Weaponsmith, 5);
+    rwm.add_item(Shopkeeper, 5);
+    civ_types result = rwm.get_item(Game::spawning_ratio_rng);
+
+    if (result == Weaponsmith)
+    {
+        new_pers->thinker->civilian->is_weaponsmith = true;
+        new_pers->name = "Butch, the smith";
+    }
+    else if (result == Shopkeeper)
+    {
+        new_pers->thinker->civilian->is_shopkeep = true;
+        new_pers->name = "Kyle, the shopkeep";
+    };
 
 
     new_pers->is_fighter = false;
@@ -698,6 +717,13 @@ void Game::give_player_teleport(Actor* player)
     player->spells->push_back(teleport);
     Game::custom_key2->assign_spell(teleport);
 
+};
+
+void Game::give_player_rich()
+{
+
+    Person* player = Game::player;
+    player->total_gold = 10000000;
 };
 
 void Game::give_player_god_mode()
