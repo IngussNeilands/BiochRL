@@ -484,8 +484,8 @@ void AttrEffect::ApplyDamageEffects(Actor* actor)
 {
     if (! this->already_applied_damage(actor))
     {
-        actor->attrs->damage->add_to_max_val(this->damage->normal);
-        actor->attrs->damage->add_to_current_val(this->damage->normal);
+        actor->attrs->damage->add_to_max_val(this->damage->get_raw_total());
+        actor->attrs->damage->add_to_current_val(this->damage->get_raw_total());
         actor->attrs->damage->add_to_regen_rate(this->damage_regen_rate);
         actor->attrs->damage->add_to_regen_interval(this->damage_regen_interval);
         this->mark_applied_damage(actor);
@@ -552,8 +552,8 @@ void AttrEffect::RemoveArmorEffects(Actor* actor)
 
 void AttrEffect::RemoveDamageEffects(Actor* actor)
 {
-    actor->attrs->damage->remove_from_current_val(this->damage->normal);
-    actor->attrs->damage->remove_from_max_val(this->damage->normal);
+    actor->attrs->damage->remove_from_current_val(this->damage->get_raw_total());
+    actor->attrs->damage->remove_from_max_val(this->damage->get_raw_total());
     actor->attrs->damage->remove_from_regen_rate(this->damage_regen_rate);
     actor->attrs->damage->remove_from_regen_interval(this->damage_regen_interval);
 };
@@ -596,8 +596,8 @@ std::string AttrEffect::full_str()
     string_vec.push_back("ARR: "+std::to_string((long double)this->armor_regen_rate));
     string_vec.push_back("ARI: "+std::to_string((long double)this->armor_regen_interval));
 
-    string_vec.push_back("DCV: "+std::to_string((long double)this->damage->normal));
-    string_vec.push_back("DMV: "+std::to_string((long double)this->damage->normal));
+    string_vec.push_back("DCV: "+std::to_string((long double)this->damage->get_raw_total()));
+    string_vec.push_back("DMV: "+std::to_string((long double)this->damage->get_raw_total()));
     string_vec.push_back("DRR: "+std::to_string((long double)this->damage_regen_rate));
     string_vec.push_back("DRI: "+std::to_string((long double)this->damage_regen_interval));
 
@@ -735,7 +735,7 @@ std::vector<TCOD_colctrl_t> AttrEffect::oneline_str_colours()
     if (this->armor_regen_interval != 0)
         color_vector.push_back(TCOD_COLCTRL_3);
 
-    if (this->damage->normal != 0)
+    if (this->damage->get_raw_total() != 0)
         color_vector.push_back(TCOD_COLCTRL_4);
     if (this->damage_regen_rate != 0)
         color_vector.push_back(TCOD_COLCTRL_4);
@@ -768,7 +768,7 @@ std::string AttrEffect::oneline_str_colorless()
     string_vec.push_back(this->small_convert("ARR: ", (int)this->armor_regen_rate));
     string_vec.push_back(this->small_convert("ARI: ", (int)this->armor_regen_interval));
 
-    string_vec.push_back(this->small_convert("DCV: ", (int)this->damage->normal));
+    string_vec.push_back(this->small_convert("DCV: ", (int)this->damage->get_raw_total()));
     string_vec.push_back(this->small_convert("DRR: ", (int)this->damage_regen_rate));
     string_vec.push_back(this->small_convert("DRI: ", (int)this->damage_regen_interval));
 

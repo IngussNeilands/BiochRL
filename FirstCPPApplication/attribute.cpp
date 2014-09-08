@@ -238,7 +238,7 @@ DamageAttribute::DamageAttribute() : Attribute()
 
     this->regen_rate = 0;
 
-};
+}
 
 HungerAttribute::HungerAttribute() : Attribute()
 {

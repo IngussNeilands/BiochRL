@@ -10,6 +10,8 @@
 #include "item.h"
 #include "attr_effect.h"
 #include <combat.h>
+#include <attribute_container.h>
+#include <attribute.h>
 
 
 Civilian::Civilian()
@@ -95,9 +97,9 @@ int Civilian::upgrade_primary_weapon(Actor* client)
     int stat_gain = 10;
 	if (client->equipment->main_weapon->equipped_item != NULL)
 	{
-
 		Item* item = client->equipment->main_weapon->equipped_item;
 		item->attr_effect->damage->normal += stat_gain;
+        client->attrs->damage->alter_vals(stat_gain); //because attrs only get changed on equip, we sidestep that by manually setting the attrs on the client
 	}
     else
     {

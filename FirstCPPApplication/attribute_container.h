@@ -22,6 +22,7 @@ class SpeedAttribute;
 
 class Actor;
 
+class Damage;
 class AttributeContainer
 {
     public:
@@ -33,6 +34,8 @@ class AttributeContainer
         DamageAttribute* damage;
         HungerAttribute* hunger;
         SpeedAttribute* speed;
+
+        Damage* get_effective_damage(); //include native damage + weapons
 
         AttributeContainer();
         AttributeContainer(AttributeContainer& other);

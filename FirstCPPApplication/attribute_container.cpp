@@ -5,6 +5,9 @@
 #include <actors/actor.h>
 #include "attribute.h"
 #include "utils.h"
+#include <combat.h>
+#include <equipment.h>
+#include <item.h>
 
 
 AttributeContainer::AttributeContainer()
@@ -39,6 +42,24 @@ void AttributeContainer::Update()
     this->damage->update();
     this->hunger->update();
     this->speed->update();
+};
+
+Damage* AttributeContainer::get_effective_damage()
+{
+    int initial_damage = this->damage->current_val;
+    Damage* result;
+    if (this->owner->equipment != NULL && this->owner->equipment->main_weapon->equipped_item != NULL)
+    {
+		Item* item = this->owner->equipment->main_weapon->equipped_item;
+		result = new Damage(*item->attr_effect->damage);
+    }
+	else
+	{
+		result = new Damage();
+	}
+
+    result->normal = initial_damage;
+	return result;
 };
 
 void AttributeContainer::RegenerateAll()
@@ -101,7 +122,7 @@ std::vector<std::string> AttributeContainer::PrettyVectorColored()
     string_vec.push_back(buffer_color("ARR", this->armor->regen_rate, armor_color));
     string_vec.push_back(buffer_color("ARI", this->armor->regen_interval, armor_color));
 
-    string_vec.push_back(buffer_color("DCV", this->damage->current_val, damage_color));
+    string_vec.push_back(buffer_color("DCV", this->get_effective_damage()->get_raw_total(), damage_color));
     string_vec.push_back(buffer_color("DMV", this->damage->max_val, damage_color));
     string_vec.push_back(buffer_color("DRR", this->damage->regen_rate, damage_color));
     string_vec.push_back(buffer_color("DRI", this->damage->regen_interval, damage_color));
@@ -175,7 +196,7 @@ std::vector<std::string> AttributeContainer::PrettyVector()
     string_vec.push_back("ARR: "+std::to_string((long double)(int)this->armor->regen_rate));
     string_vec.push_back("ARI: "+std::to_string((long double)(int)this->armor->regen_interval));
 
-    string_vec.push_back("DCV: "+std::to_string((long double)(int)this->damage->current_val));
+    string_vec.push_back("DCV: "+std::to_string((long double)(int)this->get_effective_damage()));
     string_vec.push_back("DMV: "+std::to_string((long double)(int)this->damage->max_val));
     string_vec.push_back("DRR: "+std::to_string((long double)(int)this->damage->regen_rate));
     string_vec.push_back("DRI: "+std::to_string((long double)(int)this->damage->regen_interval));

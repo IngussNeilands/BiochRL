@@ -202,8 +202,7 @@ void Person::update()
 void Person::attack(Actor * target)
 {
     //only Persons and children have combats
-    Damage* dmg = new Damage();
-    dmg->normal = this->attrs->damage->current_val;
+    Damage* dmg = this->attrs->get_effective_damage();
     if (this->is_sneaking && target->thinker!=NULL && target->thinker->get_is_aware() == false)
     {
         dmg->normal = dmg->normal*1.5;

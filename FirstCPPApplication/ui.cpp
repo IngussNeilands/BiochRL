@@ -359,7 +359,7 @@ void Ui::draw_attrs(int& y, TCODConsole* con)
     con->print(10, y, "MAN %d/%d", (int)attrs->mana->current_val, (int)attrs->mana->max_val);
 
     con->setDefaultForeground(TCODColor::lightRed);
-    con->print(0, ++y, "DMG %d", (int)attrs->damage->current_val);
+    con->print(0, ++y, "DMG %d", (int)attrs->get_effective_damage()->get_raw_total());
 
     con->setDefaultForeground(TCODColor::darkerGrey);
     con->print(10, y, "ARM %d", (int)attrs->armor->current_val);
