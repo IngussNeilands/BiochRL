@@ -655,7 +655,7 @@ void StairsDownTileType::GoDown()
 
         //pick a room to make a stair in
         int room_count = map->roomVector->size();
-        int room_index = Game::dungeon_builder_rng->getInt(1, room_count);
+        int room_index = Game::dungeon_builder_rng->getInt(1, room_count-1);
         Room* room = Game::current_map->roomVector->at(room_index);
         x = room->center_x;
         y = room->center_y;
