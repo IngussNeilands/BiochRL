@@ -313,7 +313,10 @@ void Game::fill_dungeon(Map* world)
         if (it == rooms->begin())
         {
             //spawn one dude to whom you can sell your shit
-            Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, 10, 10, 't', world);
+            Room* room = *it;
+            int x = room->center_x;
+            int y = room->center_y;
+            Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, x, y, 't', world);
             world->allies.push_back(the_townsmen);
 
         }
@@ -513,11 +516,13 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
     {
         new_pers->thinker->civilian->is_weaponsmith = true;
         new_pers->name = "Butch, the smith";
+        new_pers->representation->setFGColor(TCODColor::lightMagenta, true, false, false);
     }
     else if (result == Shopkeeper)
     {
         new_pers->thinker->civilian->is_shopkeep = true;
         new_pers->name = "Kyle, the shopkeep";
+        new_pers->representation->setFGColor(TCODColor::lighterMagenta, true, false, false);
     };
 
 
