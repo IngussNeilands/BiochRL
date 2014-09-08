@@ -13,6 +13,7 @@ class Civilian
         int disposition;
         bool is_shopkeep;
         bool is_weaponsmith;
+		bool is_healer;
 
         Actor* master;
         std::vector<std::string>* chat_lines;
@@ -24,5 +25,6 @@ class Civilian
 
         unsigned long long sell_from_floor(Actor* client);
         int upgrade_primary_weapon(Actor* client);
+        void full_heal(Actor* client);
 };
 #endif

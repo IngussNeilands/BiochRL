@@ -108,3 +108,12 @@ int Civilian::upgrade_primary_weapon(Actor* client)
     return stat_gain;
     //upgrade physical damage
 };
+
+void Civilian::full_heal(Actor* client)
+{
+    HealthAttribute* health = client->attrs->health;
+	if (health->current_val != health->max_val)
+	{
+        health->current_val = health->max_val;
+	}
+};

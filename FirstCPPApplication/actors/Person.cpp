@@ -248,7 +248,7 @@ bool Person::talk_to(Actor* target)
         {
             int upgrade_cost = 200;
 
-                    std::stringstream ss;
+            std::stringstream ss;
             if (Game::player->total_gold > upgrade_cost)
             {
                 int upgrade_gain = target->thinker->civilian->upgrade_primary_weapon(Game::player);
@@ -269,6 +269,26 @@ bool Person::talk_to(Actor* target)
             else
             {
                 ss << "The cost of upgrading your primary weapon is " << upgrade_cost;
+            };
+            std::string text = ss.str();
+            new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));
+        }
+        else if (target->thinker->civilian->is_healer)
+        {
+            int upgrade_cost = 50;
+
+            std::stringstream ss;
+            if (Game::player->total_gold > upgrade_cost)
+            {
+                target->thinker->civilian->full_heal(Game::player);
+                Game::player->total_gold -= upgrade_cost;
+                // std::cout << "you just spent: " << upgrade_cost << std::endl;
+                ss << "The empath touches you and you feel rejuvinated! The empath looks sick.";
+                // std::cout << "you now have: " << Game::player->total_gold << std::endl;
+            }
+            else
+            {
+                ss << "The cost of exchanging with the empath is " << upgrade_cost;
             };
             std::string text = ss.str();
             new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));

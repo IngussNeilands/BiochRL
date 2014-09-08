@@ -505,11 +505,13 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
 
     enum civ_types {
         Shopkeeper,
-        Weaponsmith
+        Weaponsmith,
+        Healer
     };
     RandomWeightMap<civ_types> rwm = RandomWeightMap<civ_types>();
     rwm.add_item(Weaponsmith, 5);
     rwm.add_item(Shopkeeper, 5);
+    rwm.add_item(Healer, 5);
     civ_types result = rwm.get_item(Game::spawning_ratio_rng);
 
     if (result == Weaponsmith)
@@ -523,6 +525,12 @@ Person * Game::create_townsmen(std::string name, int age, int x, int y, char rep
         new_pers->thinker->civilian->is_shopkeep = true;
         new_pers->name = "Kyle, the shopkeep";
         new_pers->representation->setFGColor(TCODColor::lighterMagenta, true, false, false);
+    }
+    else if (result == Healer)
+    {
+        new_pers->thinker->civilian->is_healer = true;
+        new_pers->name = "Joseph, the empath";
+        new_pers->representation->setFGColor(TCODColor::lightestMagenta, true, false, false);
     };
 
 
