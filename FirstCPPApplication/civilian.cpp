@@ -89,13 +89,20 @@ unsigned long long Civilian::sell_from_floor(Actor* client)
 
 };
 
-void Civilian::upgrade_primary_weapon(Actor* client)
+int Civilian::upgrade_primary_weapon(Actor* client)
 {
     //check for primary weapon
+    int stat_gain = 10;
 	if (client->equipment->main_weapon->equipped_item != NULL)
 	{
+
 		Item* item = client->equipment->main_weapon->equipped_item;
-		item->attr_effect->damage->normal += 10;
-	};
+		item->attr_effect->damage->normal += stat_gain;
+	}
+    else
+    {
+        stat_gain = 0;
+    }
+    return stat_gain;
     //upgrade physical damage
 };

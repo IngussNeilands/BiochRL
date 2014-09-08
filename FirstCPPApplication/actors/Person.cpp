@@ -21,6 +21,7 @@
 #include "civilian.h"
 #include "enums\hunger_threshold.h"
 #include <utils.h>
+#include <item.h>
 
 Person::Person(std::string name, int age, int x, int y, char repr)
 {
@@ -237,21 +238,41 @@ bool Person::talk_to(Actor* target)
             if (total_gold != 0)
             {
                 Game::player->total_gold += total_gold;
-                std::cout << "you just earned: " << total_gold << std::endl;
-                std::cout << "you now have: " << Game::player->total_gold << std::endl;
+                std::stringstream ss;
+                ss << "You just earned: " << total_gold;
+                ss << ", you now have: " << Game::player->total_gold << " gold.";
+                std::string text = ss.str();
+                new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));
             }
         }
         else if (target->thinker->civilian->is_weaponsmith)
         {
             int upgrade_cost = 200;
 
+                    std::stringstream ss;
             if (Game::player->total_gold > upgrade_cost)
             {
-                target->thinker->civilian->upgrade_primary_weapon(Game::player);
+                int upgrade_gain = target->thinker->civilian->upgrade_primary_weapon(Game::player);
                 Game::player->total_gold -= upgrade_cost;
-                std::cout << "you just spent: " << upgrade_cost << std::endl;
+                // std::cout << "you just spent: " << upgrade_cost << std::endl;
+                if (upgrade_gain != 0)
+                {
+                    ss << "You just gained: " << upgrade_gain;
+                    ss << ", weapon does: " << Game::player->equipment->main_weapon->equipped_item->attr_effect->damage->get_raw_total() << " damage.";
+                }
+                else
+                {
+                    ss << "You must have a primary weapon equipped";
+
+                };
                 // std::cout << "you now have: " << Game::player->total_gold << std::endl;
             }
+            else
+            {
+                ss << "The cost of upgrading your primary weapon is " << upgrade_cost;
+            };
+            std::string text = ss.str();
+            new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));
         };
 
         return true;

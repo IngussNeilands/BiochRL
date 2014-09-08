@@ -23,6 +23,6 @@ class Civilian
         void start_combat(){}; //once its fought create a combat for this->master
 
         unsigned long long sell_from_floor(Actor* client);
-        void upgrade_primary_weapon(Actor* client);
+        int upgrade_primary_weapon(Actor* client);
 };
 #endif
