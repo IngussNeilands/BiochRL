@@ -282,9 +282,7 @@ bool Person::talk_to(Actor* target)
             {
                 target->thinker->civilian->full_heal(Game::player);
                 Game::player->total_gold -= upgrade_cost;
-                // std::cout << "you just spent: " << upgrade_cost << std::endl;
                 ss << "The empath touches you and you feel rejuvinated! The empath looks sick.";
-                // std::cout << "you now have: " << Game::player->total_gold << std::endl;
             }
             else
             {
