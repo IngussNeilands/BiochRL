@@ -310,7 +310,7 @@ void Game::fill_dungeon(Map* world)
     std::vector<Room*>* rooms = world->roomVector;
     for (std::vector<Room*>::iterator it = rooms->begin(); it != rooms->end(); ++it)
     {
-        if (it == rooms->begin())
+        if (it == rooms->begin()+4)
         {
             //spawn one dude to whom you can sell your shit
             Room* room = *it;
