@@ -268,7 +268,7 @@ bool Person::talk_to(Actor* target)
             }
             else
             {
-                ss << "The cost of upgrading your primary weapon is " << upgrade_cost;
+                ss << "The cost of upgrading your primary weapon is " << upgrade_cost << " gold.";
             };
             std::string text = ss.str();
             new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));
@@ -286,7 +286,7 @@ bool Person::talk_to(Actor* target)
             }
             else
             {
-                ss << "The cost of exchanging with the empath is " << upgrade_cost;
+                ss << "The cost of exchanging with the empath is " << upgrade_cost << " gold.";
             };
             std::string text = ss.str();
             new Message(Ui::msg_handler_main, CHAT_MSG, colfg(TCODColor::lighterAmber, text));

@@ -34,6 +34,7 @@
 #include "draw_utils.h"
 #include "helpbox.h"
 #include <menu_item.h>
+#include <background_info.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -829,7 +830,14 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
     else if (action == generic_menu_active_t::ActivateGenericMenuItem)
     {
         MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
+		if (menu_item->info->type > 50) //hack to sorta validate the menu_item
+		{
+			printf("log: mit\n");
+		}
+		else
+		{
         menu_item->activate();
+		};
     }
     else if (action == generic_menu_active_t::ExamineGenericMenuItem)
     {
