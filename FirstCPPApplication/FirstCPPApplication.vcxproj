@@ -242,6 +242,7 @@
     <ClInclude Include="libtcod_cpp_hpp\wrappers.h" />
     <ClInclude Include="libtcod_cpp_hpp\zip.h" />
     <ClInclude Include="libtcod_cpp_hpp\zip.hpp" />
+    <ClInclude Include="map_builder.h" />
     <ClInclude Include="menu_item.h" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="object.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="map_builder.cpp" />
     <ClCompile Include="menu_item.cpp" />
     <ClCompile Include="messages.cpp" />
     <ClCompile Include="parser.cpp" />
