@@ -162,3 +162,57 @@ MonsterSpawnTypes MapBuilder::get_spawn_type(int floor)
 
     return rwm.get_item(Game::spawning_ratio_rng);
 };
+
+Map* MapBuilder::build_town()
+{
+    Map* world = new Map;
+    world->build_town_from_random(0);
+    this->fill_town(world);
+
+    std::cout << "going in " << std::endl;
+    while (!validate_town(world))
+    {
+        std::cout << "\t\tlooping " << std::endl;
+        delete world;
+        world = new Map;
+        world->build_town_from_random(0);
+        this->fill_town(world);
+    };
+    return world;
+};
+
+void MapBuilder::fill_town(Map* world)
+{
+    Person* the_townsmen = Game::create_townsmen("Random Townsmen", 30, 10, 10, 't', world);
+    world->enemies.push_back(the_townsmen);
+};
+
+bool MapBuilder::validate_town(Map* town)
+{
+    // return false;
+    if (town == NULL)
+    {
+        return false;
+    };
+
+    Room* first_room = town->roomVector->front();
+    //go through rooms trying to path to the first room, and rejecting if can't 
+    for (auto it = town->roomVector->begin(); it != town->roomVector->end(); it++)
+    {
+        Room* room = *it;
+        if (room == first_room) { continue; }
+        TCODPath path = TCODPath(town->l_map);
+        int ox= room->center_x+1;
+        int oy = room->center_y+1;
+        int dx = first_room->center_x-1;
+        int dy = first_room->center_y-1;
+        path.compute(ox, oy, dx, dy);
+        if (path.isEmpty())
+        {
+            printf("failed validation from %d, %d to %d, %d", ox, oy, dx, dy);
+            return false;
+        }
+    };
+
+    return true;
+};

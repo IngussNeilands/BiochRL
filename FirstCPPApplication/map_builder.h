@@ -13,5 +13,9 @@ class MapBuilder
         void fill_generic_room(Room* room, Map* world);
         MonsterSpawnTypes get_spawn_type(int floor);
 
+        Map* build_town();
+        bool validate_town(Map* town);
+        void fill_town(Map* world);
+
 };
 #endif

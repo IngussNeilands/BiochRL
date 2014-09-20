@@ -19,6 +19,7 @@
 #include <actors\Person.h>
 #include <map.h>
 #include <randsys.h>
+#include <map_builder.h>
 
 
 using namespace std;
@@ -629,7 +630,8 @@ void StairsDownTileType::GoDown()
         }
         else if (result == Town)
         {
-            map = Game::build_town();
+			MapBuilder builder = MapBuilder();
+            map = builder.build_town();
             map->depth = original_map->depth-1;
         };
 
