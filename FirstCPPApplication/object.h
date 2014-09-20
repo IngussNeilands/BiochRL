@@ -6,7 +6,7 @@
 
 #include <string>
 
-// Any item, actor or tile is a subclass of this
+// Any item, actor is a subclass of this
 class Object
 {
     public:

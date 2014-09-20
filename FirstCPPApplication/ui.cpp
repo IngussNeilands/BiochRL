@@ -529,14 +529,15 @@ void Ui::draw_help_bar(TCODConsole* ui_help_con)
     std::stringstream ss;
     if (!Ui::is_targetting)
     {
-        std::string inventory_msg = colfg(key_color, "i") + "nventory ";
-        std::string character_msg = colfg(key_color, "c") + "haracter ";
+        std::string inventory_msg = colfg(key_color, "i") + "nv ";
+        std::string character_msg = colfg(key_color, "c") + "har sheet ";
         std::string magic_msg = colfg(key_color, "m") + "agic ";
-        std::string class_msg = colfg(key_color, "p") + "layer class ";
+        std::string class_msg = colfg(key_color, "p") + "lr cls ";
         std::string help_msg = colfg(key_color, "F1") + " help ";
-        std::string quickhelp_msg = colfg(key_color, "`") + " hotbar";
+        std::string quickhelp_msg = colfg(key_color, "`") + " hotbar ";
+        std::string pickup_msg = colfg(key_color, ",") + " pickup ";
 
-        ss << inventory_msg << character_msg << magic_msg << class_msg << help_msg << quickhelp_msg;
+        ss << inventory_msg << character_msg << magic_msg << class_msg << help_msg << quickhelp_msg << pickup_msg;
     }
     else
     {
