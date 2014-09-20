@@ -322,7 +322,10 @@ void Game::fill_dungeon(Map* world)
         }
         else
         {
-            fill_generic_room(*it, world);
+            if (it != rooms->begin()) // player needs an empty room to spawn in
+            {
+                fill_generic_room(*it, world);
+            };
         }
     }
 
