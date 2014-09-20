@@ -364,8 +364,6 @@ bool Input::process_basic_keys(TCOD_key_t request)
 
     if (basic_cmd == basic_cmds_t::Pickup)
     {
-        std::cout << "PICKUP THIS IS A STICKUP" << std::endl;
-
         //check if items are on the floor
         if (Game::player->my_tile->check_for_items())
         {
@@ -477,7 +475,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
             }
         }
         details_msgs.push_back(" ");
-        details_msgs.push_back("Hit N/Q to continue");
+        details_msgs.push_back(colfg(TCODColor::red, "Q/N to continue"));
+
         DialogHelpBox* details_dialog = new DialogHelpBox(details_msgs, Game::game_console);
         details_dialog->return_screen = Game::current_screen;
         details_dialog->y = 5;
@@ -1072,7 +1071,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
         left_msgs.insert(left_msgs.begin(), "Examining "+iclass->name);
         left_msgs.insert(left_msgs.begin()+1, "Starting Attributes");
         left_msgs.push_back(" ");
-        left_msgs.push_back("Hit N/Q to continue");
+        left_msgs.push_back(colfg(TCODColor::red, "Q/N to continue"));
         DialogHelpBox* left_dialog = new DialogHelpBox(left_msgs, NULL, &close_all, TCODConsole::root);
         left_dialog->return_screen = Game::current_screen;
         left_dialog->y = 5;
@@ -1112,7 +1111,7 @@ bool Input::process_classes_keys(TCOD_key_t request)
         right_msgs.push_back(ss.str());
         ss.str("");
         right_msgs.push_back("");
-        right_msgs.push_back("Hit N/Q to continue");
+        right_msgs.push_back(colfg(TCODColor::red, "Q/N to continue"));
         DialogHelpBox* right_dialog = new DialogHelpBox(right_msgs, NULL, &close_all, TCODConsole::root);
         right_dialog->return_screen = Game::current_screen;
         right_dialog->x = 45;
@@ -1438,7 +1437,8 @@ void show_quick_help()
     help_msgs.push_back(colfg(clr,"c")+" for character sheet");
     help_msgs.push_back(colfg(clr,"?")+" for more help");
     help_msgs.push_back("");
-    help_msgs.push_back("N to continue");
+    help_msgs.push_back(colfg(TCODColor::red, "Q/N to continue"));
+    help_msgs.push_back("");
 
     DialogHelpBox* help_dialog = new DialogHelpBox(help_msgs, Game::game_console);
     int x = Game::camera_w/2-5, y = Game::camera_h/2-15;
