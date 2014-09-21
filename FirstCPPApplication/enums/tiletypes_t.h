@@ -10,6 +10,7 @@ enum TileTypes {
     DoorTileTypeType = 4,
     StairsDownTileTypeType = 5,
     StairsUpTileTypeType = 6,
+    ChestTileTypeType = 7
 };
 
 #endif

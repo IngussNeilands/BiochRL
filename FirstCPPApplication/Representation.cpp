@@ -178,6 +178,19 @@ DoorRepresentation::DoorRepresentation(): Representation()
     orig_fg_color = this->createColorFromRGB(r, g, b);
 };
 
+ChestRepresentation::ChestRepresentation(): Representation()
+{
+    repr = '*';
+    // fg_color = &(TCODColor)(TCODColor::darkerSepia);
+    // temp_fg_color = &(TCODColor)(TCODColor::darkerSepia);
+    // orig_fg_color = &(TCODColor)(TCODColor::darkerSepia);
+    int r,b,g;
+    this->getRGBFromColor(r, g, b, TCODColor::darkestSepia);
+    fg_color = this->createColorFromRGB(r, g, b);
+    temp_fg_color = this->createColorFromRGB(r, g, b);
+    orig_fg_color = this->createColorFromRGB(r, g, b);
+};
+
 StairsDownRepresentation::StairsDownRepresentation(): Representation()
 {
     repr = '>';

@@ -82,6 +82,12 @@ class FloorTileType : public BaseTileType
         FloorTileType();
 };
 
+class ChestTileType : public BaseTileType
+{
+    public: 
+        ChestTileType();
+};
+
 class StairsTileType : public BaseTileType
 {
     public:
@@ -125,13 +131,14 @@ class Tile : public Object
         static WarpTileType* WarpType;
         static WallTileType* WallType;
         static DoorTileType* DoorType;
+        static ChestTileType* ChestType;
         static StairsUpTileType* StairsUpType;
         static StairsDownTileType* StairsDownType;
         static FloorTileType* FloorType;
 
         Inventory* inventory;
 
-        int type_id;               // type of tile
+        TileTypes type_id;               // type of tile
         BaseTileType* get_tile_type();
         bool is_custom_tile;
 
@@ -173,8 +180,8 @@ class Tile : public Object
         ~Tile();
         Tile(const Tile& other);
 
-        void updateTileType(int type = 0);
-        void updateCustomTileType(int type );
+        void updateTileType(TileTypes type = TileTypes::BaseTileTypeType);
+        void updateCustomTileType(TileTypes type );
         void makeOccupied(Actor* the_actor);
         void makeUnoccupied(Actor* the_actor);
 

@@ -28,6 +28,7 @@ BaseTileType* Tile::BaseType = new BaseTileType;
 WarpTileType* Tile::WarpType = new WarpTileType;
 WallTileType* Tile::WallType = new WallTileType;
 DoorTileType* Tile::DoorType = new DoorTileType;
+ChestTileType* Tile::ChestType = new ChestTileType;
 StairsUpTileType* Tile::StairsUpType = new StairsUpTileType;
 StairsDownTileType* Tile::StairsDownType = new StairsDownTileType;
 FloorTileType* Tile::FloorType = new FloorTileType;
@@ -239,7 +240,7 @@ void Tile::makeUnoccupied(Actor* the_actor)
     };
 };
 
-void Tile::updateCustomTileType(int type )
+void Tile::updateCustomTileType(TileTypes type )
 {
 
     this->type_id = type;
@@ -274,44 +275,42 @@ void Tile::updateCustomTileType(int type )
 
 };
 
-void Tile::updateTileType(int type )
+void Tile::updateTileType(TileTypes type )
 {
 
     this->type_id = type;
     this->is_custom_tile = false;
 
-    if (type == 0) {
+    if (type == BaseTileTypeType) {
         tiletype_obj = Tile::BaseType; 
     }
-    else if (type == 1) { 
-        // tile = new WallTileType;
+    else if (type == WallTileTypeType) { 
         tiletype_obj = Tile::WallType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, false, false);
     }
 
-    else if (type == 2) {
-        // tile = new WarpTileType; 
+    else if (type == WarpTileTypeType) {
         tiletype_obj = Tile::WarpType;
     }
-    else if (type == 3) {
-        // tile = new FloorTileType;
+    else if (type == FloorTileTypeType) {
         tiletype_obj = Tile::FloorType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
     }
-    else if (type == 4) {
-        // tile = new DoorTileType; 
+    else if (type == DoorTileTypeType) {
         tiletype_obj = Tile::DoorType;
         this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
     }
-    else if (type == 5) 
+    else if (type == StairsDownTileTypeType) 
     {
-        // tile = new StairsDownTileType; 
         tiletype_obj = new StairsDownTileType(*Tile::StairsDownType);
     }
-    else if (type == 6) 
+    else if (type == StairsUpTileTypeType) 
     {
-        // tile = new StairsUpTileType; 
         tiletype_obj = new StairsUpTileType(*Tile::StairsUpType);
+    }
+    else if (type == StairsUpTileTypeType) 
+    {
+        tiletype_obj = new ChestTileType(*Tile::ChestType);
     }
     else 
     {
@@ -508,6 +507,13 @@ DoorTileType::DoorTileType()  : BaseTileType()
     this->is_open = false;
     type_id = TileTypes::DoorTileTypeType;
     representation = new DoorRepresentation; 
+};
+
+ChestTileType::ChestTileType()  : BaseTileType() 
+{
+    this->description = "A wooden chest, who knows what's inside?";
+    type_id = TileTypes::ChestTileTypeType;
+    representation = new ChestRepresentation; 
 };
 
 void Tile::ToggleDoor()

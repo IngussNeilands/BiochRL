@@ -66,14 +66,18 @@ class WallRepresentation : public Representation
 {
     public:
         WallRepresentation();
-
 };
 
 class DoorRepresentation : public Representation
 {
     public:
         DoorRepresentation();
+};
 
+class ChestRepresentation : public Representation
+{
+    public:
+        ChestRepresentation();
 };
 
 class StairsDownRepresentation : public Representation
