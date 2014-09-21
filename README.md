@@ -24,15 +24,18 @@ This is a Roguelike made with Libtcod.
 * add a close range spell, a healing spell, and a buff spell
 * spell selection screen, character viewing screen
 * different environments.
+* Selling inventory.
+* Going back up floors.
+* Weaponsmith to upgrade your primary weapon, and a healer
 
 ### Some goals:
 
 * Choosing more information on game load.
-* Selling inventory.
-* Going back up floors.
-* Some sort of over the top stat tracking.
+* Thorough stat tracking.
 * Throwing items.
 * Enemies who can throw/cast.
+* More content beyond the 1 hour it takes to beat the game
+* Towns
 
 
 ![](https://raw.github.com/tankorsmash/FirstCPPApplication/master/screenshots/Screenshot_18Jun2014.png)
