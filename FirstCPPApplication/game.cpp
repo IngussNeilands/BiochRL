@@ -62,6 +62,7 @@
 #include <enums/background_types.h>
 #include <background_info.h>
 #include <map_builder.h>
+#include <drop_handler.h>
 
 
 int Game::__version_major = 0;
@@ -624,13 +625,6 @@ Person*  Game::initialize_player()
 
     Game::initialize_items();
 
-    Tile* chest_tile = Game::current_map->getTileAt(x+1, y+1);
-    chest_tile->updateTileType(tile_type_h::ChestTileTypeType);
-    Item* soap = new Item();
-    soap->name = "A bar of soap";
-    soap->repr->repr = '`';
-    chest_tile->place_item_down(soap);
-        
 
     // give_player_god_mode();
     // give_player_teleport(player);

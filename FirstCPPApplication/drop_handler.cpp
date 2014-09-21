@@ -572,7 +572,7 @@ Item* spawnItem(Actor* actor)
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
-    if (!actor->is_hero)
+    if (actor == NULL || !actor->is_hero)
     {
         rwm.add_item(ArmorSpawn, 500);
         rwm.add_item(WeaponSpawn, 500);
@@ -611,6 +611,31 @@ Item* spawnItem(Actor* actor)
     {
         dropped_item = NULL;
     }
+
+    return dropped_item;
+};
+
+Item* DropHandler::handle_for_chest()
+{
+    RandomWeightMap<ItemSpawnTypes> rwm = RandomWeightMap<ItemSpawnTypes>();
+    rwm.add_item(GenericSpawn, 90);
+    rwm.add_item(NothingItemSpawn, 10);
+
+    ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
+    TCODRandom *rng = Game::item_spawn_rng;
+    Item* dropped_item = NULL;
+    if (result == GenericSpawn)
+    {
+        dropped_item = spawnItem(NULL);
+    }
+    else  if (result == NothingItemSpawn)
+    {
+        //nothing happens between result of 15 and 60
+    }
+    else 
+    {
+        assert(false && "RandomWeightMap returned invalid variable");
+    };
 
     return dropped_item;
 };

@@ -11,6 +11,7 @@ class DropHandler
 {
     public:
         static Item* handle_for_actor(Actor* actor);
+        static Item* handle_for_chest();
 
 };
 #endif

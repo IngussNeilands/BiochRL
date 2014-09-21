@@ -21,6 +21,8 @@
 #include <enemies\wildling.h>
 #include <enemies\sludge.h>
 #include <enemies\jumper.h>
+#include <tile.h>
+#include <drop_handler.h>
 
 
 void MapBuilder::fill_dungeon(Map* world)
@@ -37,6 +39,35 @@ void MapBuilder::fill_dungeon(Map* world)
             int y = room->center_y;
             Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, x, y, 't', world);
             world->allies.push_back(the_townsmen);
+
+        }
+        else if (it == rooms->begin()+6)
+        {
+            //spawn one dude to whom you can sell your shit
+            Room* room = *it;
+            int x = room->center_x;
+            int y = room->center_y;
+            // Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, x, y, 't', world);
+            // world->allies.push_back(the_townsmen);
+
+            Tile* chest_tile = world->getTileAt(x+1, y+1);
+            chest_tile->updateTileType(tile_type_h::ChestTileTypeType);
+
+            Item* item;
+            for (int i = 0; i < 3; i++)
+            {
+                item = DropHandler::handle_for_chest();
+
+                if (item != NULL)
+                {
+                    chest_tile->place_item_down(item);
+                }
+                else
+                {
+                    // std::cout << "item is null" << std::endl;
+                }
+
+            };
 
         }
         else
