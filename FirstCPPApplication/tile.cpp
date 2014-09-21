@@ -308,7 +308,7 @@ void Tile::updateTileType(tile_type_h type )
     {
         tiletype_obj = new StairsUpTileType(*Tile::StairsUpType);
     }
-    else if (type == StairsUpTileTypeType) 
+    else if (type == ChestTileTypeType) 
     {
         tiletype_obj = new ChestTileType(*Tile::ChestType);
     }

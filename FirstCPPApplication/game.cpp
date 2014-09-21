@@ -625,6 +625,9 @@ Person*  Game::initialize_player()
 
     Game::initialize_items();
 
+    Tile* chest_tile = Game::current_map->getTileAt(x+1, y+1);
+    chest_tile->updateTileType(tile_type_h::ChestTileTypeType);
+
     // give_player_god_mode();
     // give_player_teleport(player);
 
