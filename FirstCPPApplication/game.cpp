@@ -479,7 +479,6 @@ void Game::move_camera(int dir_x, int dir_y)
 //creates a bunch of items on the map
 void  Game::initialize_items()
 {
-
     Item* dagger = new Item();
     dagger->name = "Prisoner's Shank";
     dagger->repr->repr = '/';
@@ -627,6 +626,11 @@ Person*  Game::initialize_player()
 
     Tile* chest_tile = Game::current_map->getTileAt(x+1, y+1);
     chest_tile->updateTileType(tile_type_h::ChestTileTypeType);
+    Item* soap = new Item();
+    soap->name = "A bar of soap";
+    soap->repr->repr = '`';
+    chest_tile->place_item_down(soap);
+        
 
     // give_player_god_mode();
     // give_player_teleport(player);

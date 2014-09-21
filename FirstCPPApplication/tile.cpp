@@ -572,6 +572,19 @@ void Tile::OpenChest()
     Representation* old_repr = this->get_representation();
     old_repr->repr = 'o';
     this->set_representation(old_repr);
+
+	item_vec_t temp_item_vector = item_vec_t();
+	for (item_vec_t_it it = this->inventory->items->begin(); it!= this->inventory->items->end(); it++)
+	{
+		Item* item =  *it;
+		temp_item_vector.push_back(item);
+	}
+	for (item_vec_t_it it = temp_item_vector.begin(); it!= temp_item_vector.end(); it++)
+	{
+		Item* item =  *it;
+		this->pick_up_item(item);
+		Game::player->inventory->add_item(item);
+	}
 };
 
 void Tile::CloseChest()
