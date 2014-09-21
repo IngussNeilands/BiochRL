@@ -698,7 +698,7 @@ int Map::draw()
                         the_fg_color = the_tile->get_representation()->fg_color;
                     };
 
-                    if (the_tile->check_for_items())
+                    if (the_tile->check_for_items() && the_tile->type_id != ChestTileTypeType)
                     {
                         Item* back_item = the_tile->inventory->items->back(); 
                         the_char = back_item->repr->repr;

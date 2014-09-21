@@ -184,6 +184,10 @@ void Ui::draw_status_helpbox(TCODConsole* ui_sidebar_con, Tile* target_tile, int
         };
 
     }
+    else if (target_tile->type_id == ChestTileTypeType && !target_tile->is_open)
+    {
+        messages.push_back(target_tile->get_description());
+    }
     else if (target_tile->inventory->get_count() > 0)
     {
         item_vec_t* invt = target_tile->inventory->items;
