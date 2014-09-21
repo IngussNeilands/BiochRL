@@ -307,7 +307,7 @@ Item* Actor::create_corpse()
     return corpse;
 };
 
-int* Actor::get_direction_heading()
+void Actor::get_direction_heading(int& dir_x, int& dir_y)
 {
     int dir_array[2];
 
@@ -321,7 +321,8 @@ int* Actor::get_direction_heading()
     else if (this->is_moving_down) { dir_array[1] =  1; }
     else { dir_array[1] = 0; };
 
-    return dir_array;
+    dir_x = dir_array[0];
+    dir_y = dir_array[1];
 };
 
 

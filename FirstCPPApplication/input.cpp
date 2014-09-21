@@ -490,24 +490,70 @@ bool Input::process_basic_keys(TCOD_key_t request)
         //determine the door to open
         //get the tile of the direction the player is facing
         Tile* door_tile;
-        int* direction = Game::player->get_direction_heading();
+		int dir_x = 0, dir_y = 0;
+        Game::player->get_direction_heading(dir_x, dir_y);
         int x, y;
 
-        x = Game::player->x+direction[0];
-        y = Game::player->y+direction[1];
+        x = Game::player->x+dir_x;
+        y = Game::player->y+dir_y;
 
         door_tile = Game::current_map->getTileAt(x, y);
 
         //get the door that's on it
         if (door_tile->type_id == tile_type_h::DoorTileTypeType) 
         {
-            std::cout << "there's a door here, its gon get open" << std::endl;
+            std::cout << "There's a door here." << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
             door_tile->ToggleDoor();
         }
+        else if (door_tile->type_id == tile_type_h::ChestTileTypeType)
+        {
+            std::cout << "There's a chest here!" << std::endl;
+        }
         else 
         {
-            std::cout << "there's NO DAMN door here" << std::endl;
+            int dir_x = 0, dir_y = 0;
+			Game::player->get_direction_heading(dir_x, dir_y);
+
+            std::stringstream ss;
+            if (dir_y == -1)
+            {
+                if (dir_x != 0)
+                {
+                    ss << "upper ";
+                }
+                else
+                {
+                    ss << "up ";
+                };
+            }
+            else if (dir_y == 1)
+            {
+                if (dir_x != 0)
+                {
+                    ss << "lower ";
+                }
+                else
+                {
+                    ss << "down ";
+                };
+            };
+
+            if (dir_x == -1)
+            {
+                ss << "left";
+            }
+            else if (dir_x == 1)
+            {
+                ss << "right";
+            }
+
+            if (dir_x == 0 && dir_y == 0)
+            {
+                ss << "tile";
+            };
+
+            std::cout << "there's nothing to your " << ss.str() << std::endl;
         };
         //open the door
     }
@@ -829,14 +875,14 @@ bool Input::process_generic_menu_keys(TCOD_key_t request)
     else if (action == generic_menu_active_t::ActivateGenericMenuItem)
     {
         MenuItem* menu_item = static_cast<MenuItem*>(Ui::chosen_generic);
-		if (menu_item->info->type > 50) //hack to sorta validate the menu_item
-		{
-			printf("log: mit\n");
-		}
-		else
-		{
-        menu_item->activate();
-		};
+        if (menu_item->info->type > 50) //hack to sorta validate the menu_item
+        {
+            printf("log: mit\n");
+        }
+        else
+        {
+            menu_item->activate();
+        };
     }
     else if (action == generic_menu_active_t::ExamineGenericMenuItem)
     {

@@ -81,7 +81,7 @@ class Actor : public Object
         bool is_moving_down;
 
         void resetIsMoving();
-        int* get_direction_heading();
+        void get_direction_heading(int& dir_x, int& dir_y);
 
         actor_vec_t * actors_in_sight;
 
