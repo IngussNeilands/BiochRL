@@ -927,7 +927,9 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     else
     {
         std::cout << std::endl << "invalid move." << std::endl;
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "That's probably a wall.");
+        std::string msg = "That's probably a wall.";
+        msg = target_tile->get_description();
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, msg);
         // if(new_x < width && new_x > -1 && new_y < height && new_y > -1)
         if (this->pos_in_map(new_x, new_y))
         {
