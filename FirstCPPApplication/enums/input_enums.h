@@ -15,7 +15,7 @@ enum basic_cmds_t {
     Drop,
     OpenInventory,
     CancelCast,
-    Look, ActivateDoor,
+    Look, Activate,
     DownStairs, UpStairs,
     OpenMagic, ConfirmCast,
     OpenCharacterSheet,

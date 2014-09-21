@@ -159,6 +159,10 @@ void  Tile::set_representation(Representation* new_repr)
         this->updateCustomTileType(this->type_id);
     }
     // delete this->custom_tile->representation;
+	if (this->custom_tile == NULL)
+	{
+		assert(false && "this->custom_tile shouldn't be NULL if this is a custom tile");
+	}
     this->custom_tile->representation = new_repr;
 };
 
@@ -263,8 +267,10 @@ void Tile::updateCustomTileType(tile_type_h type )
     else if (type == 4) { this->custom_tile = new DoorTileType; }
     else if (type == 5) { this->custom_tile = new StairsDownTileType; }
     else if (type == 6) { this->custom_tile = new StairsUpTileType; }
+    else if (type == 7) { this->custom_tile = new ChestTileType; }
     else 
     {
+		assert(false && "type not found");
         cout << type << endl;
         cout << "Invalid TILETYPE" << endl; //probably because the tiletype is being assigned with a `new` call.
     }
@@ -504,7 +510,6 @@ WarpTileType::WarpTileType() : BaseTileType()
 DoorTileType::DoorTileType()  : BaseTileType() 
 {
     this->description = "A door, it's probably open, but who can even tell?";
-    this->is_open = false;
     type_id = tile_type_h::DoorTileTypeType;
     representation = new DoorRepresentation; 
 };
@@ -547,6 +552,37 @@ void Tile::OpenDoor()
     this->set_representation(old_repr);
     this->map->l_map->setProperties(this->tile_x, this->tile_y, true, true);
 };
+
+void Tile::ToggleChest()
+{
+    if (this->is_open)
+    {
+        this->CloseChest();
+    }
+    else
+    {
+        this->OpenChest();
+    };
+
+};
+
+void Tile::OpenChest()
+{
+    this->is_open = true;
+    Representation* old_repr = this->get_representation();
+    old_repr->repr = 'o';
+    this->set_representation(old_repr);
+};
+
+void Tile::CloseChest()
+{
+    this->is_open = false;
+    Representation* old_repr = this->get_representation();
+    old_repr->repr = '*';
+    this->set_representation(old_repr);
+
+};
+
 
 StairsTileType::StairsTileType()
 {

@@ -69,11 +69,7 @@ class DoorTileType : public BaseTileType
 {
     public: 
         DoorTileType();
-        bool is_open;
 
-        // void OpenDoor();
-        // void CloseDoor();
-        // void ToggleDoor();
 };
 
 class FloorTileType : public BaseTileType
@@ -165,9 +161,15 @@ class Tile : public Object
         void place_item_down(Item* item);
         void pick_up_item(Item* item);
 
+        //door stuff
         void OpenDoor();
         void CloseDoor();
         void ToggleDoor();
+
+        //chest stuff
+        void OpenChest();
+        void CloseChest();
+        void ToggleChest();
 
         bool is_known() { return this->_is_known; };
         void setKnown(bool is_known);

@@ -55,12 +55,13 @@ char Input::generic_index = 'a';
 
 std::vector<std::string> make_basic_cmds_char()
 {
+    //HELP MAP
     std::vector<std::string> vec;
     vec.push_back("Pickup an item"); vec.push_back("Equip an item off the floor");
     vec.push_back("Drop an item");
     vec.push_back("Open your inventory");
     vec.push_back("Cancel targetting mode");
-    vec.push_back("Look around the map"); vec.push_back("Open or close a door");
+    vec.push_back("Look around the map"); vec.push_back("Open or close a door or chest");
     vec.push_back("Go down stairs"); vec.push_back("Go upstairs");
     vec.push_back("Open magic menu"); vec.push_back("Cast the currently selected spell");
     vec.push_back("Open your character sheet");
@@ -171,7 +172,7 @@ std::map<char, basic_cmds_t> Input::build_char_main_keymap()
     char_movemap['?'] = basic_cmds_t::OpenHelp;
     char_movemap[','] = basic_cmds_t::Pickup;
     char_movemap['.'] = basic_cmds_t::EquipFromFloor;
-    char_movemap['o'] = basic_cmds_t::ActivateDoor;
+    char_movemap['o'] = basic_cmds_t::Activate;
     char_movemap['>'] = basic_cmds_t::DownStairs;
     char_movemap['<'] = basic_cmds_t::UpStairs;
     char_movemap['m'] = basic_cmds_t::OpenMagic;
@@ -485,7 +486,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         Game::current_screen = Screens::AlertScreenType;
     }
 
-    else if ( basic_cmd == basic_cmds_t::ActivateDoor )
+    else if ( basic_cmd == basic_cmds_t::Activate )
     {
         //determine the door to open
         //get the tile of the direction the player is facing
@@ -509,6 +510,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         else if (door_tile->type_id == tile_type_h::ChestTileTypeType)
         {
             std::cout << "There's a chest here!" << std::endl;
+            door_tile->ToggleChest();
         }
         else 
         {
