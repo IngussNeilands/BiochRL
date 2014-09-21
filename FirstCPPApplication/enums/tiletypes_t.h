@@ -2,7 +2,7 @@
 #ifndef TILETYPES_H
 #define TILETYPES_H
 
-enum TileTypes {
+enum tile_type_h {
     BaseTileTypeType = 0,
     WallTileTypeType = 1,
     WarpTileTypeType = 2,

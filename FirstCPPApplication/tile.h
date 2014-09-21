@@ -138,7 +138,7 @@ class Tile : public Object
 
         Inventory* inventory;
 
-        TileTypes type_id;               // type of tile
+        tile_type_h type_id;               // type of tile
         BaseTileType* get_tile_type();
         bool is_custom_tile;
 
@@ -180,8 +180,8 @@ class Tile : public Object
         ~Tile();
         Tile(const Tile& other);
 
-        void updateTileType(TileTypes type = TileTypes::BaseTileTypeType);
-        void updateCustomTileType(TileTypes type );
+        void updateTileType(tile_type_h type = tile_type_h::BaseTileTypeType);
+        void updateCustomTileType(tile_type_h type );
         void makeOccupied(Actor* the_actor);
         void makeUnoccupied(Actor* the_actor);
 

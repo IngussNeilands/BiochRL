@@ -207,7 +207,7 @@ class DungeonListener : public ITCODBspCallback
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
                     tile = map.getTileAt(x, y);
-                    if ( tile->type_id == TileTypes::FloorTileTypeType)
+                    if ( tile->type_id == tile_type_h::FloorTileTypeType)
                     {
                         Representation* stone_repr = new FloorRepresentation;
                         stone_repr->repr = ',';
@@ -285,7 +285,7 @@ class TownListener : public ITCODBspCallback
                 if (roomNum == 6) //stairs only on 6th room
                 {
                     Tile* stair_tile = this->map.getTileAt(new_room->center_x, new_room->center_y+1);
-                    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+                    stair_tile->updateTileType(tile_type_h::StairsDownTileTypeType);
                     this->map.l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
                 }
             }
@@ -303,7 +303,7 @@ class TownListener : public ITCODBspCallback
                     x = rng->getInt(node->x+1, node->x+node->w -3);
                     y = rng->getInt(node->y+1, node->y+node->h -3);
                     tile = map.getTileAt(x, y);
-                    if ( tile->type_id == TileTypes::FloorTileTypeType && !tile->is_custom_tile)
+                    if ( tile->type_id == tile_type_h::FloorTileTypeType && !tile->is_custom_tile)
                     {
                         Representation* stone_repr = new FloorRepresentation;
                         stone_repr->repr = ',';
@@ -348,9 +348,9 @@ int Map::build_town_from_random(int seed)
     {
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
-        this_tile->updateTileType(TileTypes::FloorTileTypeType);
+        this_tile->updateTileType(tile_type_h::FloorTileTypeType);
         this_tile->get_description() = "Dirt floor.";
-        if(this_tile->type_id == TileTypes::FloorTileTypeType)
+        if(this_tile->type_id == tile_type_h::FloorTileTypeType)
         {
             //light passes though, walkable
             this->l_map -> setProperties(x, y, true, true);
@@ -418,9 +418,9 @@ int Map::build_dungeon_from_random(int seed, int floor)
     {
         Tile* this_tile = getTileAt(x, y);
         this_tile->map = this;
-        this_tile->updateTileType(TileTypes::WallTileTypeType);
-        // this_tile->updateTileType(TileTypes::FloorTileTypeType);
-        // if(this_tile->type_id == TileTypes::FloorTileTypeType)
+        this_tile->updateTileType(tile_type_h::WallTileTypeType);
+        // this_tile->updateTileType(tile_type_h::FloorTileTypeType);
+        // if(this_tile->type_id == tile_type_h::FloorTileTypeType)
         // {
         //     //light passes though, walkable
         //     l_map -> setProperties(x, y, true, true);
@@ -480,9 +480,9 @@ int Map::build_dungeon_from_random(int seed, int floor)
         TCODLine::init((*it)->center_x, (*it)->center_y, current_room->center_x, current_room->center_y);
         int draw_x=10, draw_y=10;
         do {
-            this->getTileAt(draw_x, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
-            this->getTileAt(draw_x+1, draw_y)->updateTileType(TileTypes::FloorTileTypeType);
-            this->getTileAt(draw_x, draw_y-1)->updateTileType(TileTypes::FloorTileTypeType);
+            this->getTileAt(draw_x, draw_y)->updateTileType(tile_type_h::FloorTileTypeType);
+            this->getTileAt(draw_x+1, draw_y)->updateTileType(tile_type_h::FloorTileTypeType);
+            this->getTileAt(draw_x, draw_y-1)->updateTileType(tile_type_h::FloorTileTypeType);
         }
         while (!TCODLine::step(&draw_x, &draw_y));
 
@@ -491,12 +491,12 @@ int Map::build_dungeon_from_random(int seed, int floor)
     //std::cout << "" << BspListener::output.str() << std::endl;
     Room* room = v->at(6);
     Tile* stair_tile = this->getTileAt(room->x+1, room->y+1);
-    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+    stair_tile->updateTileType(tile_type_h::StairsDownTileTypeType);
     this->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
     room = v->at(3);
     stair_tile = this->getTileAt(room->x+1, room->y+1);
-    stair_tile->updateTileType(TileTypes::StairsDownTileTypeType);
+    stair_tile->updateTileType(tile_type_h::StairsDownTileTypeType);
     this->l_map->setProperties(stair_tile->tile_x, stair_tile->tile_y, true, true);
 
     return 1;
@@ -537,20 +537,20 @@ Room* Map::build_circle_room(int room_x, int room_y,
             if (room->isCircle(adj_x, adj_y))
             {
                 // std::cout << "is circle" << std::endl;
-                tile->updateTileType(TileTypes::WallTileTypeType); //for wall
+                tile->updateTileType(tile_type_h::WallTileTypeType); //for wall
                 l_map->setProperties(adj_x, adj_y, false, false);
 
                 //place door if valid position
                 if (room->checkDoorCount())
                 {
-                    tile->updateTileType(TileTypes::DoorTileTypeType); //for door
+                    tile->updateTileType(tile_type_h::DoorTileTypeType); //for door
                 }
             }
 
             //everything else
             else 
             {
-                tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
+                tile->updateTileType(tile_type_h::FloorTileTypeType); //for floor
                 //tile->get_representation()->setFGColor(*(tile->get_representation()->fg_color) * 0.5f, true, false, true); //set darker indoor color
                 // Representation* repr = new FloorRepresentation;
                 // repr->fg_color = Tile::FloorType->representation->fg_color;
@@ -597,18 +597,18 @@ Room* Map::build_rect_room(int room_x, int room_y,
             //check for outer perimeter
             if (room->isPerimeter(new_x, new_y))
             {
-                tile->updateTileType(TileTypes::WallTileTypeType); //for wall
+                tile->updateTileType(tile_type_h::WallTileTypeType); //for wall
 
                 //place door if valid position
                 if (door_index != -1 && room->checkDoorCount())
                 {
-                    tile->updateTileType(TileTypes::DoorTileTypeType); //for door
+                    tile->updateTileType(tile_type_h::DoorTileTypeType); //for door
                 }
             }
             //everything else
             else 
             {
-                tile->updateTileType(TileTypes::FloorTileTypeType); //for floor
+                tile->updateTileType(tile_type_h::FloorTileTypeType); //for floor
                 //set darker indoor color
                 // Representation* repr = new FloorRepresentation;
                 // // Representation* repr = tile->get_representation();
@@ -912,7 +912,7 @@ bool Map::attackMovePlayer(Person *thePerson, int x2, int y2)
     }
 
     //doors
-    else if (target_tile->type_id == TileTypes::DoorTileTypeType)
+    else if (target_tile->type_id == tile_type_h::DoorTileTypeType)
     {
         if (target_tile->is_open)
         {

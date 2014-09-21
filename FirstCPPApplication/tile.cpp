@@ -37,7 +37,7 @@ Tile::Tile()
 {
     this->tiletype_obj = new BaseTileType;
     this->is_deleted = false;
-    this->type_id = TileTypes::BaseTileTypeType;
+    this->type_id = tile_type_h::BaseTileTypeType;
     this->_is_occupied = false;
     this->_is_known = false;
 
@@ -240,7 +240,7 @@ void Tile::makeUnoccupied(Actor* the_actor)
     };
 };
 
-void Tile::updateCustomTileType(TileTypes type )
+void Tile::updateCustomTileType(tile_type_h type )
 {
 
     this->type_id = type;
@@ -275,7 +275,7 @@ void Tile::updateCustomTileType(TileTypes type )
 
 };
 
-void Tile::updateTileType(TileTypes type )
+void Tile::updateTileType(tile_type_h type )
 {
 
     this->type_id = type;
@@ -475,7 +475,7 @@ BaseTileType::BaseTileType()
 {
     this->color = new TCODColor;
     this->description = "Another descriptionless tile.";
-    this->type_id = TileTypes::BaseTileTypeType;
+    this->type_id = tile_type_h::BaseTileTypeType;
     this->representation = new BaseRepresentation; 
 
     this->tile_obj = NULL;
@@ -490,14 +490,14 @@ BaseTileType::~BaseTileType()
 WallTileType::WallTileType() : BaseTileType() 
 {
     this->description = "Non descript wall.";
-    type_id = TileTypes::WallTileTypeType;
+    type_id = tile_type_h::WallTileTypeType;
     representation = new WallRepresentation;
 };
 
 WarpTileType::WarpTileType() : BaseTileType() 
 {
     this->description = "A strange color eminates from the ground.";
-    type_id = TileTypes::WarpTileTypeType;
+    type_id = tile_type_h::WarpTileTypeType;
     representation = new WarpRepresentation; 
 };
 
@@ -505,14 +505,14 @@ DoorTileType::DoorTileType()  : BaseTileType()
 {
     this->description = "A door, it's probably open, but who can even tell?";
     this->is_open = false;
-    type_id = TileTypes::DoorTileTypeType;
+    type_id = tile_type_h::DoorTileTypeType;
     representation = new DoorRepresentation; 
 };
 
 ChestTileType::ChestTileType()  : BaseTileType() 
 {
     this->description = "A wooden chest, who knows what's inside?";
-    type_id = TileTypes::ChestTileTypeType;
+    type_id = tile_type_h::ChestTileTypeType;
     representation = new ChestRepresentation; 
 };
 
@@ -564,7 +564,7 @@ StairsTileType::~StairsTileType()
 StairsDownTileType::StairsDownTileType() : StairsTileType() 
 {
     this->description = "Stairs leading downwards.";
-    type_id = TileTypes::StairsDownTileTypeType;
+    type_id = tile_type_h::StairsDownTileTypeType;
     representation = new StairsDownRepresentation; 
 
     this->has_matched_upstair = false;
@@ -673,7 +673,7 @@ void StairsDownTileType::GoDown()
 
         //get the tile, convert to stair
         stair_tile = map->getTileAt(x, y);
-        stair_tile->updateTileType(TileTypes::StairsUpTileTypeType);
+        stair_tile->updateTileType(tile_type_h::StairsUpTileTypeType);
 
         //set coords and light
         StairsUpTileType* cast_stair_tile = static_cast<StairsUpTileType*>(stair_tile->tiletype_obj);
@@ -701,7 +701,7 @@ void StairsDownTileType::GoDown()
 StairsUpTileType::StairsUpTileType() : StairsTileType() 
 {
     this->description = "Stairs leading upwards";
-    type_id = TileTypes::StairsUpTileTypeType;
+    type_id = tile_type_h::StairsUpTileTypeType;
     representation = new StairsUpRepresentation; 
 
     //this->to_x = NULL;
@@ -711,6 +711,6 @@ StairsUpTileType::StairsUpTileType() : StairsTileType()
 FloorTileType::FloorTileType() : BaseTileType() 
 {
     this->description = "Plain old floor.";
-    type_id = TileTypes::FloorTileTypeType;
+    type_id = tile_type_h::FloorTileTypeType;
     representation = new FloorRepresentation; 
 };

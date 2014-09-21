@@ -499,7 +499,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
         door_tile = Game::current_map->getTileAt(x, y);
 
         //get the door that's on it
-        if (door_tile->type_id == TileTypes::DoorTileTypeType) 
+        if (door_tile->type_id == tile_type_h::DoorTileTypeType) 
         {
             std::cout << "there's a door here, its gon get open" << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
@@ -571,7 +571,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::UpStairs )
     {
         Tile* stair_tile = Game::player->my_tile;
-        if (stair_tile->type_id == TileTypes::StairsUpTileTypeType)
+        if (stair_tile->type_id == tile_type_h::StairsUpTileTypeType)
         {
             //std::cout << "there's a stair down here, its gon go down" << std::endl;
             new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair up here, its gon go down to the next floor.");
@@ -587,7 +587,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::DownStairs )
     {
         Tile* stair_tile = Game::player->my_tile;
-        if (stair_tile->type_id == TileTypes::StairsDownTileTypeType)
+        if (stair_tile->type_id == tile_type_h::StairsDownTileTypeType)
         {
             //std::cout << "there's a stair down here, its gon go down" << std::endl;
             new Message(Ui::msg_handler_main, NOTYPE_MSG,"There's a stair down here, its gon go down to the next floor.");
