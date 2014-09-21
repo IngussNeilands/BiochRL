@@ -506,11 +506,13 @@ bool Input::process_basic_keys(TCOD_key_t request)
             std::cout << "There's a door here." << std::endl;
             // door_tile->map->l_map->setProperties(x, y, true, true);
             door_tile->ToggleDoor();
+            return true;
         }
         else if (door_tile->type_id == tile_type_h::ChestTileTypeType)
         {
-            std::cout << "There's a chest here!" << std::endl;
+            // std::cout << "There's a chest here!" << std::endl;
             door_tile->ToggleChest();
+            return true;
         }
         else 
         {

@@ -625,7 +625,6 @@ Person*  Game::initialize_player()
 
     Game::initialize_items();
 
-
     // give_player_god_mode();
     // give_player_teleport(player);
 
