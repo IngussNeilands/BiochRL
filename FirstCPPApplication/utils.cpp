@@ -287,3 +287,44 @@ std::string buffer_color(std::string input, int val, TCODColor color)
     return colfg(color, ss.str());
 };
 
+std::string get_relative_dir_string(int dir_x, int dir_y, std::string center)
+{
+    std::stringstream ss;
+    if (dir_y == -1)
+    {
+        if (dir_x != 0)
+        {
+            ss << "upper ";
+        }
+        else
+        {
+            ss << "up ";
+        };
+    }
+    else if (dir_y == 1)
+    {
+        if (dir_x != 0)
+        {
+            ss << "lower ";
+        }
+        else
+        {
+            ss << "down ";
+        };
+    };
+
+    if (dir_x == -1)
+    {
+        ss << "left";
+    }
+    else if (dir_x == 1)
+    {
+        ss << "right";
+    }
+
+    if (dir_x == 0 && dir_y == 0)
+    {
+        ss << center;
+    };
+    return ss.str();
+};

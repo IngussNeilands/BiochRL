@@ -52,7 +52,9 @@ inline const char * const BoolToString(bool b, bool verbose=true)
     return b ? "true" : "false";
     else
     return b ? "T" : "F";
-}
+};
+
+std::string get_relative_dir_string(int dir_x, int dir_y, std::string center = "tile");
 
 
 int get_euclidean_distance(int x1, int y1, int x2, int y2);

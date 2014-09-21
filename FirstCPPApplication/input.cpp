@@ -515,47 +515,10 @@ bool Input::process_basic_keys(TCOD_key_t request)
             int dir_x = 0, dir_y = 0;
 			Game::player->get_direction_heading(dir_x, dir_y);
 
-            std::stringstream ss;
-            if (dir_y == -1)
-            {
-                if (dir_x != 0)
-                {
-                    ss << "upper ";
-                }
-                else
-                {
-                    ss << "up ";
-                };
-            }
-            else if (dir_y == 1)
-            {
-                if (dir_x != 0)
-                {
-                    ss << "lower ";
-                }
-                else
-                {
-                    ss << "down ";
-                };
-            };
+            std::string msg = "There's nothing to your "+get_relative_dir_string(dir_x, dir_y)+".";
 
-            if (dir_x == -1)
-            {
-                ss << "left";
-            }
-            else if (dir_x == 1)
-            {
-                ss << "right";
-            }
-
-            if (dir_x == 0 && dir_y == 0)
-            {
-                ss << "tile";
-            };
-
-            std::cout << "there's nothing to your " << ss.str() << std::endl;
+            new Message(Ui::msg_handler_main, ITEM_MSG, msg);
         };
-        //open the door
     }
     else if ( basic_cmd == basic_cmds_t::CustomKey1 )
     {
