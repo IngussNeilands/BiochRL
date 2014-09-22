@@ -71,6 +71,7 @@ std::vector<std::string> make_basic_cmds_char()
     vec.push_back("When targetting: Cycle forwards through the targets"); vec.push_back("When targetting: Cycle backwards through the targets");
     vec.push_back("Toggle Music");
     vec.push_back("Toggle Sneaking");
+    vec.push_back("Pray to the god you think is above");
     vec.push_back("Use spell or ability in slot 1");
     vec.push_back("Use spell or ability in slot 2");
     vec.push_back("Use spell or ability in slot 3");
@@ -152,6 +153,7 @@ std::map<int, basic_cmds_t> Input::build_spec_main_keymap()
     spec_movemap[TCODK_PAGEDOWN] = basic_cmds_t::PrevTarget;
     spec_movemap[TCODK_DELETE] = basic_cmds_t::ToggleMusic;
     spec_movemap[TCODK_ENTER] = basic_cmds_t::ConfirmCast;
+    // spec_movemap[TCODK_ENTER] = basic_cmds_t::ConfirmCast;
 
     spec_movemap[TCODK_1] = basic_cmds_t::CustomKey1;
     spec_movemap[TCODK_2] = basic_cmds_t::CustomKey2;
@@ -179,6 +181,7 @@ std::map<char, basic_cmds_t> Input::build_char_main_keymap()
     char_movemap['k'] = basic_cmds_t::ConfirmCast;
     char_movemap['p'] = basic_cmds_t::OpenClassSelect;
     char_movemap['`'] = basic_cmds_t::ListCustomKeys;
+    char_movemap['_'] = basic_cmds_t::Pray;
 
     return char_movemap;
 };
@@ -484,6 +487,12 @@ bool Input::process_basic_keys(TCOD_key_t request)
         details_dialog->x = 5;
         Ui::alerts.push_back(details_dialog);
         Game::current_screen = Screens::AlertScreenType;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::Pray )
+    {
+        new Message(Ui::msg_handler_main, ITEM_MSG, "You pray to your god, but you hear no reply.");
+        return true;
     }
 
     else if ( basic_cmd == basic_cmds_t::Activate )

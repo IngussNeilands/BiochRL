@@ -25,6 +25,7 @@ enum basic_cmds_t {
     NextTarget, PrevTarget,
     ToggleMusic,
     ToggleSneaking,
+    Pray,
     CustomKey1,
     CustomKey2,
     CustomKey3,

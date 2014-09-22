@@ -17,6 +17,7 @@ void IClass::apply_starting_stats()
     if (this->master != NULL)
     {
         this->master->attrs = new AttributeContainer(*this->starting_attrs);
+		this->master->attrs->owner = this->master;
         std::cout << "Updated attrs to " << this->name << std::endl;
     };
 
