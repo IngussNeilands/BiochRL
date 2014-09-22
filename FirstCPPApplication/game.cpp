@@ -1258,6 +1258,11 @@ void load_music_random()
 {
     TCODRandom* rng = TCODRandom::getInstance();
     int result = rng->getInt(1, 2);
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     std::cout << result << std::endl;
+    //     result = rng->getInt(1, 2);
+    // };
     std::stringstream ss;
     ss << "lvl" << result << ".wav";
     std::cout << ss.str() << std::endl;
