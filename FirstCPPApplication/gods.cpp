@@ -1,8 +1,14 @@
 #include "stdafx.h"
 #include "gods.h"
+
 #include <game.h>
 #include <ui.h>
 #include <messages.h>
+
+God::God()
+{
+    this->name = "Augustine";
+};
 
 void God::pray_to(Actor* worshipper)
 {

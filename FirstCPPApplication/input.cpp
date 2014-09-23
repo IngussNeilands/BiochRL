@@ -35,6 +35,7 @@
 #include "helpbox.h"
 #include <menu_item.h>
 #include <background_info.h>
+#include <gods.h>
 
 //build key mappings. Took DRY out behind the shed.
 std::map<char, basic_cmds_t> Input::char_main_keymap                  = Input::build_char_main_keymap(); 
@@ -495,36 +496,8 @@ bool Input::process_basic_keys(TCOD_key_t request)
 
     else if ( basic_cmd == basic_cmds_t::Pray )
     {
-        int killed = Game::stats->monsters_killed;
-        typedef std::map<int, std::string> thres_map_t; 
-
-        thres_map_t kill_map = std::map<int, std::string>();
-        kill_map[10]   =  "You pray, and hear a small whisper in the distance.";
-        kill_map[25]   =  "You pray, and hear a quiet murmur.";
-        kill_map[75]   =  "You pray, and sense a presence near you.";
-        kill_map[150]  =  "You pray, and feel the air thicken.";
-        kill_map[300]  =  "You pray, and feel a warmth next to you.";
-        kill_map[450]  =  "You pray, and hear a voice speak your name.";
-        kill_map[600]  =  "You pray, and feel your connection with your god in your body";
-        kill_map[1000] =  "You start to pray, but realize there is no need. You are the only god you need.";
-
-        bool satisfied = false;
-        std::string msg;
-        for (thres_map_t::reverse_iterator it = kill_map.rbegin(); it!= kill_map.rend(); it++ )
-        {
-            if (killed > it->first)
-            {
-                msg = it->second;
-                satisfied = true;
-                break;
-            }
-        }
-
-        if (!satisfied)
-        {
-            msg = "You pray to your god, but you hear no reply.";
-        }
-        new Message(Ui::msg_handler_main, ITEM_MSG, colfg(TCODColor::lightRed, msg));
+        God god = God();
+        god.pray_to(Game::player);
         return true;
     }
 
