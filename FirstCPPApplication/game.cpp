@@ -63,6 +63,7 @@
 #include <background_info.h>
 #include <map_builder.h>
 #include <drop_handler.h>
+#include <gods.h>
 
 
 int Game::__version_major = 0;
@@ -145,6 +146,8 @@ TCODRandom* Game::stat_rolls_rng = new TCODRandom();
 TCODRandom* Game::dungeon_builder_rng = new TCODRandom();
 
 Statistics* Game::stats = new Statistics();
+
+God* Game::augustine = new God();
 
 bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 {
@@ -1150,6 +1153,11 @@ void Game::specify_player()
     //TODO activate them on the player
 };
 
+void Game::start_gods()
+{
+
+};
+
 void Game::start_game()
 {
     Game::atlas->clear();
@@ -1162,8 +1170,9 @@ void Game::start_game()
     Game::current_map = new_map;
 
     Game::initialize_player(); 
-
     Game::specify_player();
+
+    Game::start_gods();
 
     Game::turn_count = 1;
 

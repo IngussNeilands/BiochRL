@@ -40,6 +40,8 @@ class TCODRandom;
 class CustomKey;
 class MenuItem;
 
+class God;
+
 class CompareQueueTicks
 {
     public:
@@ -184,6 +186,10 @@ class Game
         static std::string get_version();
 
         static void quit_game();
+
+        static God* augustine;
+        static void start_gods();
+
 };
 
 

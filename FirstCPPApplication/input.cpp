@@ -496,8 +496,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
 
     else if ( basic_cmd == basic_cmds_t::Pray )
     {
-        God god = God();
-        god.pray_to(Game::player);
+        Game::augustine->pray_to(Game::player);
         return true;
     }
 
