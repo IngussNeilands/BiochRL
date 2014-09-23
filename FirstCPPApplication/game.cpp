@@ -1291,9 +1291,7 @@ void load_music_random()
 
 void Game::play_music()
 {
-    /* straight copied from
-     * http://stackoverflow.com/questions/17472514/no-sound-with-sdl-mixer
-     */
+    /* http://stackoverflow.com/questions/17472514/no-sound-with-sdl-mixer */
 
     Mix_Music *music = NULL;
     Mix_Chunk *wave = NULL;

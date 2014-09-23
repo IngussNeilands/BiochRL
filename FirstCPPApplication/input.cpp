@@ -153,6 +153,7 @@ std::map<int, basic_cmds_t> Input::build_spec_main_keymap()
     spec_movemap[TCODK_PAGEDOWN] = basic_cmds_t::PrevTarget;
     spec_movemap[TCODK_DELETE] = basic_cmds_t::ToggleMusic;
     spec_movemap[TCODK_ENTER] = basic_cmds_t::ConfirmCast;
+    spec_movemap[TCODK_KPENTER] = basic_cmds_t::ConfirmCast;
     // spec_movemap[TCODK_ENTER] = basic_cmds_t::ConfirmCast;
 
     spec_movemap[TCODK_1] = basic_cmds_t::CustomKey1;
@@ -197,6 +198,7 @@ std::map<int, spells_active_t>  Input::build_spec_spell_select_keymap()
     // 
     spec_spellactivemap[TCODK_ESCAPE] = spells_active_t::EscapeMenuSpell;
     spec_spellactivemap[TCODK_ENTER] = spells_active_t::CastSpell;
+    spec_spellactivemap[TCODK_KPENTER] = spells_active_t::CastSpell;
     return spec_spellactivemap;
 }; 
 
@@ -228,6 +230,7 @@ std::map<int, classes_active_t>  Input::build_spec_class_select_keymap()
 
     spec_classactivemap[TCODK_ESCAPE] = classes_active_t::EscapeMenuClass;
     spec_classactivemap[TCODK_ENTER] = classes_active_t::ChangeToClass;
+    spec_classactivemap[TCODK_KPENTER] = classes_active_t::ChangeToClass;
 
     return spec_classactivemap;
 
@@ -281,6 +284,7 @@ std::map<int, inventory_items_active_t>  Input::build_spec_inventory_keymap()
     std::map<int, inventory_items_active_t> spec_invitemactivemap; 
     spec_invitemactivemap[TCODK_ESCAPE] = inventory_items_active_t::EscapeMenuItem;
     spec_invitemactivemap[TCODK_ENTER] = inventory_items_active_t::EquipItem;
+    spec_invitemactivemap[TCODK_KPENTER] = inventory_items_active_t::EquipItem;
     return spec_invitemactivemap;
 }; 
 
@@ -846,6 +850,7 @@ std::map<int, generic_menu_active_t>  Input::build_spec_generic_menu_keymap()
 
     std::map<int, generic_menu_active_t> spec_genmenactivemap; 
     spec_genmenactivemap[TCODK_ENTER] = generic_menu_active_t::ActivateGenericMenuItem;
+    spec_genmenactivemap[TCODK_KPENTER] = generic_menu_active_t::ActivateGenericMenuItem;
     return spec_genmenactivemap;
 }; 
 
@@ -1888,7 +1893,7 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
             Input::match_key<T>(Input::generic_index, key_map, elements, false);
         }
 
-        else if (request.vk == TCODK_ENTER && request.pressed == 1)
+        else if (request.vk == TCODK_KPENTER || request.vk == TCODK_ENTER && request.pressed == 1)
         {
             Input::match_key<T>(Input::generic_index, key_map, elements, true);
         }

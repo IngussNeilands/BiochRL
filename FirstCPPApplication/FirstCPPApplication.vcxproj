@@ -190,6 +190,7 @@
     <ClInclude Include="event.h" />
     <ClInclude Include="FirstCPPApplication.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="gods.h" />
     <ClInclude Include="helpbox.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="inventory.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="FirstCPPApplication.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamestate.cpp" />
+    <ClCompile Include="gods.cpp" />
     <ClCompile Include="helpbox.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="inventory.cpp" />
