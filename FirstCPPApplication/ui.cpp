@@ -28,6 +28,7 @@
 #include "thinker.h"
 #include "helpbox.h"
 #include <background_info.h>
+#include "gods.h"
 
 // MessageHandler* Ui::msg_handler_main = new MessageHandler;
 // Item* Ui::chosen_item = NULL;
@@ -694,9 +695,25 @@ void Ui::print_gold(TCODConsole* con, int& offset, int& i)
     unsigned long long total_gold = Game::player->total_gold;
     ss << "You have " << total_gold << " pieces of gold to your name.";
     con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
-    i++;
-    i++;
     ss.str("");
+    i++;
+    i++;
+
+};
+
+void Ui::print_favour(TCODConsole* con, int& offset, int& i)
+{
+    // char buffer[100];
+    Person* player = Game::player;
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, "RELIGION");
+    i++;
+    std::stringstream ss;
+    unsigned long long favour = Game::augustine->get_favor(player);
+    ss << "You have " << favour << " favour to " << Game::augustine->name << ".";
+    con->printEx(offset, i, TCOD_bkgnd_flag_t::TCOD_BKGND_SET, TCOD_alignment_t::TCOD_LEFT, ss.str().c_str());
+    ss.str("");
+    i++;
+    i++;
 
 };
 
@@ -813,8 +830,9 @@ void Ui::character_sheet_ui_loop(TCODConsole* con, int offset, int i, char key)
     print_experience(con, offset,  i);
     print_class(con, offset,  i);
     print_weapon_data(con, offset,  i);
-    print_background_info(con, offset, i);
+    // print_background_info(con, offset, i);
     print_gold(con, offset, i);
+    print_favour(con, offset, i);
 
 };
 
