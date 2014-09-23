@@ -8,9 +8,11 @@ class God
         std::string name;
 
         void pray_to(Actor* worshipper);
+        int get_favor(Actor* worshipper);
 
         God();
 
 };
+
 
 #endif

@@ -10,9 +10,14 @@ God::God()
     this->name = "Augustine";
 };
 
+int God::get_favor(Actor* worshipper)
+{
+    return Game::stats->monsters_killed;
+};
+
 void God::pray_to(Actor* worshipper)
 {
-    int killed = Game::stats->monsters_killed;
+    int favour = this->get_favor(worshipper);
     typedef std::map<int, std::string> thres_map_t; 
 
     thres_map_t kill_map = std::map<int, std::string>();
@@ -23,13 +28,13 @@ void God::pray_to(Actor* worshipper)
     kill_map[300]  =  "You pray, and feel a warmth next to you.";
     kill_map[450]  =  "You pray, and hear a voice speak your name.";
     kill_map[600]  =  "You pray, and feel your connection with your god in your body";
-    kill_map[1000] =  "You start to pray, but realize there is no need. You are the only god you need.";
+    kill_map[1500] =  "You start to pray, but realize there is no need. You are the only god you need.";
 
     bool satisfied = false;
     std::string msg;
     for (thres_map_t::reverse_iterator it = kill_map.rbegin(); it!= kill_map.rend(); it++ )
     {
-        if (killed > it->first)
+        if (favour > it->first)
         {
             msg = it->second;
             satisfied = true;
