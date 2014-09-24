@@ -609,6 +609,11 @@ void Tile::CloseChest()
 
 };
 
+int Tile::distance_to_tile(Tile* other)
+{
+    return get_euclidean_distance(this->tile_x, this->tile_y, other->tile_x, other->tile_y);
+};
+
 
 StairsTileType::StairsTileType()
 {

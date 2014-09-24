@@ -176,6 +176,8 @@ class Tile : public Object
 
         void drawColorsToRoot(TCODColor* fg_color, TCODColor* bg_color);
 
+        int distance_to_tile(Tile* other);
+
 
         Tile(); 
         //~Tile(){ delete tile; };
