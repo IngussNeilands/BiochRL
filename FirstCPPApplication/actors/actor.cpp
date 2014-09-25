@@ -162,7 +162,6 @@ bool Actor::try_detect(Actor* target)
     int detection_stat = 0; //TODO use this detection stat
     int net_detection = base_detection_stat + detection_stat;
     return result < net_detection;
-    // return false;
 };
 
 Actor::~Actor()
@@ -171,7 +170,6 @@ Actor::~Actor()
     delete this->timed_spell_effects;
 
     delete this->actors_in_sight;
-    //std::cout << "DELETE ACTOR: " << this->inventory << std::endl;
     delete this->inventory;
     delete this->representation;
     delete this->attrs;
