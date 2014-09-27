@@ -147,7 +147,9 @@ TCODRandom* Game::dungeon_builder_rng = new TCODRandom();
 
 Statistics* Game::stats = new Statistics();
 
-God* Game::augustine = new God();
+God* Game::augustine = new AugustineGod();
+God* Game::epiphne = new EpiphneGod();
+God* Game::transient_god = new TheTransientGod();
 
 bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 {
@@ -1162,6 +1164,8 @@ void Game::start_game()
 {
     Game::atlas->clear();
     Game::queue_ticks = 0;
+
+    Game::stats->reset_stats();
 
     std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world(1);

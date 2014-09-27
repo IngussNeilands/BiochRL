@@ -25,6 +25,7 @@
 #include "color_utils.h"
 #include "statistics.h"
 #include "vector_helper.h"
+#include <map>
 
 // TODO: reference additional headers your program requires here
 
@@ -59,6 +60,8 @@ typedef std::vector<std::string*>::iterator str_vec_t_it;
 
 typedef std::vector<MenuItem*> menuitem_vec_t;
 typedef std::vector<MenuItem*>::iterator menuitem_vec_t_it;
+
+typedef std::map<int, std::string> int_str_map_t; 
 
 //[assembly:AssemblyKeyFileAttribute("keyPair.snk")];
 //debugging the heap that didn't work

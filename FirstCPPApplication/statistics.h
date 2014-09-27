@@ -12,6 +12,7 @@ class Statistics
         unsigned int damage_dealt;
         unsigned int damage_taken;
 
-	Statistics();
+        Statistics();
+        void reset_stats();
 };
 #endif

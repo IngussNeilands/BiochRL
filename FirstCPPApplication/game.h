@@ -188,6 +188,8 @@ class Game
         static void quit_game();
 
         static God* augustine;
+        static God* epiphne;
+        static God* transient_god;
         static void start_gods();
 
 };

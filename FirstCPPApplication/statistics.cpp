@@ -3,6 +3,11 @@
 
 Statistics::Statistics() 
 {
+    this->reset_stats();
+};
+
+void Statistics::reset_stats()
+{
     this->monsters_killed = 0;
     this->spells_cast = 0;
     this->items_used = 0;
