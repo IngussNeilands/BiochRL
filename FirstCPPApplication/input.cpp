@@ -382,10 +382,16 @@ bool Input::process_basic_keys(TCOD_key_t request)
             Item* item = Game::player->my_tile->inventory->items->back();
             Game::player->pick_up_item(item);
             // player->equipment->chest->AddToSlot(item);
-            new Message(Ui::msg_handler_main, ITEM_MSG, "Picked up the item.");
+            std::stringstream ss;
+            ss << "Picked up " << item->name << ".";
+            new Message(Ui::msg_handler_main, ITEM_MSG, ss.str());
 
             return true;
 
+        }
+        else
+        {
+            new Message(Ui::msg_handler_main, ITEM_MSG, "Nothing to pick up here.");
         };
     }
 
@@ -421,6 +427,10 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 new Message(Ui::msg_handler_main, ITEM_MSG, "Used an item straight off the floor, gross.");
             }
 
+        }
+        else
+        {
+            new Message(Ui::msg_handler_main, ITEM_MSG, "Nothing to pick up here.");
         };
     }
 
@@ -944,7 +954,7 @@ bool Input::process_inventory_keys(TCOD_key_t request)
     }
     else if( action == inventory_items_active_t::DropItem )
     {
-        new Message(Ui::msg_handler_main, NOTYPE_MSG, "DROP ITEM.");
+        new Message(Ui::msg_handler_main, NOTYPE_MSG, "You have dropped something.");
         Item* item = static_cast<Item*>(Ui::chosen_generic);
         Ui::reset_generic();
 
