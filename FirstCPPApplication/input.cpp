@@ -1803,6 +1803,63 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
     bool successful_action = true;
 
     generic_keypair_t key_map = Input::build_keypairs(size, Ui::offset);
+    if (request.vk == TCODK_UP)
+    {
+        if ( request.pressed == 0) { return; };
+        if (elements->empty()) { return; };
+
+        Input::generic_index--;
+        if (Input::generic_index < 'a' ) 
+        {
+
+            //go to prev page unless its the first page
+            if (Ui::offset == 0)
+            {
+                Input::generic_index = 'a';
+            }
+            else
+            {
+                Ui::page_num--;
+                Ui::offset = Ui::per_page*Ui::page_num;
+                Input::generic_index = 'a' + Ui::per_page-1;
+                key_map = Input::build_keypairs(size, Ui::offset);
+            };
+            //  set g_i to last character on page
+        }
+        return Input::match_key<T>(Input::generic_index, key_map, elements, false);
+    }
+    else if (request.vk == TCODK_DOWN )
+    {
+        if ( request.pressed == 0) { return; };
+        if (elements->empty()) { return; };
+
+        //check to see if pressing down takes you too far down the list
+        std::vector<T*>::iterator it = elements->begin()+Ui::offset;
+        int selection_index = Input::generic_index-97;
+        it+=selection_index;
+        if (selection_index+Ui::offset < elements->size() && it+1 != elements->end())
+        {
+            Input::generic_index++;
+        };
+
+        if (Input::generic_index >= 'a' + Ui::per_page)
+        {
+            //go to next page unless its the last page
+            if (Ui::offset+Ui::per_page > elements->size())
+            {
+                Input::generic_index--;
+            }
+            else
+            {
+                Ui::page_num++;
+                Ui::offset = Ui::per_page*Ui::page_num;
+                Input::generic_index = 'a';
+                key_map = Input::build_keypairs(size, Ui::offset);
+            };
+        }
+
+        return Input::match_key<T>(Input::generic_index, key_map, elements, false);
+    }
 
     if (Ui::generic_active == false)
     {
@@ -1812,59 +1869,6 @@ void Input::select_generic(TCOD_key_t request, std::vector<T*>* elements, bool (
             Ui::reset_generic();
             Input::generic_index = 'a';
             Game::current_state = GameStates::GameplayState;
-        }
-        else if (request.vk == TCODK_UP && request.pressed == 1)
-        {
-            if (elements->empty()) { return; };
-            Input::generic_index--;
-            if (Input::generic_index < 'a' ) 
-            {
-
-                //go to prev page unless its the first page
-                if (Ui::offset == 0)
-                {
-                    Input::generic_index = 'a';
-                }
-                else
-                {
-                    Ui::page_num--;
-                    Ui::offset = Ui::per_page*Ui::page_num;
-                    Input::generic_index = 'a' + Ui::per_page-1;
-                    key_map = Input::build_keypairs(size, Ui::offset);
-                };
-                //  set g_i to last character on page
-            }
-            Input::match_key<T>(Input::generic_index, key_map, elements, false);
-        }
-        else if (request.vk == TCODK_DOWN && request.pressed == 1)
-        {
-            if (elements->empty()) { return; };
-            //check to see if pressing down takes you too far down the list
-            std::vector<T*>::iterator it = elements->begin()+Ui::offset;
-            int selection_index = Input::generic_index-97;
-            it+=selection_index;
-            if (selection_index+Ui::offset < elements->size() && it+1 != elements->end())
-            {
-                Input::generic_index++;
-            };
-
-            if (Input::generic_index >= 'a' + Ui::per_page)
-            {
-                //go to next page unless its the last page
-                if (Ui::offset+Ui::per_page > elements->size())
-                {
-                    Input::generic_index--;
-                }
-                else
-                {
-                    Ui::page_num++;
-                    Ui::offset = Ui::per_page*Ui::page_num;
-                    Input::generic_index = 'a';
-                    key_map = Input::build_keypairs(size, Ui::offset);
-                };
-            }
-
-            Input::match_key<T>(Input::generic_index, key_map, elements, false);
         }
 
         else if (request.vk == TCODK_KPENTER || request.vk == TCODK_ENTER && request.pressed == 1)
