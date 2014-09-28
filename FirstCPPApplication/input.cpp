@@ -316,8 +316,6 @@ inventory_items_active_t Input::inventory_items_active_pressed(TCOD_key_t key)
             Input::spec_inventory_keymap, inventory_items_active_t::NO_MATCHING_ITEMS_ACTIVE);
 };
 
-
-
 std::map<int, directions_t>  Input::build_spec_movement_keymap()
 {
 
@@ -345,12 +343,6 @@ std::map<char, directions_t> Input::build_char_movement_keymap()
 {
 
     std::map<char, directions_t> char_movemap; 
-
-
-    // char_movemap['n'] = directions_t::N;
-    // char_movemap['e'] = directions_t::E;
-    // char_movemap['s'] = directions_t::S;
-    // char_movemap['w'] = directions_t::W;
     return char_movemap;
 };  
 

@@ -2,6 +2,7 @@
 #include "ui.h"
 //#include <cmath>
 
+#include <assert.h>
 #include "game.h"
 #include "input.h"
 #include <actors\Person.h>
@@ -910,6 +911,23 @@ void Ui::draw_simple_menu_ui()
 {
     SimpleMenuScreen simple_menu_screen;
     // std::vector<std::string*>* menu_choices = new std::vector<std::string*>();
+    if (Game::current_background_type == GenderBackgroundType)
+    {
+        simple_menu_screen.title = "Choose your gender.";
+    }
+    else if (Game::current_background_type == RaceBackgroundType)
+    {
+        simple_menu_screen.title = "Choose your race.";
+    }
+    else if (Game::current_background_type == HometownBackgroundType)
+    {
+        simple_menu_screen.title = "Choose your hometown.";
+    }
+    else
+    {
+        assert(false && "type doesn't match");
+    };
+
     std::vector<MenuItem*>* elements = (*Game::menuitem_choices)[Game::current_background_type];
     simple_menu_screen.elements = elements;
     simple_menu_screen.draw();
