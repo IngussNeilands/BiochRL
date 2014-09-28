@@ -151,6 +151,8 @@ God* Game::augustine = new AugustineGod();
 God* Game::epiphne = new EpiphneGod();
 God* Game::transient_god = new TheTransientGod();
 
+Screens Game::next_screen_type = NoScreenType;
+
 bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 {
     bool result;

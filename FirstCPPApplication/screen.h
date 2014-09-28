@@ -2,6 +2,8 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#include "enums/screens.h"
+
 
 class ScreenItem;
 class InventoryScreenItem;
@@ -29,6 +31,8 @@ class Screen
         virtual bool is_chosen(T* element);
         virtual bool is_active(T* element);
         virtual bool is_enabled(T* element) { return false; };
+
+        Screens next_screen_type;
 
         int get_custom_key_index(T* element);
 

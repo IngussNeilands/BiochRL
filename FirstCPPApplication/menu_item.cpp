@@ -12,28 +12,30 @@ void MenuItem::init()
     this->info = NULL;
 };
 
-        std::string MenuItem::get_title()
-        {
-            if (this->info != NULL) 
-            {
-                return this->info->title;
-            }
-            else
-            {
-                return "no info found";
-            }
-        };
-        std::string MenuItem::get_description()
-        { 
-            if (this->info != NULL) 
-            {
-                return this->info->description;
-            }
-            else
-            {
-                return "no info found";
-            }
-        };
+std::string MenuItem::get_title()
+{
+    if (this->info != NULL) 
+    {
+        return this->info->title;
+    }
+    else
+    {
+        return "no info found";
+    }
+};
+
+std::string MenuItem::get_description()
+{ 
+    if (this->info != NULL) 
+    {
+        return this->info->description;
+    }
+    else
+    {
+        return "no info found";
+    }
+};
+
 void MenuItem::activate()
 {
     this->info->activate();

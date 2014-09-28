@@ -27,6 +27,8 @@
 #include "vector_helper.h"
 #include <map>
 
+#include <intrin.h>
+
 // TODO: reference additional headers your program requires here
 
 class Actor;

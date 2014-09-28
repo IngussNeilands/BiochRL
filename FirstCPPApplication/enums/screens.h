@@ -11,6 +11,6 @@ enum Screens {
     SpellSelectScreenType,
     ClassSelectScreenType,
     AlertScreenType,
-    NoScreenType
+    NoScreenType = 0
 };
 #endif

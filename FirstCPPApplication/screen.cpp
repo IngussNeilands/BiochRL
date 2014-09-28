@@ -38,6 +38,8 @@ Screen<T>::Screen()
     // this->msg_hdlr = NULL;
     this->elements = new std::vector<T*>;
     this->screen_items = new std::vector<ScreenItem*>;
+
+    this->next_screen_type = Screens::NoScreenType;
 };
 
     template<typename T>

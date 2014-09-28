@@ -14,6 +14,7 @@
 #include <vector>
 #include <queue>
 #include <map>
+#include <enums\screens.h>
 #include <enums/background_types.h>
 
 
@@ -191,6 +192,8 @@ class Game
         static God* epiphne;
         static God* transient_god;
         static void start_gods();
+
+        static Screens next_screen_type;
 
 };
 

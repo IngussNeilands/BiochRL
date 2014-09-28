@@ -27,20 +27,25 @@ void BackgroundInfo::activate()
     if (this->type == GenderBackgroundType)
     {
         Game::player->background->gender = this;
+        Game::current_background_type = background_types_t::RaceBackgroundType;
     }
     else if (this->type == RaceBackgroundType)
     {
         Game::player->background->race = this;
+        Game::current_background_type = background_types_t::HometownBackgroundType;
     }
     else if (this->type == HometownBackgroundType)
     {
         Game::player->background->hometown = this;
+        Game::current_state = GameStates::GameplayState;;
     }
     else
     {
         assert(false && "type doesn't match");
     };
+
     std::cout << "background info activated" << std::endl;
+    Ui::reset_generic();
 };
 
 std::vector<DialogHelpBox*>* BackgroundInfo::create_alerts()

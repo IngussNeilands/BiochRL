@@ -1560,8 +1560,8 @@ bool Input::process_debug_event(TCOD_key_t request)
         Game::current_state = GameStates::MenuState;
         Game::current_screen = Screens::SimpleMenuScreenType;
         Game::current_background_type = background_types_t::GenderBackgroundType;
-        Game::current_background_type = background_types_t::RaceBackgroundType;
-        Game::current_background_type = background_types_t::HometownBackgroundType;
+        // Game::current_background_type = background_types_t::RaceBackgroundType;
+        // Game::current_background_type = background_types_t::HometownBackgroundType;
         // Game::current_screen = Screens::MainMenuScreenType;
     }
 
