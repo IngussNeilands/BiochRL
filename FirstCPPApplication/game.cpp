@@ -1406,7 +1406,7 @@ void Game::mainloop()
         TCODConsole::flush();
         TCODConsole::root->clear();
 
-        delete img;
+        // delete img;
 
         Game::tick_count++;
 

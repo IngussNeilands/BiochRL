@@ -154,6 +154,9 @@ bool Actor::try_detect(Actor* target)
     {
         hidden_bonus += 800;
     };
+
+    hidden_bonus += 50*target->my_tile->distance_to_tile(this->my_tile);
+
     // int hidden_bonus = 0; //TODO use target bonus hidden
     int net_hidden_stat = base_hidden_stat + hidden_bonus;
     int result = Game::stat_rolls_rng->getInt(0, net_hidden_stat);
