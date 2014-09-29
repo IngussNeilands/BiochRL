@@ -22,6 +22,7 @@
 #include "enums\hunger_threshold.h"
 #include <utils.h>
 #include <item.h>
+#include <randsys.h>
 
 Person::Person(std::string name, int age, int x, int y, char repr)
 {
@@ -207,6 +208,17 @@ void Person::attack(Actor * target)
     {
         dmg->normal = dmg->normal*1.5;
     };
+
+    RandomWeightMap<bool> crit_rwm = RandomWeightMap<bool>();
+    crit_rwm.add_item(true, 5);
+    crit_rwm.add_item(false, 95);
+    bool is_crit = crit_rwm.get_item(Game::stat_rolls_rng);
+    if (is_crit)
+    {
+        dmg->normal *= 2;
+        new Message(Ui::msg_handler_main, DAMAGE_GIVEN_MSG, colfg(TCODColor::lightAmber, this->name+" swings hard."));
+    };
+
     combat->attack(((Person*)target)->combat, dmg); 
     delete dmg;
 };
