@@ -149,13 +149,15 @@ TCODImage* Actor::get_image()
 bool Actor::try_detect(Actor* target)
 {
     int base_hidden_stat = 100;
+
     int hidden_bonus = 0;
+    int distance_bonus = 5;
     if (target->is_sneaking)
     {
         hidden_bonus += 800;
-    };
-
-    hidden_bonus += 50*target->my_tile->distance_to_tile(this->my_tile);
+        distance_bonus = 50;
+    }
+    hidden_bonus+= distance_bonus*target->my_tile->distance_to_tile(this->my_tile);
 
     // int hidden_bonus = 0; //TODO use target bonus hidden
     int net_hidden_stat = base_hidden_stat + hidden_bonus;
