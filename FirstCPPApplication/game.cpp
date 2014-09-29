@@ -1398,9 +1398,15 @@ void Game::mainloop()
                 break;
         }
 
-
+        // std::string path = std::string(get_data_path()+"img\\title_temp.png");
+        // printf("%s\n", path.c_str());
+        // TCODImage* img = new TCODImage(path.c_str());
+        // img->setKeyColor(TCODColor(255, 0, 255));
+        // img->blit2x(TCODConsole::root, 0, 0);
         TCODConsole::flush();
         TCODConsole::root->clear();
+
+        delete img;
 
         Game::tick_count++;
 
