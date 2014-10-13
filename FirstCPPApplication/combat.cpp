@@ -268,7 +268,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
 
         if (dodge_result < dodge_chance) 
         {
-            new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, this->master->name+" dodged the attack!.");
+            new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, colfg(TCODColor::lightAmber, this->master->name+" dodged the attack!."));
             return;
         };
 
@@ -283,7 +283,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
         if (this->master->is_defending)
         {
             adjusted_dmg = adjusted_dmg - this->master->attrs->armor->current_val; // effectively double armor
-            new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, this->master->name+" deflected some damage!.");
+            new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, colfg(TCODColor::lightAmber, this->master->name+" deflected some damage!."));
         };
 
         this->master->attrs->health->current_val -= std::max(adjusted_dmg, 1);
