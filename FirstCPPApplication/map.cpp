@@ -33,7 +33,7 @@ Map::Map()
 {
     this->tileVector = new std::vector<std::vector<Tile>>;
     this->roomVector = new std::vector<Room*>;
-    this->inside_tiles = new std::vector<Vec2i>;
+    this->inside_tiles = new std::vector<std::array<int, 2>>;
 
     this->has_hero_spawned = false;
 
@@ -609,6 +609,11 @@ Room* Map::build_rect_room(int room_x, int room_y,
             else 
             {
                 tile->updateTileType(tile_type_h::FloorTileTypeType); //for floor
+                std::array<int, 2> int_arr =  std::array<int, 2>();
+                int_arr[0] = tile->tile_x;
+                int_arr[1] = tile->tile_y;
+                this->inside_tiles->push_back(int_arr);
+
                 //set darker indoor color
                 // Representation* repr = new FloorRepresentation;
                 // // Representation* repr = tile->get_representation();

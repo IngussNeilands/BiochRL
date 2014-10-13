@@ -65,6 +65,9 @@ typedef std::vector<MenuItem*>::iterator menuitem_vec_t_it;
 
 typedef std::map<int, std::string> int_str_map_t; 
 
+typedef std::vector<std::array<int, 2>> arr_vec_int_t;
+typedef std::vector<std::array<int, 2>>::iterator arr_vec_int_t_it;
+
 //[assembly:AssemblyKeyFileAttribute("keyPair.snk")];
 //debugging the heap that didn't work
 // #include "crtdbg.h"

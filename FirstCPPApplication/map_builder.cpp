@@ -23,6 +23,8 @@
 #include <enemies\jumper.h>
 #include <tile.h>
 #include <drop_handler.h>
+#include <Representation.h>
+#include <item.h>
 
 
 void MapBuilder::fill_dungeon(Map* world)
@@ -43,12 +45,9 @@ void MapBuilder::fill_dungeon(Map* world)
         }
         else if (it == rooms->begin()+6)
         {
-            //spawn one dude to whom you can sell your shit
             Room* room = *it;
             int x = room->center_x;
             int y = room->center_y;
-            // Person* the_townsmen = Game::create_townsmen("Travelling Salesman", 30, x, y, 't', world);
-            // world->allies.push_back(the_townsmen);
 
             Tile* chest_tile = world->getTileAt(x+1, y+1);
             chest_tile->updateTileType(tile_type_h::ChestTileTypeType);
@@ -57,16 +56,10 @@ void MapBuilder::fill_dungeon(Map* world)
             for (int i = 0; i < 3; i++)
             {
                 item = DropHandler::handle_for_chest();
-
                 if (item != NULL)
                 {
                     chest_tile->place_item_down(item);
                 }
-                else
-                {
-                    // std::cout << "item is null" << std::endl;
-                }
-
             };
 
         }
@@ -77,7 +70,29 @@ void MapBuilder::fill_dungeon(Map* world)
                 fill_generic_room(*it, world);
             };
         }
-    }
+    };
+
+    int count = 0;
+    for (arr_vec_int_t_it it = world->inside_tiles->begin(); it != world->inside_tiles->end(); it++)
+    {
+        count++;
+        if (count % 300 == 0)
+        {
+            int x = (*it)[0];
+            int y = (*it)[1];
+            Tile* tile = world->getTileAt(x, y);
+            Representation* repr = new Representation;
+            repr->repr = '"';
+            repr->setFGColor(TCODColor::darkestGreen, true, true, true);
+
+            Item* plant = new Item();
+            plant->usable = true;
+            plant->repr = repr;
+			plant->attr_effect->health_current_val = 25;
+            plant->name = "Strange Green Plant";
+            tile->place_item_down(plant);
+        };
+    };
 
 }
 
