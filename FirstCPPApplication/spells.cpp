@@ -837,10 +837,20 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
 
 IlluminationSpell::IlluminationSpell() : Spell()
 {
-
+    this->target_type = GroundTargetType;
+    this->max_range = 20;
 };
 
 bool IlluminationSpell::cast(Tile* targetted_tile)
 {
+    targetted_tile->setKnown(true);
+    tile_vec_t* adjacent_tiles = targetted_tile->getAdjacentTiles(3);
+    for (tile_vec_t_it it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+    {
+        Tile* tile = *it;
+        tile->setKnown(true);
+    };
+    delete adjacent_tiles;
+
     return true;
 };

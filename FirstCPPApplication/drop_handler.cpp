@@ -420,22 +420,15 @@ Item* spawnWand()
         dropped_item->repr->setFGColor(TCODColor::lighterGreen, true, false, true);
 
         dropped_item->spell_effect = new LaunchOtherSpell;
-        //health restore
-        // int health = rng->getInt(5, 50, 15);
-        // dropped_item->attr_effect->health_current_val = health;
-        // dropped_item->attr_effect->health_max_val = 1;
     }
-    else if (result == PulsatingHealthSpawn)
+    else if (result == IlluminateWandSpawn)
     {
+        std::string description = "It flickers quickly.";
+        dropped_item = spawnEquippable("A flickering scroll", description, '`', slots_t::NoSlot, 1);
+        // dropped_item->uses = 5;
+        dropped_item->repr->setFGColor(TCODColor::lightAmber, true, false, true);
 
-        std::string description = "It looks like could be safe to drink.";
-        dropped_item = spawnUsable("A pulsating green wand", description, '!', slots_t::NoSlot, 1);
-        dropped_item->repr->setFGColor(TCODColor::lightestGreen, true, false, true);
-
-        //health restore
-        int health = rng->getInt(1, 5, 1);
-        dropped_item->attr_effect->health_regen_rate = health;
-        dropped_item->attr_effect->health_regen_interval = -floor((double)health/2);
+        dropped_item->spell_effect = new IlluminationSpell;
     }
     else
     {

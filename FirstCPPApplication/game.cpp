@@ -106,7 +106,9 @@ int Game::camera_h = Game::view_height;
 int Game::camera_x = 0;
 int Game::camera_y = 0;
 
-int Game::fov_radius = 6;
+const int DEFAULT_FOV_RADIUS = 6;
+
+int Game::fov_radius = DEFAULT_FOV_RADIUS;
 bool Game::buildmode = false;
 int Game::fps_limit= 120; //default
 TCODConsole* Game::game_console = new TCODConsole(Game::map_width, Game::map_height);
@@ -532,6 +534,14 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
+    std::string description = "It flickers quickly.";
+    Item* dropped_item = new Item;
+    dropped_item->equippable = true;
+    dropped_item->uses = 5;
+    dropped_item->repr->setFGColor(TCODColor::lightAmber, true, false, true);
+
+    dropped_item->spell_effect = new IlluminationSpell;
+    player->inventory->add_item(dropped_item);
     // give_player_debug_items(player);
 
 };
@@ -1166,6 +1176,8 @@ void Game::start_game()
 {
     Game::atlas->clear();
     Game::queue_ticks = 0;
+
+    Game::fov_radius = DEFAULT_FOV_RADIUS;
 
     Game::stats->reset_stats();
 
