@@ -423,19 +423,24 @@ ScreenItem SpellScreen::build_screen_item(TCODConsole* con, int i, Spell* elemen
     TCODConsole::setColorControl(TCOD_COLCTRL_4, TCODColor::white, background);
 
     std::stringstream ss;
+
+    //key, element, name
     std::string key = char_to_str(this->key);
     std::string name = colfg(foreground, strip_tcodcolor(element->name));
     std::string letter = colfg(element->get_spell_color(), "s");
+    ss << key << "-" << letter << " " << name << " : ";
+
+    //mana, range
     std::stringstream mana_cost_str;
     mana_cost_str << element->mana_cost;
-    std::string mana_cost = colfg(TCODColor::lightCyan, mana_cost_str.str());
-    std::string range = colfg(TCODColor::white, element->max_range);
+    std::string mana_postfix = element->mana_percentage ? "%% " : " ";
+    mana_cost_str << mana_postfix;
 
-    //key, element, name
-    std::string base_msg_str = "%c-%c%c%c %c%s%c : ";
-    ss << key << "-" << letter << " " << name << " : ";
-    //mana, range
-    ss << mana_cost << " mana, " << range << "rng";
+    TCODColor mana_color = element->mana_type == ManaTypes::ManaManaType ? TCODColor::lightCyan :  TCODColor::lightRed;
+    std::string mana_cost = colfg(mana_color, mana_cost_str.str());
+    std::string mana_string = element->mana_type == ManaTypes::ManaManaType ? "mana" : "hp";
+    std::string range = colfg(TCODColor::white, element->max_range);
+    ss << mana_cost << mana_string << ", " << range << "rng";
 
     //duration
     if (has_duration)
