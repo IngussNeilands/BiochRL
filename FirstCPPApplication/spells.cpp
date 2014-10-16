@@ -19,6 +19,7 @@
 #include "map.h"
 #include <thinker.h>
 #include <helpbox.h>
+#include <enemies/crazedcook.h>
 
 
 Spell::Spell()
@@ -716,6 +717,43 @@ LimbBreaker::LimbBreaker()
     this->required_level = 6;
 };
 
+Tormentor::Tormentor()
+{
+    this->required_level = 8;
+    this->name = "Tormentor";
+    this->element = DeathElement;
+    this->mana_cost = 90;
+
+    // this->attr_effect->damage->normal = 15;
+    // this->attr_effect->duration = 50;
+
+    this->max_range = 2;
+    this->target_type = GroundTargetType;
+
+    this->mana_type = BloodManaType;
+    this->mana_percentage = true;
+};
+
+bool Tormentor::cast(Tile* targetted_tile)
+{
+    if (targetted_tile->is_occupied())
+    {
+        return false;
+    };
+
+    Game::spawn_creature_ally<CrazedCook>(targetted_tile, "Poor Soul", 1000, 'p', Game::current_map);
+
+    this->cast_count += 1;
+    this->spend_mana();
+
+    if (this->master == Game::player)
+    {
+        Game::stats->spells_cast++;
+    };
+
+
+    return true;
+};
 
 /* misc */
 

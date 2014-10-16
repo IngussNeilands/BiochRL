@@ -292,7 +292,7 @@ BloodMageClass::BloodMageClass() : IClass()
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new Venipuncture()));
     this->spell_map->insert(std::make_pair<int, Spell*>(4, new Bonewall()));
     this->spell_map->insert(std::make_pair<int, Spell*>(6, new LimbBreaker()));
-    this->spell_map->insert(std::make_pair<int, Spell*>(8, new InnerStrengthSpell()));
+    this->spell_map->insert(std::make_pair<int, Spell*>(8, new Tormentor()));
 
     this->health_on_lvl = 8;
     this->mana_on_lvl = 0.1;

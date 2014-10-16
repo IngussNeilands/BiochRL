@@ -244,6 +244,7 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, M
     // }
     };
 template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr, Map* world);
+template CrazedCook * Game::spawn_creature_ally<CrazedCook>(Tile* tile, std::string name, int age, char repr, Map* world);
 
 
 
