@@ -14,7 +14,7 @@ enum ClassType
     MageClassType = 3,
     NecromancerClassType = 4,
     BrawlerClassType = 5,
-    BloodMageClassType = 5,
+    BloodMageClassType = 6,
     NoClassType = -1
 };
 
