@@ -1175,7 +1175,13 @@ void Game::start_gods()
 void Game::start_game()
 {
     Game::atlas->clear();
+
     Game::queue_ticks = 0;
+    //empty queue  //TODO actually fix the other enemies existing after a game restart
+    while (!Game::game_queue->empty())
+    {
+        Game::game_queue->pop();
+    };
 
     Game::fov_radius = DEFAULT_FOV_RADIUS;
 
