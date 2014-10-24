@@ -86,7 +86,7 @@ class ClassScreen : public Screen<IClass>
 {
     public:
 
-        ClassScreen() : Screen() { this->title="Choose your class"; };
+        ClassScreen() : Screen() { this->title="Choose your class (can change at any time!)"; };
         ClassScreen::~ClassScreen(){};
 
         virtual bool is_enabled(IClass* element);

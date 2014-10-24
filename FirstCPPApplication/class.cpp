@@ -146,6 +146,7 @@ StalkerClass::StalkerClass() : IClass()
     this->fg_color = TCODColor::darkerSepia;
 
     this->starting_attrs->health->set_vals(25);
+    this->starting_attrs->armor->set_vals(0);
     this->starting_attrs->speed->alter_vals(-75);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new ShadowRunSpell()));
