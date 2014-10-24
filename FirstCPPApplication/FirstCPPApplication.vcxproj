@@ -178,6 +178,7 @@
     <ClInclude Include="enemies\sludge.h" />
     <ClInclude Include="enemies\troll.h" />
     <ClInclude Include="enemies\wildling.h" />
+    <ClInclude Include="enums\attributes_t.h" />
     <ClInclude Include="enums\elements_t.h" />
     <ClInclude Include="enums\gamestate.h" />
     <ClInclude Include="enums\hunger_threshold.h" />

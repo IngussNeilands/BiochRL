@@ -272,6 +272,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
         int dodge_chance = 15;
         int dodge_result = rng->get(0, 100);
 
+
         if (dodge_result < dodge_chance) 
         {
             new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, colfg(TCODColor::lightAmber, this->master->name+" dodged the attack!."));
@@ -294,6 +295,13 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
         };
 
         this->master->attrs->health->current_val -= std::max(adjusted_dmg, 1);
+        if (this->master == Game::player)
+        {
+            if (adjusted_dmg > 15)
+            {
+                printf("what the f?\n");
+			};
+        };
 
         std::cout << this->master->name;
         std::cout << " took " << adjusted_dmg << " damage! ";

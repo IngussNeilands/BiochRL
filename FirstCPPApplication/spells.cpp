@@ -30,6 +30,8 @@ Spell::Spell()
     this->mana_type = ManaManaType;
     this->mana_percentage = false;
 
+    this->buff_damage = false;
+
 
     this->turn_cooldown = 1;
     this->max_range = 7;
@@ -223,8 +225,16 @@ bool Spell::cast(Tile* targetted_tile)
 
 void Spell::apply_attr_effects(Actor* target)
 {
-    this->attr_effect->ApplyAllEffects(target);
-    if (target->combat != NULL)
+    std::vector<attribute_types_t>* exceptions = NULL;
+    if (this->buff_damage != true)
+    {
+        exceptions = new std::vector<attribute_types_t>();
+        exceptions->push_back(DamageAttrType);
+    };
+    this->attr_effect->ApplyAllEffects(target, exceptions);
+	if (exceptions != NULL) { delete exceptions; }
+
+    if (target->combat != NULL && !this->buff_damage)
     {
         this->master->combat->attack(target->combat, this->attr_effect->damage);
     };
@@ -418,7 +428,6 @@ RaiseDeadSpell::RaiseDeadSpell() : Spell()
     this->required_level = 6;
     this->name = "Raise the dead";
     this->element = DeathElement;
-    // this->attr_effect->damage->normal = 25;
     this->mana_cost = 20;
     this->max_range = 5;
     this->target_type = GroundTargetType;
@@ -518,6 +527,7 @@ InnerStrengthSpell::InnerStrengthSpell() : Spell()
     this->required_level = 8;
     this->name = "Inner Strength";
     this->element = DeathElement;
+    this->buff_damage = true;
     this->attr_effect->damage->normal = 15;
     this->mana_cost = 20;
     this->max_range = 1;
@@ -651,6 +661,7 @@ Venipuncture::Venipuncture()
     this->element = LifeElement;
     this->mana_cost = 50;
 
+    this->buff_damage = true;
     this->attr_effect->damage->normal = 15;
     this->attr_effect->duration = 50;
 

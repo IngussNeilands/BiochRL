@@ -8,6 +8,7 @@
 #include "libtcod.hpp"
 #include "combat.h"
 #include <enums/elements_t.h>
+#include <enums/attributes_t.h>
 
 bool TimedEffect::is_expired(long double turn_count)
 {
@@ -430,14 +431,44 @@ void AttrEffect::mark_applied_all(Actor* actor)
 };
 
 
-void AttrEffect::ApplyAllEffects(Actor* actor)
+void AttrEffect::ApplyAllEffects(Actor* actor, std::vector<attribute_types_t>* exceptions)
 {
+    if (exceptions == NULL)
+    {
     this->ApplyHealthEffects(actor);
     this->ApplyManaEffects(actor);
     this->ApplyArmorEffects(actor);
     this->ApplyDamageEffects(actor);
     this->ApplyHungerEffects(actor);
     this->ApplySpeedEffects(actor);
+    }
+    else
+    {
+        if ( std::find(exceptions->begin(), exceptions->end(), attribute_types_t::HealthAttrType)==exceptions->end())
+        {
+            this->ApplyHealthEffects(actor);
+        };
+        if ( std::find(exceptions->begin(), exceptions->end(), attribute_types_t::ManaAttrType)==exceptions->end())
+        {
+            this->ApplyManaEffects(actor);
+        };
+        if ( std::find(exceptions->begin(), exceptions->end(), attribute_types_t::ArmorAttrType)==exceptions->end())
+        {
+            this->ApplyArmorEffects(actor);
+        };
+        if ( std::find(exceptions->begin(), exceptions->end(), attribute_types_t::DamageAttrType)==exceptions->end())
+        {
+            this->ApplyDamageEffects(actor);
+        };
+        if ( std::find(exceptions->begin(), exceptions->end(), attribute_types_t::HungerAttrType)==exceptions->end())
+        {
+            this->ApplyHungerEffects(actor);
+        };
+        if ( std::find(exceptions->begin(), exceptions->end(), attribute_types_t::SpeedAttrType)==exceptions->end())
+        {
+            this->ApplySpeedEffects(actor);
+        };
+    };
     if (actor->combat!= NULL)
         actor->combat->try_to_die();
     else

@@ -398,6 +398,9 @@
     <ClInclude Include="gods.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="enums\attributes_t.h">
+      <Filter>Header Files\Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

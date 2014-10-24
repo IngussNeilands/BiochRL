@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <iostream>
+#include <enums/attributes_t.h>
 
 const int NO_DURATION = -1;
 
@@ -18,12 +19,6 @@ class Item;
 class Attribute;
 class Damage;
 class Armor;
-
-#include "libtcod_cpp_hpp\libtcod.hpp"
-
-
-// class TCODColor;
-// extern class TCOD_colctrl_t;
 
 struct type_applied_s 
 {
@@ -100,7 +95,7 @@ class AttrEffect
         AttrEffect();
         ~AttrEffect();
 
-        void ApplyAllEffects(Actor* actor);
+        void ApplyAllEffects(Actor* actor, std::vector<attribute_types_t>* exceptions = NULL);
         void ApplyHealthEffects(Actor* actor);
         void ApplyManaEffects(Actor* actor);
         void ApplyArmorEffects(Actor* actor);

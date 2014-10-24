@@ -39,6 +39,8 @@ class Spell
 
         elements_t element;
 
+        bool buff_damage;
+
         int required_level;
 
         int turn_cooldown;
