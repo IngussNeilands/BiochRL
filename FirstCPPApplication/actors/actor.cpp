@@ -433,19 +433,19 @@ void Actor::die()
     if (this == (Actor*)Game::player)
     {
         TCODSystem::setFps(0);
+        printf("YOU'RE DEAD GIVE UP\n");
         for (int fade=255*multiplier; fade >= 0; fade --) {
             if (fade % multiplier == 0)
             {
                 TCODConsole::setFade(fade/multiplier, TCODColor::red);
                 TCODConsole::flush();
-                printf("YOU'RE DEAD GIVE UP\n");
             };
         }
         TCODConsole::setFade(255, TCODColor::red);
 
         Ui::msg_handler_main->msg_list.clear();
-		Message* msg = new Message;
-		msg->content = "Care to try again?";
+        Message* msg = new Message;
+        msg->content = "Care to try again?";
         msg->turn = 1;
         Ui::msg_handler_main->msg_list.push_back(msg);
 
