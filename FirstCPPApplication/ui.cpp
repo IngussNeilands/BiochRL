@@ -487,12 +487,10 @@ void Ui::draw_misc()
             if (Ui::targetted_tile != NULL)
             {
                 int x = Game::player->x, y = Game::player->y;
-                printf("targetted_tile is good\n");
                 Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
             }
             else
             {
-                printf("targetted_tile is null\n");
             };
         }
     }

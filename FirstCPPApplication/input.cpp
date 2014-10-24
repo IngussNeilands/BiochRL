@@ -507,7 +507,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
     {
         Ui::toggle_targetting();
         Ui::targetted_tile = Game::player->my_tile;
-        return true;
+        return false;
     }
 
     else if ( basic_cmd == basic_cmds_t::Activate )
@@ -647,9 +647,17 @@ bool Input::process_basic_keys(TCOD_key_t request)
 
         if (Ui::is_targetting) 
         {
-            int max_range = ((Spell*)Ui::chosen_generic)->max_range;
+            int max_range;
+			if (Ui::chosen_generic != NULL)
+			{
+				max_range = ((Spell*)Ui::chosen_generic)->max_range;
+			}
+			else
+			{
+				max_range = Game::fov_radius;
+			}
             actor_vec_t targets;
-            Tile* mouse_tile = Game::get_mouse_tile();
+            Tile* mouse_tile = Ui::targetted_tile;
             for (int i = 0; i < max_range; i++) {
                 auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
                 for (auto it = pts.begin(); it != pts.end(); it++)
@@ -689,8 +697,15 @@ bool Input::process_basic_keys(TCOD_key_t request)
         Game::targetting_index--;
         if (Ui::is_targetting) 
         {
-
-            int max_range = ((Spell*)Ui::chosen_generic)->max_range;
+            int max_range;
+			if (Ui::chosen_generic != NULL)
+			{
+				max_range = ((Spell*)Ui::chosen_generic)->max_range;
+			}
+			else
+			{
+				max_range = Game::fov_radius;
+			}
             actor_vec_t targets;
             Tile* mouse_tile = Game::get_mouse_tile();
             for (int i = 0; i < max_range; i++) {
