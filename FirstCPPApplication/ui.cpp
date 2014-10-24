@@ -27,7 +27,6 @@
 #include "screen.h"
 #include "helpbox.h"
 #include "thinker.h"
-#include "helpbox.h"
 #include <background_info.h>
 #include "gods.h"
 
@@ -317,9 +316,16 @@ void Ui::draw_ui_sidebar()
 
     if (Ui::is_targetting)
     {
+		if (Ui::chosen_generic != NULL)
+		{
         ui_sidebar_con->print(0, first_y, "SPL:");
         Spell* spell = static_cast<Spell*>(Ui::chosen_generic);
         ui_sidebar_con->print(5, first_y++, "%s", colfg(spell->get_spell_color(), spell->name).c_str());
+		}
+		else
+		{
+			ui_sidebar_con->print(0, first_y, "Looking");
+		}
     };
 
     //facing direction
@@ -330,6 +336,10 @@ void Ui::draw_ui_sidebar()
     {
         TCODMouse::showCursor(true);
         Ui::draw_status_helpbox(ui_sidebar_con, Game::get_mouse_tile(), first_y);
+    }
+    else if (Ui::is_targetting && Ui::targetted_tile != NULL)
+    {
+        Ui::draw_status_helpbox(ui_sidebar_con, Ui::targetted_tile, first_y);
     }
     else if (Ui::should_draw_attacker_helpbox())
     {
@@ -418,7 +428,10 @@ void Ui::draw_targetting(Tile* target_tile, int sx, int sy, int dx, int dy)
     else
     {
         // line_color = TCODColor::grey;
+        Game::game_console->setChar(dx, dy, 'o');
     }
+
+	if (Ui::chosen_generic == NULL) { return; }
 
     Spell* spell = (Spell*)Ui::chosen_generic;
     int distance = get_euclidean_distance(sx, sy, dx, dy);
@@ -471,8 +484,16 @@ void Ui::draw_misc()
         else if (!use_mouse)
         {
             Tile* mouse_tile = Ui::targetted_tile;
-            int x = Game::player->x, y = Game::player->y;
-            Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
+            if (Ui::targetted_tile != NULL)
+            {
+                int x = Game::player->x, y = Game::player->y;
+                printf("targetted_tile is good\n");
+                Ui::draw_targetting(mouse_tile, x, y, mouse_tile->tile_x, mouse_tile->tile_y);
+            }
+            else
+            {
+                printf("targetted_tile is null\n");
+            };
         }
     }
 

@@ -184,6 +184,7 @@ std::map<char, basic_cmds_t> Input::build_char_main_keymap()
     char_movemap['p'] = basic_cmds_t::OpenClassSelect;
     char_movemap['`'] = basic_cmds_t::ListCustomKeys;
     char_movemap['_'] = basic_cmds_t::Pray;
+    char_movemap['l'] = basic_cmds_t::Look;
 
     return char_movemap;
 };
@@ -499,6 +500,13 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::Pray )
     {
         Game::augustine->pray_to(Game::player);
+        return true;
+    }
+
+    else if ( basic_cmd == basic_cmds_t::Look )
+    {
+        Ui::toggle_targetting();
+        Ui::targetted_tile = Game::player->my_tile;
         return true;
     }
 
