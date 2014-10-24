@@ -67,8 +67,8 @@
 
 
 int Game::__version_major = 0;
-int Game::__version_minor = 14;
-int Game::__version_mini = 2;
+int Game::__version_minor = 15;
+int Game::__version_mini = 1;
 
 std::vector<std::string*>* Game::menu_choices = new std::vector<std::string*>();
 std::map<background_types_t, menuitem_vec_t*>* Game::menuitem_choices = new std::map<background_types_t, menuitem_vec_t*>();
