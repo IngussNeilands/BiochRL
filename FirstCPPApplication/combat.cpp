@@ -170,7 +170,13 @@ void Combat::attack(Combat* combat_target, Damage* dmg)
         return;
     }
 
-    new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, "%s attacks %s for %d damage.", this->master->name.c_str(), combat_target->master->name.c_str(), dmg->get_raw_total());
+    std::stringstream ss;
+    std::string sneak_msg  = this->master->is_sneaking ? " sneak" : "";
+    ss << this->master->name.c_str();
+    ss << sneak_msg << " attacks " << combat_target->master->name.c_str();
+    ss << " for " << dmg->get_raw_total() << ".";
+
+    new Message(Ui::msg_handler_main, message_types_t::DAMAGE_GIVEN_MSG, ss.str().c_str());
     combat_target->take_damage(this, dmg);
     this->last_victim = combat_target->master;
 
@@ -280,6 +286,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
         {
             adjusted_dmg *= 1.6;
         };
+
         if (this->master->is_defending)
         {
             adjusted_dmg = adjusted_dmg - this->master->attrs->armor->current_val; // effectively double armor
