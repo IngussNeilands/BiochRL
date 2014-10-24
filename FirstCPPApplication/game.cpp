@@ -1242,15 +1242,15 @@ void Game::init_game()
     TCOD_renderer_t renderer = TCODSystem::getRenderer();
     if (renderer == TCOD_renderer_t::TCOD_RENDERER_GLSL)
     {
-        printf("Using GLSL renderer");
+        printf("Using GLSL renderer\n");
     }
     else if (renderer == TCOD_renderer_t::TCOD_RENDERER_OPENGL)
     {
-        printf("Using OpenGL renderer");
+        printf("Using OpenGL renderer\n");
     }
     else if (renderer == TCOD_renderer_t::TCOD_RENDERER_SDL)
     {
-        printf("Using SDL renderer");
+        printf("Using SDL renderer\n");
     }
     // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_SDL); //default
     // TCODSystem::setRenderer(TCOD_renderer_t::TCOD_RENDERER_OPENGL); //risky, could be really fast or really slow
@@ -1272,6 +1272,7 @@ void Game::init_game()
     TCODConsole::flush();
 
     //music
+    Game::init_music();
     play_music();
 
     Game::mainloop();
@@ -1294,19 +1295,36 @@ void Game::init_engine()
 
 void load_music_random()
 {
+
     TCODRandom* rng = TCODRandom::getInstance();
-    int result = rng->getInt(1, 2);
+	TCODList<const char*> files = TCODSystem::getDirectoryContent(get_data_path().c_str(), "lvl*.wav");
+	// printf("files %d\n", files.size());
+	// for (int i = 0; i < files.size(); i++)
+	// {
+	// 	printf("%s\n", files.get(i));
+	// }
+
+    //print rng results
+    // int arr[3];
+    // arr[0] = 0;
+    // arr[1] = 0;
+    // arr[2] = 0;
+    int result = rng->getInt(1, files.size());
     // for (int i = 0; i < 10; i++)
     // {
+    //     arr[result]++;
     //     std::cout << result << std::endl;
-    //     result = rng->getInt(1, 2);
+    //     result = rng->getInt(1, files.size());
     // };
+    // printf("%d %d<- results\n", arr[1], arr[2]);
+
     std::stringstream ss;
     ss << "lvl" << result << ".wav";
     std::cout << ss.str() << std::endl;
     std::string path = std::string(get_data_path()+ss.str());
 
-    Mix_Music *music = Mix_LoadMUS(path.c_str());
+    Mix_Music *music = NULL;
+    music = Mix_LoadMUS(path.c_str());
     if (music == NULL) 
     {
         std::cout << "Could not load lvl" << result << ".wav, not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
@@ -1316,21 +1334,24 @@ void load_music_random()
     }
     else if (music != NULL) 
     {
+        printf("playing music\n");
         // parser to read file settings. 
         Parser* parser = new Parser();
         float percent = parser->get_music_volume();
+        Mix_FadeInMusic(music, 1, 1000);
         float volume = MIX_MAX_VOLUME*percent;
         Mix_VolumeMusic(volume);
         delete parser;
 
         Mix_HookMusicFinished(load_music_random);
+        std::cout << std::endl;
+        std::cout << Mix_GetError();
+        std::cout << std::endl;
     };
 };
 
-void Game::play_music()
+void Game::init_music()
 {
-    /* http://stackoverflow.com/questions/17472514/no-sound-with-sdl-mixer */
-
     Mix_Music *music = NULL;
     Mix_Chunk *wave = NULL;
 
@@ -1345,33 +1366,11 @@ void Game::play_music()
         printf("Unable to open audio!\n");
         exit(1);
     }
+};
 
-    // load_music_random();
-    music = Mix_LoadMUS(std::string(get_data_path()+"lvl1.wav").c_str());
-    if (music == NULL) 
-    {
-        std::cout << "Could not load lvl1.wav, not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
-        std::cout << Mix_GetError();
-        SDL_ClearError();
-        std::cout << "stopping music playback" << std::endl;
-    }
-    else if (music != NULL) 
-    {
-        //parser to read file settings. currently only music
-        Parser* parser = new Parser();
-
-        bool should_enable = parser->get_enable_music();
-        if (should_enable)
-        {
-            Mix_FadeInMusic(music, -1, 1000);
-            float percent = parser->get_music_volume();
-            float volume = MIX_MAX_VOLUME*percent;
-            Mix_VolumeMusic(volume);
-        }
-        delete parser;
-        Mix_HookMusicFinished(load_music_random);
-    };
-
+void Game::play_music()
+{
+    load_music_random();
 
     std::cout << std::endl;
     std::cout << Mix_GetError();

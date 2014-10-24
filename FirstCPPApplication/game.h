@@ -167,6 +167,7 @@ class Game
         template<class T>
             static T* spawn_creature_ally(Tile* tile, std::string name, int age, char repr, Map* world);
 
+        static void init_music();
         static void play_music();
 
         static void init_game();

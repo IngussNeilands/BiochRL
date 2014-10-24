@@ -357,12 +357,13 @@ directions_t Input::direction_pressed(TCOD_key_t key)
 actor_vec_t* Input::get_actors_around_tile(Tile* tile, int max_range)
 {
     actor_vec_t* targets = new actor_vec_t();
+    int x, y;
     for (int i = 0; i < max_range; i++) {
         auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
         for (auto it = pts.begin(); it != pts.end(); it++)
         {
-            int x = it->at(0);
-            int y = it->at(1);
+            x = it->at(0);
+            y = it->at(1);
             Tile* tile = Game::current_map->getTileAt(x, y);
             if ( tile->is_occupied())
             {
@@ -667,9 +668,9 @@ bool Input::process_basic_keys(TCOD_key_t request)
     }
     else if ( basic_cmd == basic_cmds_t::NextTarget )
     {
-        Game::targetting_index++;
         if (Ui::is_targetting) 
         {
+            Game::targetting_index++;
             int max_range;
             if (Ui::chosen_generic != NULL)
             {
@@ -704,9 +705,9 @@ bool Input::process_basic_keys(TCOD_key_t request)
     }
     else if ( basic_cmd == basic_cmds_t::PrevTarget )
     {
-        Game::targetting_index--;
         if (Ui::is_targetting) 
         {
+            Game::targetting_index--;
             int max_range;
             if (Ui::chosen_generic != NULL)
             {
@@ -728,6 +729,7 @@ bool Input::process_basic_keys(TCOD_key_t request)
                 if (targets->size() != 0)
                 {
                     Ui::targetted_tile = targets->back()->my_tile;
+                    Game::targetting_index = 0;
                 }
                 else
                 {
