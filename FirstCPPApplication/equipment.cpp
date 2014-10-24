@@ -72,8 +72,8 @@ void Slot::remove_attr_effect()
 
         this->equipped_item->attr_effect->RemoveHealthEffects(master);
         this->equipped_item->attr_effect->RemoveManaEffects(master);
-        this->equipped_item->attr_effect->RemoveArmorEffects(master);
-        this->equipped_item->attr_effect->RemoveDamageEffects(master);
+        //this->equipped_item->attr_effect->RemoveArmorEffects(master);
+        //this->equipped_item->attr_effect->RemoveDamageEffects(master);
         this->equipped_item->attr_effect->unmark_applied_all(master);
 
     }
@@ -91,8 +91,8 @@ void Slot::apply_attr_effect()
         //apply appropriate health mana damage armor changes
         this->equipped_item->attr_effect->ApplyHealthEffects(master);
         this->equipped_item->attr_effect->ApplyManaEffects(master);
-        this->equipped_item->attr_effect->ApplyArmorEffects(master);
-        this->equipped_item->attr_effect->ApplyDamageEffects(master);
+        //this->equipped_item->attr_effect->ApplyArmorEffects(master);
+        //this->equipped_item->attr_effect->ApplyDamageEffects(master);
     }
 
     //TODO TODO TODO

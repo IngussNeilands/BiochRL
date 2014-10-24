@@ -628,7 +628,11 @@ Person*  Game::initialize_player()
     {
         IClass* cls = *it;
         if (cls->type == chosen_type)
+        {
             player->actor_class = cls;
+            player->actor_class->master = Game::player;
+            player->actor_class->apply_starting_stats();
+        };
     };
     player->representation->setFGColor(player->actor_class->fg_color, true, true, true);
     player->actor_class->master = player;

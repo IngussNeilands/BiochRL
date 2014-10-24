@@ -58,7 +58,7 @@ Damage* AttributeContainer::get_effective_damage()
 		result = new Damage();
 	}
 
-    result->normal = initial_damage;
+    result->normal += initial_damage;
 	return result;
 };
 
