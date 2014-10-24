@@ -44,6 +44,7 @@ class Input
 
         static bool move_player_or_target(int x, int y);
         static bool move_target(int x, int y);
+        static actor_vec_t* get_actors_around_tile(Tile* tile, int max_range);
 
         static std::map<int, directions_t> spec_movement_keymap; //Keypad, punctuation
         static std::map<char, directions_t> char_movement_keymap; //regular letters

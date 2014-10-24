@@ -41,7 +41,11 @@ std::vector<std::array<int, 2>> points_around_circle(double radius, double cente
         arr[0] = x;
         arr[1] = y;
         result.push_back(arr);
+        // Game::game_console->print(x, y, "X");
+        // TCODConsole::root->print(x, y, "r");
     };
+        // Game::game_console->print(center_x, center_y, "z");
+		// TCODConsole::flush();
 
     std::sort(result.begin(), result.end());
     auto last_it = std::unique(result.begin(), result.end());

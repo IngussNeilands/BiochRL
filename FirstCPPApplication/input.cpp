@@ -354,6 +354,30 @@ directions_t Input::direction_pressed(TCOD_key_t key)
             directions_t::NO_MATCHING_DIRECTION);
 };
 
+actor_vec_t* Input::get_actors_around_tile(Tile* tile, int max_range)
+{
+    actor_vec_t* targets = new actor_vec_t();
+    for (int i = 0; i < max_range; i++) {
+        auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
+        for (auto it = pts.begin(); it != pts.end(); it++)
+        {
+            int x = it->at(0);
+            int y = it->at(1);
+            Tile* tile = Game::current_map->getTileAt(x, y);
+            if ( tile->is_occupied())
+            {
+                if (Game::player->is_actor_in_sight(tile->occupant))
+                {
+                    targets->push_back(tile->occupant);
+                };
+            }
+
+        }
+    };
+
+    return targets;
+};
+
 bool Input::process_basic_keys(TCOD_key_t request)
 {
     basic_cmds_t basic_cmd = Input::basic_cmd_pressed(request);
@@ -644,52 +668,38 @@ bool Input::process_basic_keys(TCOD_key_t request)
     else if ( basic_cmd == basic_cmds_t::NextTarget )
     {
         Game::targetting_index++;
-
         if (Ui::is_targetting) 
         {
             int max_range;
-			if (Ui::chosen_generic != NULL)
-			{
-				max_range = ((Spell*)Ui::chosen_generic)->max_range;
-			}
-			else
-			{
-				max_range = Game::fov_radius;
-			}
-            actor_vec_t targets;
-            Tile* mouse_tile = Ui::targetted_tile;
-            for (int i = 0; i < max_range; i++) {
-                auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
-                for (auto it = pts.begin(); it != pts.end(); it++)
-                {
-                    int x = it->at(0);
-                    int y = it->at(1);
-                    Tile* tile = Game::current_map->getTileAt(x, y);
-                    if ( tile->is_occupied() )
-                    {
-                        targets.push_back(tile->occupant);
-                    }
-
-                }
-            };
-
-            // printf("%d\n", Game::targetting_index);
-            if ( Game::targetting_index < targets.size())
+            if (Ui::chosen_generic != NULL)
             {
-
-                Ui::targetted_tile = targets.at(Game::targetting_index)->my_tile;
+                max_range = ((Spell*)Ui::chosen_generic)->max_range;
             }
             else
             {
-                if (targets.size() != 0)
+                max_range = Game::fov_radius;
+            }
+            Tile* mouse_tile = Ui::targetted_tile;
+            actor_vec_t* targets = Input::get_actors_around_tile(mouse_tile, max_range);
+            // printf("%d\n", Game::targetting_index);
+            if ( Game::targetting_index < targets->size())
+            {
+
+                Ui::targetted_tile = targets->at(Game::targetting_index)->my_tile;
+            }
+            else
+            {
+                if (targets->size() != 0)
                 {
-                    Ui::targetted_tile = targets.back()->my_tile;
+                    Ui::targetted_tile = targets->back()->my_tile;
+                    Game::targetting_index = 0;
                 }
                 else
                 {
                     Ui::targetted_tile = Game::player->my_tile;
                 }
             }
+            delete targets;
         }
     }
     else if ( basic_cmd == basic_cmds_t::PrevTarget )
@@ -698,50 +708,33 @@ bool Input::process_basic_keys(TCOD_key_t request)
         if (Ui::is_targetting) 
         {
             int max_range;
-			if (Ui::chosen_generic != NULL)
-			{
-				max_range = ((Spell*)Ui::chosen_generic)->max_range;
-			}
-			else
-			{
-				max_range = Game::fov_radius;
-			}
-            actor_vec_t targets;
-            Tile* mouse_tile = Game::get_mouse_tile();
-            for (int i = 0; i < max_range; i++) {
-                auto pts = points_around_circle(i, Game::player->my_tile->tile_x, Game::player->my_tile->tile_y);
-                for (auto it = pts.begin(); it != pts.end(); it++)
-                {
-                    int x = it->at(0);
-                    int y = it->at(1);
-                    Tile* tile = Game::current_map->getTileAt(x, y);
-                    if ( tile->is_occupied())
-                    {
-                        if (Game::player->is_actor_in_sight(tile->occupant))
-                        {
-                            targets.push_back(tile->occupant);
-                        };
-                    }
-
-                }
-            };
-            // printf("%d\n", Game::targetting_index);
-            if ( Game::targetting_index < targets.size())
+            if (Ui::chosen_generic != NULL)
             {
-
-                Ui::targetted_tile = targets.at(Game::targetting_index)->my_tile;
+                max_range = ((Spell*)Ui::chosen_generic)->max_range;
             }
             else
             {
-                if (targets.size() != 0)
+                max_range = Game::fov_radius;
+            }
+            Tile* mouse_tile = Ui::targetted_tile;
+            actor_vec_t* targets = Input::get_actors_around_tile(mouse_tile, max_range);
+            // printf("%d\n", Game::targetting_index);
+            if ( Game::targetting_index < targets->size())
+            {
+                Ui::targetted_tile = targets->at(Game::targetting_index)->my_tile;
+            }
+            else
+            {
+                if (targets->size() != 0)
                 {
-                    Ui::targetted_tile = targets.back()->my_tile;
+                    Ui::targetted_tile = targets->back()->my_tile;
                 }
                 else
                 {
                     Ui::targetted_tile = Game::player->my_tile;
                 }
             }
+            delete targets;
         }
     }
     else if ( basic_cmd == basic_cmds_t::ToggleSneaking)
