@@ -1296,27 +1296,17 @@ void Game::init_engine()
 void load_music_random()
 {
 
+    Parser* parser = new Parser();
+    bool should_enable = parser->get_enable_music();
+    if (!should_enable)
+    {
+        delete parser;
+        return;
+    }
+
     TCODRandom* rng = TCODRandom::getInstance();
 	TCODList<const char*> files = TCODSystem::getDirectoryContent(get_data_path().c_str(), "lvl*.wav");
-	// printf("files %d\n", files.size());
-	// for (int i = 0; i < files.size(); i++)
-	// {
-	// 	printf("%s\n", files.get(i));
-	// }
-
-    //print rng results
-    // int arr[3];
-    // arr[0] = 0;
-    // arr[1] = 0;
-    // arr[2] = 0;
     int result = rng->getInt(1, files.size());
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     arr[result]++;
-    //     std::cout << result << std::endl;
-    //     result = rng->getInt(1, files.size());
-    // };
-    // printf("%d %d<- results\n", arr[1], arr[2]);
 
     std::stringstream ss;
     ss << "lvl" << result << ".wav";
@@ -1336,18 +1326,17 @@ void load_music_random()
     {
         printf("playing music\n");
         // parser to read file settings. 
-        Parser* parser = new Parser();
         float percent = parser->get_music_volume();
         Mix_FadeInMusic(music, 1, 1000);
         float volume = MIX_MAX_VOLUME*percent;
         Mix_VolumeMusic(volume);
-        delete parser;
 
         Mix_HookMusicFinished(load_music_random);
         std::cout << std::endl;
         std::cout << Mix_GetError();
         std::cout << std::endl;
     };
+    delete parser;
 };
 
 void Game::init_music()
