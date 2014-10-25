@@ -102,12 +102,15 @@ void Combat::level_up(int levels)
         //log(lvl * 10) * 100
         // this->master->xp_required_to_lvlup = std::floor(std::log(this->master->level *10.0f) * 100.0f);
 
-        //((x*10)^(x*10)/200))*100
-        float level = this->master->level;
-        float lvl10 = level*10;
-        double result = std::pow((double)(lvl10),(double)(lvl10)/200)*100;
+        double level = this->master->level;
+        double lvl10 = level*10;
+        // //((x*10)^(x*10)/200))*100
+        // double result = std::pow((lvl10),(lvl10)/200)*100;
+
+        // log(x^x)*(x*100)+200
+        double result = std::log(std::pow(level, level)) * (level*100) + 200;
         this->master->xp_required_to_lvlup = std::floor(result);
-        this->master->xp_this_level = this->master->xp_this_level - this->master->xp_required_to_lvlup; 
+        this->master->xp_this_level = std::max((double)this->master->xp_this_level - this->master->xp_required_to_lvlup, 0.0); 
 
         this->level_up_stats(1);
         this->level_up_skills(1);

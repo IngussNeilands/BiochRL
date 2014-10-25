@@ -41,7 +41,7 @@ Person::Person(std::string name, int age, int x, int y, char repr)
 
     this->xp = 0;
     this->xp_this_level = 0;
-    this->xp_required_to_lvlup = 100;
+    this->xp_required_to_lvlup = 200;
     this->xp_value = 10;
     this->level = 1;
 
