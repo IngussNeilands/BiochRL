@@ -34,11 +34,6 @@ Person::Person(std::string name, int age, int x, int y, char repr)
 
     this->img_path = get_data_path()+"img/townsmen8x8.png";
 
-    //   if (name == "Josh")
-    //{
-    //   new Message(Ui::msg_handler_main, NOTYPE_MSG, "Creating the Josh player.");
-    //}
-
     this->xp = 0;
     this->xp_this_level = 0;
     this->xp_required_to_lvlup = 200;
@@ -225,7 +220,13 @@ void Person::attack(Actor * target)
 
 void Person::championize()
 {
-    this->name = "Champion "+this->name;
+    RandomWeightMap<std::string> prefix_rwm = RandomWeightMap<std::string>();
+    prefix_rwm.add_item("Champion", 10);
+    prefix_rwm.add_item("Heroic", 10);
+    prefix_rwm.add_item("Legendary", 10);
+
+    std::string prefix = prefix_rwm.get_item(Game::spawning_rng);
+    this->name = prefix+" "+this->name;
     this->is_champion = true;
 }
 
