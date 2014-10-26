@@ -8,7 +8,5 @@ class SpinyLizard : public Person
     public:
         SpinyLizard(std::string name, int age, int x, int y, char repr);
         static const int SpinyLizard::pack_size = 10;
-        void championize();
-        void die() ;
 };
 #endif

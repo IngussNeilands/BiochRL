@@ -60,17 +60,3 @@ SpinyLizard::SpinyLizard(std::string name, int age, int x, int y, char repr) : P
     this->attrs->damage->current_val = 3;
 
 };
-
-void SpinyLizard::championize()
-{
-    Person::championize();
-    this->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
-    this->attrs->health->current_val+=this->attrs->health->current_val;
-    this->attrs->health->max_val+=this->attrs->health->max_val;
-    this->xp_value= (int)floor(this->xp_value*1.5);
-}
-
-void SpinyLizard::die() 
-{
-    Actor::die();
-};

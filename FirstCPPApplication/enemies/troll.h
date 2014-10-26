@@ -8,8 +8,6 @@ class Troll : public Person
     public:
         Troll(std::string name, int age, int x, int y, char repr);
         static const int Troll::pack_size = 5;
-        void championize();
-        void die() ;
 };
 
 #endif

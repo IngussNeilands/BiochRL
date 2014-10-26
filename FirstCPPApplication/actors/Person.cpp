@@ -228,6 +228,10 @@ void Person::championize()
     std::string prefix = prefix_rwm.get_item(Game::spawning_rng);
     this->name = prefix+" "+this->name;
     this->is_champion = true;
+    this->representation->setFGColor(TCODColor::white - (*this->representation->fg_color), true, false, true);
+    this->attrs->health->current_val+=this->attrs->health->current_val;
+    this->attrs->health->max_val+=this->attrs->health->max_val;
+    this->xp_value= (int)floor(this->xp_value*1.5);
 }
 
 std::string Person::talk_wrap(Actor* target, std::string text)

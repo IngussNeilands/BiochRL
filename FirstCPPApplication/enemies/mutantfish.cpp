@@ -62,17 +62,3 @@ MutantFish::MutantFish(std::string name, int age, int x, int y, char repr) : Per
     this->attrs->damage->current_val = 8;
 
 };
-
-void MutantFish::championize()
-{
-    Person::championize();
-    this->representation->setFGColor(TCODColor::green+TCODColor::green+TCODColor::darkYellow, true, false, true);
-    this->attrs->health->current_val+=this->attrs->health->current_val;
-    this->attrs->health->max_val+=this->attrs->health->max_val;
-    this->xp_value= (int)floor(this->xp_value*1.5);
-}
-
-void MutantFish::die() 
-{
-    Actor::die();
-};

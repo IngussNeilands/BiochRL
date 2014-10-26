@@ -60,14 +60,3 @@ Ogre::Ogre(std::string name, int age, int x, int y, char repr) : Person(name, ag
     this->attrs->armor->max_val = 6;
     this->attrs->armor->current_val = 6;
 };
-
-void Ogre::championize()
-{
-    Person::championize();
-    this->representation->setFGColor(TCODColor::white*(TCODColor::darkGrey-TCODColor::darkYellow), true, false, true);
-    this->attrs->health->current_val+=this->attrs->health->current_val;
-    this->attrs->health->max_val+=this->attrs->health->max_val;
-    this->attrs->damage->current_val+=this->attrs->damage->current_val;
-    this->attrs->damage->max_val+=this->attrs->damage->max_val;
-    this->xp_value= (int)std::floor(this->xp_value*1.5);
-}

@@ -487,6 +487,7 @@ void Game::move_camera(int dir_x, int dir_y)
         };
     };
 };
+
 //creates a bunch of items on the map
 void  Game::initialize_items()
 {

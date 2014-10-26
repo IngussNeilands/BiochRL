@@ -9,7 +9,6 @@ class Ogre : public Person
         Ogre(std::string name, int age, int x, int y, char repr);
         static const int pack_size = 4;
         static const int preferred_pack_size = 2;
-        void championize();
 };
 
 #endif
