@@ -501,6 +501,17 @@ void  Game::initialize_items()
     player->inventory->add_item(dagger);
     player->equipment->equip_item(dagger);
 
+    // Item* offhand_test = new Item();
+    // offhand_test->name = "OFFHAND";
+    // offhand_test->repr->repr = '/';
+    // offhand_test->description = "You hid this in your other hand";
+    // offhand_test->attr_effect->set_all_vals_to(0);
+    // offhand_test->attr_effect->damage->normal =  99;
+    // offhand_test->slot_type= OffHand;
+    // offhand_test->equippable = true;
+    // player->inventory->add_item(offhand_test);
+    // player->equipment->equip_item(offhand_test);
+
     Item* amulet = new Item();
     amulet->name = "Bent Amulet";
     amulet->repr->repr = '&';

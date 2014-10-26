@@ -61,6 +61,8 @@ class Damage
 
         Damage();
 
+        Damage operator+(const Damage& other);
+
         int get_raw_total();
 
 };

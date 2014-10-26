@@ -350,6 +350,21 @@ Damage::Damage()
     this->spectre = 0;
 };
 
+Damage Damage::operator+(const Damage& other)
+{
+    Damage result = Damage(*this);
+
+    result.normal+=other.normal;
+    result.fire+=other.fire;
+    result.water+=other.water;
+    result.death+=other.death;
+    result.life+=other.life;
+    result.crystal+=other.crystal;
+    result.spectre+=other.spectre;
+
+    return result;
+};
+
 int Damage::get_raw_total()
 {
     return this->normal +

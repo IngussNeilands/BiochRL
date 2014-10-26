@@ -58,6 +58,16 @@ Damage* AttributeContainer::get_effective_damage()
 		result = new Damage();
 	}
 
+    if (this->owner->equipment != NULL && this->owner->equipment->off_weapon->equipped_item != NULL)
+    {
+		Item* item = this->owner->equipment->off_weapon->equipped_item;
+		Damage* tmp = new Damage(*item->attr_effect->damage);
+        Damage* out = new Damage((*tmp)+(*result)); //TODO figure out wtf I'm doing
+        delete result;
+        delete tmp;
+        result = out;
+    }
+
     result->normal += initial_damage;
 	return result;
 };
