@@ -143,7 +143,7 @@ std::string format_verbose(AttrClass* attr)
     ss << attr->max_val << "pts";
     std::string temp = ss.str();
     ss.str("");
-    ss << colfg(AttrClass::attribute_color, temp) << " regen " << attr->regen_rate << "pts/" << attr->regen_interval << "turns";
+    ss << colfg(AttrClass::attribute_color, temp) << " regen " << attr->regen_rate << pluralize(attr->regen_rate, "pt") << "/" << attr->regen_interval << "turn" << (attr->regen_interval > 1 ? "s" : "");
     return ss.str();
 };
 
@@ -159,19 +159,19 @@ std::vector<std::string> AttributeContainer::VerboseVector()
     TCODColor speed_color = SpeedAttribute::attribute_color;
 
     string_vec.push_back(colfg(health_color, "HEALTH"));
-    string_vec.push_back(format_verbose<HealthAttribute>(this->health));
+    string_vec.push_back(" "+format_verbose<HealthAttribute>(this->health));
 
     string_vec.push_back(colfg(mana_color, "MANA"));
-    string_vec.push_back(format_verbose<ManaAttribute>(this->mana));
+    string_vec.push_back(" "+format_verbose<ManaAttribute>(this->mana));
 
     string_vec.push_back(colfg(armor_color, "ARMOR"));
-    string_vec.push_back(format_verbose<ArmorAttribute>(this->armor));
+    string_vec.push_back(" "+format_verbose<ArmorAttribute>(this->armor));
 
     string_vec.push_back(colfg(damage_color, "DAMAGE"));
-    string_vec.push_back(format_verbose<DamageAttribute>(this->damage));
+    string_vec.push_back(" "+format_verbose<DamageAttribute>(this->damage));
 
     string_vec.push_back(colfg(speed_color, "SPEED"));
-    string_vec.push_back(format_verbose<SpeedAttribute>(this->speed));
+    string_vec.push_back(" "+format_verbose<SpeedAttribute>(this->speed));
 
     return string_vec;
 };

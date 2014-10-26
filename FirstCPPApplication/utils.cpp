@@ -332,3 +332,15 @@ std::string get_relative_dir_string(int dir_x, int dir_y, std::string center)
     };
     return ss.str();
 };
+
+std::string pluralize(int count, std::string singular)
+{
+    if (count == 1)
+    {
+        return singular;
+    }
+    else
+    {
+        return singular+"s";
+    };
+};

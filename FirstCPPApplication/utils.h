@@ -56,6 +56,8 @@ inline const char * const BoolToString(bool b, bool verbose=true)
 
 std::string get_relative_dir_string(int dir_x, int dir_y, std::string center = "tile");
 
+std::string pluralize(int count, std::string singular);
+
 
 int get_euclidean_distance(int x1, int y1, int x2, int y2);
 const char kPathSeparator =
