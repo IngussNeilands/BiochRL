@@ -236,6 +236,7 @@ void Person::championize()
     this->attrs->health->current_val+=this->attrs->health->current_val;
     this->attrs->health->max_val+=this->attrs->health->max_val;
     this->xp_value= (int)floor(this->xp_value*1.5);
+
 }
 
 std::string Person::talk_wrap(Actor* target, std::string text)

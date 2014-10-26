@@ -165,9 +165,9 @@ MonsterSpawnTypes MapBuilder::get_spawn_type(int floor)
     RandomWeightMap<MonsterSpawnTypes> rwm = RandomWeightMap<MonsterSpawnTypes>();
     if (floor == 1)
     {
-        rwm.add_item(TrollSpawn, 20);
-        rwm.add_item(JackalSpawn, 20);
-        rwm.add_item(SkeletonSpawn, 8);
+        rwm.add_item(TrollSpawn, 60);
+        rwm.add_item(JackalSpawn, 60);
+        rwm.add_item(SkeletonSpawn, 24);
         rwm.add_item(IdolSpawn, 2);
     }
     else if (floor == 2)
