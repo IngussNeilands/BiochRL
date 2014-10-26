@@ -220,15 +220,19 @@ void Person::attack(Actor * target)
 
 void Person::championize()
 {
+    this->is_champion = true;
+
     RandomWeightMap<std::string> prefix_rwm = RandomWeightMap<std::string>();
     prefix_rwm.add_item("Champion", 10);
     prefix_rwm.add_item("Heroic", 10);
     prefix_rwm.add_item("Legendary", 10);
 
     std::string prefix = prefix_rwm.get_item(Game::spawning_rng);
+    TCODColor opposite = TCODColor::white - (*this->representation->fg_color);
+    TCODColor new_color = TCODColor::lerp(opposite, *this->representation->fg_color, 0.1f);
+
     this->name = prefix+" "+this->name;
-    this->is_champion = true;
-    this->representation->setFGColor(TCODColor::white - (*this->representation->fg_color), true, false, true);
+    this->representation->setFGColor(new_color, true, false, true);
     this->attrs->health->current_val+=this->attrs->health->current_val;
     this->attrs->health->max_val+=this->attrs->health->max_val;
     this->xp_value= (int)floor(this->xp_value*1.5);
