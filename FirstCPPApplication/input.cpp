@@ -1619,6 +1619,13 @@ bool Input::print_bad_key(TCOD_key_t request)
         if (request.vk == TCODK_SHIFT) { return false; };
         std::cout << std::endl << "command not found: " << vk_map.at(request.vk) << std::endl;
     }
+    else if (request.c == 0)
+    {
+        //ignore keys without a character or associated virtual keys, I'm
+        //pretty sure
+        std::cout << "ignored a keypress" << std::endl;
+        return false;
+    }
     else
     {
         std::cout << std::endl << "command not found: " << char_to_str(request.c) << std::endl;

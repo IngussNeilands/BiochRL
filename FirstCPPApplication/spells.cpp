@@ -886,6 +886,7 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
 
 IlluminationSpell::IlluminationSpell() : Spell()
 {
+    this->name = "Illumination";
     this->target_type = GroundTargetType;
     this->max_range = 20;
 };

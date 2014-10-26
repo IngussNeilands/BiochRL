@@ -386,17 +386,17 @@ void give_player_debug_items(Actor* player)
 {
     for (int i = 0; i < 52; i++)
     {
-        Item* item2 = new Item();
-        item2->name = "Item of Holding";
-        item2->name.append(std::to_string((long double)i+1));
-        item2->attr_effect->health_current_val = 1;
-        item2->attr_effect->mana_current_val = 1;
-        item2->attr_effect->armor_current_val = 1;
-        item2->attr_effect->damage->normal = 900;
-        item2->attr_effect->duration= 4;
-        item2->usable = true;
-        item2->description = "You can hold this item";
-        player->inventory->add_item(item2);
+        Item* item = new Item();
+        item->name = "Item of Holding";
+        item->name.append(std::to_string((long double)i+1));
+        item->attr_effect->health_current_val = 1;
+        item->attr_effect->mana_current_val = 1;
+        item->attr_effect->armor_current_val = 1;
+        item->attr_effect->damage->normal = 900;
+        item->attr_effect->duration= 4;
+        item->usable = true;
+        item->description = "You can hold this item";
+        player->inventory->add_item(item);
     };
 };
 
