@@ -122,26 +122,26 @@ class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
 
 
 //bloodmage
-class Venipuncture : public Spell 
+class VenipunctureSpell : public Spell 
 { 
     public:
-        Venipuncture();
+        VenipunctureSpell();
 };
 
-class Bonewall : public Spell 
+class BonewallSpell : public Spell 
 { 
     public:
-        Bonewall();
+        BonewallSpell();
         bool cast(Tile* targetted_tile);
 };
 
-class LimbBreaker : public Spell {  public: LimbBreaker(); };
+class LimbBreakerSpell : public Spell {  public: LimbBreakerSpell(); };
 // class InnerStrengthSpell : public Spell {  public: InnerStrengthSpell(); };
 
-class Tormentor : public Spell 
+class TormentorSpell : public Spell 
 { 
     public:
-        Tormentor();
+        TormentorSpell();
         bool cast(Tile* targetted_tile);
 };
 

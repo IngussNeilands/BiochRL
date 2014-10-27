@@ -656,7 +656,7 @@ bool BribeSpell::cast(Tile* targetted_tile)
 
 /* bloodmage */
 
-Venipuncture::Venipuncture()
+VenipunctureSpell::VenipunctureSpell()
 {
     this->required_level = 2;
     this->name = "Venipuncture";
@@ -674,7 +674,7 @@ Venipuncture::Venipuncture()
     this->mana_percentage = true;
 };
 
-Bonewall::Bonewall()
+BonewallSpell::BonewallSpell()
 {
     this->required_level = 4;
     this->name = "Bonewall";
@@ -691,7 +691,7 @@ Bonewall::Bonewall()
     this->mana_percentage = false;
 };
 
-bool Bonewall::cast(Tile* targetted_tile)
+bool BonewallSpell::cast(Tile* targetted_tile)
 {
     if (targetted_tile->is_occupied())
     {
@@ -707,7 +707,7 @@ bool Bonewall::cast(Tile* targetted_tile)
     return true;
 };
 
-LimbBreaker::LimbBreaker()
+LimbBreakerSpell::LimbBreakerSpell()
 {
     this->name = "Limb Breaker";
     this->element = DeathElement;
@@ -725,7 +725,7 @@ LimbBreaker::LimbBreaker()
     this->required_level = 6;
 };
 
-Tormentor::Tormentor()
+TormentorSpell::TormentorSpell()
 {
     this->required_level = 8;
     this->name = "Tormentor";
@@ -742,7 +742,7 @@ Tormentor::Tormentor()
     this->mana_percentage = true;
 };
 
-bool Tormentor::cast(Tile* targetted_tile)
+bool TormentorSpell::cast(Tile* targetted_tile)
 {
     if (targetted_tile->is_occupied())
     {
