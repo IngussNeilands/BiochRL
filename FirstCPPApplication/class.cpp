@@ -268,12 +268,11 @@ void BrawlerClass::LevelUpStats(int levels)
     this->LevelUpDamage();
 };
 
-
 BloodMageClass::BloodMageClass() : IClass()
 {
     this->type = BloodMageClassType;
     this->name = "BloodMage";
-    this->description = "WIP | Bloody Class, more of a sicko, than anything else.";
+    this->description = "Bloody Class, more of a sicko, than anything else.";
     this->levelup_message = "You've learned a new ritual!";
     this->fg_color = TCODColor::lighterRed;
 
@@ -285,9 +284,7 @@ BloodMageClass::BloodMageClass() : IClass()
     this->starting_attrs->mana->regen_interval = 10;
 
     this->starting_attrs->damage->set_vals(3);
-
     this->starting_attrs->armor->set_vals(2);
-
     this->starting_attrs->speed->alter_vals(75);
 
     this->spell_map->insert(std::make_pair<int, Spell*>(2, new Venipuncture()));
