@@ -53,6 +53,8 @@ class Map : public Object
         int draw();
         bool attackMovePlayer(Person *thePerson, int x2, int y2);
 
+        void add_all_to_queue();
+
         std::vector< std::vector<Tile> > *tileVector;
         std::vector<Room*>* roomVector;
         std::vector<std::array<int, 2>>* inside_tiles;

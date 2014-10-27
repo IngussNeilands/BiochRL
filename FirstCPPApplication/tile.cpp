@@ -671,28 +671,10 @@ void StairsUpTileType::GoUp()
 
     int x = this->to_x;
     int y = this->to_y;
-    // int x = room->center_x;
-    // int y = room->center_y;
 
     Game::empty_queue();
 
-    actor_vec_t enemies = map->enemies;
-    for (actor_vec_t_it it = enemies.begin(); it!=enemies.end(); it++)
-    {
-        if ((*it)->is_active)
-        {
-            Game::add_to_queue(*it);
-        };
-    };
-
-    actor_vec_t allies = map->allies;
-    for (actor_vec_t_it it = allies.begin(); it!=allies.end(); it++)
-    {
-        if ((*it)->is_active)
-        {
-            Game::add_to_queue(*it);
-        };
-    };
+    map->add_all_to_queue();
 
     Game::current_map = map;
     Game::set_tile_colors(map->depth);
@@ -738,9 +720,6 @@ void StairsDownTileType::GoDown()
     Game::current_map = map;
     Game::set_tile_colors(map->depth);
 
-
-    //this->stair_x = x;
-    //this->stair_y = y;
     int x, y;
     Tile* stair_tile;
 
@@ -779,30 +758,10 @@ void StairsDownTileType::GoDown()
     };
 
     Game::empty_queue();
-
-    actor_vec_t enemies = map->enemies;
-    for (actor_vec_t_it it = enemies.begin(); it!=enemies.end(); it++)
-    {
-        if ((*it)->is_active)
-        {
-            Game::add_to_queue(*it);
-        };
-    };
-
-    actor_vec_t allies = map->allies;
-    for (actor_vec_t_it it = allies.begin(); it!=allies.end(); it++)
-    {
-        if ((*it)->is_active)
-        {
-            Game::add_to_queue(*it);
-        };
-    };
-
-
+    map->add_all_to_queue();
 
     Game::player->put_person(stair_tile, x, y);
     Game::center_camera_on_player();
-
 
 };
 

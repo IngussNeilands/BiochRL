@@ -1064,6 +1064,28 @@ void Map::spawn_hero()
 
 };
 
+void Map::add_all_to_queue()
+{
+    actor_vec_t enemies = this->enemies;
+    for (actor_vec_t_it it = enemies.begin(); it!=enemies.end(); it++)
+    {
+        if ((*it)->is_active)
+        {
+            Game::add_to_queue(*it);
+        };
+    };
+
+    actor_vec_t allies = this->allies;
+    for (actor_vec_t_it it = allies.begin(); it!=allies.end(); it++)
+    {
+        if ((*it)->is_active)
+        {
+            Game::add_to_queue(*it);
+        };
+    };
+
+};
+
 void Map::update()
 {
     if (should_spawn_hero())
