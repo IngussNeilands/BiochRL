@@ -1309,11 +1309,10 @@ void Game::init_engine()
 void load_music_random()
 {
 
-    Parser* parser = new Parser();
+    std::shared_ptr<Parser> parser = std::shared_ptr<Parser>(new Parser());
     bool should_enable = parser->get_enable_music();
     if (!should_enable)
     {
-        delete parser;
         return;
     }
 
@@ -1348,7 +1347,7 @@ void load_music_random()
         std::cout << Mix_GetError();
         std::cout << std::endl;
     };
-    delete parser;
+
 };
 
 void Game::init_music()
@@ -1372,11 +1371,6 @@ void Game::init_music()
 void Game::play_music()
 {
     load_music_random();
-
-    std::cout << std::endl;
-    std::cout << Mix_GetError();
-    std::cout << std::endl;
-
 };
 
 void Game::debug_key_input()
