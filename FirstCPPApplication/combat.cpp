@@ -303,7 +303,7 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
             if (adjusted_dmg > 15)
             {
                 printf("what the f?\n");
-			};
+            };
         };
 
         std::cout << this->master->name;

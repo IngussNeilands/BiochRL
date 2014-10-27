@@ -77,6 +77,10 @@ Actor::Actor()
 
     this->is_active = true;
 
+    this->combat = NULL;
+    this->soullinked_to = NULL;
+    this->soullinked_from = NULL;
+
     this->is_moving_left = false;
     this->is_moving_right = false;
     this->is_moving_up = false;
@@ -137,6 +141,40 @@ Actor::Actor(Actor& other)
     this->has_attacked = other.has_attacked;
 
 
+};
+
+void Actor::soullink_to(Actor* target)
+{
+    this->unsoullink_to();
+    target->unsoullink_from();
+
+    target->soullinked_from = this;
+    this->soullinked_to = target;
+    std::cout << "Soullinked to " << target->name << std::endl;
+};
+
+void Actor::unsoullink()
+{
+    this->unsoullink_to();
+    this->unsoullink_from();
+};
+
+void Actor::unsoullink_to()
+{
+    if (this->soullinked_to != NULL)
+    {
+        this->soullinked_to->soullinked_from = NULL;
+        this->soullinked_to = NULL;
+    };
+};
+
+void Actor::unsoullink_from()
+{
+    if (this->soullinked_from != NULL)
+    {
+        this->soullinked_from->soullinked_to = NULL;
+        this->soullinked_from = NULL;
+    };
 };
 
 TCODImage* Actor::get_image()

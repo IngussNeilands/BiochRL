@@ -85,6 +85,13 @@ class Actor : public Object
 
         actor_vec_t * actors_in_sight;
 
+        Actor* soullinked_to;
+        Actor* soullinked_from;
+        void soullink_to(Actor* target);
+        void unsoullink();
+        void unsoullink_to();
+        void unsoullink_from();
+
         bool is_sneaking;
         bool is_defending;
         bool is_fighter;

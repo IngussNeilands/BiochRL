@@ -145,6 +145,12 @@ class Tormentor : public Spell
 
 
 //misc
+// class SoulLinkSpell : public Spell
+// {
+//     SoulLinkSpell();
+//     bool cast(Tile* targetted_tile);
+// };
+// 
 class FireBallSpell : public Spell {  public: FireBallSpell(); };
 
 class TeleportSelfSpell : public Spell

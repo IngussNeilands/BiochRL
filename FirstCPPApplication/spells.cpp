@@ -768,6 +768,40 @@ bool Tormentor::cast(Tile* targetted_tile)
 
 /* misc */
 
+// SoulLinkSpell::SoulLinkSpell() : Spell()
+// {
+//     this->required_level = 8;
+//     this->name = "Soullink";
+//     this->element = SpectreElement;
+//     this->mana_cost = 5;
+//     this->max_range = 6;
+//     this->target_type = GroundTargetType;
+// };
+
+// bool SoulLinkSpell::cast(Tile* targetted_tile)
+// {
+//     if (targetted_tile->is_occupied()) { return false; };
+// 
+//     //cast spell, apply attrs etc
+//     if (targetted_tile->is_walkable())
+//     {
+//         this->master->put_person(targetted_tile, targetted_tile->tile_x, targetted_tile->tile_y);
+//         if (this->master == Game::player)
+//         {
+//             Game::stats->spells_cast++;
+//         };
+//         this->spend_mana();
+//         this->cast_count++;
+// 
+//         return true;
+//     }
+//     else
+//     {
+//         return false;
+//         printf("Is not walkable\n");
+//     }
+// };
+
 TeleportSelfSpell::TeleportSelfSpell() : Spell()
 {
     this->required_level = 8;
