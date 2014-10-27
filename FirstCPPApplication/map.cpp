@@ -1083,7 +1083,6 @@ void Map::add_all_to_queue()
             Game::add_to_queue(*it);
         };
     };
-
 };
 
 void Map::update()

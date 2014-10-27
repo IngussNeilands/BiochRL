@@ -219,7 +219,7 @@ T* Game::spawn_creature(Room* room, std::string name, int age, char repr, Map* w
         if (!world->getTileAt(creature_x, creature_y)->is_walkable()) {continue;};
 
         T* the_creature = Game::create_creature<T>(name, age, creature_x, creature_y, repr, world);
-        if (linear_rng->getInt(1, 100) < 7) 
+        if (linear_rng->getInt(1, 100) < 10) 
         {
             the_creature->championize();
         };

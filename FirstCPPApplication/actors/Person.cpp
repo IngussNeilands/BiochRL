@@ -20,6 +20,7 @@
 #include "ui.h"
 #include "civilian.h"
 #include "enums\hunger_threshold.h"
+#include "enums\champions_t.h"
 #include <utils.h>
 #include <item.h>
 #include <randsys.h>
@@ -214,12 +215,47 @@ void Person::championize()
 {
     this->is_champion = true;
 
-    RandomWeightMap<std::string> prefix_rwm = RandomWeightMap<std::string>();
-    prefix_rwm.add_item("Champion", 10);
-    prefix_rwm.add_item("Heroic", 10);
-    prefix_rwm.add_item("Legendary", 10);
+    RandomWeightMap<champions_t> prefix_rwm = RandomWeightMap<champions_t>();
+    prefix_rwm.add_item(Champion, 100);
+    prefix_rwm.add_item(Heroic, 300);
+    prefix_rwm.add_item(Legendary, 900);
+    prefix_rwm.add_item(Summoner, 200);
+    prefix_rwm.add_item(Healer, 200);
 
-    std::string prefix = prefix_rwm.get_item(Game::spawning_rng);
+    std::string prefix;
+    
+    champions_t prefix_type = prefix_rwm.get_item(Game::spawning_rng);
+    float lerp_float = 0.1f;
+    if (prefix_type == Champion)
+    {
+        prefix = "Champion"; 
+        lerp_float = 0.1f;
+    }
+    else if (prefix_type == Heroic)
+    {
+        prefix = "Heroic"; 
+        lerp_float = 0.05f;
+    }
+    else if (prefix_type == Legendary)
+    {
+        prefix = "Legendary"; 
+        lerp_float = 0.025f;
+    }
+    else if (prefix_type == Summoner)
+    {
+        prefix = "Summoner"; 
+        lerp_float = 0.2f;
+    }
+    else if (prefix_type == Healer)
+    {
+        prefix = "Healer"; 
+        lerp_float = 0.3f;
+    }
+    else 
+    {
+        prefix = "Mega";
+    };
+
     TCODColor opposite = TCODColor::white - (*this->representation->fg_color);
     TCODColor new_color = TCODColor::lerp(opposite, *this->representation->fg_color, 0.1f);
 
