@@ -49,6 +49,8 @@ class Spell
         int min_char_level;
         int cast_count;
 
+        void increment_count();
+
         CustomKey* custom_key;
 
         Actor* master;

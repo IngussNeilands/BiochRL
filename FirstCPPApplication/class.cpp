@@ -272,7 +272,7 @@ BloodMageClass::BloodMageClass() : IClass()
 {
     this->type = BloodMageClassType;
     this->name = "BloodMage";
-    this->description = "Bloody Class, more of a sicko, than anything else.";
+    this->description = "Bloody Class, more of a sicko than anything else.";
     this->levelup_message = "You've learned a new ritual!";
     this->fg_color = TCODColor::lighterRed;
 

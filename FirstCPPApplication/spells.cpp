@@ -58,6 +58,15 @@ Spell::Spell()
 
 };
 
+void Spell::increment_count()
+{
+    this->cast_count += 1;
+    if (this->master == Game::player)
+    {
+        Game::stats->spells_cast++;
+    };
+};
+
 bool Spell::check_resistances(Actor* target)
 {
     TCODRandom* rng = Game::stat_rolls_rng;
@@ -198,7 +207,6 @@ void Spell::spend_mana()
 
 bool Spell::cast(Tile* targetted_tile)
 {
-    this->cast_count += 1;
     actor_vec_t targets = this->targets_around_tile(targetted_tile);
     for (actor_vec_t::iterator it = targets.begin(); it != targets.end(); it++)
     {
@@ -213,11 +221,7 @@ bool Spell::cast(Tile* targetted_tile)
         };
     };
 
-    if (this->master == Game::player)
-    {
-        Game::stats->spells_cast++;
-    };
-
+    this->increment_count();
     this->spend_mana();
 
     return true;
@@ -462,14 +466,10 @@ bool RaiseDeadSpell::cast(Tile* targetted_tile)
     if (found_corpse)
     {
         this->raise_dead(targetted_tile);
-        this->cast_count++;
         targetted_tile->inventory->remove_item(corpse_item);
         delete corpse_item;
 
-        if (this->master == Game::player)
-        {
-            Game::stats->spells_cast++;
-        };
+        this->increment_count();
         this->spend_mana();
 
         return true;
@@ -558,7 +558,6 @@ CastShadowSpell::CastShadowSpell() : Spell()
 
 bool CastShadowSpell::cast(Tile* targetted_tile)
 {
-    this->cast_count++;
     //get tiles within a given radius
     tile_vec_t* tiles = targetted_tile->getAdjacentTiles(this->aoe);
     //
@@ -573,6 +572,8 @@ bool CastShadowSpell::cast(Tile* targetted_tile)
             tile->occupant->thinker->set_aware(false);
         };
     };
+
+    this->increment_count();
     this->spend_mana();
 
     return true;
@@ -607,8 +608,9 @@ bool SpawnShadowlingSpell::cast(Tile* targetted_tile)
             this->spawn(tile);
         };
     };
+
     this->spend_mana();
-    this->cast_count++;
+    this->increment_count();
 
     return true;
 };
@@ -645,7 +647,7 @@ bool BribeSpell::cast(Tile* targetted_tile)
             if (! this->check_resistances(tile->occupant)) { continue; };
             tile->occupant->thinker->is_ally = true;
             this->spend_mana();
-            this->cast_count++;
+            this->increment_count();
         };
     };
 
@@ -698,14 +700,9 @@ bool Bonewall::cast(Tile* targetted_tile)
 
     targetted_tile->updateTileType(WallTileTypeType);
 
-    this->cast_count += 1;
+    this->increment_count();
+
     this->spend_mana();
-
-    if (this->master == Game::player)
-    {
-        Game::stats->spells_cast++;
-    };
-
 
     return true;
 };
@@ -755,14 +752,8 @@ bool Tormentor::cast(Tile* targetted_tile)
     CrazedCook* poor_soul = Game::spawn_creature_ally<CrazedCook>(targetted_tile, "Poor Soul", 1000, 'p', Game::current_map);
     this->master->soullink_to(poor_soul);
 
-    this->cast_count += 1;
     this->spend_mana();
-
-    if (this->master == Game::player)
-    {
-        Game::stats->spells_cast++;
-    };
-
+    this->increment_count();
 
     return true;
 };
@@ -825,9 +816,8 @@ bool TeleportSelfSpell::cast(Tile* targetted_tile)
         {
             Game::stats->spells_cast++;
         };
-        this->spend_mana();
-        this->cast_count++;
 
+        this->increment_count();
         return true;
     }
     else
@@ -907,7 +897,7 @@ bool LaunchOtherSpell::cast(Tile* targetted_tile)
             Game::stats->spells_cast++;
         };
         this->spend_mana();
-        this->cast_count++;
+        this->increment_count();
 
         return true;
         // Spell::cast(targetted_tile);
