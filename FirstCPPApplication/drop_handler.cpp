@@ -57,11 +57,11 @@ Item* spawnWeapon()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<WeaponSpawnTypes> rwm = RandomWeightMap<WeaponSpawnTypes>();
-    rwm.add_item(MaceSpawn, 50);
-    rwm.add_item(DaggerSpawn, 50);
-    rwm.add_item(HatchetSpawn, 45);
-    rwm.add_item(WhipSpawn, 30);
-    rwm.add_item(SwordSpawn, 25);
+    rwm.add_item(MaceSpawn, 100);
+    rwm.add_item(DaggerSpawn, 100);
+    rwm.add_item(HatchetSpawn, 90);
+    rwm.add_item(WhipSpawn, 60);
+    rwm.add_item(SwordSpawn, 50);
     rwm.add_item(TomahawkSpawn, 20);
     rwm.add_item(BroadswordSpawn, 15);
     rwm.add_item(TridentSpawn, 10);
@@ -164,18 +164,18 @@ Item* spawnArmor()
     TCODRandom *rng = Game::item_spawn_rng;
 
     RandomWeightMap<ArmorSpawnTypes> rwm = RandomWeightMap<ArmorSpawnTypes>();
-    rwm.add_item(LeatherChestSpawn, 50);
-    rwm.add_item(ChainmailSpawn, 25);
+    rwm.add_item(LeatherChestSpawn, 100);
+    rwm.add_item(ChainmailSpawn, 50);
     rwm.add_item(CuirassSpawn, 20);
     rwm.add_item(LinkedMailSpawn, 10);
     rwm.add_item(PlateMailSpawn, 10);
     rwm.add_item(DemonhideSpawn, 2);
 
-    rwm.add_item(ShieldSpawn, 50);
+    rwm.add_item(ShieldSpawn, 100);
     rwm.add_item(TargetShieldSpawn, 25);
     rwm.add_item(KiteShieldSpawn, 20);
 
-    rwm.add_item(HelmetSpawn, 50);
+    rwm.add_item(HelmetSpawn, 100);
     rwm.add_item(MaskSpawn, 30);
     rwm.add_item(CrownSpawn, 10);
     rwm.add_item(GrimHelmSpawn, 10);
