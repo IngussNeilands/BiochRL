@@ -1,8 +1,6 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-
-
 #include "object.h"
 #include <attr_effect.h>
 

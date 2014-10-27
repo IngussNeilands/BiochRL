@@ -64,6 +64,8 @@ class Spell
         Spell();
         TCODColor get_spell_color();
 
+        // tile_vec_t* get_affected_tiles(Tile* targetted_tile);
+
         bool is_valid_target(Tile* targetted_tile);
         bool is_in_range(int distance);
         bool has_enough_mana();

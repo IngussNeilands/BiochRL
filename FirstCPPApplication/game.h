@@ -80,6 +80,7 @@ class Game
 
         static std::priority_queue<Actor*, std::vector<Actor*>, CompareQueueTicks>* game_queue;
         static void add_to_queue(Actor* actor);
+        static void empty_queue();
         static unsigned int queue_ticks;
 
         static int fov_radius;

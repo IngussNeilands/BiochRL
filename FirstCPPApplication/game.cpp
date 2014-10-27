@@ -176,6 +176,14 @@ void Game::add_to_queue(Actor* actor)
     //         CompareQueueTicks());
 };
 
+void Game::empty_queue()
+{
+    while (!Game::game_queue->empty())
+    {
+        Game::game_queue->pop();
+    };
+};
+
 
 std::string Game::get_version()
 {
@@ -730,37 +738,45 @@ void Game::center_camera_on_player()
 void Game::update()
 {
     //update player
-    //if (Game::game_queue->top() == Game::player)
-    //{
-    //    Game::game_queue->pop();
-    //}
-    //else
-    //{
-    //    std::cout << "not player on top of queue..." << std::endl;
-    //};
     Game::player->update();
     Game::queue_ticks = Game::player->target_queue_tick;
     // Game::add_to_queue(Game::player);
     Game::player->target_queue_tick = Game::queue_ticks+Game::player->attrs->speed->current_val;
 
     //go through queue and do (or pop) actions for before the players next turn
-    //while queue top is not player -> do actions and then reque them
+    //while queue top is not player -> do actions and then requeue them
     while (Game::game_queue->empty() == false && Game::game_queue->top()->target_queue_tick <= Game::player->target_queue_tick)
     {
         Actor* actor = Game::game_queue->top();
-        Game::queue_ticks = actor->target_queue_tick; //increment the game queue ticks artificially 
-        Game::game_queue->pop();
-        // std::cout << actor->name << " is doing its thing" << std::endl;
-        // Actor* actor = Game::current_map->enemies.at(i);
-        // cout << "\t" << actor->name << "is updating" << endl;
-        if (actor->is_active && actor->thinker != NULL)
+
+		//check if actor is in the current maps list or enemies or allies
+		Map* current_map = Game::current_map;
+		actor_vec_t enemies = current_map->enemies;
+		actor_vec_t allies = current_map->allies;
+		bool in_enemies = std::find(enemies.begin(), enemies.end(), actor) != enemies.end();
+		bool in_allies = std::find(allies.begin(), allies.end(), actor) != allies.end();
+        if (!in_enemies && !in_allies)
         {
-            actor->update();
-            // printf("updating ai\n");
+            //remove from queue; remember to add it back in at somepoint
+            Game::game_queue->pop();
+        }
+        else
+        {
+
+            Game::queue_ticks = actor->target_queue_tick; //increment the game queue ticks artificially 
+            Game::game_queue->pop();
+            // std::cout << actor->name << " is doing its thing" << std::endl;
+            // Actor* actor = Game::current_map->enemies.at(i);
+            // cout << "\t" << actor->name << "is updating" << endl;
+            if (actor->is_active && actor->thinker != NULL)
+            {
+                actor->update();
+                // printf("updating ai\n");
+            };
+            // printf("updating\n");
+            Game::queue_ticks = actor->target_queue_tick;
+            Game::add_to_queue(actor);
         };
-        // printf("updating\n");
-        Game::queue_ticks = actor->target_queue_tick;
-        Game::add_to_queue(actor);
     };
 
     // //update actors in this floor
@@ -1196,10 +1212,7 @@ void Game::start_game()
 
     Game::queue_ticks = 0;
     //empty queue  //TODO actually fix the other enemies existing after a game restart
-    while (!Game::game_queue->empty())
-    {
-        Game::game_queue->pop();
-    };
+    Game::empty_queue();
 
     Game::fov_radius = DEFAULT_FOV_RADIUS;
 

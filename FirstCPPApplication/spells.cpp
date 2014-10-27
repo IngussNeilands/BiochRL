@@ -57,6 +57,11 @@ Spell::Spell()
     this->master = NULL;
 
 };
+// 
+// tile_vec_t* Spell::get_affected_tiles(Tile* targetted_tile)
+// {
+// 
+// };
 
 void Spell::increment_count()
 {
