@@ -1317,20 +1317,19 @@ void load_music_random()
     }
 
     TCODRandom* rng = TCODRandom::getInstance();
-	TCODList<const char*> files = TCODSystem::getDirectoryContent(get_data_path().c_str(), "lvl*.wav");
-    int result = rng->getInt(1, files.size());
+    TCODList<const char*> files = TCODSystem::getDirectoryContent(get_data_path().c_str(), "lvl*.wav");
+    int result = rng->getInt(0, files.size()-1);
+    std::string song_path = std::string(files.get(result));
 
-    std::stringstream ss;
-    ss << "lvl" << result << ".wav";
-    std::cout << ss.str() << std::endl;
-    std::string path = std::string(get_data_path()+ss.str());
+    std::cout << song_path << std::endl;
+    std::string path = std::string(get_data_path()+song_path);
 
     Mix_Music *music = NULL;
     music = Mix_LoadMUS(path.c_str());
     if (music == NULL) 
     {
-        std::cout << "Could not load lvl" << result << ".wav, not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
-        std::cout << Mix_GetError();
+        std::cout << "Could not load " << song_path << ", not a problem unless you've downloaded music from www.biochrl.com. It should be in the data folder\n";
+        std::cout << Mix_GetError() << std::endl;
         SDL_ClearError();
         std::cout << "stopping music playback" << std::endl;
     }
