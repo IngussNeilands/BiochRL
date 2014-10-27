@@ -36,7 +36,6 @@ class Combat
         bool check_death();
         void die();
 
-        void update();
         void assign_to_master(Person* master);
 
         void give_exp(int exp_to_gain);

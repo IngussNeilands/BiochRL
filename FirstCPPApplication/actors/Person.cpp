@@ -179,14 +179,6 @@ void Person::update()
     if (this->thinker != NULL)
     {
         thinker->update();
-
-        //Combat UPDATE
-        if (has_live_combat == true) {
-            combat->update();
-        }
-        else {
-            printf("no combat\n");
-        }
     }
 
     if (this->combat != NULL)

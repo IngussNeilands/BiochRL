@@ -32,29 +32,10 @@ void Combat::printout(){
 void Combat::assign_to_master(Person* master)
 {
     this->master = master;
-    // this->max_hp = (this->master->attrs->health->max_val);
-    // this->cur_hp = (this->master->attrs->health->current_val);
-
-    //if (name == default_name)
-    //{
-    //    // cout << "named default name: " << name << endl;
-    //    // cout << "renaming to masters name" << endl;
-    //    name = master->name + "'s Combat";
-    //    // cout << "new name: " << name << endl;
-    //}
-    //else
-    //{
-    //    cout << "not named default, it's named instead: " << name << endl;
-    //};
 };
 
 Combat::Combat(std::string name, int max_hp, Person* master, char representation)
 {
-    //name = name;
-
-    // this->cur_hp = max_hp;
-    // this->max_hp = max_hp;
-
     representation = representation;
 
     this->master = NULL;
@@ -65,22 +46,6 @@ Combat::Combat(std::string name, int max_hp, Person* master, char representation
 
     this->last_victim = NULL;
 
-};
-
-void Combat::update()
-{
-    if (was_attacked == true)
-    {
-        //cout << "I (a Combat), " << name << ", was attacked, ouch!" << endl;
-
-        // //retaliate
-        // Combat* assailant = get_last_attacker();
-        // attack(assailant, 1);
-
-
-        // //calm the Combat down
-        // was_attacked = false;
-    };
 };
 
 void Combat::level_up(int levels)
