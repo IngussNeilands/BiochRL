@@ -240,9 +240,10 @@ T* Game::spawn_creature_ally(Tile* tile, std::string name, int age, char repr, M
 
     world->allies.push_back(the_creature);
     the_creature->thinker->is_ally = true;
+
+    Game::add_to_queue(the_creature);
     return the_creature;
-    // }
-    };
+};
 template Skeleton * Game::spawn_creature_ally<Skeleton>(Tile* tile, std::string name, int age, char repr, Map* world);
 template CrazedCook * Game::spawn_creature_ally<CrazedCook>(Tile* tile, std::string name, int age, char repr, Map* world);
 
