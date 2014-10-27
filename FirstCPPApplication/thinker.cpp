@@ -221,7 +221,6 @@ void Thinker::build_path()
     //if there's a not a path to be walked, incr fail count
     if (!this->path_possible)
     {
-        // std::cout << "path aint possible" << std::endl;
         this->consecutive_fails+=1;
     }
     else
@@ -263,23 +262,13 @@ void Thinker::smart_update()
         {
             this->build_path();
         }
-
-        //int path_size = master->l_path->size();
-        // cout << "Path size AFTER BUILDING IT: " << path_size << endl << "I'mna walk it" << endl;
     };
 
-    // int *xx = 0, *yy = 0;
-    // master->l_path->getDestination(xx, yy);
-    // std::cout << xx << " x" ;
-    // std::cout << &xx << " &x" ;
-    //std::cout << *xx << " *x" ;
-    // std::cout << yy << " y" << std::endl;
     if (this->path_possible && this->master->l_path != NULL)
     {
         this->walk_towards_target();
 
         bool path_empty = master->l_path->isEmpty();
-        // cout << "Path size: " << path_size << endl << "I'mna walk it" << endl;
         if (path_empty)
         {
             this->try_attacking_player();
