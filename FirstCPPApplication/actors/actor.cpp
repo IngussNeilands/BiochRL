@@ -470,6 +470,7 @@ void Actor::die()
     int multiplier = 1;
     if (this == (Actor*)Game::player)
     {
+        Ui::reset_generic();
         TCODSystem::setFps(0);
         printf("YOU'RE DEAD GIVE UP\n");
         for (int fade=255*multiplier; fade >= 0; fade --) {
