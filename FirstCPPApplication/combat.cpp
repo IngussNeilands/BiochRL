@@ -297,7 +297,20 @@ void Combat::take_damage(Combat* combat_attacker, Damage* dmg)
             new Message(Ui::msg_handler_main, DAMAGE_TAKEN_MSG, colfg(TCODColor::lightAmber, this->master->name+" deflected some damage!."));
         };
 
-        this->master->attrs->health->current_val -= std::max(adjusted_dmg, 1);
+        int original_adjusted_dmg = adjusted_dmg;
+        adjusted_dmg = std::max(adjusted_dmg, 1);
+        if (this->master->soullinked_to != NULL)
+        {
+            Actor* poor_soul = this->master->soullinked_to;
+            //poor_soul->combat->take_damage(combat_attacker, adjusted_dmg/2); //TODO: figure out how to multiply/divide Damage
+            this->master->attrs->health->current_val -= adjusted_dmg/2;
+            poor_soul->attrs->health->current_val -= adjusted_dmg/2;
+            std::cout << poor_soul->name << " burned from soullink to " << this->master->name << std::endl;
+        }
+        else
+        {
+            this->master->attrs->health->current_val -= adjusted_dmg;
+        }
         if (this->master == Game::player)
         {
             if (adjusted_dmg > 15)

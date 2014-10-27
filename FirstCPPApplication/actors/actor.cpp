@@ -150,7 +150,7 @@ void Actor::soullink_to(Actor* target)
 
     target->soullinked_from = this;
     this->soullinked_to = target;
-    std::cout << "Soullinked to " << target->name << std::endl;
+    std::cout << this->name << " is soullinked to " << target->name << std::endl;
 };
 
 void Actor::unsoullink()

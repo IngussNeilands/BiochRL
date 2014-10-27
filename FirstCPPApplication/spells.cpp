@@ -752,7 +752,8 @@ bool Tormentor::cast(Tile* targetted_tile)
         return false;
     };
 
-    Game::spawn_creature_ally<CrazedCook>(targetted_tile, "Poor Soul", 1000, 'p', Game::current_map);
+    CrazedCook* poor_soul = Game::spawn_creature_ally<CrazedCook>(targetted_tile, "Poor Soul", 1000, 'p', Game::current_map);
+    this->master->soullink_to(poor_soul);
 
     this->cast_count += 1;
     this->spend_mana();
