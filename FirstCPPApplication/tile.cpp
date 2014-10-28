@@ -468,6 +468,32 @@ vector<Tile*>* Tile::getVacantAdjacentTiles()
     return adjacent_tiles;
 };
 
+actor_vec_t Tile::getActorsAroundTile(int aoe)
+{
+    typedef tile_vec_t tile_vector;
+    actor_vec_t targets;
+    if (aoe > 0)
+    {
+        tile_vec_t* adjacent_tiles = this->getAdjacentTiles(aoe);
+        for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
+        {
+            Tile* tile = *it;
+            if ((*it)->is_occupied())
+            {
+                targets.push_back((*it)->occupant);
+            }
+        };
+        delete adjacent_tiles;
+    };
+    if (this->occupant != NULL) // assuming NULL if they died
+    {
+        targets.push_back(this->occupant);
+    }
+
+    return targets;
+
+};
+
 bool Tile::is_occupied() 
 {
     return this->occupant != NULL;

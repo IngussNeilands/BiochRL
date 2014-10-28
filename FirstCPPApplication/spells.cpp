@@ -261,29 +261,7 @@ void Spell::apply_attr_effects(Actor* target)
 
 actor_vec_t Spell::targets_around_tile(Tile* target_tile)
 {
-    typedef tile_vec_t tile_vector;
-    actor_vec_t targets;
-    if (this->aoe > 0)
-    {
-        //if (this->aoe != 1) printf("aoe is only directly adjacent tiles, anything higher than 1 is ignored\n");
-        tile_vec_t* adjacent_tiles = target_tile->getAdjacentTiles(this->aoe);
-        for (tile_vector::iterator it = adjacent_tiles->begin(); it != adjacent_tiles->end(); it++)
-        {
-            Tile* tile = *it;
-            if ((*it)->is_occupied())
-            {
-                targets.push_back((*it)->occupant);
-            }
-        };
-        delete adjacent_tiles;
-    };
-    if (target_tile->occupant != NULL) // assuming NULL if they died
-    {
-        targets.push_back(target_tile->occupant);
-    }
-
-    return targets;
-
+    return target_tile->getActorsAroundTile(this->aoe);
 };
 
 /* fighter */

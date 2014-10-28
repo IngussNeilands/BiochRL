@@ -192,6 +192,7 @@ class Tile : public Object
         Tile* getTileAtRelative(int x, int y, int scale=1);
         tile_vec_t* getAdjacentTiles(int scale = 1);
         tile_vec_t* getVacantAdjacentTiles();
+        actor_vec_t getActorsAroundTile(int aoe);
 
         Tile* getTopLeftTile(int scale = 1);
         Tile* getTopMidTile(int scale = 1);
