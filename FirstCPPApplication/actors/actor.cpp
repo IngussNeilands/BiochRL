@@ -55,6 +55,7 @@ Actor::Actor()
     this->total_gold = 0;
 
     this->is_champion = false;
+    this->champion_type = NullChampion;
     this->is_hero = false;
     this->timed_attr_effects = new std::vector<TimedEffect*>;
     this->timed_spell_effects = new std::vector<TimedEffect*>;

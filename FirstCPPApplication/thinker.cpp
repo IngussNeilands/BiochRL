@@ -267,12 +267,28 @@ void Thinker::smart_update()
     if (this->path_possible && this->master->l_path != NULL)
     {
         this->walk_towards_target();
-
         bool path_empty = master->l_path->isEmpty();
         if (path_empty)
         {
             this->try_attacking_player();
         }
+        else
+        {
+            if (this->master->is_champion && this->master->champion_type==Healer)
+            {
+                actor_vec_t targets = this->master->my_tile->getActorsAroundTile(2);
+                for (actor_vec_t_it it = targets.begin(); it!=targets.end(); it++)
+                {
+                    Actor* target = *it;
+                    if (target != Game::player) //note will heal player allies
+                    {
+                        target->attrs->health->current_val+=5;
+                    };
+                    new Message(Ui::msg_handler_main, HELP_MSG, "%s healed %s!", this->master->name.c_str(), target->name.c_str());
+                };
+                printf("wololo");
+            }
+        };
     }
 
 };
@@ -332,7 +348,7 @@ void Thinker::try_attacking_player()
         // std::cout << "adjacent" << std::endl;
         Damage* dmg= master->attrs->get_effective_damage(); //TODO use all damage types instead of just normal
         ((Person*)master)->combat->attack(assailant, dmg);
-		delete dmg;
+        delete dmg;
     };
 
     //calm the combat down

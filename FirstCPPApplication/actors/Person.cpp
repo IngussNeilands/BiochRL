@@ -229,26 +229,31 @@ void Person::championize()
     if (prefix_type == Champion)
     {
         prefix = "Champion"; 
+        this->champion_type = Champion;
         lerp_float = 0.1f;
     }
     else if (prefix_type == Heroic)
     {
         prefix = "Heroic"; 
+        this->champion_type = Heroic;
         lerp_float = 0.05f;
     }
     else if (prefix_type == Legendary)
     {
         prefix = "Legendary"; 
+        this->champion_type = Legendary;
         lerp_float = 0.025f;
     }
     else if (prefix_type == Summoner)
     {
         prefix = "Summoner"; 
+        this->champion_type = Summoner;
         lerp_float = 0.2f;
     }
     else if (prefix_type == Healer)
     {
         prefix = "Healer"; 
+        this->champion_type = Healer;
         lerp_float = 0.3f;
     }
     else 

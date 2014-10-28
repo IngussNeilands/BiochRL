@@ -3,6 +3,7 @@
 
 #include "object.h"
 #include <attr_effect.h>
+#include <enums/champions_t.h>
 
 class Representation;
 
@@ -62,7 +63,9 @@ class Actor : public Object
         TCODImage* get_image();
 
         bool is_champion;
+        champions_t champion_type;
         bool is_hero;
+
         static int champ_chance;
         static int pack_size;
         static int preferred_pack_size;
