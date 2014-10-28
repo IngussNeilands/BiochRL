@@ -85,7 +85,6 @@ int Game::screen_h = 50;
 
 int Game::targetting_index = 1;
 
-
 ckey_vec_t* Game::custom_keys;
 CustomKey* Game::custom_key1 = new CustomKey(1);
 CustomKey* Game::custom_key2 = new CustomKey(2);
@@ -158,8 +157,6 @@ Screens Game::next_screen_type = NoScreenType;
 bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 {
     bool result;
-    // assert(left!=NULL);
-    // assert(right!=NULL);
     if (left->target_queue_tick > right->target_queue_tick) { result = true; }
     if (left->target_queue_tick == right->target_queue_tick) { result = false; }
     if (left->target_queue_tick < right->target_queue_tick) { result = false; }
@@ -168,12 +165,8 @@ bool CompareQueueTicks::operator() (Actor* left, Actor* right) const
 
 void Game::add_to_queue(Actor* actor)
 {
-    // printf("am adding to queue...");
     actor->target_queue_tick = Game::queue_ticks+actor->attrs->speed->current_val;
     Game::game_queue->push(actor);
-    // printf("DONE\n");
-    // std::make_heap((Game::game_queue->top()), (Game::game_queue->top()) + Game::game_queue->size(), 
-    //         CompareQueueTicks());
 };
 
 void Game::empty_queue()
@@ -304,7 +297,6 @@ Map* Game::build_world(int floor)
 
     builder->fill_dungeon(world);
     Game::atlas->push_back(world);
-    //_CrtMemDumpAllObjectsSince( NULL );
     delete builder;
 
     return world;
