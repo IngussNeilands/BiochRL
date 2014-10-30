@@ -137,10 +137,6 @@ void Thinker::update_path()
         {
             //continue on that path
 
-            //std::cout << "dest x: " << dest_tile_x;
-            //std::cout << "dest y: " << dest_tile_y << std::endl;
-            //std::cout << "CONTINUE" << std::endl;
-
         };
         delete adj_tiles;
     }
@@ -330,16 +326,14 @@ void Thinker::try_attacking_player()
     {
         if (this->master->combat->get_last_attacker() == Game::player->combat)
         {
-            // printf("im sorry but you hit me\n");
-            new Message(Ui::msg_handler_main, HELP_MSG, "Your allie cries 'Forgive me for this, master.'");
+            new Message(Ui::msg_handler_main, HELP_MSG, "Your ally cries 'Forgive me for this, master.'");
         }
         else
         {
-            return ;
+            return;
         }
     }
     assert(this->target != NULL && "thinkers need a target to move towards, usually the player");
-    // cout << "IMNA ATTACK THE PLAYER" << endl;
     //attack the player if he's in range (aka adjacent tile)
     Combat* assailant = this->target->combat;
     tile_vec_t* adjacent_tiles = ((Person*)master)->my_tile->getAdjacentTiles();
@@ -363,7 +357,6 @@ void Thinker::set_aware(bool aware)
 
 void Thinker::update()
 {
-
     if (Game::player->is_actor_in_sight(this->master)) //when thinker becomes truly activated or whatever
     {
         this->turn_last_seen_by_player = Game::turn_count;
@@ -392,16 +385,9 @@ void Thinker::update()
     }
     else 
     {
-        // if (this->turn_last_seen_by_player != -999)
-        // {
-        //     std::cout << Game::turn_count << std::endl;
-        //     std::cout << this->turn_last_seen_by_player << std::endl;
-        //     std::cout << this->tracking_memory << std::endl << std::endl;
-        // }
         int turns_since_last_seen = Game::turn_count - this->turn_last_seen_by_player;
         if (turns_since_last_seen < this->tracking_memory)
         {
-            // std::cout << "i remember" << std::endl;
             auto player = Game::player;
             int distance_between_player = get_euclidean_distance(this->master->x, this->master->y, player->x, player->y);
             if (!this->is_dumb && distance_between_player < Thinker::visibility_threshold && this->get_is_aware())
@@ -414,13 +400,6 @@ void Thinker::update()
                 //walking adjacent
                 this->dumb_update();
             }
-
         }
-        else 
-        {
-            // std::cout << "i forget" << std::endl;
-        };
-
     };
-
 };
