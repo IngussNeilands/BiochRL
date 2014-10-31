@@ -646,9 +646,9 @@ Item* DropHandler::handle_for_actor(Actor* actor)
     }
     else
     {
-        rwm.add_item(CorpseSpawn, 40);
+        rwm.add_item(CorpseSpawn, 25);
         rwm.add_item(GenericSpawn, 20);
-        rwm.add_item(NothingItemSpawn, 90);
+        rwm.add_item(NothingItemSpawn, 110);
     };
 
     ItemSpawnTypes result = rwm.get_item(Game::item_spawn_rng);
