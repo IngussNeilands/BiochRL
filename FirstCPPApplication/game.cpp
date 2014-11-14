@@ -1064,10 +1064,27 @@ void Game::init_rng()
 };
 
 
+bool go_to_racial_bg_type()
+{
+    Game::current_state = GameStates::MenuState;
+    Game::current_screen = Screens::SimpleMenuScreenType;
+    Game::current_background_type = background_types_t::RaceBackgroundType;
+    return true;
+};
+
+bool go_to_hometown_bg_type()
+{
+    Game::current_state = GameStates::MenuState;
+    Game::current_screen = Screens::SimpleMenuScreenType;
+    Game::current_background_type = background_types_t::HometownBackgroundType;
+    return true;
+};
+
 void set_up_gender_choices()
 {
     //gender
     MenuItem* male_mi = new MenuItem();
+    male_mi->on_activate = *go_to_racial_bg_type;
     BackgroundInfo* male_info = new BackgroundInfo();
     male_info->title = "Male";
     male_info->description = "Stronger, slower.";
@@ -1083,6 +1100,7 @@ void set_up_gender_choices()
     male_mi->info = male_info;
 
     MenuItem* female_mi = new MenuItem();
+    female_mi->on_activate = *go_to_racial_bg_type;
     BackgroundInfo* female_info = new BackgroundInfo();
     female_info->title = "Female";
     female_info->description = "Female is feminine, usually.";
@@ -1105,6 +1123,7 @@ void set_up_racial_choices()
 {
     //gender
     MenuItem* human_mi = new MenuItem();
+    human_mi->on_activate = *go_to_hometown_bg_type;
     BackgroundInfo* human_info = new BackgroundInfo();
     human_info->title = "Human";
     human_info->description = "Run of the mill, jack of the trades.";
@@ -1213,8 +1232,8 @@ void Game::start_game()
     std::cout << "starting world gen" << std::endl;
     Map* new_map = Game::build_world(1);
     // Map* new_map = Game::build_town();
-    std::cout << "ending world gen" << std::endl;
     Game::current_map = new_map;
+    std::cout << "ending world gen" << std::endl;
 
     Game::initialize_player(); 
     Game::specify_player();
@@ -1233,7 +1252,6 @@ void Game::init_game()
     printf("YOU ARE PLAYING: BiochRL++ %s\n", Game::get_version().c_str());
 
     Game::init_engine();
-
 
     Game::init_custom_keys();
 

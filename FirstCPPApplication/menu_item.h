@@ -22,7 +22,9 @@ class MenuItem
         std::string get_title();
         std::string get_description();
 
-        BackgroundInfo* info; //has the activate/examine logic inside
+
+        bool (*on_activate)();
+		BackgroundInfo* info; //has the activate/examine logic inside
 
         void activate(); //applies to player or whatever action is appropriate
         void examine(); //shows the alert pages, like class info or whatever

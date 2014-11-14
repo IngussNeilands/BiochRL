@@ -10,6 +10,7 @@ MenuItem::MenuItem()
 void MenuItem::init()
 {
     this->info = NULL;
+    this->on_activate = NULL;
 };
 
 std::string MenuItem::get_title()
@@ -40,6 +41,10 @@ void MenuItem::activate()
 {
     this->info->activate();
     std::cout << "menu item activated" << std::endl;
+    if (this->on_activate != NULL)
+    {
+        this->on_activate();
+    };
 };
 
 void MenuItem::examine()
