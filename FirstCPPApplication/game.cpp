@@ -385,6 +385,14 @@ T* Game::create_creature(std::string name, int age, int x, int y, char repr, Map
 
 void give_player_debug_items(Actor* player)
 {
+    std::string description = "It flickers quickly.";
+    Item* dropped_item = new Item;
+    dropped_item->equippable = true;
+    dropped_item->uses = 5;
+    dropped_item->repr->setFGColor(TCODColor::lightAmber, true, false, true);
+    dropped_item->spell_effect = new IlluminationSpell;
+    player->inventory->add_item(dropped_item);
+
     for (int i = 0; i < 52; i++)
     {
         Item* item = new Item();
@@ -548,14 +556,6 @@ void  Game::initialize_items()
     player->inventory->add_item(chest_armor);
     player->equipment->equip_item(chest_armor);
 
-    std::string description = "It flickers quickly.";
-    Item* dropped_item = new Item;
-    dropped_item->equippable = true;
-    dropped_item->uses = 5;
-    dropped_item->repr->setFGColor(TCODColor::lightAmber, true, false, true);
-
-    dropped_item->spell_effect = new IlluminationSpell;
-    player->inventory->add_item(dropped_item);
     // give_player_debug_items(player);
 
 };
