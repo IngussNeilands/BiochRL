@@ -68,10 +68,16 @@ std::string ROT13(std::string source)
 
 void WelcomeMessage(){
 
-    printf("\n\n");
-    printf("\t\t************************\n");
-    printf("\t\t WELCOME TO BiochRL++!\n");
-    printf("\t\t************************\n\n\n");
+    printf("__________.__              .__   __________.____                             \n");
+    printf("\\______   \\__| ____   ____ |  |__\\______   \\    |        .__         .__     \n");
+    printf(" |    |  _/  |/  _ \\_/ ___\\|  |  \\|       _/    |      __|  |___   __|  |___ \n");
+    printf(" |    |   \\  (  <_> )  \\___|   Y  \\    |   \\    |___  /__    __/  /__    __/ \n");
+    printf(" |______  /__|\\____/ \\___  >___|  /____|_  /_______ \\    |__|        |__|    \n");
+    printf("        \\/               \\/     \\/       \\/        \\/                        \n");
+    // printf("\n\n");
+    // printf("\t\t************************\n");
+    // printf("\t\t WELCOME TO BiochRL++!\n");
+    // printf("\t\t************************\n\n\n");
     printf("\n\t\t%s\n\n", ROT13(random_msg()).c_str());
 
     //printf("Most importantly, ignore the instructions that aren't the right ones. \n");
