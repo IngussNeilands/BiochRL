@@ -33,6 +33,8 @@ class Spell
         static const std::unordered_map<elements_t, TCODColor>* spell_color;
 
         std::string name;
+        std::string description;
+
         int mana_cost;
         ManaTypes mana_type;
         bool mana_percentage;

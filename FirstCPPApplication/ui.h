@@ -122,6 +122,7 @@ class Ui
         static void draw_inventory_ui();
         static void draw_inventory_msg();
         static std::string item_display_line();
+        static std::string spell_display_line();
 
         static std::vector<DialogHelpBox*> alerts;
 

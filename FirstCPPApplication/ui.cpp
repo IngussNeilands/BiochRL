@@ -1040,19 +1040,48 @@ void Ui::draw_spell_select_msg()
     //draw the message text
     int y = 0;
     ui_inv_msg_con->setDefaultForeground(TCODColor::lightGrey+TCODColor::yellow);
-    ui_inv_msg_con->print(0, y++, "Press the desired spell's letter once to select it, and once more to confirm");
-    std::string equip_msg = colfg(TCODColor::white, "c to cast");
-    std::string examine_msg = colfg(TCODColor::white, "x to examine");
-    std::string message(std::string("You can then press "+equip_msg+" it or "+examine_msg+" it."));
-    ui_inv_msg_con->print(0, y++, message.c_str());
-    y++;
-    // ui_inv_msg_con->print(0, y++, "Use corpses and potions, equip swords and helms.");
-    // ui_inv_msg_con->print(0, y++, "You need a free slot to equip anything, naturally.");
+    if (!Ui::generic_active)
+    {
+        TCODColor chosen_col = ui_inv_msg_con->getDefaultForeground();
+        if (!Ui::item_is_chosen())
+        {
+            chosen_col = TCODColor::darkerYellow;
+        };
+        TCODColor active_col = ui_inv_msg_con->getDefaultForeground();
+        if (Ui::item_is_chosen())
+        {
+            active_col = TCODColor::darkerYellow;
+        };
+        std::string choose_msg = colfg(chosen_col, "desired spell's letter once to select it");
+        std::string active_msg = colfg(active_col, "and again to confirm");
+        ui_inv_msg_con->print(0, y++, std::string("Press the "+choose_msg+", "+active_msg+" ").c_str());
+        ui_inv_msg_con->print(0, y++, "your selection. Otherwise, press q to unchoose or quit back to game.");
+        y++;
+        ui_inv_msg_con->print(0, y++, "IE 'a' for the first spell on screen, 'b' for the second etc");
+    }
+    else if (Ui::generic_active)
+    {
+        std::string cast_msg = colfg(TCODColor::white, "c to cast");
+        std::string assign_msg = colfg(TCODColor::white, "m to assign a key");
+        std::string examine_msg = colfg(TCODColor::white, "x to examine");
+        std::string message("You can press "+cast_msg+" it, "+assign_msg+" it or "+examine_msg+" it.");
+        ui_inv_msg_con->print(0, y++, message.c_str());
+        y++;
+        ui_inv_msg_con->print(0, y++, "Spells have a variety of effects, from area of effect spells,");
+        ui_inv_msg_con->print(0, y++, "to mind control, teleportation and summoning dark minions.");
+    };
 
     ui_inv_msg_con->setDefaultForeground(TCODColor::white);
     y++;
-    ui_inv_msg_con->print(2, y++, "Spell chosen? %s", BoolToString(Ui::spell_is_chosen()));
-    ui_inv_msg_con->print(2, y++, "Spell active? %s", BoolToString(Ui::generic_active));
+    if (Ui::item_is_chosen())
+    {
+        ui_inv_msg_con->print(2, y++, "%s", Ui::spell_display_line().c_str());
+    }
+    else
+    {
+        ui_inv_msg_con->print(2, y++, "No spell chosen");
+
+    };
 
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
@@ -1126,6 +1155,27 @@ void Ui::draw_inventory_msg()
     //draw ui console to root
     TCODConsole::blit(ui_inv_msg_con, 0, 0, ui_inv_msg_w, ui_inv_msg_h, TCODConsole::root, 0, Ui::game->screen_h-ui_inv_msg_h);
     delete ui_inv_msg_con;
+};
+
+std::string Ui::spell_display_line()
+{
+    std::stringstream ss;
+    Spell* spell = (Spell*)Ui::chosen_generic;
+    ss << spell->name << " - " << spell->description;
+    // if (Game::player->equipment->is_spell_equipped(spell))
+    // {
+    //     ss << " is equipped";
+    // }
+    // else if (spell->equippable)
+    // {
+    //     ss << " is equippable";
+    // }
+    // else if (spell->usable)
+    // {
+    //     ss << " uses left: " << item->uses;
+    // }
+
+    return ss.str();
 };
 
 std::string Ui::item_display_line()

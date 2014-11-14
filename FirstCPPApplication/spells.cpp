@@ -25,6 +25,7 @@
 Spell::Spell()
 {
     this->name = "Unamed spell";
+    this->description = "An undescribable spell";
     this->mana_cost = 10;
 
     this->mana_type = ManaManaType;
@@ -814,6 +815,7 @@ FireBallSpell::FireBallSpell() : Spell()
 {
     this->required_level = 1;
     this->name = "Fireball";
+    this->description = "Hurls a ball of fire, burns several enemies at a time.";
     this->element = FireElement;
     this->attr_effect->damage->fire = 10;
     this->mana_cost = 10;
