@@ -1206,7 +1206,6 @@ void Game::specify_player()
     set_up_racial_choices();
     set_up_hometown_choices();
 
-
     //talents TODO
 
     //TODO activate them on the player
@@ -1242,8 +1241,15 @@ void Game::start_game()
 
     Game::turn_count = 1;
 
-    Game::current_state = MenuState;
-    Game::current_screen = ClassSelectScreenType;
+    //class select
+    // Game::current_state = MenuState;
+    // Game::current_screen = ClassSelectScreenType;
+
+    //background info
+    Game::current_state = GameStates::MenuState;
+    Game::current_screen = Screens::SimpleMenuScreenType;
+    Game::current_background_type = background_types_t::GenderBackgroundType;
+
 
 };
 
