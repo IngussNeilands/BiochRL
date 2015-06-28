@@ -59,4 +59,4 @@ After pressing `i` to open your inventory from the game screen, select and activ
 
 After pressing `m` from the gamescreen, you'll be shown all your spells (none at level 1). Once you've selected and activated a spell (`aa`, `bb`, `cc` etc), you can press `c` to start casting. You can use the arrow keys to move around the casting reticule over an enemy to cast a spell with `k`.
 
-Spells are automatically assigned to keys 1 through 5 for convenience as you level up. You can press backtick, "\`", to see the ones currently bound.
+Spells are automatically assigned to keys 1 through 5 for convenience as you level up. You can press backtick, `` ` ``, to see the ones currently bound.
