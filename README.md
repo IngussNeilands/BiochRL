@@ -1,6 +1,11 @@
 #_FirstCPPApplication_
 
-This is a Roguelike made with Libtcod.
+This is a Roguelike made with Libtcod.development is currently on hold 
+
+
+
+
+
 
 ###Latest Build
  The direct link to the latest is always available at www.biochrl.com.  Run `BiochRL++.exe` from the main folder there. Press `Delete` from the main game screen to pause the music.
