@@ -18,6 +18,7 @@
 
 Skeleton::Skeleton(std::string name, int age, int x, int y, char repr) : Person(name, age, x, y, repr)
 {
+    this->cls_name = "Skeleton";
     this->xp_value = 50;
     // this->name = name;
     // this->age = age;
