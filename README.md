@@ -1,6 +1,11 @@
 #_FirstCPPApplication_
 
-This is a Roguelike made with Libtcod.
+This is a Roguelike made with Libtcod.development is currently on hold 
+
+
+
+
+
 
 ###Latest Build
  The direct link to the latest is always available at www.biochrl.com.  Run `BiochRL++.exe` from the main folder there. Press `Delete` from the main game screen to pause the music.
@@ -43,7 +48,7 @@ This is a Roguelike made with Libtcod.
 
 
 ###Instructions
-So the game is *hyper* unfinished, but it is beatable, by killing the Bad Mother on floor 5 or later. You can hit `?`for an auto generated list of commands, but the general set of commands is keypad or arrows to move around and attack people. I really recommend attacking one or two enemies at once, any more than that, before you get any items will kill you. Oh, `,` (comma) to pick up an item, and `.` to pick one one and equip or use it, depending on the type.
+So the game is *hyper* unfinished, but it is beatable, by killing the Bad Mother on floor 5 or later. You can hit `?`for a list of commands, but the keypad or arrows to move around and attack people. I really recommend attacking only one or two enemies at a time, because any more than that, before you get any items, they will kill you. Oh, `,` (comma) to pick up an item, and `.` to pick one one and equip or use it, depending on the type.
 
 Other commands that you'll need are `i` for your inventory, `m`for magic and `c` for your character sheet, or `p` to switch classes (this is the screen the game opens up on.
 
@@ -59,4 +64,4 @@ After pressing `i` to open your inventory from the game screen, select and activ
 
 After pressing `m` from the gamescreen, you'll be shown all your spells (none at level 1). Once you've selected and activated a spell (`aa`, `bb`, `cc` etc), you can press `c` to start casting. You can use the arrow keys to move around the casting reticule over an enemy to cast a spell with `k`.
 
-Spells are automatically assigned to keys 1 through 5 for convenience as you level up. You can press backtick, "\`", to see the ones currently bound.
+Spells are automatically assigned to keys 1 through 5 for convenience as you level up. You can press backtick, `` ` ``, to see the ones currently bound.
