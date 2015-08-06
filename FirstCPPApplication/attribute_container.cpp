@@ -1,6 +1,5 @@
 #include "stdafx.h"
 
-
 #include "attribute_container.h"
 #include <actors/actor.h>
 #include "attribute.h"

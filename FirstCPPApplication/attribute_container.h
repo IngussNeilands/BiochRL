@@ -2,17 +2,9 @@
 #ifndef ATTRIBUTE_CONTAINER_H
 #define ATTRIBUTE_CONTAINER_H
 
-
 #include <string>
 #include <vector>
 
-// class Representation;
-// class Tile;
-// class Thinker;
-// class Game;
-// class Inventory;
-// class Equipment;
-// class Item;
 class HealthAttribute;
 class ManaAttribute;
 class ArmorAttribute;
