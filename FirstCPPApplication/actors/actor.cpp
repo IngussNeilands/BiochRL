@@ -469,7 +469,7 @@ void Actor::die()
     new Message(Ui::msg_handler_main, NOTYPE_MSG, colfg(TCODColor::lighterRed, "%s died!"), this->name.c_str());
 
     int multiplier = 1;
-    if (this == (Actor*)Game::player)
+    if (this == Game::player)
     {
         Ui::reset_generic();
         TCODSystem::setFps(0);
