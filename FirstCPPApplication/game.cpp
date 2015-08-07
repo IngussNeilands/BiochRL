@@ -500,6 +500,12 @@ void Game::move_camera(int dir_x, int dir_y)
 //creates a bunch of items on the map
 void  Game::initialize_items()
 {
+    Game::custom_key1->reset_state();
+    Game::custom_key2->reset_state();
+    Game::custom_key3->reset_state();
+    Game::custom_key4->reset_state();
+    Game::custom_key5->reset_state();
+
     Item* dagger = new Item();
     dagger->name = "Prisoner's Shank";
     dagger->repr->repr = '/';
