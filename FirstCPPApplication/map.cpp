@@ -1036,7 +1036,7 @@ void Map::spawn_hero()
     else if (this->depth >= 5)
     {
         Room* room = Game::current_map->roomVector->back();
-        hero = Game::create_person("Victorious Mr Rossignol", 99, room->center_x, room->center_y, 'R', Game::current_map);
+        hero = Game::create_person("Victorious Keel Rigour", 99, room->center_x, room->center_y, 'R', Game::current_map);
         hero->attrs->health->current_val = 600;
         hero->attrs->health->max_val = 600;
         hero->attrs->armor->current_val = 17;
@@ -1047,7 +1047,7 @@ void Map::spawn_hero()
         Game::current_map->enemies.push_back(hero);
         hero->img_path = get_data_path()+"img/hero8x8.png";
         hero->is_hero = true;
-        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "ROSSIGNOL ADVANCES"));
+        new Message(Ui::msg_handler_main, HELP_MSG, colfg(TCODColor::darkerRed, "KEEL ADVANCES"));
     }
 
     Game::add_to_queue(hero);
